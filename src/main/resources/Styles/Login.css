@@ -1,0 +1,113 @@
+
+/* General Login Styling */
+
+.login-container {
+    -fx-background-color: #E7ECEC;
+}
+
+.login-icon FontAwesomeIconView {
+    -fx-fill: #40C5CF;
+    -fx-text-fill: #40C5CF;
+
+}
+
+.main-button {
+    -fx-background-color: #fff;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #40C5CF;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+}
+
+.main-button:hover {
+    -fx-background-color: #40C5CF;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 0px;
+    -fx-cursor: hand;
+}
+
+.close {
+    -fx-background-color: #40C5CF;
+}
+
+.close:hover {
+    -fx-background-color: #EC6666;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: linear-gradient(to right, #40C5CF, #2ca772);
+    -fx-border-width: 0.2px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 13px;
+    -fx-font-family: Segoe UI;
+    -fx-padding: 5px 5px 5px 28px;
+}
+
+.text-field:focused {
+    -fx-border-width: 0.8px;
+}
+
+.check-box {
+    -fx-text-fill: #40C5CF;
+    -fx-font-size: 13px;
+    -fx-font-family: Segoe UI;
+    -fx-cursor: hand;
+}
+
+.hyperlink {
+    -fx-text-fill: #40C5CF;
+    -fx-font-size: 12px;
+    -fx-font-family: Segoe UI;
+    -fx-cursor: hand;
+}
+
+.hyperlink:hover {
+    -fx-cursor: hand;
+    -fx-underline: true;
+
+}
+
+.error-label {
+    -fx-text-fill: #EC6666;
+    -fx-font-family: Segoe UI;
+    -fx-font-size: 13px;
+    -fx-text-alignment: center;
+    -fx-font-weight: Bold;
+}
+
+.label-login {
+    -fx-text-fill: #707070;
+    -fx-font-weight: bold;
+}
+
+.label-social {
+    -fx-text-fill: #707070;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+}
+
+.icon-button:hover {
+    -fx-cursor: hand;
+}
+
+.choice-box {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: linear-gradient(to right, #40C5CF, #2ca772);
+    -fx-border-width: 0.2px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 13px;
+    -fx-font-family: Segoe UI;
+}
+
+.choice-box:focused {
+    -fx-border-width: 0.8px;
+}
