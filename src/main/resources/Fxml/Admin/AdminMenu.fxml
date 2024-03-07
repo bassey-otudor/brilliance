@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="177.0" styleClass="white-bg" stylesheets="@../../Styles/AdminMenu.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.AdminController">
+   <AnchorPane layoutX="4.0" layoutY="4.0" prefHeight="591.0" prefWidth="169.0" styleClass="menu-container" />
+   <VBox layoutX="10.0" layoutY="10.0" prefHeight="591.0" prefWidth="187.49640774888533" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="68.0" prefWidth="177.0">
+         <Label fx:id="admin_username" layoutX="29.0" layoutY="20.0" prefHeight="28.0" prefWidth="118.0" styleClass="current-section" text="DASHBOARD" AnchorPane.topAnchor="20.0">
+            <font>
+               <Font name="System Bold" size="11.741006851196289" />
+            </font>
+         </Label>
+      </AnchorPane>
+      <AnchorPane prefHeight="370.0" prefWidth="177.0">
+         <Button fx:id="admin_dashboardBtn" layoutX="38.0" layoutY="11.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Dashboard">
+            <graphic>
+               <FontAwesomeIconView fill="#40c5cf" glyphName="DASHBOARD" />
+            </graphic></Button>
+         <Button fx:id="admin_teachersBtn" layoutX="38.0" layoutY="52.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Teachers">
+            <graphic>
+               <FontAwesomeIconView fill="#40c5cf" glyphName="USER" />
+            </graphic></Button>
+         <Button fx:id="admin_studentsBtn" layoutX="38.0" layoutY="96.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Students">
+            <graphic>
+               <FontAwesomeIconView fill="#40c5cf" glyphName="USERS" />
+            </graphic></Button>
+         <Button fx:id="admin_coursesBtn" layoutX="38.0" layoutY="222.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Courses">
+            <graphic>
+               <FontAwesomeIconView fill="#40c5cf" glyphName="BOOK" />
+            </graphic></Button>
+         <Button fx:id="admin_reportsBtn" layoutX="38.0" layoutY="266.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Reports">
+            <graphic>
+               <FontAwesomeIconView fill="#40c5cf" glyphName="ENVELOPE" />
+            </graphic></Button>
+         <Button fx:id="admin_settingsBtn" layoutX="38.0" layoutY="310.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Settings">
+            <graphic>
+               <FontAwesomeIconView fill="#40c5cf" glyphName="WRENCH" />
+            </graphic></Button>
+         <Button fx:id="admin_departmentsBtn" layoutX="38.0" layoutY="136.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Deparments">
+            <graphic>
+               <FontAwesomeIconView fill="#40c5cf" glyphName="BUILDING" />
+            </graphic></Button>
+         <Button fx:id="admin_facultiesBtn" layoutX="38.0" layoutY="179.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Faculties">
+            <graphic>
+               <FontAwesomeIconView fill="#40c5cf" glyphName="UNIVERSITY" />
+            </graphic></Button>
+         <Separator layoutX="14.0" layoutY="-3.0" prefHeight="4.0" prefWidth="150.0" />
+      </AnchorPane>
+      <AnchorPane prefHeight="156.0" prefWidth="177.0">
+         <Button fx:id="admin_signoutBtn" layoutX="26.0" layoutY="13.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="129.0" styleClass="signout-button" text="Sign out" AnchorPane.bottomAnchor="11.17266253389489">
+            <graphic>
+               <FontAwesomeIconView fill="WHITE" glyphName="SIGN_IN" size="18" />
+            </graphic></Button>
+         <Separator layoutX="12.0" prefHeight="4.0" prefWidth="151.0" AnchorPane.bottomAnchor="50.0" />
+      </AnchorPane>
+   </VBox>
+</AnchorPane>
