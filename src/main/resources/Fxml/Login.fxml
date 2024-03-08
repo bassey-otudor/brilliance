@@ -47,7 +47,7 @@
    <left>
       <AnchorPane maxHeight="600.0" maxWidth="662.0" prefHeight="600.0" prefWidth="546.0" BorderPane.alignment="CENTER">
          <ImageView fitHeight="600.0" fitWidth="546.0" layoutX="-1.0">
-            <Image url="@../Images/login_bannner2.jpg" />
+            <Image url="@../Images/login_banner2.jpg" />
          </ImageView>
       </AnchorPane>
    </left>

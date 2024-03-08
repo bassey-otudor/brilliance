@@ -1,8 +1,13 @@
 package learn.brilliance.Controller;
 
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import learn.brilliance.Model.Model;
 
-public class LoginController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LoginController implements Initializable {
     public TextField loginID;
     public TextField password;
     public CheckBox rememberMe;
@@ -14,4 +19,9 @@ public class LoginController {
     public Button twitterBtn;
     public Button stud_createAccBtn;
     public ChoiceBox acc_selector;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loginBtn.setOnAction(e -> Model.getInstance().getViewFactory().showAdminWindow());
+    }
 }

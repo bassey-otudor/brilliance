@@ -1,0 +1,70 @@
+
+/*Admin menu styling*/
+.white-bg {
+    -fx-background-color: #FFFFFF;
+}
+.menu-container {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 6,0,0,0)
+}
+
+.menu-button {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 5px;
+    -fx-font-family: Segoe UI;
+    -fx-text-fill: #40C5CF;
+    -fx-alignment: center-left;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-border-radius: 5px;
+    -fx-padding: 0px 0px 0px 12px;
+    -fx-icon-color: #40C5CF;
+}
+
+.menu-button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 6,0,0,0) ;
+    -fx-cursor: hand;
+}
+
+.menu-button-rest:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 6,0,0,0) ;
+    -fx-cursor: hand;
+}
+
+.line {
+    -fx-border-color: #40C5CF;
+}
+
+.signout-button {
+    -fx-background-color: #40C5CF;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 0px;
+    -fx-padding: 0px 0px 0px -12px;
+}
+
+.signout-button:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 6,0,0,0) ;
+}
+
+.fx-icon {
+    -fx-icon-size: 15px;
+    -fx-icon-color: #40C5CF;
+}
+
+.image-view {
+    -fx-border-color: #40C5CF;
+    -fx-border-width: 3px;
+    -fx-border-radius: 120px;
+}
+
+.current-section {
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: #707070;
+    -fx-alignment: center;
+}
