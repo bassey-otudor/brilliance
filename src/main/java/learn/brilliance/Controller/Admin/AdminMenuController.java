@@ -3,6 +3,8 @@ package learn.brilliance.Controller.Admin;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import learn.brilliance.Model.Model;
+import learn.brilliance.View.Enums.AdminMenuOptions;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +25,45 @@ public class AdminMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        addListeners();
+    }
 
+    private void addListeners() {
+        admin_dashboardBtn.setOnAction(e -> onDashboard());
+        admin_teachersBtn.setOnAction(e -> onTeachers());
+        admin_studentsBtn.setOnAction(e -> onStudents());
+        admin_departmentsBtn.setOnAction(e -> onDepartments());
+        admin_facultiesBtn.setOnAction(e -> onFaculties());
+        admin_coursesBtn.setOnAction(e -> onCourses());
+        admin_degreesBtn.setOnAction(e -> onDegrees());
+        admin_minorsBtn.setOnAction(e -> onMinors());
+        admin_reportsBtn.setOnAction(e -> onReports());
+    }
+    private void onDashboard() {
+        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.DASHBOARD);
+    }
+    private void onTeachers() {
+        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.TEACHERS);
+    }
+    private void onStudents() {
+        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.STUDENTS);
+    }
+    private void onDepartments() {
+        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.DEPARTMENTS);
+    }
+    private void onFaculties() {
+        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.FACULTIES);
+    }
+    private void onCourses() {
+        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.COURSES);
+    }
+    private void onDegrees() {
+        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.DEGREES);
+    }
+    private void onMinors() {
+        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.MINORS);
+    }
+    private void onReports() {
+        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.REPORTS);
     }
 }

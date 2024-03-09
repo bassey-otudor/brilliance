@@ -6,6 +6,7 @@ public enum AdminMenuOptions {
     DEPARTMENTS,
     FACULTIES,
     MINORS,
+    REPORTS,
     STUDENTS,
     TEACHERS
 }

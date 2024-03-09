@@ -6,16 +6,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import learn.brilliance.Controller.Admin.AdminMenuController;
+import learn.brilliance.Controller.Admin.AdminController;
 import learn.brilliance.Controller.Student.StudentController;
 import learn.brilliance.Controller.Teacher.TeacherController;
 import learn.brilliance.View.Enums.AccountType;
 import learn.brilliance.View.Enums.AdminMenuOptions;
 
+import java.io.IOException;
+
 public class ViewFactory {
     private AccountType accountType;
     // Admin view variables
-    private final ObjectProperty<AdminMenuOptions> adminSelectedOption;
+    private final ObjectProperty<AdminMenuOptions> adminSelectedMenuOption;
     private AnchorPane dashboardView;
     private AnchorPane teachersView;
     private AnchorPane studentsView;
@@ -27,7 +29,7 @@ public class ViewFactory {
     private AnchorPane reportsView;
     public ViewFactory(){
         this.accountType = AccountType.ADMIN;
-        this.adminSelectedOption = new SimpleObjectProperty<>();
+        this.adminSelectedMenuOption = new SimpleObjectProperty<>();
     }
 
     // Admin Menu option getters
@@ -35,14 +37,14 @@ public class ViewFactory {
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
-    public ObjectProperty<AdminMenuOptions> getAdminSelectedOption() {
-        return adminSelectedOption;
+    public ObjectProperty<AdminMenuOptions> getAdminSelectedMenuOption() {
+        return adminSelectedMenuOption;
     }
     public AnchorPane getDashboardView() {
         if(dashboardView == null) {
             try {
-                dashboardView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Dashboard.fxml")).load();
-            } catch (Exception e) {
+                dashboardView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Dashboard/Dashboard.fxml")).load();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -61,17 +63,17 @@ public class ViewFactory {
     public AnchorPane getStudentsView() {
         if (studentsView == null) {
           try {
-              studentsView = new FXMLLoader(getClass().getResource("Fxml/Admin/Students.fxml")).load();
-          } catch (Exception e) {
+              studentsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Students.fxml")).load();
+          } catch (IOException e) {
               e.printStackTrace();
           }
         }
         return studentsView;
     }
-    public AnchorPane getDepartmentView() {
+    public AnchorPane getDepartmentsView() {
         if(departmentView == null) {
             try {
-                departmentView = new FXMLLoader(getClass().getResource("Fxml/Admin/departments.fxml")).load();
+                departmentView = new FXMLLoader(getClass().getResource("/Fxml/Admin/departments.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -81,7 +83,7 @@ public class ViewFactory {
     public AnchorPane getFacultiesView() {
         if (facultiesView == null) {
             try {
-                facultiesView = new FXMLLoader(getClass().getResource("Fxml/Admin/Faculties.fxml")).load();
+                facultiesView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Faculties.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -91,7 +93,7 @@ public class ViewFactory {
     public AnchorPane getCoursesView() {
         if (coursesView == null) {
             try {
-                coursesView = new FXMLLoader(getClass().getResource("Fxml/Admin/Courses.fxml")).load();
+                coursesView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Courses.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -101,7 +103,7 @@ public class ViewFactory {
     public AnchorPane getDegreesView() {
         if (degreesView == null) {
             try {
-                degreesView = new FXMLLoader(getClass().getResource("Fxml/Admin/Degrees.fxml")).load();
+                degreesView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Degrees.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -111,7 +113,7 @@ public class ViewFactory {
     public AnchorPane getMinorsView() {
         if (minorsView == null) {
             try {
-                minorsView = new FXMLLoader(getClass().getResource("Fxml/Admin/Minors.fxml")).load();
+                minorsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Minors.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -121,7 +123,7 @@ public class ViewFactory {
     public AnchorPane getReportsView() {
         if (reportsView == null) {
             try {
-                reportsView = new FXMLLoader(getClass().getResource("Fxml/Admin/Reports.fxml")).load();
+                reportsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Reports.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -141,8 +143,8 @@ public class ViewFactory {
     // Show admin section
     public void showAdminWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Admin.fxml"));
-        AdminMenuController adminMenuController = new AdminMenuController();
-        loader.setController(adminMenuController);
+        AdminController adminController = new AdminController();
+        loader.setController(adminController);
         createStage(loader);
     }
 
@@ -165,7 +167,7 @@ public class ViewFactory {
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         Stage stage = new Stage();
