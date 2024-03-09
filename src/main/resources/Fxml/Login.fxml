@@ -21,7 +21,7 @@
          <CheckBox fx:id="rememberMe" layoutX="61.0" layoutY="181.0" mnemonicParsing="false" text="Remember me" />
          <Hyperlink fx:id="forgotPwd" layoutX="182.0" layoutY="178.0" text="Forgot password" />
          <Button fx:id="loginBtn" layoutX="61.0" layoutY="214.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="221.0" styleClass="main-button" text="Login" />
-         <Label fx:id="errorLabel" layoutX="109.0" layoutY="263.0" prefHeight="27.0" prefWidth="220.0" styleClass="error-label" textAlignment="CENTER" />
+         <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="259.0" prefHeight="27.0" prefWidth="220.0" styleClass="error-label" textAlignment="CENTER" />
          <Label layoutX="59.0" layoutY="31.0" text="Welcome!" textFill="#707070">
             <font>
                <Font name="Segoe UI Bold Italic" size="37.0" />

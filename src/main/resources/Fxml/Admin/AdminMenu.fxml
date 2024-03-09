@@ -20,51 +20,51 @@
          </Label>
       </AnchorPane>
       <AnchorPane prefHeight="370.0" prefWidth="177.0">
-         <Button fx:id="admin_dashboardBtn" layoutX="38.0" layoutY="11.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Dashboard">
+         <Button fx:id="admin_dashboardBtn" layoutX="34.0" layoutY="11.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Dashboard">
             <graphic>
                <FontAwesomeIconView fill="#40c5cf" glyphName="DASHBOARD" />
             </graphic></Button>
-         <Button fx:id="admin_teachersBtn" layoutX="38.0" layoutY="52.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Teachers">
+         <Button fx:id="admin_teachersBtn" layoutX="34.0" layoutY="50.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Teachers">
             <graphic>
                <FontAwesomeIconView fill="#40c5cf" glyphName="USER" />
             </graphic></Button>
-         <Button fx:id="admin_studentsBtn" layoutX="38.0" layoutY="96.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Students">
+         <Button fx:id="admin_studentsBtn" layoutX="34.0" layoutY="94.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Students">
             <graphic>
                <FontAwesomeIconView fill="#40c5cf" glyphName="USERS" />
             </graphic></Button>
-         <Button fx:id="admin_departmentsBtn" layoutX="38.0" layoutY="136.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Deparments">
+         <Button fx:id="admin_departmentsBtn" layoutX="34.0" layoutY="135.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Deparments">
             <graphic>
                <FontAwesomeIconView fill="#40c5cf" glyphName="BUILDING" />
             </graphic></Button>
-         <Button fx:id="admin_facultiesBtn" layoutX="38.0" layoutY="179.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Faculties">
+         <Button fx:id="admin_facultiesBtn" layoutX="34.0" layoutY="177.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Faculties">
             <graphic>
                <FontAwesomeIconView fill="#40c5cf" glyphName="UNIVERSITY" />
             </graphic></Button>
-         <Button fx:id="admin_coursesBtn" layoutX="38.0" layoutY="222.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Courses">
+         <Button fx:id="admin_coursesBtn" layoutX="34.0" layoutY="220.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Courses">
             <graphic>
                <FontAwesomeIconView fill="#40c5cf" glyphName="BOOK" />
             </graphic></Button>
-         <Button fx:id="admin_degreesBtn" layoutX="38.0" layoutY="260.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Degrees">
+         <Button fx:id="admin_degreesBtn" layoutX="34.0" layoutY="258.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Degrees">
             <graphic>
                <FontAwesomeIconView fill="#40c5cf" glyphName="CERTIFICATE" />
             </graphic>
          </Button>
-         <Button fx:id="admin_minorsBtn" layoutX="38.0" layoutY="299.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Minors">
+         <Button fx:id="admin_minorsBtn" layoutX="34.0" layoutY="298.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Minors">
             <graphic>
                <FontAwesomeIconView fill="#40c5cf" glyphName="LIST_ALT" />
             </graphic>
          </Button>
-         <Button fx:id="admin_reportsBtn" layoutX="38.0" layoutY="340.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Reports">
+         <Button fx:id="admin_reportsBtn" layoutX="34.0" layoutY="339.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Reports">
             <graphic>
                <FontAwesomeIconView fill="#40c5cf" glyphName="ENVELOPE" />
             </graphic></Button>
-         <Button fx:id="admin_settingsBtn" layoutX="29.0" layoutY="376.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Settings">
+         <Button fx:id="admin_settingsBtn" layoutX="30.0" layoutY="376.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="menu-button" text="Settings">
             <graphic>
                <FontAwesomeIconView fill="#40c5cf" glyphName="WRENCH" />
             </graphic></Button>
       </AnchorPane>
       <AnchorPane prefHeight="156.0" prefWidth="177.0">
-         <Button fx:id="admin_signoutBtn" layoutX="26.0" layoutY="13.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="129.0" styleClass="signout-button" text="Sign out" AnchorPane.bottomAnchor="11.17266253389489">
+         <Button fx:id="admin_signoutBtn" layoutX="25.0" layoutY="102.09352762492689" mnemonicParsing="false" prefHeight="28.0" prefWidth="129.0" styleClass="signout-button" text="Sign out" AnchorPane.bottomAnchor="11.17266253389488">
             <graphic>
                <FontAwesomeIconView fill="WHITE" glyphName="SIGN_IN" size="18" />
             </graphic></Button>
