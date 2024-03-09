@@ -1,4 +1,4 @@
-package learn.brilliance.Controller.Admin;
+package learn.brilliance.Controller.Admin.Dashboard;
 
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;

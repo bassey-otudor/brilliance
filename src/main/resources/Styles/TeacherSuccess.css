@@ -1,0 +1,21 @@
+
+
+.main-container {
+    -fx-background-color: #fff;
+}
+
+.label-teacher-name {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #707070;
+}
+
+.progress-bar-container {
+    -fx-max-width: 150px;
+}
+
+.progress-bar {
+    -fx-padding: 0px 0px 0px 10px;
+    -fx-accent: #147AD6;
+    -fx-background-radius: 3px;
+}

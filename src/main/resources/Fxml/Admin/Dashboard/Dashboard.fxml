@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="915.0" stylesheets="@../../../Styles/AdminDashboard.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.DashboardController">
+<AnchorPane prefHeight="600.0" prefWidth="915.0" stylesheets="@../../../Styles/AdminDashboard.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.Dashboard.DashboardController">
    <HBox layoutX="129.0" layoutY="210.0" prefHeight="558.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <VBox prefHeight="600.0" prefWidth="520.0">
          <AnchorPane prefHeight="118.0" prefWidth="520.0" styleClass="main-container">
