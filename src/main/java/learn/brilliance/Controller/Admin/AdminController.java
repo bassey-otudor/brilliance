@@ -22,7 +22,7 @@ public class AdminController implements Initializable {
                 case COURSES -> admin_parent.setCenter(Model.getInstance().getViewFactory().getCoursesView());
                 case DEGREES -> admin_parent.setCenter(Model.getInstance().getViewFactory().getDegreesView());
                 case MINORS -> admin_parent.setCenter(Model.getInstance().getViewFactory().getMinorsView());
-                default -> admin_parent.setCenter(Model.getInstance().getViewFactory().getReportsView());
+                default -> admin_parent.setCenter(Model.getInstance().getViewFactory().getSettingsView());
             }
         });
     }

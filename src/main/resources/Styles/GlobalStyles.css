@@ -219,3 +219,14 @@
 .tab:selected .tab-label{
     -fx-text-fill: #40C5CF;
 }
+
+.check-box {
+    -fx-text-fill: #00000;
+    -fx-font-size: 13px;
+    -fx-font-family: Segoe UI;
+    -fx-cursor: hand;
+}
+
+.choice-box:focused {
+    -fx-border-width: 0.8px;
+}

@@ -26,7 +26,7 @@ public class ViewFactory {
     private AnchorPane coursesView;
     private AnchorPane degreesView;
     private AnchorPane minorsView;
-    private AnchorPane reportsView;
+    private AnchorPane settingsView;
     public ViewFactory(){
         this.accountType = AccountType.ADMIN;
         this.adminSelectedMenuOption = new SimpleObjectProperty<>();
@@ -120,14 +120,14 @@ public class ViewFactory {
         }
         return minorsView;
     }
-    public AnchorPane getReportsView() {
-        if (reportsView == null) {
+    public AnchorPane getSettingsView() {
+        if (settingsView == null) {
             try {
-                reportsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Reports.fxml")).load();
+                settingsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Settings.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } return reportsView;
+        } return settingsView;
     }
 
     /*
@@ -163,6 +163,7 @@ public class ViewFactory {
         loader.setController(studentController);
         createStage(loader);
     }
+    // Re-factored code for reuse when rendering windows
     private void createStage(FXMLLoader loader) {
         Scene scene = null;
         try {

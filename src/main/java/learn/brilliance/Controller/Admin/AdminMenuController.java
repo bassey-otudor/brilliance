@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AdminMenuController implements Initializable {
-    public Label admin_username;
+    public Label admin_currentSection;
     public Button admin_dashboardBtn;
     public Button admin_teachersBtn;
     public Button admin_studentsBtn;
@@ -19,7 +19,6 @@ public class AdminMenuController implements Initializable {
     public Button admin_coursesBtn;
     public Button admin_degreesBtn;
     public Button admin_minorsBtn;
-    public Button admin_reportsBtn;
     public Button admin_settingsBtn;
     public Button admin_signoutBtn;
 
@@ -37,7 +36,7 @@ public class AdminMenuController implements Initializable {
         admin_coursesBtn.setOnAction(e -> onCourses());
         admin_degreesBtn.setOnAction(e -> onDegrees());
         admin_minorsBtn.setOnAction(e -> onMinors());
-        admin_reportsBtn.setOnAction(e -> onReports());
+        admin_settingsBtn.setOnAction(e -> onSettings());
     }
     private void onDashboard() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.DASHBOARD);
@@ -63,7 +62,7 @@ public class AdminMenuController implements Initializable {
     private void onMinors() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.MINORS);
     }
-    private void onReports() {
-        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.REPORTS);
+    private void onSettings() {
+        Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.SETTINGS);
     }
 }
