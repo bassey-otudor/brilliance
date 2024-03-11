@@ -35,9 +35,18 @@ public class LoginController implements Initializable {
     // Login control function
     private void onLogin() {
         Stage stage = (Stage)errorLabel.getScene().getWindow();
-        Model.getInstance().getViewFactory().closeStage(stage);
+
         if(Model.getInstance().getViewFactory().getAccountType() == AccountType.ADMIN) {
-            Model.getInstance().getViewFactory().showAdminWindow();
+            Model.getInstance().evaluateAdminLogin(loginID.getText(), password.getText());
+
+            if (Model.getInstance().getAdminLoginStatus()) {
+                Model.getInstance().getViewFactory().closeStage(stage);
+                Model.getInstance().getViewFactory().showAdminWindow();
+            } else {
+                loginID.setText("");
+                password.setText("");
+                errorLabel.setText("Invalid login credentials");
+            }
         } else if (Model.getInstance().getViewFactory().getAccountType() == AccountType.STUDENT) {
             Model.getInstance().getViewFactory().showStudentWindow();
         } else {
