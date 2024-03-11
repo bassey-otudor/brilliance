@@ -221,7 +221,6 @@
 }
 
 .check-box {
-    -fx-text-fill: #00000;
     -fx-font-size: 13px;
     -fx-font-family: Segoe UI;
     -fx-cursor: hand;

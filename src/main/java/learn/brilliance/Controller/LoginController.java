@@ -1,6 +1,7 @@
 package learn.brilliance.Controller;
 
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -8,12 +9,15 @@ import javafx.stage.Stage;
 import learn.brilliance.Model.Model;
 import learn.brilliance.View.Enums.AccountType;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     public TextField loginID;
-    public TextField password;
+    public PasswordField password;
     public CheckBox rememberMe;
     public Hyperlink forgotPwd;
     public Button loginBtn;
@@ -37,15 +41,29 @@ public class LoginController implements Initializable {
         Stage stage = (Stage)errorLabel.getScene().getWindow();
 
         if(Model.getInstance().getViewFactory().getAccountType() == AccountType.ADMIN) {
-            Model.getInstance().evaluateAdminLogin(loginID.getText(), password.getText());
 
-            if (Model.getInstance().getAdminLoginStatus()) {
-                Model.getInstance().getViewFactory().closeStage(stage);
-                Model.getInstance().getViewFactory().showAdminWindow();
+            if(loginID.getText().isEmpty() && password.getText().isEmpty()) {
+                loginID.setStyle("-fx-border-color: #EC6666 ; -fx-border-width: 1px ;");
+                password.setStyle("-fx-border-color: #EC6666 ; -fx-border-width: 1px ;");
+
+            } else if (loginID.getText().isEmpty()) {
+                loginID.setStyle("-fx-border-color:  #EC6666 ; -fx-border-width: 1px ;");
+                password.setStyle("-fx-border-color: #40C5CF; -fx-border-width: 1px ;");
+
+            } else if (password.getText().isEmpty()) {
+                loginID.setStyle("-fx-border-color:  #40C5CF ; -fx-border-width: 1px ;");
+                password.setStyle("-fx-border-color: #EC6666 ; -fx-border-width: 1px ;");
+
             } else {
-                loginID.setText("");
-                password.setText("");
-                errorLabel.setText("Invalid login credentials");
+                Model.getInstance().evaluateAdminLogin(loginID.getText(), password.getText());
+                if (Model.getInstance().getAdminLoginStatus()) {
+                    Model.getInstance().getViewFactory().closeStage(stage);
+                    Model.getInstance().getViewFactory().showAdminWindow();
+                } else {
+                    loginID.setText("");
+                    password.setText("");
+                    errorLabel.setText("Invalid login credentials");
+                }
             }
         } else if (Model.getInstance().getViewFactory().getAccountType() == AccountType.STUDENT) {
             Model.getInstance().getViewFactory().showStudentWindow();
@@ -65,6 +83,24 @@ public class LoginController implements Initializable {
         } else {
             loginID.setPromptText("Teacher ID");
         }
+    }
+
+    private void setRememberMe() {
+        rememberMe.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldVal, Boolean newVal) {
+                if(newVal) {
+                    try {
+                        FileWriter settings = new FileWriter("C:\\Users\\Bassey\\Documents\\Java Projects\\brilliance\\src\\main\\resources\\Settings\\settings.cfg");
+                        settings.write(loginID.getText());
+                        settings.close();
+                    } catch (IOException e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                    }
+                } 
+            }
+        });
     }
 
 }
