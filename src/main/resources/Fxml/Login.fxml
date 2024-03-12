@@ -13,11 +13,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.PasswordField?>
 <BorderPane prefHeight="600.0" prefWidth="1100.0" stylesheets="@../Styles/Login.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.LoginController">
    <center>
       <AnchorPane maxHeight="600.0" maxWidth="662.0" prefHeight="600.0" prefWidth="297.0" styleClass="login-container" stylesheets="@../Styles/Login.css" BorderPane.alignment="CENTER">
          <TextField fx:id="loginID" layoutX="60.0" layoutY="94.0" prefHeight="18.0" prefWidth="220.0" promptText="Student ID" />
-         <TextField fx:id="password" layoutX="60.0" layoutY="139.0" prefHeight="18.0" prefWidth="220.0" promptText="Password" />
+         <PasswordField fx:id="password" layoutX="60.0" layoutY="139.0" prefHeight="18.0" prefWidth="220.0" promptText="Password" />
          <CheckBox fx:id="rememberMe" layoutX="61.0" layoutY="181.0" mnemonicParsing="false" text="Remember me" />
          <Hyperlink fx:id="forgotPwd" layoutX="182.0" layoutY="178.0" text="Forgot password" />
          <Button fx:id="loginBtn" layoutX="61.0" layoutY="214.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="221.0" styleClass="main-button" text="Login" />

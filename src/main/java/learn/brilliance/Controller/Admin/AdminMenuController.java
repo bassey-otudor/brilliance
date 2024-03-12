@@ -3,6 +3,7 @@ package learn.brilliance.Controller.Admin;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import learn.brilliance.Model.Model;
 import learn.brilliance.View.Enums.AdminMenuOptions;
 
@@ -20,7 +21,7 @@ public class AdminMenuController implements Initializable {
     public Button admin_degreesBtn;
     public Button admin_minorsBtn;
     public Button admin_settingsBtn;
-    public Button admin_signoutBtn;
+    public Button admin_logoutBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -37,6 +38,8 @@ public class AdminMenuController implements Initializable {
         admin_degreesBtn.setOnAction(e -> onDegrees());
         admin_minorsBtn.setOnAction(e -> onMinors());
         admin_settingsBtn.setOnAction(e -> onSettings());
+        admin_logoutBtn.setOnAction(e -> onLogout()
+        );
     }
     private void onDashboard() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.DASHBOARD);
@@ -64,5 +67,12 @@ public class AdminMenuController implements Initializable {
     }
     private void onSettings() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.SETTINGS);
+    }
+    // Returns the user to the login window
+    private void onLogout() {
+        Stage stage = (Stage)admin_currentSection.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().setAdminLoginStatus(false);
+        Model.getInstance().getViewFactory().showLoginWindow();
     }
 }

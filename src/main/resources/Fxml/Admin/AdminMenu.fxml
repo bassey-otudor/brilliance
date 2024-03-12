@@ -60,7 +60,7 @@
             </graphic></Button>
       </AnchorPane>
       <AnchorPane prefHeight="54.0" prefWidth="177.0">
-         <Button fx:id="admin_signoutBtn" layoutX="25.0" layoutY="22.071942502905284" mnemonicParsing="false" prefHeight="28.0" prefWidth="129.0" styleClass="signout-button" text="Sign out" AnchorPane.bottomAnchor="4.172662533894879">
+         <Button fx:id="admin_logoutBtn" layoutX="25.0" layoutY="22.071942502905284" mnemonicParsing="false" prefHeight="28.0" prefWidth="129.0" styleClass="signout-button" text="Sign out" AnchorPane.bottomAnchor="4.172662533894879">
             <graphic>
                <FontAwesomeIconView fill="WHITE" glyphName="SIGN_IN" size="18" />
             </graphic></Button>
