@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,38 +14,46 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.PasswordField?>
-<BorderPane prefHeight="600.0" prefWidth="1100.0" stylesheets="@../Styles/Login.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.LoginController">
+<BorderPane fx:id="login_parent" prefHeight="600.0" prefWidth="1100.0" stylesheets="@../Styles/Login.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.LoginController">
    <center>
-      <AnchorPane maxHeight="600.0" maxWidth="662.0" prefHeight="600.0" prefWidth="297.0" styleClass="login-container" stylesheets="@../Styles/Login.css" BorderPane.alignment="CENTER">
-         <TextField fx:id="loginID" layoutX="60.0" layoutY="94.0" prefHeight="18.0" prefWidth="220.0" promptText="Student ID" />
-         <PasswordField fx:id="password" layoutX="60.0" layoutY="139.0" prefHeight="18.0" prefWidth="220.0" promptText="Password" />
-         <CheckBox fx:id="rememberMe" layoutX="61.0" layoutY="181.0" mnemonicParsing="false" text="Remember me" />
-         <Hyperlink fx:id="forgotPwd" layoutX="182.0" layoutY="178.0" text="Forgot password" />
-         <Button fx:id="loginBtn" layoutX="61.0" layoutY="214.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="221.0" styleClass="main-button" text="Login" />
-         <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="259.0" prefHeight="27.0" prefWidth="220.0" styleClass="error-label" textAlignment="CENTER" />
-         <Label layoutX="59.0" layoutY="31.0" text="Welcome!" textFill="#707070">
-            <font>
-               <Font name="Segoe UI Bold Italic" size="37.0" />
-            </font>
-         </Label>
-         <Button fx:id="facebookBtn" layoutX="80.0" layoutY="386.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="icon-button">
-            <graphic>
-               <FontAwesomeIconView fill="#40c5cf" glyphName="FACEBOOK" size="28" />
-            </graphic></Button>
-         <Button fx:id="linkedInBtn" layoutX="148.0" layoutY="385.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="icon-button">
-            <graphic>
-               <FontAwesomeIconView fill="#40c5cf" glyphName="LINKEDIN" size="34" />
-            </graphic></Button>
-         <Button fx:id="twitterBtn" layoutX="211.0" layoutY="385.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="icon-button">
-            <graphic>
-               <FontAwesomeIconView fill="#40c5cf" glyphName="TWITTER" size="34" />
-            </graphic></Button>
-         <Label layoutX="119.0" layoutY="350.0" styleClass="label-social" text="Connect with Us" />
-         <FontAwesomeIconView fill="#40c5cf" glyphName="USER" layoutX="68.0" layoutY="114.0" size="16" styleClass="login-icon" />
-         <FontAwesomeIconView fill="#40c5cf" glyphName="KEY" layoutX="68.0" layoutY="159.0" size="16" styleClass="login-icon" />
+      <AnchorPane maxHeight="600.0" maxWidth="662.0" prefHeight="600.0" prefWidth="297.0" styleClass="login-container">
+         <AnchorPane fx:id="login_signupForm" maxHeight="600.0" maxWidth="662.0" prefHeight="600.0" prefWidth="334.0" styleClass="login-container" stylesheets="@../Styles/Login.css" visible="false" BorderPane.alignment="CENTER">
+            <Label layoutX="53.0" layoutY="54.0" styleClass="label-login" text="Create your student account">
+               <font>
+                  <Font name="Segoe UI Italic" size="20.0" />
+               </font></Label>
+            <TextField fx:id="signup_admissionCode" layoutX="52.0" layoutY="94.0" prefHeight="28.0" prefWidth="270.0" promptText="Admission Code" styleClass="text-field-signup" />
+            <TextField fx:id="signup_fName" disable="true" layoutX="52.0" layoutY="135.0" prefHeight="27.0" prefWidth="125.0" promptText="First Name" />
+            <TextField fx:id="signup_lName" disable="true" layoutX="196.0" layoutY="135.0" prefWidth="125.0" promptText="Last Name" />
+            <TextField fx:id="signup_email" layoutX="52.0" layoutY="176.0" prefWidth="270.0" promptText="Email" styleClass="text-field-signup" />
+            <ChoiceBox fx:id="signup_departments" layoutX="53.0" layoutY="266.0" prefHeight="27.0" prefWidth="270.0" />
+            <ChoiceBox fx:id="signup_degree" layoutX="52.0" layoutY="310.0" prefHeight="27.0" prefWidth="270.0" />
+            <TextField fx:id="signup_phoneNum" layoutX="52.0" layoutY="220.0" prefHeight="28.0" prefWidth="270.0" promptText="Phone Number" styleClass="text-field-signup" />
+            <TextField fx:id="signup_minor" disable="true" layoutX="52.0" layoutY="356.0" prefHeight="27.0" prefWidth="270.0" promptText="Minor" styleClass="text-field-signup" />
+            <PasswordField fx:id="signup_password" layoutX="53.0" layoutY="403.0" prefHeight="28.0" prefWidth="270.0" promptText="Password" styleClass="text-field-signup" />
+            <PasswordField fx:id="signup_passwordConfirm" layoutX="53.0" layoutY="450.0" prefHeight="28.0" prefWidth="270.0" promptText="Confirm Password" styleClass="text-field-signup" />
+            <Button fx:id="signup_createAccountBtn" layoutX="53.0" layoutY="499.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="125.0" styleClass="button-create" text="Create Account" />
+            <Button fx:id="signup_cancel" layoutX="196.0" layoutY="500.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="125.0" styleClass="button-cancel" text="Cancel" />
+         </AnchorPane>
+
+         <AnchorPane fx:id="login_loginForm" maxHeight="600.0" maxWidth="662.0" prefHeight="600.0" prefWidth="297.0" styleClass="login-container" stylesheets="@../Styles/Login.css" BorderPane.alignment="CENTER">
+            <TextField fx:id="loginID" layoutX="56.0" layoutY="94.0" prefHeight="20.0" prefWidth="220.0" promptText="Student ID" styleClass="text-field-login" />
+            <PasswordField fx:id="password" layoutX="60.0" layoutY="139.0" prefHeight="20.0" prefWidth="220.0" promptText="Password" styleClass="text-field-login" />
+            <CheckBox fx:id="rememberMe" layoutX="57.0" layoutY="181.0" mnemonicParsing="false" text="Remember me" />
+            <Hyperlink fx:id="forgotPwd" layoutX="178.0" layoutY="178.0" text="Forgot password" />
+            <Button fx:id="loginBtn" layoutX="57.0" layoutY="214.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="221.0" styleClass="main-button" text="Login" />
+            <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="56.0" layoutY="259.0" prefHeight="27.0" prefWidth="220.0" styleClass="error-label" textAlignment="CENTER" />
+            <Label layoutX="55.0" layoutY="31.0" text="Welcome!" textFill="#707070">
+               <font>
+                  <Font name="Segoe UI Bold Italic" size="37.0" />
+               </font>
+            </Label>
+            <FontAwesomeIconView fill="#40c5cf" glyphName="USER" layoutX="64.0" layoutY="114.0" size="16" styleClass="login-icon" />
+            <FontAwesomeIconView fill="#40c5cf" glyphName="KEY" layoutX="64.0" layoutY="159.0" size="16" styleClass="login-icon" />
+         </AnchorPane>
       </AnchorPane>
    </center>
+
    <left>
       <AnchorPane maxHeight="600.0" maxWidth="662.0" prefHeight="600.0" prefWidth="546.0" BorderPane.alignment="CENTER">
          <ImageView fitHeight="600.0" fitWidth="546.0" layoutX="-1.0">
@@ -52,12 +61,20 @@
          </ImageView>
       </AnchorPane>
    </left>
+
    <right>
-      <AnchorPane prefHeight="600.0" prefWidth="207.0" styleClass="login-container" stylesheets="@../Styles/Login.css" BorderPane.alignment="CENTER">
-         <Label layoutX="66.0" layoutY="65.0" styleClass="label-login" text="Login as:" />
-         <Button fx:id="stud_createAccBtn" layoutX="4.0" layoutY="214.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" styleClass="main-button" text="Create account" />
-         <Label layoutX="20.0" layoutY="190.0" styleClass="label-login" text="Create student account" />
-         <ChoiceBox fx:id="acc_selector" layoutX="7.0" layoutY="95.0" prefHeight="28.0" prefWidth="160.0" />
+      <AnchorPane>
+         <AnchorPane fx:id="login_blank" prefHeight="600.0" prefWidth="207.0" styleClass="login-container" stylesheets="@../Styles/Login.css" BorderPane.alignment="CENTER">
+
+         </AnchorPane>
+
+         <AnchorPane fx:id="login_control" prefHeight="600.0" prefWidth="207.0" styleClass="login-container" stylesheets="@../Styles/Login.css" BorderPane.alignment="CENTER">
+            <Label layoutX="66.0" layoutY="65.0" styleClass="label-login" text="Login as:" />
+            <Button fx:id="stud_createAccBtn" layoutX="4.0" layoutY="214.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" styleClass="main-button" text="Create account" />
+            <Label layoutX="20.0" layoutY="190.0" styleClass="label-login" text="Create student account" />
+            <ChoiceBox fx:id="acc_selector" layoutX="7.0" layoutY="95.0" prefHeight="28.0" prefWidth="160.0" />
+         </AnchorPane>
       </AnchorPane>
+
    </right>
 </BorderPane>

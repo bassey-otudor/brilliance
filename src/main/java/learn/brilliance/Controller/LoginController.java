@@ -3,6 +3,8 @@ package learn.brilliance.Controller;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import learn.brilliance.Model.Model;
 import learn.brilliance.View.Enums.AccountType;
@@ -18,11 +20,25 @@ public class LoginController implements Initializable {
     public Hyperlink forgotPwd;
     public Button loginBtn;
     public Label errorLabel;
-    public Button facebookBtn;
-    public Button linkedInBtn;
-    public Button twitterBtn;
     public Button stud_createAccBtn;
     public ChoiceBox<AccountType> acc_selector;
+    public BorderPane login_parent;
+    public AnchorPane login_loginForm;
+    public AnchorPane login_signupForm;
+    public TextField signup_admissionCode;
+    public TextField signup_fName;
+    public TextField signup_lName;
+    public TextField signup_email;
+    public ChoiceBox signup_departments;
+    public ChoiceBox signup_degree;
+    public TextField signup_phoneNum;
+    public TextField signup_minor;
+    public PasswordField signup_password;
+    public PasswordField signup_passwordConfirm;
+    public Button signup_createAccountBtn;
+    public Button signup_cancel;
+    public AnchorPane login_control;
+    public AnchorPane login_blank;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -37,7 +53,9 @@ public class LoginController implements Initializable {
              } else {
                  removeRememberMe();
              }
-         });
+        });
+        stud_createAccBtn.setOnAction(e -> hideLoginForm());
+        signup_cancel.setOnAction(e -> showLoginForm());
 
     }
 
@@ -193,5 +211,18 @@ public class LoginController implements Initializable {
     private void clearFields() {
         loginID.setText("");
         password.setText("");
+    }
+
+    private void hideLoginForm() {
+        login_loginForm.setVisible(false);
+        login_control.setVisible(false);
+        login_blank.setVisible(true);
+        login_signupForm.setVisible(true);
+    }
+    private void showLoginForm() {
+        login_loginForm.setVisible(true);
+        login_control.setVisible(true);
+        login_blank.setVisible(false);
+        login_signupForm.setVisible(false);
     }
 }
