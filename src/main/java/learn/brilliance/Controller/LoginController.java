@@ -103,15 +103,15 @@ public class LoginController implements Initializable {
         // Set the appropriate user prompt
         if(acc_selector.getValue() == AccountType.ADMIN) {
             loginID.setPromptText("Username");
-            clearFields();
+            // clearFields();
 
         } else if (acc_selector.getValue() == AccountType.STUDENT) {
             loginID.setPromptText("Student ID");
-            clearFields();
+            // clearFields();
 
         } else {
             loginID.setPromptText("Teacher ID");
-            clearFields();
+            // clearFields();
         }
     }
     private void getRemember() {
@@ -196,7 +196,6 @@ public class LoginController implements Initializable {
         }
 
     }
-
     private void removeRememberMe() {
         String filePath = "C:\\Users\\Bassey\\Documents\\Java Projects\\brilliance\\src\\main\\resources\\Settings\\settings.cfg";
         try {
@@ -212,7 +211,6 @@ public class LoginController implements Initializable {
         loginID.setText("");
         password.setText("");
     }
-
     private void hideLoginForm() {
         login_loginForm.setVisible(false);
         login_control.setVisible(false);
