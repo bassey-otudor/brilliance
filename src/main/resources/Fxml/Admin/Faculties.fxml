@@ -23,10 +23,9 @@
                     <TableColumn fx:id="faculty_tableView_col_facID" prefWidth="98.53234887123108" text="FacultyID" />
                     <TableColumn fx:id="faculty_tableView_col_facName" prefWidth="180.94971466064453" text="FacultyName" />
                     <TableColumn fx:id="faculty_tableView_col_facDirector" prefWidth="130.07186889648438" text="Director" />
-                    <TableColumn fx:id="faculty_tableView_col_facDept1" prefWidth="130.53240966796875" text="Department1" />
-                    <TableColumn fx:id="faculty_tableView_col_facDept2" prefWidth="124.31658935546875" text="Department2" />
-                    <TableColumn fx:id="faculty_tableView_col_facDept3" prefWidth="129.3812255859375" text="Department3" />
-               <TableColumn fx:id="faculty_tableView_col_facDept4" prefWidth="113.7266845703125" text="Department4" />
+                    <TableColumn fx:id="faculty_tableView_col_facDept1" prefWidth="166.21575927734375" text="Department1" />
+                    <TableColumn fx:id="faculty_tableView_col_facDept2" prefWidth="166.67633056640625" text="Department2" />
+                    <TableColumn fx:id="faculty_tableView_col_facDept3" prefWidth="168.05755615234375" text="Department3" />
                 </columns>
             </TableView>
         </AnchorPane>
@@ -41,7 +40,7 @@
          <TextField fx:id="faculty_dept1" layoutX="330.0" layoutY="13.0" prefHeight="29.0" prefWidth="278.0" promptText="Department 1" />
          <TextField fx:id="faculty_dept2" layoutX="330.0" layoutY="56.0" prefHeight="29.0" prefWidth="278.0" promptText="Department 2" />
          <TextField fx:id="faculty_dept3" layoutX="330.0" layoutY="99.0" prefHeight="29.0" prefWidth="278.0" promptText="Department 3" />
-         <TextField fx:id="faculty_dept4" layoutX="330.0" layoutY="139.0" prefHeight="29.0" prefWidth="278.0" promptText="Department 4" />
+         <Label fx:id="operationStatus" layoutX="339.0" layoutY="145.0" prefHeight="15.0" prefWidth="255.0" styleClass="error-label" textAlignment="CENTER" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package learn.brilliance.Model;
 
+import learn.brilliance.Controller.Admin.FacultiesController;
 import learn.brilliance.View.ViewFactory;
 
 import java.sql.ResultSet;
@@ -8,13 +9,14 @@ import java.sql.SQLException;
 public class Model {
     private static Model model;
     private final ViewFactory viewFactory;
-    DatabaseConnector databaseConnector;
+    connectDB connectDB;
+    FacultiesController facultiesController;
 
     // Admin variables
     private boolean adminLoginStatus;
     private Model() {
         this.viewFactory = new ViewFactory();
-        this.databaseConnector = new DatabaseConnector();
+        this.connectDB = new connectDB();
         this.adminLoginStatus = false;
     }
     public static synchronized Model getInstance() {
@@ -26,8 +28,8 @@ public class Model {
     public ViewFactory getViewFactory() {
         return viewFactory;
     }
-    public DatabaseConnector getDatabaseConnector() {
-        return databaseConnector;
+    public connectDB getConnectDB() {
+        return connectDB;
     }
 
 
@@ -39,8 +41,8 @@ public class Model {
         this.adminLoginStatus = adminLoginStatus;
     }
 
-    public ResultSet evaluateAdminLogin(String username, String password) {
-        ResultSet resultSet = databaseConnector.getAdmin(username, password);
+    public void evaluateAdminLogin(String username, String password) {
+        ResultSet resultSet = connectDB.getAdmin(username, password);
         try {
             if(resultSet.isBeforeFirst()) {
                 this.adminLoginStatus = true;
@@ -48,7 +50,6 @@ public class Model {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return resultSet;
     }
 
 }

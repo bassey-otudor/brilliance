@@ -135,6 +135,14 @@
     -fx-background-color: #14D694;
 }
 
+.error-label {
+    -fx-text-fill: #EC6666;
+    -fx-font-family: Segoe UI;
+    -fx-font-size: 13px;
+    -fx-text-alignment: center;
+    -fx-font-weight: Bold;
+}
+
 
 /*.anchor-pane-container {
     -fx-alignment: center;

@@ -45,7 +45,17 @@ public class LoginController implements Initializable {
         acc_selector.setItems(FXCollections.observableArrayList(AccountType.STUDENT, AccountType.TEACHER, AccountType.ADMIN));
         acc_selector.setValue(Model.getInstance().getViewFactory().getAccountType());
         acc_selector.valueProperty().addListener(observable -> setAcc_selector());
-        loginBtn.setOnAction(e -> onLogin());
+
+        loginBtn.setOnAction(e -> {
+            // Ensures that if account details are changes while the rememberMe checkbox is still checked, the new login id and or account type is saved.
+            if(rememberMe.isSelected()) {
+                setRememberMe();
+                onLogin();
+            } else {
+                onLogin();
+            }
+        });
+
         getRemember();
         rememberMe.selectedProperty().addListener((observableValue, oldVal, newVal) -> {
              if(newVal) {
