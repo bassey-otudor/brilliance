@@ -35,19 +35,32 @@ public class connectDB {
     }
 
     // Faculty section
+    // Get all faculties and store the in a list
+    public ResultSet getFacultyData() {
+        Statement stmt;
+        ResultSet resultSet = null;
+        try{
+            stmt = this.conn.createStatement();
+            resultSet = stmt.executeQuery("SELECT * FROM faculties;");
+        } catch (SQLException e) {
+            System.out.println("Unable to get faculty data");
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
     public ObservableList<String> getDirectors() {
 
         List<String> directorList = new ArrayList<>();
         Statement stmt;
-        ResultSet rs;
+        ResultSet resultSet;
 
         try {
             String sql = "SELECT CONCAT(fname, ' ', lName) AS facDirector FROM teachers WHERE position = 'director'";
             stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
+            resultSet = stmt.executeQuery(sql);
 
-            while (rs.next()) {
-                directorList.add(rs.getString("facDirector"));
+            while (resultSet.next()) {
+                directorList.add(resultSet.getString("facDirector"));
             }
 
             directorList = FXCollections.observableArrayList(directorList);
@@ -76,7 +89,7 @@ public class connectDB {
     public void updateFaculty(String facID,String facName, String facDirector, String dept1, String dept2, String dept3) {
         try {
             Statement stmt = this.conn.createStatement();
-            String update = "UPDATE faculties SET facultyID = '"+facID+"', facultyName ='"+facName+"', Director ='"+facDirector+"', Department1 ='"+dept1+"', Department2 ='"+dept1+"', Department3 ='"+dept1+"' WHERE facultyID ='"+facID+"';";
+            String update = "UPDATE faculties SET facultyID = '"+facID+"', facultyName ='"+facName+"', Director ='"+facDirector+"', Department1 ='"+dept1+"', Department2 ='"+dept2+"', Department3 ='"+dept3+"' WHERE facultyID ='"+facID+"';";
             stmt.executeUpdate(update);
         } catch (SQLException e) {
             System.out.println("Error executing update.");

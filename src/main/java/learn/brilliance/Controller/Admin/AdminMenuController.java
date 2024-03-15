@@ -43,30 +43,40 @@ public class AdminMenuController implements Initializable {
     }
     private void onDashboard() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.DASHBOARD);
+        sectionTitleSetter();
     }
     private void onTeachers() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.TEACHERS);
+        sectionTitleSetter();
     }
     private void onStudents() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.STUDENTS);
+        sectionTitleSetter();
     }
     private void onDepartments() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.DEPARTMENTS);
+        admin_currentSection.setText("DEPARTMENTS");
+        admin_currentSection.setStyle("-fx-font-size: 15px");
     }
     private void onFaculties() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.FACULTIES);
+        sectionTitleSetter();
     }
     private void onCourses() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.COURSES);
+        sectionTitleSetter();
     }
     private void onDegrees() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.DEGREES);
+        sectionTitleSetter();
     }
     private void onMinors() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.MINORS);
+        sectionTitleSetter();
     }
     private void onSettings() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.SETTINGS);
+        sectionTitleSetter();
     }
     // Returns the user to the login window
     private void onLogout() {
@@ -74,5 +84,20 @@ public class AdminMenuController implements Initializable {
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().setAdminLoginStatus(false);
         Model.getInstance().getViewFactory().showLoginWindow();
+    }
+
+    private void sectionTitleSetter() {
+
+            switch (Model.getInstance().getViewFactory().getAdminSelectedMenuOption().get()) {
+                case DASHBOARD -> admin_currentSection.setText("DASHBOARD");
+                case TEACHERS -> admin_currentSection.setText("TEACHERS");
+                case STUDENTS -> admin_currentSection.setText("STUDENTS");
+                case FACULTIES -> admin_currentSection.setText("FACULTIES");
+                case COURSES -> admin_currentSection.setText("COURSES");
+                case DEGREES -> admin_currentSection.setText("DEGREES");
+                case MINORS -> admin_currentSection.setText("MINORS");
+                default -> admin_currentSection.setText("SETTINGS");
+            };
+        admin_currentSection.setStyle("-fx-font-size: 18px");
     }
 }
