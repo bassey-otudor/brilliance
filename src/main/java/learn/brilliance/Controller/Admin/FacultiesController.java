@@ -1,11 +1,9 @@
 package learn.brilliance.Controller.Admin;
 
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import learn.brilliance.Model.Faculty;
 import learn.brilliance.Model.Model;
 
@@ -72,7 +70,7 @@ public class FacultiesController implements Initializable {
                     return true;
                 } else if (predicateFaculty.department2Property().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if (predicateFaculty.department3.toString().toLowerCase().contains(searchKey)) {
+                } else if (predicateFaculty.department3Property().toString().toLowerCase().contains(searchKey)) {
                     return true;
                 } else {
                     return false;
@@ -134,6 +132,7 @@ public class FacultiesController implements Initializable {
             operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;");
             operationStatus.setText("Deleted faculty successfully.");
             clearFields();
+            faculty_tableView.setItems(Model.getInstance().setFaculties());
         }
     }
     private void clearFields() {
@@ -157,16 +156,14 @@ public class FacultiesController implements Initializable {
         faculty_tableView_col_facDept2.setCellValueFactory(cellData -> cellData.getValue().department2Property());
         faculty_tableView_col_facDept3.setCellValueFactory(cellData -> cellData.getValue().department3Property());
     }
-
     private void selectFaculties() {
         Faculty faculties = faculty_tableView.getSelectionModel().getSelectedItem();
         int num = faculty_tableView.getSelectionModel().getSelectedIndex();
         if((num -1)  < -1) return;
-
-        faculty_facID.setText(String.valueOf(faculties.facultyIDProperty()));
-        faculty_facName.setText(String.valueOf(faculties.facultyNameProperty()));
-        faculty_dept1.setText(String.valueOf(faculties.department1Property()));
-        faculty_dept2.setText(String.valueOf(faculties.department2Property()));
-        faculty_dept3.setText(String.valueOf(faculties.department3Property()));
+        faculty_facID.setText(String.valueOf(faculties.facultyIDProperty().get()));
+        faculty_facName.setText(String.valueOf(faculties.facultyNameProperty().get()));
+        faculty_dept1.setText(String.valueOf(faculties.department1Property().get()));
+        faculty_dept2.setText(String.valueOf(faculties.department2Property().get()));
+        faculty_dept3.setText(String.valueOf(faculties.department3Property().get()));
     }
 }
