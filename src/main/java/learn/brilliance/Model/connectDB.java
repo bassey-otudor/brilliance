@@ -73,33 +73,33 @@ public class connectDB {
         assert directorList instanceof ObservableList<String>;
         return (ObservableList<String>) directorList;
     }
-    public void createFaculty(String facID,String facName, String facDirector, String dept1, String dept2, String dept3) {
+    public void createFaculty(String facultyID,String facultyName, String director, String department1, String department2, String department3) {
         Statement stmt;
         try {
             stmt = this.conn.createStatement();
             stmt.executeUpdate("INSERT INTO faculties "
             + "(facultyID, facultyName, Director, Department1, Department2, Department3)"
-            + "VALUES ('"+facID+"', '"+facName+"','"+facDirector+"', '"+dept1+"', '"+dept2+"', '"+dept3+"')");
+            + "VALUES ('"+facultyID+"', '"+facultyName+"','"+director+"', '"+department1+"', '"+department2+"', '"+department3+"')");
         } catch (SQLException e) {
             System.out.println("Error inserting faculty data");
             e.printStackTrace();
         }
 
     }
-    public void updateFaculty(String facID,String facName, String facDirector, String dept1, String dept2, String dept3) {
+    public void updateFaculty(String facultyID,String facultyName, String director, String department1, String department2, String department3) {
         try {
             Statement stmt = this.conn.createStatement();
-            String update = "UPDATE faculties SET facultyID = '"+facID+"', facultyName ='"+facName+"', Director ='"+facDirector+"', Department1 ='"+dept1+"', Department2 ='"+dept2+"', Department3 ='"+dept3+"' WHERE facultyID ='"+facID+"';";
+            String update = "UPDATE faculties SET facultyID = '"+facultyID+"', facultyName ='"+facultyName+"', Director ='"+director+"', Department1 ='"+department1+"', Department2 ='"+department2+"', Department3 ='"+department3+"' WHERE facultyID ='"+facultyID+"';";
             stmt.executeUpdate(update);
         } catch (SQLException e) {
             System.out.println("Error executing update.");
             e.printStackTrace();
         }
     }
-    public void deleteFaculty(String facID) {
+    public void deleteFaculty(String facultyID) {
         try{
             Statement stmt = this.conn.createStatement();
-            String delete = "DELETE FROM faculties WHERE facultyID = '"+facID+"';";
+            String delete = "DELETE FROM faculties WHERE facultyID = '"+facultyID+"';";
             stmt.executeUpdate(delete);
         } catch (SQLException e) {
             System.out.println("Error deleting faculty.");

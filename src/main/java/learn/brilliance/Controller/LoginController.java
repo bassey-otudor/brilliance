@@ -159,14 +159,7 @@ public class LoginController implements Initializable {
                     String[] contents = new String[3];
                     contents[0] = String.valueOf(rememberMe.isSelected());
                     contents[1] = loginID.getText();
-
-                    if(acc_selector.getValue().equals(AccountType.ADMIN)) {
-                        contents[2] = "ADMIN";
-                    } else if(acc_selector.getValue().equals(AccountType.STUDENT)) {
-                        contents[2] = "STUDENT";
-                    } else if(acc_selector.getValue().equals(AccountType.TEACHER)) {
-                        contents[2] = "TEACHER";
-                    }
+                    contents[2] = "STUDENT";
 
                     FileWriter writer = new FileWriter(filePath);
                     writer.write(contents[0] + "-" + contents[1] + "-" + contents[2]);

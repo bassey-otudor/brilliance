@@ -8,9 +8,9 @@ public class Teacher{
     public final StringProperty firstName;
     public final StringProperty lastName;
     public final StringProperty gender;
-    public final StringProperty phoneNum;
+    public final StringProperty phoneNumber;
     public final StringProperty email;
-    public final StringProperty deptID;
+    public final StringProperty departmentID;
     public final StringProperty dob;
     public final StringProperty password;
     public final StringProperty course1;
@@ -18,14 +18,14 @@ public class Teacher{
     public final StringProperty position;
     public final StringProperty facultyID;
 
-    public Teacher(String teacherID, String firstName, String lastName, String gender, String phoneNum, String email, String deptID, String dob, String password, String course1, String course2, String position, String facultyID) {
+    public Teacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, String dob, String password, String course1, String course2, String position, String facultyID) {
         this.teacherID = new SimpleStringProperty(this, "TeacherID", teacherID);
         this.firstName = new SimpleStringProperty(this, "FirstName", firstName);
         this.lastName = new SimpleStringProperty(this, "LastName", lastName);
         this.gender = new SimpleStringProperty(this, "Gender", gender);
-        this.phoneNum = new SimpleStringProperty(this, "PhoneNumber", phoneNum);
+        this.phoneNumber = new SimpleStringProperty(this, "PhoneNumber", phoneNumber);
         this.email = new SimpleStringProperty(this, "Email", email);
-        this.deptID = new SimpleStringProperty(this, "DepartmentID", deptID);
+        this.departmentID = new SimpleStringProperty(this, "DepartmentID", departmentID);
         this.dob = new SimpleStringProperty(this, "DoB", dob);
         this.password = new SimpleStringProperty(this, "Password", password);
         this.course1 = new SimpleStringProperty(this, "Course1", course1);
@@ -46,13 +46,13 @@ public class Teacher{
     public StringProperty genderProperty() {
         return gender;
     }
-    public StringProperty phoneNumProperty() {
-        return phoneNum;
+    public StringProperty phoneNumberProperty() {
+        return phoneNumber;
     }
     public StringProperty emailProperty() {
         return email;
     }
-    public StringProperty deptIDProperty() { return deptID; }
+    public StringProperty departmentIDProperty() { return departmentID; }
     public StringProperty dobProperty() { return dob;}
     public StringProperty passwordProperty() { return password; }
     public StringProperty course1Property() { return course1; }
