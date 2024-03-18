@@ -33,13 +33,15 @@
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <TextField fx:id="dept_deptName" layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="278.0" promptText="Department Name" />
             <ChoiceBox fx:id="dept_faculty" layoutX="17.0" layoutY="58.0" prefHeight="26.0" prefWidth="278.0" />
-            <ChoiceBox fx:id="dept_minor2" layoutX="318.0" layoutY="140.0" prefHeight="26.0" prefWidth="278.0" />
+            <ChoiceBox fx:id="dept_minor2" layoutX="318.0" layoutY="99.0" prefHeight="26.0" prefWidth="278.0" />
             <ChoiceBox fx:id="dept_hod" layoutX="18.0" layoutY="100.0" prefHeight="26.0" prefWidth="278.0" />
             <ChoiceBox fx:id="dept_minor1" layoutX="17.0" layoutY="141.0" prefHeight="26.0" prefWidth="278.0" />
             <Button fx:id="dept_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="dept_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
             <Button fx:id="dept_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
             <Button fx:id="dept_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+         <TextField fx:id="dept_deptID" layoutX="318.0" layoutY="14.0" prefHeight="29.0" prefWidth="156.0" promptText="Department ID" />
+         <Label fx:id="operationStatus" layoutX="319.0" layoutY="138.0" prefHeight="22.0" prefWidth="278.0" />
         </AnchorPane>
     </VBox>
 </AnchorPane>
