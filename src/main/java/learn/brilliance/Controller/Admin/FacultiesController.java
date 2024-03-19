@@ -42,7 +42,7 @@ public class FacultiesController implements Initializable {
         faculty_clearBtn.setOnAction(e -> clearFields());
 
         // Faculty tableView section
-        initFacultiesTable();
+        initialiseFacultiesTable();
         bindFacultyTableData();
         faculty_tableView.setItems(Model.getInstance().setFaculties());
         faculty_tableView.setOnMouseClicked(e -> selectFaculties());
@@ -82,7 +82,7 @@ public class FacultiesController implements Initializable {
             faculty_tableView.setItems(sortedList);
         }));
     }
-    public void createFaculty() {
+    private void createFaculty() {
         String facultyName = faculty_facName.getText();
         String facultyID = faculty_facID.getText();
         String facultyDirector = faculty_director.getValue();
@@ -143,7 +143,7 @@ public class FacultiesController implements Initializable {
         faculty_dept2.setText("");
         faculty_dept3.setText("");
     }
-    private void initFacultiesTable() {
+    private void initialiseFacultiesTable() {
         if(Model.getInstance().getFaculties().isEmpty()) {
             Model.getInstance().setFaculties();
         }

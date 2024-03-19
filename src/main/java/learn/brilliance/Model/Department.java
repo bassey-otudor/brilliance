@@ -22,7 +22,7 @@ public class Department {
     public StringProperty departmentIDProperty() {
         return departmentID;
     }
-    public StringProperty DepartmentNameProperty() {
+    public StringProperty departmentNameProperty() {
         return departmentName;
     }
     public StringProperty facultyIDProperty() {

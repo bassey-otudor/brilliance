@@ -15,7 +15,7 @@
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="dept_searchField" layoutX="231.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
             <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="241.0" layoutY="24.0" />
-            <ChoiceBox fx:id="dept_filterDept" layoutX="498.0" layoutY="7.0" prefHeight="27.0" prefWidth="175.0" />
+            <ChoiceBox fx:id="dept_filterDept" layoutX="498.0" layoutY="7.0" prefHeight="27.0" prefWidth="175.0" value="-- Filter by --" />
             <Label layoutX="24.0" layoutY="9.0" styleClass="label-table-title" text="Department Details" />
         </AnchorPane>
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
@@ -31,16 +31,16 @@
             </TableView>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <ChoiceBox fx:id="dept_faculty" layoutX="17.0" layoutY="58.0" prefHeight="26.0" prefWidth="278.0" value="-- Select Faculty ID --" />
             <TextField fx:id="dept_deptName" layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="278.0" promptText="Department Name" />
-            <ChoiceBox fx:id="dept_faculty" layoutX="17.0" layoutY="58.0" prefHeight="26.0" prefWidth="278.0" />
-            <ChoiceBox fx:id="dept_minor2" layoutX="318.0" layoutY="99.0" prefHeight="26.0" prefWidth="278.0" />
-            <ChoiceBox fx:id="dept_hod" layoutX="18.0" layoutY="100.0" prefHeight="26.0" prefWidth="278.0" />
-            <ChoiceBox fx:id="dept_minor1" layoutX="17.0" layoutY="141.0" prefHeight="26.0" prefWidth="278.0" />
+         <TextField fx:id="dept_deptID" layoutX="318.0" layoutY="14.0" prefHeight="29.0" prefWidth="156.0" promptText="Department ID" />
+            <ChoiceBox fx:id="dept_hod" layoutX="18.0" layoutY="100.0" prefHeight="26.0" prefWidth="278.0" value="-- Select HOD --" />
+            <ChoiceBox fx:id="dept_minor1" layoutX="17.0" layoutY="141.0" prefHeight="26.0" prefWidth="278.0" value="-- Select First Minor--" />
+            <ChoiceBox fx:id="dept_minor2" layoutX="318.0" layoutY="99.0" prefHeight="26.0" prefWidth="278.0" value="-- Select Second Minor --" />
             <Button fx:id="dept_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="dept_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
             <Button fx:id="dept_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
             <Button fx:id="dept_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
-         <TextField fx:id="dept_deptID" layoutX="318.0" layoutY="14.0" prefHeight="29.0" prefWidth="156.0" promptText="Department ID" />
          <Label fx:id="operationStatus" layoutX="319.0" layoutY="138.0" prefHeight="22.0" prefWidth="278.0" />
         </AnchorPane>
     </VBox>

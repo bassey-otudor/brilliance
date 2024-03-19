@@ -17,6 +17,7 @@ public class Model {
     // Admin variables
     private boolean adminLoginStatus;
     private final ObservableList<Faculty> faculties;
+    private final ObservableList<Department> departments;
     private Model() {
         this.viewFactory = new ViewFactory();
         this.connectDB = new connectDB();
@@ -24,6 +25,7 @@ public class Model {
         // Admin data
         this.adminLoginStatus = false;
         this.faculties = FXCollections.observableArrayList();
+        this.departments = FXCollections.observableArrayList();
     }
     public static synchronized Model getInstance() {
         if(model == null) {
@@ -89,5 +91,37 @@ public class Model {
         }
         return facultiesList;
     }
+
+    // Departments
+    public ObservableList<Department> getDepartments() { return departments; }
+
+    /**
+     * This method used the ResultSet returned by the getDepartmentData() method.
+     * The attributes of every department is gotten and stored in an ObservableList of departments.
+     * It is returned and the method is called and the list used to initialise the departmentView table.
+     */
+    public ObservableList<Department> setDepartments() {
+        ResultSet resultSet = connectDB.getDepartmentData();
+        ObservableList<Department> departmentList = FXCollections.observableArrayList();
+        Department departmentData;
+        try {
+            while (resultSet.next()) {
+                departmentData = new Department(
+                     resultSet.getString("deptID"),
+                     resultSet.getString("deptName"),
+                     resultSet.getString("facultyID"),
+                     resultSet.getString("hod"),
+                     resultSet.getString("minor1"),
+                     resultSet.getString("minor2")
+                );
+                departmentList.add(departmentData);
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve faculty data");
+            e.printStackTrace();
+        }
+        return departmentList;
+    }
+
 
 }

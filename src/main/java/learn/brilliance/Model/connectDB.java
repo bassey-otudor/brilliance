@@ -202,6 +202,38 @@ public class connectDB {
         assert minor2List instanceof ObservableList<String>;
         return (ObservableList<String>) minor2List;
     }
+
+    /**
+     * This method retrieves the department data needed to populate the department tableView.
+     * It is called by a private setDepartments() method in the Model class.
+     */
+    public ResultSet getDepartmentData() {
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery("SELECT * FROM departments;");
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve faculty data.");
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+    public ResultSet checkEmptyDepartmentsColumns(String facultyID) {
+        String checkDepartments = "SELECT * FROM faculties WHERE facultyID='"+facultyID+"';";
+        Statement stmt;
+        ResultSet resultSet = null;
+        try{
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(checkDepartments);
+        } catch (SQLException e) {
+            System.out.println("Unable to get departments in the faculty.");
+            e.printStackTrace();
+        }
+
+        return resultSet;
+    }
     public void createDepartment(String departmentID, String departmentName, String facultyID, String hod, String minor1, String minor2) {
         Statement stmt;
         try{
@@ -232,6 +264,16 @@ public class connectDB {
 
         } catch (SQLException e) {
             System.out.println("Unable to delete department.");
+            e.printStackTrace();
+        }
+    }
+    public void insertDepartmentInFaculty(String column, String departmentName, String facultyID) {
+        String insertDepartment = "UPDATE faculties SET "+column+" = '"+departmentName+"' WHERE facultyID ='"+facultyID+"';";
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(insertDepartment);
+        } catch (SQLException e) {
+            System.out.println("Unable to add department to the designated faculty.");
             e.printStackTrace();
         }
     }
