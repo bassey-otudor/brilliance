@@ -40,22 +40,21 @@
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <TextField fx:id="teach_fName" layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="151.0" promptText="First Name" />
             <TextField fx:id="teach_lName" layoutX="16.0" layoutY="56.0" prefHeight="29.0" prefWidth="151.0" promptText="Last Name" />
-            <TextField fx:id="teach_email" layoutX="362.0" layoutY="14.0" prefHeight="28.0" prefWidth="325.0" promptText="Email" />
+            <TextField fx:id="teach_email" layoutX="192.0" layoutY="14.0" prefHeight="28.0" prefWidth="325.0" promptText="Email" />
             <TextField fx:id="teach_phoneNum" layoutX="191.0" layoutY="56.0" prefHeight="28.0" prefWidth="146.0" promptText="Phone Number" />
             <ChoiceBox fx:id="teach_gender" layoutX="14.0" layoutY="99.0" prefWidth="150.0" />
             <DatePicker fx:id="teach_dob" layoutX="363.0" layoutY="56.0" prefHeight="27.0" prefWidth="151.0" promptText="Date of Birth" />
             <ChoiceBox fx:id="teach_department" layoutX="189.0" layoutY="99.0" prefWidth="150.0" />
             <PasswordField fx:id="teach_pwd" layoutX="364.0" layoutY="99.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
-            <TextField fx:id="teach_teacherID" disable="true" editable="false" layoutX="547.0" layoutY="99.0" promptText="TeacherID" />
+            <TextField fx:id="teach_teacherID" disable="true" editable="false" layoutX="541.0" layoutY="15.0" promptText="TeacherID" />
             <ChoiceBox fx:id="teach_course1" layoutX="15.0" layoutY="141.0" prefWidth="150.0" />
             <ChoiceBox fx:id="teach_course2" layoutX="189.0" layoutY="141.0" prefWidth="150.0" />
             <ChoiceBox fx:id="teach_position" layoutX="364.0" layoutY="141.0" prefWidth="150.0" />
-            <Button fx:id="teach_genIDBtn" layoutX="546.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
+            <Button fx:id="teach_genIDBtn" layoutX="540.0" layoutY="56.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
             <Button fx:id="teach_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="teach_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
             <Button fx:id="teach_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
             <Button fx:id="teach_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
-         <ChoiceBox fx:id="teach_faculty" layoutX="189.0" layoutY="16.0" prefWidth="150.0" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

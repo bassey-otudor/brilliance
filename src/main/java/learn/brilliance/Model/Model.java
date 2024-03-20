@@ -18,6 +18,7 @@ public class Model {
     private boolean adminLoginStatus;
     private final ObservableList<Faculty> faculties;
     private final ObservableList<Department> departments;
+    private final ObservableList<Teacher> teachers;
     private Model() {
         this.viewFactory = new ViewFactory();
         this.connectDB = new connectDB();
@@ -26,6 +27,7 @@ public class Model {
         this.adminLoginStatus = false;
         this.faculties = FXCollections.observableArrayList();
         this.departments = FXCollections.observableArrayList();
+        this.teachers = FXCollections.observableArrayList();
     }
     public static synchronized Model getInstance() {
         if(model == null) {
@@ -123,5 +125,39 @@ public class Model {
         return departmentList;
     }
 
+    /**
+     * Teachers
+     */
+    public ObservableList<Teacher> getTeachers() { return teachers; }
+    public ObservableList<Teacher> setTeachers() {
+        ResultSet resultSet = connectDB.getTeacherData();
+        ObservableList<Teacher> teacherList = FXCollections.observableArrayList();
+        Teacher teacherData;
+        try {
+            while (resultSet.next()) {
+                teacherData = new Teacher(
+                        resultSet.getString("teacherID"),
+                        resultSet.getString("fName"),
+                        resultSet.getString("lName"),
+                        resultSet.getString("gender"),
+                        resultSet.getString("phoneNum"),
+                        resultSet.getString("email"),
+                        resultSet.getString("deptID"),
+                        resultSet.getString("dob"),
+                        resultSet.getString("password"),
+                        resultSet.getString("course1"),
+                        resultSet.getString("course2"),
+                        resultSet.getString("position")
+                );
+
+                teacherList.add(teacherData);
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to add teacher data into a list.");
+            e.printStackTrace();
+        }
+
+        return  teacherList;
+    }
 
 }

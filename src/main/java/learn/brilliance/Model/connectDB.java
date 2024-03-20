@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,7 +108,9 @@ public class connectDB {
         }
     }
 
-    // Department section
+    /**
+     * Department section
+     */
     public ObservableList<String> getHod() {
 
         List<String> hodList = new ArrayList<>();
@@ -240,7 +243,7 @@ public class connectDB {
             stmt = conn.createStatement();
             stmt.executeUpdate("INSERT INTO departments "
                     + "(deptID, deptName, facultyID, hod, minor1, minor2)"
-                    + "VALUES ('"+ departmentID +"', '"+ departmentName +"', '"+facultyID+"', '"+hod+"', '"+minor1+"', '"+minor2+"')");
+                    + "VALUES ('"+ departmentID +"', '"+ departmentName +"', '"+facultyID+"', '"+hod+"', '"+minor1+"', '"+minor2+"');");
 
         } catch (SQLException e) {
             System.out.println("Unable to create department");
@@ -249,8 +252,9 @@ public class connectDB {
     }
     public void updateDepartment(String departmentID, String departmentName, String facultyID, String hod, String minor1, String minor2) {
         try {
-            Statement stmt = conn.createStatement();
+
             String update = "UPDATE departments SET deptID = '"+departmentID+"', deptName ='"+departmentName+"', facultyID ='"+facultyID+"', hod='"+hod+"',minor1='"+minor1+"', minor2='"+minor2+"' WHERE deptID ='"+departmentID+"';";
+            Statement stmt = conn.createStatement();
             stmt.executeUpdate(update);
         } catch (SQLException e) {
             System.out.println("Unable to update department info.");
@@ -277,4 +281,179 @@ public class connectDB {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Teacher section
+     */
+    public ResultSet getTeacherData() {
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery("SELECT * FROM teachers;");
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve teacher data.");
+            e.printStackTrace();
+        }
+
+        return resultSet;
+    }
+    public ResultSet checkEmptyCoursesColumns(String courseID) {
+        String checkCourses = "SELECT * FROM courses WHERE courseID='"+courseID+"';";
+        Statement stmt;
+        ResultSet resultSet = null;
+        try{
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(checkCourses);
+        } catch (SQLException e) {
+            System.out.println("Unable to get departments in the faculty.");
+            e.printStackTrace();
+        }
+
+        return resultSet;
+    }
+    public ObservableList<String> getGender() {
+        List<String> genderList = new ArrayList<>();
+
+        String selectGenders = "SELECT gender FROM genders;";
+        Statement stmt;
+        ResultSet resultSet = null;
+        try{
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectGenders);
+
+            while (resultSet.next()) {
+                genderList.add(resultSet.getString("gender"));
+            }
+            genderList = FXCollections.observableArrayList(genderList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve gender data.");
+            e.printStackTrace();
+        }
+
+        assert genderList instanceof ObservableList<String>;
+        return (ObservableList<String>) genderList;
+    }
+    public ObservableList<String> getDepartments() {
+        List<String> departmentList = new ArrayList<>();
+
+        String selectDepartments = "SELECT deptName FROM departments;";
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectDepartments);
+            while (resultSet.next()) {
+                departmentList.add(resultSet.getString("deptName"));
+            }
+            departmentList = FXCollections.observableArrayList(departmentList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve departments.");
+            e.printStackTrace();
+        }
+
+        assert departmentList instanceof ObservableList<String>;
+        return (ObservableList<String>) departmentList;
+    }
+    public ObservableList<String> getCourses() {
+        List<String> courseList = new ArrayList<>();
+
+        String selectCourses = "SELECT courseID FROM courses;";
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectCourses);
+            while (resultSet.next()) {
+                courseList.add(resultSet.getString("courseID"));
+            }
+            courseList = FXCollections.observableArrayList(courseList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve courses.");
+            e.printStackTrace();
+        }
+
+        assert courseList instanceof ObservableList<String>;
+        return (ObservableList<String>) courseList;
+    }
+    public ObservableList<String> getPosition() {
+        List<String> positionList = new ArrayList<>();
+
+        String selectPositions = "SELECT position FROM positions;";
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectPositions);
+            while (resultSet.next()) {
+                positionList.add(resultSet.getString("position"));
+
+            }
+
+            positionList = FXCollections.observableArrayList(positionList);
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve positions.");
+            e.printStackTrace();
+        }
+
+        assert positionList instanceof ObservableList<String>;
+        return (ObservableList<String>) positionList;
+    }
+
+    public void createTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String password, String course1, String course2, String position) {
+        String createTeacher = "INSERT INTO teachers " +
+                "(teacherID, fName, lName, gender, phoneNum, email, deptID, dob, password, course1, course2, position)" +
+                "VALUES ('"+teacherID+"', '"+firstName+"', '"+lastName+"', '"+gender+"', '"+phoneNumber+"', '"+email+"', '"+departmentID+"', '"+dob+"', '"+password+"', '"+course1+"', '"+course2+"', '"+position+"');";
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(createTeacher);
+        } catch (SQLException e) {
+            System.out.println("Unable to add teacher to the database.");
+            e.printStackTrace();
+        }
+    }
+    public void updateTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String password, String course1, String course2, String position) {
+        String updateTeacher= "UPDATE teachers SET fName = '"+firstName+"', lName = '"+lastName+"', gender = '"+gender+"', phoneNum = '"+phoneNumber+"', email = '"+email+"', deptID = '"+departmentID+"', dob = '"+dob+"', password= '"+password+"', cousrse1= '"+course1+"', course2 = '"+course2+"', position = '"+position+"' WHERE teacherID ='"+teacherID+"';";
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(updateTeacher);
+        } catch (SQLException e) {
+            System.out.println("Unable to update teacher info.");
+            e.printStackTrace();
+        }
+    }
+    public void deleteTeacher(String teacherID) {
+        String deleteTeacher = "DELETE FROM teachers WHERE teacherID = '"+teacherID+"';";
+
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(deleteTeacher);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to delete teacher.");
+            e.printStackTrace();
+        }
+
+    }
+    public void insertTeacherInCourses(String column, String teacherID, String courseID) {
+        String insertTeacher = "UPDATE courses SET "+column+" = '"+teacherID+"' WHERE courseID ='"+courseID+"';";
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(insertTeacher);
+        } catch (SQLException e) {
+            System.out.println("Unable to assign courses to the designated teacher.");
+            e.printStackTrace();
+        }
+    }
+
 }

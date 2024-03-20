@@ -16,9 +16,8 @@ public class Teacher{
     public final StringProperty course1;
     public final StringProperty course2;
     public final StringProperty position;
-    public final StringProperty facultyID;
 
-    public Teacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, String dob, String password, String course1, String course2, String position, String facultyID) {
+    public Teacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, String dob, String password, String course1, String course2, String position) {
         this.teacherID = new SimpleStringProperty(this, "TeacherID", teacherID);
         this.firstName = new SimpleStringProperty(this, "FirstName", firstName);
         this.lastName = new SimpleStringProperty(this, "LastName", lastName);
@@ -31,7 +30,6 @@ public class Teacher{
         this.course1 = new SimpleStringProperty(this, "Course1", course1);
         this.course2 = new SimpleStringProperty(this, "Course2", course2);
         this.position = new SimpleStringProperty(this, "Position", position);
-        this.facultyID = new SimpleStringProperty(this, "FacultyID", facultyID);
     }
 
     public StringProperty teacherIDProperty() {
@@ -58,6 +56,5 @@ public class Teacher{
     public StringProperty course1Property() { return course1; }
     public StringProperty course2Property() { return course2; }
     public StringProperty positionProperty() { return password; }
-    public StringProperty facultyIDProperty() { return facultyID; }
 
 }

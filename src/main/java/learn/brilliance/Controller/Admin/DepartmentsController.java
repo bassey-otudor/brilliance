@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 
 public class DepartmentsController implements Initializable {
     public TextField dept_searchField;
-    public ChoiceBox dept_filterDept;
+    public ChoiceBox<String> dept_filterDept;
     public TableView<Department> dept_tableView;
     public TableView<Faculty> faculty_tableView;
     public TableColumn<Department, String> dept_tableView_col_deptID;
