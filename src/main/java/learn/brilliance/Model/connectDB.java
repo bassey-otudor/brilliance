@@ -299,8 +299,8 @@ public class connectDB {
 
         return resultSet;
     }
-    public ResultSet checkEmptyCoursesColumns(String courseID) {
-        String checkCourses = "SELECT * FROM courses WHERE courseID='"+courseID+"';";
+    public ResultSet checkEmptyCoursesColumns(String teacherID) {
+        String checkCourses = "SELECT * FROM teachers WHERE teacherID ='"+teacherID+"';";
         Statement stmt;
         ResultSet resultSet = null;
         try{
@@ -339,7 +339,7 @@ public class connectDB {
     public ObservableList<String> getDepartments() {
         List<String> departmentList = new ArrayList<>();
 
-        String selectDepartments = "SELECT deptName FROM departments;";
+        String selectDepartments = "SELECT deptID FROM departments;";
         Statement stmt;
         ResultSet resultSet = null;
 
@@ -347,7 +347,7 @@ public class connectDB {
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(selectDepartments);
             while (resultSet.next()) {
-                departmentList.add(resultSet.getString("deptName"));
+                departmentList.add(resultSet.getString("deptID"));
             }
             departmentList = FXCollections.observableArrayList(departmentList);
 
@@ -385,7 +385,7 @@ public class connectDB {
     public ObservableList<String> getPosition() {
         List<String> positionList = new ArrayList<>();
 
-        String selectPositions = "SELECT position FROM positions;";
+        String selectPositions = "SELECT position FROM position;";
         Statement stmt;
         ResultSet resultSet = null;
 
@@ -420,8 +420,8 @@ public class connectDB {
             e.printStackTrace();
         }
     }
-    public void updateTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String password, String course1, String course2, String position) {
-        String updateTeacher= "UPDATE teachers SET fName = '"+firstName+"', lName = '"+lastName+"', gender = '"+gender+"', phoneNum = '"+phoneNumber+"', email = '"+email+"', deptID = '"+departmentID+"', dob = '"+dob+"', password= '"+password+"', cousrse1= '"+course1+"', course2 = '"+course2+"', position = '"+position+"' WHERE teacherID ='"+teacherID+"';";
+    public void updateTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String course1, String course2, String position) {
+        String updateTeacher= "UPDATE teachers SET fName = '"+firstName+"', lName = '"+lastName+"', gender = '"+gender+"', phoneNum = '"+phoneNumber+"', email = '"+email+"', deptID = '"+departmentID+"', dob = '"+dob+"', cousrse1= '"+course1+"', course2 = '"+course2+"', position = '"+position+"' WHERE teacherID ='"+teacherID+"';";
         Statement stmt;
         try {
             stmt = conn.createStatement();
@@ -454,6 +454,25 @@ public class connectDB {
             System.out.println("Unable to assign courses to the designated teacher.");
             e.printStackTrace();
         }
+    }
+
+    public int getTeacherRowCount() {
+
+        Statement stmt;
+        ResultSet resultSet = null;
+        int rowCount = 0;
+        try {
+            stmt = this.conn.createStatement();
+            resultSet = stmt.executeQuery("SELECT COUNT(teacherID) AS id_count FROM teachers;");
+            if(resultSet.next()) {
+                rowCount = resultSet.getInt("id_count");
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to generated teacherID");
+            e.printStackTrace();
+        }
+
+        return rowCount;
     }
 
 }

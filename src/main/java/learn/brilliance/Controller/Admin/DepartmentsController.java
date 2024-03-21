@@ -197,4 +197,6 @@ public class DepartmentsController implements Initializable {
         dept_deptName.setText(String.valueOf(departments.departmentNameProperty().get()));
 
     }
+
+
 }

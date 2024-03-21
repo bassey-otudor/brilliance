@@ -55,6 +55,6 @@ public class Teacher{
     public StringProperty passwordProperty() { return password; }
     public StringProperty course1Property() { return course1; }
     public StringProperty course2Property() { return course2; }
-    public StringProperty positionProperty() { return password; }
+    public StringProperty positionProperty() { return position; }
 
 }
