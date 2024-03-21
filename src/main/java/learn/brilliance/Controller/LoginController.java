@@ -128,7 +128,7 @@ public class LoginController implements Initializable {
         String filePath = "C:\\Users\\Bassey\\Documents\\Java Projects\\brilliance\\src\\main\\resources\\Settings\\settings.cfg";
         File file = new File(filePath);
 
-        // check if the file exists and sets
+        // check file path if the settings.cfg exists
         if (file.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 

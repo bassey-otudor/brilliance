@@ -195,7 +195,6 @@ public class TeachersController implements Initializable {
         String year = String.valueOf(LocalDate.now().getYear());
         teach_teacherID.setText(prefix + year + rowCount);
     }
-
     private void selectTeacher() {
         Teacher teacher = teach_tableView.getSelectionModel().getSelectedItem();
         int num = teach_tableView.getSelectionModel().getSelectedIndex();
@@ -211,5 +210,9 @@ public class TeachersController implements Initializable {
         teach_course1.setValue(String.valueOf(teacher.course1Property().get()));
         teach_course2.setValue(String.valueOf(teacher.course2Property().get()));
         teach_position.setValue(String.valueOf(teacher.positionProperty().get()));
+    }
+
+    private void courseLevel() {
+
     }
 }

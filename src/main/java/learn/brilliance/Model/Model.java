@@ -19,6 +19,7 @@ public class Model {
     private final ObservableList<Faculty> faculties;
     private final ObservableList<Department> departments;
     private final ObservableList<Teacher> teachers;
+    private final ObservableList<Course> courses;
     private Model() {
         this.viewFactory = new ViewFactory();
         this.connectDB = new connectDB();
@@ -28,6 +29,7 @@ public class Model {
         this.faculties = FXCollections.observableArrayList();
         this.departments = FXCollections.observableArrayList();
         this.teachers = FXCollections.observableArrayList();
+        this.courses = FXCollections.observableArrayList();
     }
     public static synchronized Model getInstance() {
         if(model == null) {
@@ -98,9 +100,9 @@ public class Model {
     public ObservableList<Department> getDepartments() { return departments; }
 
     /**
-     * This method used the ResultSet returned by the getDepartmentData() method.
+     * This method uses the ResultSet returned by the getDepartmentData() method.
      * The attributes of every department is gotten and stored in an ObservableList of departments.
-     * It is returned and the method is called and the list used to initialise the departmentView table.
+     * This method is called and the list used to initialise the departmentView table.
      */
     public ObservableList<Department> setDepartments() {
         ResultSet resultSet = connectDB.getDepartmentData();
@@ -125,9 +127,7 @@ public class Model {
         return departmentList;
     }
 
-    /**
-     * Teachers
-     */
+    // Teachers
     public ObservableList<Teacher> getTeachers() { return teachers; }
     public ObservableList<Teacher> setTeachers() {
         ResultSet resultSet = connectDB.getTeacherData();
@@ -159,5 +159,8 @@ public class Model {
 
         return  teacherList;
     }
+
+    // Courses
+    public ObservableList<Course> getCourses() { return courses; }
 
 }

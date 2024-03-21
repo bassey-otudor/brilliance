@@ -162,6 +162,7 @@ public class FacultiesController implements Initializable {
         if((num -1)  < -1) return;
         faculty_facID.setText(String.valueOf(faculties.facultyIDProperty().get()));
         faculty_facName.setText(String.valueOf(faculties.facultyNameProperty().get()));
+        faculty_director.setValue(String.valueOf(faculties.directorProperty().get()));
         faculty_dept1.setText(String.valueOf(faculties.department1Property().get()));
         faculty_dept2.setText(String.valueOf(faculties.department2Property().get()));
         faculty_dept3.setText(String.valueOf(faculties.department3Property().get()));

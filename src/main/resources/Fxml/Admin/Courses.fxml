@@ -33,11 +33,10 @@
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <TextField fx:id="course_courseName" layoutX="38.0" layoutY="13.0" prefHeight="29.0" prefWidth="278.0" promptText="Course Name" />
-            <TextField fx:id="course_courseID" disable="true" editable="false" layoutX="355.0" layoutY="98.0" prefHeight="26.0" prefWidth="162.0" promptText="Course ID" />
+            <TextField fx:id="course_courseID" layoutX="355.0" layoutY="14.0" prefHeight="26.0" prefWidth="162.0" promptText="Course ID" />
             <ChoiceBox fx:id="course_level" layoutX="38.0" layoutY="59.0" prefHeight="26.0" prefWidth="278.0" />
             <ChoiceBox fx:id="course_dept" layoutX="38.0" layoutY="101.0" prefHeight="26.0" prefWidth="278.0" />
             <ChoiceBox fx:id="course_teacher" layoutX="38.0" layoutY="142.0" prefHeight="26.0" prefWidth="278.0" />
-            <Button fx:id="course_genIDBtn" layoutX="355.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
             <Button fx:id="course_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="course_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
             <Button fx:id="course_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />

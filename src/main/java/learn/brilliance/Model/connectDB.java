@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class connectDB {
@@ -402,11 +403,9 @@ public class connectDB {
             System.out.println("Unable to retrieve positions.");
             e.printStackTrace();
         }
-
         assert positionList instanceof ObservableList<String>;
         return (ObservableList<String>) positionList;
     }
-
     public void createTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String password, String course1, String course2, String position) {
         String createTeacher = "INSERT INTO teachers " +
                 "(teacherID, fName, lName, gender, phoneNum, email, deptID, dob, password, course1, course2, position)" +
@@ -455,7 +454,6 @@ public class connectDB {
             e.printStackTrace();
         }
     }
-
     public int getTeacherRowCount() {
 
         Statement stmt;
@@ -468,11 +466,40 @@ public class connectDB {
                 rowCount = resultSet.getInt("id_count");
             }
         } catch (SQLException e) {
-            System.out.println("Unable to generated teacherID");
+            System.out.println("Unable to get row count.");
             e.printStackTrace();
         }
 
         return rowCount;
+    }
+
+    // Courses
+    public ObservableList<String> getLevel() {
+        final String [] levels = {"1", "2", "3", "4"};
+        List<String > levelList = new ArrayList<>();
+        Collections.addAll(levelList, levels);
+
+        levelList = FXCollections.observableArrayList(levelList);
+        return (ObservableList<String>) levelList;
+    }
+
+    private ObservableList<String> getCourseTeacher(String departmentID) {
+        List<String> teacherList = new ArrayList<>();
+
+        String selectTeachers = "SELECT ";
+        Statement stmt;
+        ResultSet resultSet = null;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectTeachers);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve list of filtered list of teachers.");
+            e.printStackTrace();
+        }
+
+
+        return null;
     }
 
 }
