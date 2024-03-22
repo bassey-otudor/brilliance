@@ -300,26 +300,13 @@ public class connectDB {
 
         return resultSet;
     }
-    public ResultSet checkEmptyCoursesColumns(String teacherID) {
-        String checkCourses = "SELECT * FROM teachers WHERE teacherID ='"+teacherID+"';";
-        Statement stmt;
-        ResultSet resultSet = null;
-        try{
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(checkCourses);
-        } catch (SQLException e) {
-            System.out.println("Unable to get departments in the faculty.");
-            e.printStackTrace();
-        }
 
-        return resultSet;
-    }
     public ObservableList<String> getGender() {
         List<String> genderList = new ArrayList<>();
 
         String selectGenders = "SELECT gender FROM genders;";
         Statement stmt;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try{
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(selectGenders);
@@ -342,7 +329,7 @@ public class connectDB {
 
         String selectDepartments = "SELECT deptID FROM departments;";
         Statement stmt;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
 
         try {
             stmt = conn.createStatement();
@@ -365,7 +352,7 @@ public class connectDB {
 
         String selectCourses = "SELECT courseID FROM courses;";
         Statement stmt;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
 
         try {
             stmt = conn.createStatement();
@@ -388,7 +375,7 @@ public class connectDB {
 
         String selectPositions = "SELECT position FROM position;";
         Statement stmt;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
 
         try {
             stmt = conn.createStatement();
@@ -444,20 +431,10 @@ public class connectDB {
         }
 
     }
-    public void insertTeacherInCourses(String column, String teacherID, String courseID) {
-        String insertTeacher = "UPDATE courses SET "+column+" = '"+teacherID+"' WHERE courseID ='"+courseID+"';";
-        try {
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(insertTeacher);
-        } catch (SQLException e) {
-            System.out.println("Unable to assign courses to the designated teacher.");
-            e.printStackTrace();
-        }
-    }
     public int getTeacherRowCount() {
 
         Statement stmt;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         int rowCount = 0;
         try {
             stmt = this.conn.createStatement();
@@ -474,6 +451,23 @@ public class connectDB {
     }
 
     // Courses
+    public ResultSet getCourseData() {
+        String getCourseData = "SELECT * FROM courses;";
+
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getCourseData);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve course data.");
+            e.printStackTrace();
+        }
+
+        return resultSet;
+    }
     public ObservableList<String> getLevel() {
         final String [] levels = {"1", "2", "3", "4"};
         List<String > levelList = new ArrayList<>();
@@ -482,24 +476,139 @@ public class connectDB {
         levelList = FXCollections.observableArrayList(levelList);
         return (ObservableList<String>) levelList;
     }
+    public ObservableList<String> getDepartments(String facultyID) {
+        List<String> departmentList = new ArrayList<>();
 
-    private ObservableList<String> getCourseTeacher(String departmentID) {
+        String selectDepartments = "SELECT deptID FROM departments WHERE facultyID = '"+facultyID+"';";
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectDepartments);
+            while (resultSet.next()) {
+                departmentList.add(resultSet.getString("deptID"));
+            }
+            departmentList = FXCollections.observableArrayList(departmentList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve departments.");
+            e.printStackTrace();
+        }
+
+        assert departmentList instanceof ObservableList<String>;
+        return (ObservableList<String>) departmentList;
+    }
+    public ObservableList<String> getCourseTeacher(String departmentID) {
         List<String> teacherList = new ArrayList<>();
 
-        String selectTeachers = "SELECT ";
+        String selectTeachers = "SELECT * FROM teachers WHERE deptID = '"+departmentID+"';";
         Statement stmt;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
+
         try {
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(selectTeachers);
+
+            while (resultSet.next()) {
+               teacherList.add(resultSet.getString("teacherID"));
+            }
+            teacherList = FXCollections.observableArrayList(teacherList);
 
         } catch (SQLException e) {
             System.out.println("Unable to retrieve list of filtered list of teachers.");
             e.printStackTrace();
         }
 
+        assert teacherList instanceof ObservableList<String>;
+        return (ObservableList<String>) teacherList;
+    }
+    public void createCourse(String courseID, String courseName, String courseLevel, String departmentID, String teacherID) {
 
-        return null;
+        String createCourse = "INSERT INTO Courses " +
+                "(courseID, courseName, courseLevel, deptName, teacherID)" +
+                "VALUES ('"+courseID+"', '"+courseName+"', '"+courseLevel+"', '"+departmentID+"', '"+teacherID+"');";
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(createCourse);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to create teacher.");
+            e.printStackTrace();
+        }
+    }
+    public void updateCourse(String courseID, String courseName, String courseLevel, String departmentID, String teacherID) {
+        String updateCourse = "UPDATE courses SET courseID = '"+courseID+"', courseName = '"+courseName+"', courseLevel = '"+courseLevel+"', deptID = '"+departmentID+"', teacherID = '"+teacherID+"' WHERE courseID = '"+courseID+"'";
+
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(updateCourse);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to update course.");
+            e.printStackTrace();
+        }
+    }
+    public void deleteCourse(String courseID) {
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate("DELETE FROM courses WHERE courseID = '"+courseID+"'");
+
+        } catch (SQLException e) {
+            System.out.println("Unable to delete course.");
+            e.printStackTrace();
+        }
+    }
+    public void insertCoursesInTeacher(String column, String teacherID, String courseID) {
+        String insertCourse = "UPDATE teachers SET "+column+" = '"+courseID+"' WHERE teacherID ='"+teacherID+"';";
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(insertCourse);
+        } catch (SQLException e) {
+            System.out.println("Unable to assign courses to the designated teacher.");
+            e.printStackTrace();
+        }
+    }
+    public ResultSet checkEmptyCoursesColumns(String teacherID) {
+        String checkCourses = "SELECT * FROM teachers WHERE teacherID ='"+teacherID+"';";
+        Statement stmt;
+        ResultSet resultSet = null;
+        try{
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(checkCourses);
+        } catch (SQLException e) {
+            System.out.println("Unable to get departments in the faculty.");
+            e.printStackTrace();
+        }
+
+        return resultSet;
+    }
+
+    // Utility methods
+
+    public boolean checkData(String id, String name, String idColumn, String nameColumn, String tableName) {
+
+        boolean doesExists = false;
+        String checkCourse = "SELECT * FROM "+tableName+" WHERE "+idColumn+" = '"+id+"' OR '"+nameColumn+"' = '"+name+"';";
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(checkCourse);
+            while (resultSet.isBeforeFirst()) {
+                doesExists = true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Unable to verify if course exists.");
+            e.printStackTrace();
+        }
+
+        return doesExists;
     }
 
 }

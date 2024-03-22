@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="915.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.CoursesController">
+<AnchorPane prefHeight="600.0" prefWidth="915.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.CoursesController">
     <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="course_searchField" layoutX="173.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
@@ -26,21 +26,24 @@
                     <TableColumn fx:id="course_tableView_col_courseID" prefWidth="85.64029717445374" text="CourseID" />
                     <TableColumn fx:id="course_tableView_col_courseName" prefWidth="311.4820022583008" text="CourseName" />
                     <TableColumn fx:id="course_tableView_col_level" prefWidth="83.10797119140625" text="Level" />
-                    <TableColumn fx:id="course_tableView_col_dept" prefWidth="211.79852294921875" text="Departnment" />
-               <TableColumn fx:id="course_tableView_col_teacher" prefWidth="220.54681396484375" text="Teacher" />
+                    <TableColumn fx:id="course_tableView_col_dept" prefWidth="110.7337646484375" text="Departnment" />
+               <TableColumn fx:id="course_tableView_col_teacher" minWidth="0.0" prefWidth="226.07196044921875" text="Teacher" />
+               <TableColumn fx:id="course_tableView_col_facultyID" prefWidth="91.6258544921875" text="FacultyID" />
                 </columns>
             </TableView>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <TextField fx:id="course_courseName" layoutX="38.0" layoutY="13.0" prefHeight="29.0" prefWidth="278.0" promptText="Course Name" />
             <TextField fx:id="course_courseID" layoutX="355.0" layoutY="14.0" prefHeight="26.0" prefWidth="162.0" promptText="Course ID" />
-            <ChoiceBox fx:id="course_level" layoutX="38.0" layoutY="59.0" prefHeight="26.0" prefWidth="278.0" />
+            <ChoiceBox fx:id="course_level" layoutX="357.0" layoutY="59.0" prefHeight="26.0" prefWidth="278.0" />
             <ChoiceBox fx:id="course_dept" layoutX="38.0" layoutY="101.0" prefHeight="26.0" prefWidth="278.0" />
             <ChoiceBox fx:id="course_teacher" layoutX="38.0" layoutY="142.0" prefHeight="26.0" prefWidth="278.0" />
             <Button fx:id="course_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="course_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
             <Button fx:id="course_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
             <Button fx:id="course_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+         <ChoiceBox fx:id="course_faculty" layoutX="37.0" layoutY="59.0" prefHeight="26.0" prefWidth="278.0" />
+         <Label fx:id="operationStatus" layoutX="361.0" layoutY="147.0" prefHeight="22.0" prefWidth="273.0" styleClass="error-label" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

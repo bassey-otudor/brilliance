@@ -71,7 +71,6 @@ public class Model {
     }
     public ObservableList<Faculty> setFaculties() {
         ResultSet resultSet = connectDB.getFacultyData();
-
         ObservableList<Faculty> facultiesList = FXCollections.observableArrayList();
         Faculty facultyData;
         try{
@@ -162,5 +161,30 @@ public class Model {
 
     // Courses
     public ObservableList<Course> getCourses() { return courses; }
+    public ObservableList<Course> setCourses() {
+        ResultSet resultSet = connectDB.getCourseData();
+        ObservableList<Course> courseList = FXCollections.observableArrayList();
+        Course courseData;
+
+        try {
+            while(resultSet.next()) {
+                courseData = new Course (
+                      resultSet.getString("courseID"),
+                      resultSet.getString("courseName"),
+                      resultSet.getString("courseLevel"),
+                      resultSet.getString("deptName"),
+                      resultSet.getString("teacherID"),
+                      resultSet.getString("facultyID")
+
+                );
+                courseList.add(courseData);
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve course data.");
+            e.printStackTrace();
+        }
+
+        return courseList;
+    }
 
 }

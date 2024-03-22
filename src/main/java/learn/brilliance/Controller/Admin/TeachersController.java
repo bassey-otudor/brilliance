@@ -4,7 +4,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import learn.brilliance.Model.Faculty;
 import learn.brilliance.Model.Model;
 import learn.brilliance.Model.Teacher;
 
@@ -190,10 +189,20 @@ public class TeachersController implements Initializable {
         teach_tableView_col_dob.setCellValueFactory(cellData -> cellData.getValue().dobProperty());
     }
     private void generateTeacherID() {
-        String rowCount = String.valueOf(Model.getInstance().getConnectDB().getTeacherRowCount()) + 1;
+        String rowCount = String.valueOf(Model.getInstance().getConnectDB().getTeacherRowCount() + 1);
         String prefix = "SE";
         String year = String.valueOf(LocalDate.now().getYear());
-        teach_teacherID.setText(prefix + year + rowCount);
+
+        if(rowCount.length() == 1) {
+            teach_teacherID.setText(prefix + year + "00" + rowCount);
+
+        } else if (rowCount.length() == 2) {
+            teach_teacherID.setText(prefix + year + "0" + rowCount);
+
+        } else if (rowCount.length() == 3) {
+            teach_teacherID.setText(prefix + year + rowCount);
+        }
+
     }
     private void selectTeacher() {
         Teacher teacher = teach_tableView.getSelectionModel().getSelectedItem();
@@ -210,9 +219,5 @@ public class TeachersController implements Initializable {
         teach_course1.setValue(String.valueOf(teacher.course1Property().get()));
         teach_course2.setValue(String.valueOf(teacher.course2Property().get()));
         teach_position.setValue(String.valueOf(teacher.positionProperty().get()));
-    }
-
-    private void courseLevel() {
-
     }
 }
