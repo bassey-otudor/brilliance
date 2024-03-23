@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="915.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.FacultiesController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.FacultiesController">
     <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="faculty_searchField" layoutX="231.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
@@ -20,12 +20,12 @@
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
             <TableView fx:id="faculty_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627" prefWidth="915.1079387831637" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columns>
-                    <TableColumn fx:id="faculty_tableView_col_facID" prefWidth="98.53234887123108" text="FacultyID" />
-                    <TableColumn fx:id="faculty_tableView_col_facName" prefWidth="180.94971466064453" text="FacultyName" />
-                    <TableColumn fx:id="faculty_tableView_col_facDirector" prefWidth="130.07186889648438" text="Director" />
-                    <TableColumn fx:id="faculty_tableView_col_facDept1" prefWidth="166.21575927734375" text="Department1" />
-                    <TableColumn fx:id="faculty_tableView_col_facDept2" prefWidth="166.67633056640625" text="Department2" />
-                    <TableColumn fx:id="faculty_tableView_col_facDept3" prefWidth="168.05755615234375" text="Department3" />
+                    <TableColumn fx:id="faculty_tableView_col_facID" prefWidth="76.66190242767334" text="FacultyID" />
+                    <TableColumn fx:id="faculty_tableView_col_facName" prefWidth="224.46041107177734" text="FacultyName" />
+                    <TableColumn fx:id="faculty_tableView_col_facDirector" prefWidth="138.58993530273438" text="Director" />
+                    <TableColumn fx:id="faculty_tableView_col_facDept1" prefWidth="198.21575927734375" text="Department1" />
+                    <TableColumn fx:id="faculty_tableView_col_facDept2" prefWidth="186.70501708984375" text="Department2" />
+                    <TableColumn fx:id="faculty_tableView_col_facDept3" prefWidth="175.8848876953125" text="Department3" />
                 </columns>
             </TableView>
         </AnchorPane>

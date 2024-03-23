@@ -3,7 +3,7 @@ module com.learn.briliance {
     requires javafx.fxml;
     requires de.jensd.fx.glyphs.fontawesome;
     requires java.sql;
-    requires mysql.connector.java;
+    requires org.xerial.sqlitejdbc;
             
                             
     opens learn.brilliance to javafx.fxml;

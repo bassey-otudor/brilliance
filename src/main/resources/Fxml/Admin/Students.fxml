@@ -12,74 +12,49 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="915.0" stylesheets="@../../Styles/GlobalStyles.css"
-            xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="learn.brilliance.Controller.Admin.StudentsController">
-    <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.StudentsController">
+    <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
-            <TextField fx:id="stud_searchField" layoutX="181.0" layoutY="6.0" prefHeight="28.0"
-                       prefWidth="253.0" promptText="Search" styleClass="text-field-search"/>
-            <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="194.0" layoutY="24.0"/>
-            <ChoiceBox fx:id="stud_filterDept" layoutX="448.0" layoutY="7.0" prefHeight="27.0"
-                       prefWidth="175.0"/>
-            <ChoiceBox fx:id="stud_filterCourse" layoutX="648.0" layoutY="7.0" prefWidth="150.0"/>
-            <Label layoutX="24.0" layoutY="9.0" styleClass="label-table-title" text="Student Details"/>
+            <TextField fx:id="stud_searchField" layoutX="181.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
+            <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="194.0" layoutY="24.0" />
+            <ChoiceBox fx:id="stud_filterDept" layoutX="448.0" layoutY="7.0" prefHeight="27.0" prefWidth="175.0" />
+            <ChoiceBox fx:id="stud_filterCourse" layoutX="648.0" layoutY="7.0" prefWidth="150.0" />
+            <Label layoutX="24.0" layoutY="9.0" styleClass="label-table-title" text="Student Details" />
         </AnchorPane>
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
-            <TableView fx:id="stud_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627"
-                       prefWidth="915.1079387831637" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="stud_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627" prefWidth="915.1079387831637" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columns>
-                    <TableColumn fx:id="stud_tableView_col_studentID" prefWidth="71.82732796669006"
-                                 text="StudentID"/>
-                    <TableColumn fx:id="stud_tableView_col_fName" prefWidth="104.97842407226562"
-                                 text="FirstName"/>
-                    <TableColumn fx:id="stud_tableView_col_lName" prefWidth="90.01434326171875"
-                                 text="LastName"/>
-                    <TableColumn fx:id="stud_tableView_col_phoneNum" prefWidth="101.98564147949219"
-                                 text="PhoneNum"/>
-                    <TableColumn fx:id="stud_tableView_col_email" prefWidth="186.24456787109375" text="Email"/>
-                    <TableColumn fx:id="stud_tableView_col_gender" minWidth="0.0" prefWidth="63.53961181640625"
-                                 text="Gender"/>
-                    <TableColumn fx:id="stud_tableView_col_dept" prefWidth="80.80572509765625"
-                                 text="Department"/>
-                    <TableColumn fx:id="stud_tableView_col_degree" prefWidth="72.51800537109375" text="Degree"/>
-                    <TableColumn fx:id="stud_tableView_col_minor" prefWidth="64.230224609375" text="Minor"/>
-                    <TableColumn fx:id="stud_tableView_col_level" prefWidth="74.5899658203125" text="Level"/>
+                    <TableColumn fx:id="stud_tableView_col_studentID" prefWidth="71.82732796669006" text="StudentID" />
+                    <TableColumn fx:id="stud_tableView_col_fName" prefWidth="104.97842407226562" text="FirstName" />
+                    <TableColumn fx:id="stud_tableView_col_lName" prefWidth="90.01434326171875" text="LastName" />
+                    <TableColumn fx:id="stud_tableView_col_phoneNum" prefWidth="101.98564147949219" text="PhoneNum" />
+                    <TableColumn fx:id="stud_tableView_col_email" prefWidth="186.24456787109375" text="Email" />
+                    <TableColumn fx:id="stud_tableView_col_gender" minWidth="0.0" prefWidth="63.53961181640625" text="Gender" />
+                    <TableColumn fx:id="stud_tableView_col_dept" prefWidth="80.80572509765625" text="Department" />
+                    <TableColumn fx:id="stud_tableView_col_degree" prefWidth="106.359619140625" text="Degree" />
+                    <TableColumn fx:id="stud_tableView_col_minor" prefWidth="118.7913818359375" text="Minor" />
+                    <TableColumn fx:id="stud_tableView_col_level" prefWidth="67.4532470703125" text="Level" />
                 </columns>
             </TableView>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
-            <TextField fx:id="stud_fName" layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="151.0"
-                       promptText="First Name"/>
-            <TextField fx:id="stud_lName" layoutX="16.0" layoutY="56.0" prefHeight="29.0" prefWidth="151.0"
-                       promptText="Last Name"/>
-            <TextField fx:id="stud_email" layoutX="191.0" layoutY="14.0" prefHeight="28.0" prefWidth="325.0"
-                       promptText="Email"/>
-            <TextField fx:id="stud_phoneNum" layoutX="191.0" layoutY="56.0" prefHeight="28.0" prefWidth="146.0"
-                       promptText="Phone Number"/>
-            <DatePicker fx:id="stud_dob" layoutX="363.0" layoutY="56.0" prefHeight="27.0" prefWidth="151.0"
-                        promptText="Date of Birth"/>
-            <ChoiceBox fx:id="stud_gender" layoutX="14.0" layoutY="99.0" prefWidth="150.0"/>
-            <ChoiceBox fx:id="stud_department" layoutX="15.0" layoutY="141.0" prefWidth="150.0"/>
-            <ChoiceBox fx:id="stud_degree" layoutX="189.0" layoutY="99.0" prefWidth="150.0"/>
-            <ChoiceBox fx:id="stud_minor" layoutX="189.0" layoutY="141.0" prefWidth="150.0"/>
-            <PasswordField fx:id="stud_pwd" layoutX="364.0" layoutY="99.0" prefHeight="28.0" prefWidth="151.0"
-                           promptText="Password"/>
-            <ChoiceBox fx:id="stud_level" layoutX="364.0" layoutY="141.0" prefWidth="150.0"/>
-            <TextField fx:id="stud_studentID" disable="true" editable="false" layoutX="547.0" layoutY="99.0"
-                       promptText="StudentID"/>
-            <Button fx:id="stud_genIDBtn" layoutX="546.0" layoutY="140.0" mnemonicParsing="false"
-                    prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID"/>
-            <Button fx:id="stud_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false"
-                    prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete"/>
-            <Button fx:id="stud_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false"
-                    prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear"/>
-            <Button fx:id="stud_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false"
-                    prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update"/>
-            <Button fx:id="stud_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false"
-                    prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add"/>
+            <TextField fx:id="stud_fName" layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="151.0" promptText="First Name" />
+            <TextField fx:id="stud_lName" layoutX="16.0" layoutY="56.0" prefHeight="29.0" prefWidth="151.0" promptText="Last Name" />
+            <TextField fx:id="stud_email" layoutX="191.0" layoutY="14.0" prefHeight="28.0" prefWidth="325.0" promptText="Email" />
+            <TextField fx:id="stud_phoneNum" layoutX="191.0" layoutY="56.0" prefHeight="28.0" prefWidth="146.0" promptText="Phone Number" />
+            <DatePicker fx:id="stud_dob" layoutX="363.0" layoutY="56.0" prefHeight="27.0" prefWidth="151.0" promptText="Date of Birth" />
+            <ChoiceBox fx:id="stud_gender" layoutX="14.0" layoutY="99.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="stud_department" layoutX="15.0" layoutY="141.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="stud_degree" layoutX="189.0" layoutY="99.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="stud_minor" layoutX="189.0" layoutY="141.0" prefWidth="150.0" />
+            <PasswordField fx:id="stud_pwd" layoutX="364.0" layoutY="99.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
+            <ChoiceBox fx:id="stud_level" layoutX="364.0" layoutY="141.0" prefWidth="150.0" />
+            <TextField fx:id="stud_studentID" disable="true" editable="false" layoutX="547.0" layoutY="99.0" promptText="StudentID" />
+            <Button fx:id="stud_genIDBtn" layoutX="546.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
+            <Button fx:id="stud_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
+            <Button fx:id="stud_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
+            <Button fx:id="stud_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
+            <Button fx:id="stud_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

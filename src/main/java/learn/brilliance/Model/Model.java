@@ -146,7 +146,8 @@ public class Model {
                         resultSet.getString("password"),
                         resultSet.getString("course1"),
                         resultSet.getString("course2"),
-                        resultSet.getString("position")
+                        resultSet.getString("position"),
+                        resultSet.getString("facultyID")
                 );
 
                 teacherList.add(teacherData);

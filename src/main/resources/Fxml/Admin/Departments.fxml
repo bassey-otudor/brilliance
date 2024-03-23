@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="915.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.DepartmentsController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.DepartmentsController">
     <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="dept_searchField" layoutX="231.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
@@ -21,12 +21,12 @@
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
             <TableView fx:id="dept_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627" prefWidth="915.1079387831637" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columns>
-                    <TableColumn fx:id="dept_tableView_col_deptID" prefWidth="126.84890007972717" text="DepartmentID" />
-                    <TableColumn fx:id="dept_tableView_col_deptName" prefWidth="255.0791015625" text="DepartmentName" />
+                    <TableColumn fx:id="dept_tableView_col_deptID" prefWidth="112.34534358978271" text="DepartmentID" />
+                    <TableColumn fx:id="dept_tableView_col_deptName" prefWidth="270.2733383178711" text="DepartmentName" />
                     <TableColumn fx:id="dept_tableView_col_faculty" prefWidth="148.94973754882812" text="Facultiy" />
-               <TableColumn fx:id="dept_tableView_col_hod" prefWidth="123.0" text="HOD" />
-               <TableColumn fx:id="dept_tableView_col_minor1" prefWidth="127.53961181640625" text="Minor1" />
-               <TableColumn fx:id="dept_tableView_col_minor2" prefWidth="126.61865234375" text="Minor2" />
+               <TableColumn fx:id="dept_tableView_col_hod" prefWidth="208.34527587890625" text="HOD" />
+               <TableColumn fx:id="dept_tableView_col_minor1" prefWidth="132.60430908203125" text="Minor1" />
+               <TableColumn fx:id="dept_tableView_col_minor2" prefWidth="123.62591552734375" text="Minor2" />
                 </columns>
             </TableView>
         </AnchorPane>

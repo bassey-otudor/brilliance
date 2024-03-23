@@ -11,7 +11,7 @@ import java.util.List;
 
 public class connectDB {
     private Connection conn;
-    private static final String connURL = "jdbc:mysql://localhost:3306/school_db_structure";
+    private static final String connURL = "jdbc:sqlite:school_db_structure.db";
     private static final String username = "root";
     private static final String password = "";
     public connectDB() {
@@ -57,12 +57,12 @@ public class connectDB {
         ResultSet resultSet;
 
         try {
-            String sql = "SELECT CONCAT(fname, ' ', lName) AS facDirector FROM teachers WHERE position = 'director'";
+            String getDirectors = "SELECT CONCAT(fname, ' ', lName) AS facultyDirector FROM teachers WHERE position = 'Director'";
             stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(sql);
+            resultSet = stmt.executeQuery(getDirectors);
 
             while (resultSet.next()) {
-                directorList.add(resultSet.getString("facDirector"));
+                directorList.add(resultSet.getString("facultyDirector"));
             }
 
             directorList = FXCollections.observableArrayList(directorList);
@@ -75,6 +75,7 @@ public class connectDB {
         assert directorList instanceof ObservableList<String>;
         return (ObservableList<String>) directorList;
     }
+
     public void createFaculty(String facultyID,String facultyName, String director, String department1, String department2, String department3) {
         Statement stmt;
         try {
@@ -324,7 +325,7 @@ public class connectDB {
         assert genderList instanceof ObservableList<String>;
         return (ObservableList<String>) genderList;
     }
-    public ObservableList<String> getDepartments() {
+    public ObservableList<String> getCourseDepartments() {
         List<String> departmentList = new ArrayList<>();
 
         String selectDepartments = "SELECT deptID FROM departments;";
@@ -393,10 +394,10 @@ public class connectDB {
         assert positionList instanceof ObservableList<String>;
         return (ObservableList<String>) positionList;
     }
-    public void createTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String password, String course1, String course2, String position) {
+    public void createTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String password, String course1, String course2, String position, String facultyID) {
         String createTeacher = "INSERT INTO teachers " +
-                "(teacherID, fName, lName, gender, phoneNum, email, deptID, dob, password, course1, course2, position)" +
-                "VALUES ('"+teacherID+"', '"+firstName+"', '"+lastName+"', '"+gender+"', '"+phoneNumber+"', '"+email+"', '"+departmentID+"', '"+dob+"', '"+password+"', '"+course1+"', '"+course2+"', '"+position+"');";
+                "(teacherID, fName, lName, gender, phoneNum, email, deptID, dob, password, course1, course2, position, facultyID)" +
+                "VALUES ('"+teacherID+"', '"+firstName+"', '"+lastName+"', '"+gender+"', '"+phoneNumber+"', '"+email+"', '"+departmentID+"', '"+dob+"', '"+password+"', '"+course1+"', '"+course2+"', '"+position+"', '"+facultyID+"');";
         Statement stmt;
         try {
             stmt = conn.createStatement();
@@ -406,8 +407,8 @@ public class connectDB {
             e.printStackTrace();
         }
     }
-    public void updateTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String course1, String course2, String position) {
-        String updateTeacher= "UPDATE teachers SET fName = '"+firstName+"', lName = '"+lastName+"', gender = '"+gender+"', phoneNum = '"+phoneNumber+"', email = '"+email+"', deptID = '"+departmentID+"', dob = '"+dob+"', cousrse1= '"+course1+"', course2 = '"+course2+"', position = '"+position+"' WHERE teacherID ='"+teacherID+"';";
+    public void updateTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String course1, String course2, String position, String facultyID) {
+        String updateTeacher= "UPDATE teachers SET fName = '"+firstName+"', lName = '"+lastName+"', gender = '"+gender+"', phoneNum = '"+phoneNumber+"', email = '"+email+"', deptID = '"+departmentID+"', dob = '"+dob+"', course1= '"+course1+"', course2 = '"+course2+"', position = '"+position+"', facultyID = '"+facultyID+"' WHERE teacherID ='"+teacherID+"';";
         Statement stmt;
         try {
             stmt = conn.createStatement();
@@ -468,6 +469,7 @@ public class connectDB {
 
         return resultSet;
     }
+
     public ObservableList<String> getLevel() {
         final String [] levels = {"1", "2", "3", "4"};
         List<String > levelList = new ArrayList<>();
@@ -476,7 +478,8 @@ public class connectDB {
         levelList = FXCollections.observableArrayList(levelList);
         return (ObservableList<String>) levelList;
     }
-    public ObservableList<String> getDepartments(String facultyID) {
+
+    public ObservableList<String> getCourseDepartments(String facultyID) {
         List<String> departmentList = new ArrayList<>();
 
         String selectDepartments = "SELECT deptID FROM departments WHERE facultyID = '"+facultyID+"';";
@@ -499,6 +502,7 @@ public class connectDB {
         assert departmentList instanceof ObservableList<String>;
         return (ObservableList<String>) departmentList;
     }
+
     public ObservableList<String> getCourseTeacher(String departmentID) {
         List<String> teacherList = new ArrayList<>();
 
@@ -523,11 +527,22 @@ public class connectDB {
         assert teacherList instanceof ObservableList<String>;
         return (ObservableList<String>) teacherList;
     }
-    public void createCourse(String courseID, String courseName, String courseLevel, String departmentID, String teacherID) {
+
+    /**
+     * Creates a new course in the database.
+     *
+     * @param courseID The unique ID of the course.
+     * @param courseName The name of the course.
+     * @param courseLevel The level of the course.
+     * @param departmentID The ID of the department that the course belongs to.
+     * @param teacherID The ID of the teacher that is teaching the course.
+     * @param facultyID The ID of the faculty that is associated with the course.
+     */
+    public void createCourse(String courseID, String courseName, String courseLevel, String departmentID, String teacherID, String facultyID) {
 
         String createCourse = "INSERT INTO Courses " +
-                "(courseID, courseName, courseLevel, deptName, teacherID)" +
-                "VALUES ('"+courseID+"', '"+courseName+"', '"+courseLevel+"', '"+departmentID+"', '"+teacherID+"');";
+                "(courseID, courseName, courseLevel, deptName, teacherID, facultyID)" +
+                "VALUES ('"+courseID+"', '"+courseName+"', '"+courseLevel+"', '"+departmentID+"', '"+teacherID+"', '"+facultyID+"');";
         Statement stmt;
         try {
             stmt = conn.createStatement();
@@ -538,8 +553,19 @@ public class connectDB {
             e.printStackTrace();
         }
     }
-    public void updateCourse(String courseID, String courseName, String courseLevel, String departmentID, String teacherID) {
-        String updateCourse = "UPDATE courses SET courseID = '"+courseID+"', courseName = '"+courseName+"', courseLevel = '"+courseLevel+"', deptID = '"+departmentID+"', teacherID = '"+teacherID+"' WHERE courseID = '"+courseID+"'";
+
+    /**
+     * This method is used to update a course in the database.
+     *
+     * @param courseID The unique ID of the course to update.
+     * @param courseName The name of the course.
+     * @param courseLevel The level of the course.
+     * @param departmentID The ID of the department that the course belongs to.
+     * @param teacherID The ID of the teacher that is teaching the course.
+     * @param facultyID The ID of the faculty that is associated with the course.
+     */
+    public void updateCourse(String courseID, String courseName, String courseLevel, String departmentID, String teacherID, String facultyID) {
+        String updateCourse = "UPDATE courses SET courseID = '"+courseID+"', courseName = '"+courseName+"', courseLevel = '"+courseLevel+"', deptID = '"+departmentID+"', teacherID = '"+teacherID+"', facultyID = '"+facultyID+"' WHERE courseID = '"+courseID+"'";
 
         Statement stmt;
         try {
@@ -551,6 +577,12 @@ public class connectDB {
             e.printStackTrace();
         }
     }
+
+    /**
+     * This method is used to delete a course from the database.
+     *
+     * @param courseID The ID of the course to delete.
+     */
     public void deleteCourse(String courseID) {
         Statement stmt;
         try {
@@ -562,17 +594,55 @@ public class connectDB {
             e.printStackTrace();
         }
     }
-    public void insertCoursesInTeacher(String column, String teacherID, String courseID) {
-        String insertCourse = "UPDATE teachers SET "+column+" = '"+courseID+"' WHERE teacherID ='"+teacherID+"';";
+
+
+    /**
+ * This method is used to insert or delete a course from a teacher.
+ *
+ * @param column The column name of the courses table that will be updated.
+ * @param teacherID The ID of the teacher that the course will be assigned or removed from.
+ * @param courseID The ID of the course that will be assigned or removed.
+ * @param operation A boolean value indicating whether to insert or delete the course.
+ */
+    public void insertCoursesInTeacher(String column, String teacherID, String courseID, boolean operation) {
+
+    if (operation) {
         try {
+
+            String insertCourse = "UPDATE teachers SET " + column + " = '" + courseID + "' WHERE teacherID = '" + teacherID + "';";
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(insertCourse);
+
         } catch (SQLException e) {
             System.out.println("Unable to assign courses to the designated teacher.");
             e.printStackTrace();
         }
+
+    } else {
+
+        String setNull = "null";
+
+        try {
+            String deleteCourse = "UPDATE teachers SET " + column + " = '" + setNull + "' WHERE teacherID = '" + teacherID + "';";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(deleteCourse);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to delete courses from the designated teacher.");
+            e.printStackTrace();
+        }
     }
-    public ResultSet checkEmptyCoursesColumns(String teacherID) {
+
+
+}
+
+    /**
+     * This method is used to check if a teacher has any courses assigned to them.
+     *
+     * @param teacherID The ID of the teacher to check.
+     * @return A ResultSet containing the teacher's information, including any courses they are assigned to.
+     */
+    public ResultSet checkTeacherCoursesColumns(String teacherID) {
         String checkCourses = "SELECT * FROM teachers WHERE teacherID ='"+teacherID+"';";
         Statement stmt;
         ResultSet resultSet = null;
@@ -589,10 +659,20 @@ public class connectDB {
 
     // Utility methods
 
-    public boolean checkData(String id, String name, String idColumn, String nameColumn, String tableName) {
+    /**
+     * This method is used to check if a specific data exists in a specific table.
+     *
+     * @param tableName The name of the table to search in.
+     * @param idColumn The name of the column that contains the unique ID of the entity.
+     * @param entityID The unique ID of the entity to check.
+     * @param nameColumn The name of the column that contains the name of the entity.
+     * @param entityName The name of the entity to check.
+     * @return A boolean value indicating whether the entity exists or not.
+     */
+    public boolean checkData(String tableName, String idColumn, String entityID, String nameColumn, String entityName) {
 
         boolean doesExists = false;
-        String checkCourse = "SELECT * FROM "+tableName+" WHERE "+idColumn+" = '"+id+"' OR '"+nameColumn+"' = '"+name+"';";
+        String checkCourse = "SELECT * FROM "+tableName+" WHERE "+idColumn+" = '"+entityID+"' OR '"+nameColumn+"' = '"+entityName+"';";
         Statement stmt;
         ResultSet resultSet;
 

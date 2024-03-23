@@ -4,6 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import learn.brilliance.Model.Department;
 import learn.brilliance.Model.Faculty;
 import learn.brilliance.Model.Model;
 
@@ -12,6 +13,10 @@ import java.util.ResourceBundle;
 
 
 public class FacultiesController implements Initializable {
+
+    private final String idColumn = "facultyID";
+    private final String tableName = "faculties";
+    private final String nameColumn = "facultyName";
     public TextField faculty_searchField;
     public TableView<Faculty> faculty_tableView;
     public TableColumn<Faculty, String> faculty_tableView_col_facID;
@@ -90,16 +95,32 @@ public class FacultiesController implements Initializable {
         String department2 = faculty_dept2.getText();
         String department3 = faculty_dept3.getText();
 
-        if (facultyID.isEmpty() || facultyName.isEmpty() || department1.isEmpty() || department2.isEmpty()) {
-            operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
-            operationStatus.setText("Please fill all fields.");
-        } else {
-            Model.getInstance().getConnectDB().createFaculty(facultyID, facultyName, facultyDirector, department1, department2, department3);
-            operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
-            operationStatus.setText("Added faculty successfully.");
-            clearFields();
-            faculty_tableView.setItems(Model.getInstance().setFaculties());
+        // boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID, nameColumn, facultyName);
+
+        try {
+
+            if(facultyID.isEmpty() || facultyName.isEmpty()) {
+                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                operationStatus.setText("Please fill all fields.");
+
+            } else {
+
+                Model.getInstance().getConnectDB().createFaculty(facultyID, facultyName, facultyDirector, department1, department2, department3);
+                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
+                operationStatus.setText("Added faculty successfully.");
+
+                // Update faculty table
+                faculty_tableView.setItems(Model.getInstance().setFaculties());
+                // Update departments table
+                // dept_tableView.setItems(Model.getInstance().setDepartments());
+
+                clearFields();
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
 
     }
     private void updateFaculty() {
@@ -135,19 +156,29 @@ public class FacultiesController implements Initializable {
             faculty_tableView.setItems(Model.getInstance().setFaculties());
         }
     }
+
+
+    /**
+ * Clears all text fields in the faculty form.
+ */
     private void clearFields() {
-        faculty_facName.setText("");
-        faculty_facID.setText("");
-        faculty_director.setValue("");
-        faculty_dept1.setText("");
-        faculty_dept2.setText("");
-        faculty_dept3.setText("");
-    }
+    faculty_facName.setText("");
+    faculty_facID.setText("");
+    faculty_director.setValue("");
+    faculty_dept1.setText("");
+    faculty_dept2.setText("");
+    faculty_dept3.setText("");
+}
+
+    /**
+ * Initializes the faculty table view by populating it with data from the database.
+ */
     private void initialiseFacultiesTable() {
-        if(Model.getInstance().getFaculties().isEmpty()) {
-            Model.getInstance().setFaculties();
-        }
+    if (Model.getInstance().getFaculties().isEmpty()) {
+        Model.getInstance().setFaculties();
     }
+}
+
     private void bindFacultyTableData() {
         faculty_tableView_col_facID.setCellValueFactory(cellData -> cellData.getValue().facultyIDProperty());
         faculty_tableView_col_facName.setCellValueFactory(cellDate -> cellDate.getValue().facultyNameProperty());
@@ -156,6 +187,10 @@ public class FacultiesController implements Initializable {
         faculty_tableView_col_facDept2.setCellValueFactory(cellData -> cellData.getValue().department2Property());
         faculty_tableView_col_facDept3.setCellValueFactory(cellData -> cellData.getValue().department3Property());
     }
+
+    /**
+     * Selects the currently selected faculty in the faculty table.
+     */
     private void selectFaculties() {
         Faculty faculties = faculty_tableView.getSelectionModel().getSelectedItem();
         int num = faculty_tableView.getSelectionModel().getSelectedIndex();

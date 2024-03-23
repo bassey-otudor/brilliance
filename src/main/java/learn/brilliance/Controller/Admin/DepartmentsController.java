@@ -14,10 +14,14 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DepartmentsController implements Initializable {
+
+    public final String tableName = "departments";
+    public final String idColumn = "deptID";
+    public final String columnName = "deptName";
+
     public TextField dept_searchField;
     public ChoiceBox<String> dept_filterDept;
     public TableView<Department> dept_tableView;
-    public TableView<Faculty> faculty_tableView;
     public TableColumn<Department, String> dept_tableView_col_deptID;
     public TableColumn<Department, String> dept_tableView_col_deptName;
     public TableColumn<Department, String> dept_tableView_col_faculty;
@@ -87,6 +91,8 @@ public class DepartmentsController implements Initializable {
             dept_tableView.setItems(sortedList);
         }));
     }
+
+
     private void createDepartment() {
         String departmentID = dept_deptID.getText().toUpperCase();
         String departmentName = dept_deptName.getText();
@@ -94,37 +100,48 @@ public class DepartmentsController implements Initializable {
         String hod = dept_hod.getValue();
         String minor1 = dept_minor1.getValue();
         String minor2 = dept_minor2.getValue();
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID, columnName, departmentName);
 
         try {
 
-            if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty()) {
+            if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty() || hod.isEmpty() || minor1.isEmpty() || minor2.isEmpty()) {
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 operationStatus.setText("Please fill required fields.");
 
             } else {
 
-                ResultSet resultSet = Model.getInstance().getConnectDB().checkEmptyDepartmentsColumns(facultyID);
-                while (resultSet.next()) {
-                    if(resultSet.getString("Department1").isEmpty()) {
-                        String column = "Department1";
-                        Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                if(doesExist) {
+                    operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                    operationStatus.setText("Department already exists.");
 
-                    } else if (resultSet.getString("Department2").isEmpty()){
-                        String column = "Department2";
-                        Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                } else {
 
-                    } else if (resultSet.getString("Department3").isEmpty()) {
-                        String column = "Department3";
-                        Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                    ResultSet resultSet = Model.getInstance().getConnectDB().checkEmptyDepartmentsColumns(facultyID);
+                    while (resultSet.next()) {
+                        if(resultSet.getString("Department1").isEmpty()) {
+                            String column = "Department1";
+                            Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+
+                        } else if (resultSet.getString("Department2").isEmpty()){
+                            String column = "Department2";
+                            Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+
+                        } else if (resultSet.getString("Department3").isEmpty()) {
+                            String column = "Department3";
+                            Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                        }
                     }
-                }
 
-                Model.getInstance().getConnectDB().createDepartment(departmentID, departmentName, facultyID, hod, minor1, minor2);
-                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
-                operationStatus.setText("Department successfully added.");
-                dept_tableView.setItems(Model.getInstance().setDepartments());
-                faculty_tableView.setItems(Model.getInstance().setFaculties());
-                clearFields();
+                    Model.getInstance().getConnectDB().createDepartment(departmentID, departmentName, facultyID, hod, minor1, minor2);
+                    operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
+                    operationStatus.setText("Department successfully added.");
+
+                    // Update departments table
+                    dept_tableView.setItems(Model.getInstance().setDepartments());
+                    //Update faculty table
+                    // faculty_tableView.setItems(Model.getInstance().setFaculties());
+                    clearFields();
+                }
             }
         } catch (SQLException e) {
             System.out.println("Unable to create department.");
@@ -138,18 +155,27 @@ public class DepartmentsController implements Initializable {
         String hod = dept_hod.getSelectionModel().toString();
         String minor1 = dept_minor1.getSelectionModel().toString();
         String minor2 = dept_minor2.getSelectionModel().toString();
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID, columnName, departmentName);
 
-        if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty()) {
+        if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty() || hod.isEmpty() || minor1.isEmpty() || minor2.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
             operationStatus.setText("Please fill required fields.");
 
         } else {
-            Model.getInstance().getConnectDB().updateDepartment(departmentID, departmentName, facultyID, hod, minor1, minor2);
-            operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
-            operationStatus.setText("Department successfully updated.");
-            dept_tableView.setItems(Model.getInstance().setDepartments());
-            faculty_tableView.setItems(Model.getInstance().setFaculties());
-            clearFields();
+
+            if (doesExist) {
+
+                Model.getInstance().getConnectDB().updateDepartment(departmentID, departmentName, facultyID, hod, minor1, minor2);
+                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
+                operationStatus.setText("Department successfully updated.");
+                dept_tableView.setItems(Model.getInstance().setDepartments());
+                // faculty_tableView.setItems(Model.getInstance().setFaculties());
+                clearFields();
+            } else {
+
+                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                operationStatus.setText("Department does not exist.");
+            }
         }
 
     }
@@ -163,7 +189,7 @@ public class DepartmentsController implements Initializable {
             operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
             operationStatus.setText("Department successfully deleted.");
             dept_tableView.setItems(Model.getInstance().setDepartments());
-            faculty_tableView.setItems(Model.getInstance().setFaculties());
+            // faculty_tableView.setItems(Model.getInstance().setFaculties());
             clearFields();
         }
     }
@@ -195,6 +221,11 @@ public class DepartmentsController implements Initializable {
         if((num -1) < -1) return;
         dept_deptID.setText(String.valueOf(departments.departmentIDProperty().get()));
         dept_deptName.setText(String.valueOf(departments.departmentNameProperty().get()));
+        dept_faculty.setValue(String.valueOf(departments.facultyIDProperty().get()));
+        dept_hod.setValue(String.valueOf(departments.hodProperty().get()));
+        dept_minor1.setValue(String.valueOf(departments.minor1Property().get()));
+        dept_minor2.setValue(String.valueOf(departments.minor2Property().get()));
+
 
     }
 

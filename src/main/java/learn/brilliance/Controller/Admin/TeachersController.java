@@ -22,6 +22,7 @@ public class TeachersController implements Initializable {
     public TableColumn<Teacher, String> teach_tableView_col_phoneNum;
     public TableColumn<Teacher, String> teach_tableView_col_email;
     public TableColumn<Teacher, String> teach_tableView_col_gender;
+    public TableColumn<Teacher, String> teach_tableView_col_facultyID;
     public TableColumn<Teacher, String> teach_tableView_col_department;
     public TableColumn<Teacher, String> teach_tableView_col_course1;
     public TableColumn<Teacher, String> teach_tableView_col_course2;
@@ -31,11 +32,12 @@ public class TeachersController implements Initializable {
     public TextField teach_lName;
     public TextField teach_email;
     public TextField teach_phoneNum;
-    public ChoiceBox<String> teach_gender;
     public DatePicker teach_dob;
-    public ChoiceBox<String> teach_deptID;
     public PasswordField teach_pwd;
+    public ChoiceBox<String> teach_gender;
     public TextField teach_teacherID;
+    public ChoiceBox<String> teach_deptID;
+    public ChoiceBox<String> teach_facultyID;
     public ChoiceBox<String> teach_course1;
     public ChoiceBox<String> teach_course2;
     public ChoiceBox<String> teach_position;
@@ -49,10 +51,11 @@ public class TeachersController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         teach_gender.setItems(Model.getInstance().getConnectDB().getGender());
-        teach_deptID.setItems(Model.getInstance().getConnectDB().getDepartments());
+        teach_deptID.setItems(Model.getInstance().getConnectDB().getCourseDepartments());
         teach_course1.setItems(Model.getInstance().getConnectDB().getCourses());
         teach_course2.setItems(Model.getInstance().getConnectDB().getCourses());
         teach_position.setItems(Model.getInstance().getConnectDB().getPosition());
+        teach_facultyID.setItems(Model.getInstance().getConnectDB().getFaculties());
 
         teach_addBtn.setOnAction(e -> createTeacher());
         teach_updateBtn.setOnAction(e -> updateTeacher());
@@ -114,13 +117,14 @@ public class TeachersController implements Initializable {
         String course1 = teach_course1.getValue();
         String course2 = teach_course2.getValue();
         String position = teach_position.getValue();
+        String facultyID = teach_facultyID.getValue();
 
-        if(teacherID.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || gender.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() || password.isEmpty() || position.isEmpty()) {
+        if(teacherID.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || gender.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() || password.isEmpty() || position.isEmpty() || facultyID.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
             operationStatus.setText("Please fill required fields.");
 
         } else {
-            Model.getInstance().getConnectDB().createTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob,password, course1, course2, position);
+            Model.getInstance().getConnectDB().createTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob,password, course1, course2, position, facultyID);
             operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
             operationStatus.setText("Teacher successfully added.");
 
@@ -140,8 +144,9 @@ public class TeachersController implements Initializable {
         String course1 = teach_course1.getValue();
         String course2 = teach_course2.getValue();
         String position = teach_position.getValue();
+        String facultyID = teach_facultyID.getValue();
 
-        Model.getInstance().getConnectDB().updateTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob, course1, course2, position);
+        Model.getInstance().getConnectDB().updateTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob, course1, course2, position, facultyID);
         operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
         operationStatus.setText("Teacher updated successfully.");
 
@@ -182,11 +187,13 @@ public class TeachersController implements Initializable {
         teach_tableView_col_phoneNum.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
         teach_tableView_col_email.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
         teach_tableView_col_gender.setCellValueFactory(cellData -> cellData.getValue().genderProperty());
+        teach_tableView_col_facultyID.setCellValueFactory(cellData -> cellData.getValue().facultyIDProperty());
         teach_tableView_col_department.setCellValueFactory(cellData -> cellData.getValue().departmentIDProperty());
         teach_tableView_col_course1.setCellValueFactory(cellData -> cellData.getValue().course1Property());
         teach_tableView_col_course2.setCellValueFactory(cellData -> cellData.getValue().course2Property());
         teach_tableView_col_position.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
         teach_tableView_col_dob.setCellValueFactory(cellData -> cellData.getValue().dobProperty());
+
     }
     private void generateTeacherID() {
         String rowCount = String.valueOf(Model.getInstance().getConnectDB().getTeacherRowCount() + 1);

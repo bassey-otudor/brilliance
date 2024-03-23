@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
@@ -7,7 +8,6 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,11 +15,11 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="915.0" stylesheets="@../../../Styles/AdminDashboard.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.Dashboard.DashboardController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../../Styles/AdminDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.Dashboard.DashboardController">
    <HBox layoutX="129.0" layoutY="210.0" prefHeight="558.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <VBox prefHeight="600.0" prefWidth="520.0">
+      <VBox prefHeight="600.0" prefWidth="633.0">
          <AnchorPane prefHeight="118.0" prefWidth="520.0" styleClass="main-container">
-            <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="108.0" prefWidth="510.0" stylesheets="@../../../Styles/AdminDashboard.css">
+            <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="108.0" prefWidth="628.0" stylesheets="@../../../Styles/AdminDashboard.css">
                <styleClass>
                   <String fx:value="main-container" />
                   <String fx:value="card" />
@@ -41,16 +41,17 @@
                   <font>
                      <Font name="Segoe UI Italic" size="12.0" />
                   </font></Label>
+               <FontAwesomeIconView fx:id="dashboard_messageIcon" fill="#ec6666" glyphName="INFO_CIRCLE" layoutX="541.0" layoutY="75.0" size="60" />
             </AnchorPane>
          </AnchorPane>
-         <AnchorPane prefHeight="200.0" prefWidth="505.0" styleClass="main-container">
+         <AnchorPane prefHeight="200.0" prefWidth="669.0" styleClass="main-container">
             <AnchorPane layoutX="5.0" layoutY="8.0" prefHeight="187.0" prefWidth="510.0">
                <styleClass>
                   <String fx:value="main-container" />
                   <String fx:value="card" />
                </styleClass>
                <PieChart fx:id="dashboard_pieChart" layoutX="4.0" layoutY="21.0" prefHeight="160.0" prefWidth="200.0" />
-               <AnchorPane layoutX="216.0" layoutY="3.0" prefHeight="180.0" prefWidth="291.0">
+               <AnchorPane layoutX="216.0" layoutY="3.0" prefHeight="180.0" prefWidth="412.0">
                   <Circle fill="DODGERBLUE" layoutX="14.0" layoutY="22.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                   <Label layoutX="25.0" layoutY="13.0" text="Chemistry" />
                   <Circle fill="#607914" layoutX="151.0" layoutY="22.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
@@ -80,7 +81,7 @@
             </AnchorPane>
          </AnchorPane>
          <AnchorPane prefHeight="264.0" prefWidth="520.0" styleClass="main-container">
-            <AnchorPane layoutX="4.0" layoutY="5.0" prefHeight="269.0" prefWidth="510.0">
+            <AnchorPane layoutX="4.0" layoutY="5.0" prefHeight="269.0" prefWidth="631.0">
                <styleClass>
                   <String fx:value="main-container" />
                   <String fx:value="card" />
@@ -93,7 +94,7 @@
                <Circle fill="#af14d6" layoutX="300.0" layoutY="20.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                <Label layoutX="311.0" layoutY="11.0" text="Total" />
             </AnchorPane>
-            <LineChart fx:id="dashboard_lineGraph" layoutX="8.0" layoutY="39.0" prefHeight="234.0" prefWidth="500.0">
+            <LineChart fx:id="dashboard_lineGraph" layoutX="8.0" layoutY="39.0" prefHeight="234.0" prefWidth="637.0">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>
@@ -103,48 +104,52 @@
             </LineChart>
          </AnchorPane>
       </VBox>
-      <VBox prefHeight="571.0" prefWidth="203.0">
-         <AnchorPane prefHeight="601.0" prefWidth="203.0">
-            <AnchorPane layoutX="5.0" layoutY="4.0" prefHeight="589.0" prefWidth="193.0">
-               <styleClass>
-                  <String fx:value="main-container" />
-                  <String fx:value="card" />
-               </styleClass>
-               <VBox layoutX="38.0" layoutY="75.0" prefHeight="589.1223183260669" prefWidth="196.14389027503282" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                  <AnchorPane prefHeight="30.0" prefWidth="196.0">
-                     <Label layoutX="74.0" layoutY="6.0" styleClass="label-title" text="Results" />
-                  </AnchorPane>
-                  <AnchorPane prefHeight="27.0" prefWidth="196.0">
-                     <Label fx:id="dashboard_term" layoutX="73.0" layoutY="6.0" styleClass="label-term" text="First term" />
-                  </AnchorPane>
-                  <AnchorPane prefHeight="541.0" prefWidth="169.0">
+      <HBox prefHeight="600.0" prefWidth="375.0">
+         <children>
+            <AnchorPane prefHeight="600.0" prefWidth="169.0">
+               <children>
+                  <AnchorPane layoutY="6.0" prefHeight="587.0" prefWidth="171.0">
                      <children>
-                        <AnchorPane layoutX="3.0" prefHeight="532.0" prefWidth="186.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="0.0" />
-                        <ListView fx:id="dashboard_listView" layoutX="4.0" maxWidth="455.0" prefHeight="535.0" prefWidth="186.0" />
+                        <VBox layoutX="39.0" layoutY="0.6906475009684254" prefHeight="579.0" prefWidth="171.0" visible="false" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                           <children>
+                              <AnchorPane prefHeight="43.0" prefWidth="171.0" />
+                              <ListView fx:id="dashbaord_termListView" prefHeight="535.0" prefWidth="171.0" />
+                           </children>
+                        </VBox>
+                        <Label layoutX="25.0" layoutY="5.0" styleClass="label-greeting" text="Departmental Results" />
+                        <Label fx:id="dashboard_termListView" layoutX="58.0" layoutY="22.0" styleClass="label-message" text="First Term" />
                      </children>
+                     <styleClass>
+                        <String fx:value="main-container" />
+                        <String fx:value="card" />
+                     </styleClass>
                   </AnchorPane>
-               </VBox>
+               </children>
             </AnchorPane>
-         </AnchorPane>
-      </VBox>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <AnchorPane layoutX="5.0" layoutY="4.0" prefHeight="589.0" prefWidth="188.0">
-            <styleClass>
-               <String fx:value="main-container" />
-               <String fx:value="card" />
-            </styleClass>
-            <VBox layoutX="31.0" layoutY="96.0" prefHeight="589.1223183260669" prefWidth="188.54676776438015" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <AnchorPane prefHeight="30.0" prefWidth="189.0">
-                  <Label layoutX="35.0" layoutY="5.0" prefHeight="19.0" prefWidth="118.0" styleClass="label-title" text="Teacher's Success" />
-               </AnchorPane>
-               <AnchorPane prefHeight="32.0" prefWidth="189.0">
-                  <TextField fx:id="dashboard_search" layoutX="7.0" layoutY="1.0" prefHeight="28.0" prefWidth="175.0" promptText="Search" />
-               </AnchorPane>
-               <ScrollPane prefHeight="527.0" prefWidth="189.0" styleClass="main-container">
-                  <AnchorPane fx:id="dashboard_scrollPane" minHeight="0.0" minWidth="0.0" prefHeight="519.0" prefWidth="189.0" styleClass="main-container" />
-               </ScrollPane>
-            </VBox>
-         </AnchorPane>
-      </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane layoutX="11.0" layoutY="6.0" prefHeight="586.0" prefWidth="165.0">
+                     <children>
+                        <VBox layoutX="4.143885005810552" layoutY="6.0" prefHeight="586.3597283221932" prefWidth="165.06475273145367" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane prefHeight="70.0" prefWidth="165.0">
+                                 <children>
+                                    <Label layoutX="25.0" layoutY="4.0" styleClass="label-title" text="Teacher Success" />
+                                    <TextField layoutX="16.0" layoutY="28.0" prefHeight="19.0" prefWidth="137.0" />
+                                 </children>
+                              </AnchorPane>
+                              <ListView fx:id="dashboard_teacherSuccess" prefHeight="521.0" prefWidth="165.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <styleClass>
+                        <String fx:value="main-container" />
+                        <String fx:value="card" />
+                     </styleClass>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
    </HBox>
 </AnchorPane>

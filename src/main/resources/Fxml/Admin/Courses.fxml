@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="915.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.CoursesController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.CoursesController">
     <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="course_searchField" layoutX="173.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
@@ -26,9 +26,9 @@
                     <TableColumn fx:id="course_tableView_col_courseID" prefWidth="85.64029717445374" text="CourseID" />
                     <TableColumn fx:id="course_tableView_col_courseName" prefWidth="311.4820022583008" text="CourseName" />
                     <TableColumn fx:id="course_tableView_col_level" prefWidth="83.10797119140625" text="Level" />
-                    <TableColumn fx:id="course_tableView_col_dept" prefWidth="110.7337646484375" text="Departnment" />
-               <TableColumn fx:id="course_tableView_col_teacher" minWidth="0.0" prefWidth="226.07196044921875" text="Teacher" />
-               <TableColumn fx:id="course_tableView_col_facultyID" prefWidth="91.6258544921875" text="FacultyID" />
+                    <TableColumn fx:id="course_tableView_col_dept" prefWidth="153.55401611328125" text="Departnment" />
+               <TableColumn fx:id="course_tableView_col_teacher" minWidth="0.0" prefWidth="231.13665771484375" text="Teacher" />
+               <TableColumn fx:id="course_tableView_col_facultyID" prefWidth="129.3812255859375" text="FacultyID" />
                 </columns>
             </TableView>
         </AnchorPane>

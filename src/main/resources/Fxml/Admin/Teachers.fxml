@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="915.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.TeachersController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.TeachersController">
     <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="teach_searchField" layoutX="181.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
@@ -28,13 +28,14 @@
                     <TableColumn fx:id="teach_tableView_col_fName" prefWidth="80.57551574707031" text="FirstName" />
                     <TableColumn fx:id="teach_tableView_col_lName" prefWidth="89.09349060058594" text="LastName" />
                     <TableColumn fx:id="teach_tableView_col_phoneNum" prefWidth="95.53964233398438" text="PhoneNum" />
-                    <TableColumn fx:id="teach_tableView_col_email" prefWidth="163.22305297851562" text="Email" />
-                    <TableColumn fx:id="teach_tableView_col_gender" minWidth="0.0" prefWidth="60.3165283203125" text="Gender" />
-                    <TableColumn fx:id="teach_tableView_col_department" prefWidth="53.6402587890625" text="Department" />
-                    <TableColumn fx:id="teach_tableView_col_course1" prefWidth="72.74822998046875" text="Course1" />
-                    <TableColumn fx:id="teach_tableView_col_course2" prefWidth="73.6690673828125" text="Course2" />
-                    <TableColumn fx:id="teach_tableView_col_position" prefWidth="79.19427490234375" text="Position" />
-                    <TableColumn fx:id="teach_tableView_col_dob" prefWidth="57.7840576171875" text="DoB" />
+                    <TableColumn fx:id="teach_tableView_col_email" prefWidth="129.61154174804688" text="Email" />
+                    <TableColumn fx:id="teach_tableView_col_gender" minWidth="0.0" prefWidth="49.956817626953125" text="Gender" />
+               <TableColumn fx:id="teach_tableView_col_facultyID" minWidth="0.0" prefWidth="77.582763671875" text="Faculty" />
+                    <TableColumn fx:id="teach_tableView_col_department" prefWidth="81.4964599609375" text="Department" />
+                    <TableColumn fx:id="teach_tableView_col_course1" prefWidth="63.99993896484375" text="Course1" />
+                    <TableColumn fx:id="teach_tableView_col_course2" prefWidth="64.92095947265625" text="Course2" />
+                    <TableColumn fx:id="teach_tableView_col_position" prefWidth="83.5682373046875" text="Position" />
+                    <TableColumn fx:id="teach_tableView_col_dob" prefWidth="91.85614013671875" text="DoB" />
                 </columns>
             </TableView>
         </AnchorPane>
@@ -45,18 +46,19 @@
             <TextField fx:id="teach_phoneNum" layoutX="191.0" layoutY="56.0" prefHeight="28.0" prefWidth="146.0" promptText="Phone Number" />
             <ChoiceBox fx:id="teach_gender" layoutX="14.0" layoutY="99.0" prefWidth="150.0" />
             <DatePicker fx:id="teach_dob" layoutX="363.0" layoutY="56.0" prefHeight="27.0" prefWidth="151.0" promptText="Date of Birth" />
-            <ChoiceBox fx:id="teach_deptID" layoutX="189.0" layoutY="99.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="teach_facultyID" layoutX="189.0" layoutY="99.0" prefWidth="150.0" />
             <PasswordField fx:id="teach_pwd" layoutX="364.0" layoutY="99.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
-            <TextField fx:id="teach_teacherID" disable="true" layoutX="541.0" layoutY="15.0" promptText="TeacherID" />
-            <ChoiceBox fx:id="teach_course1" layoutX="15.0" layoutY="141.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="teach_course2" layoutX="189.0" layoutY="141.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="teach_position" layoutX="364.0" layoutY="141.0" prefWidth="150.0" />
-            <Button fx:id="teach_genIDBtn" layoutX="540.0" layoutY="56.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
-            <Button fx:id="teach_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
-            <Button fx:id="teach_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
-            <Button fx:id="teach_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
-            <Button fx:id="teach_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
-         <Label fx:id="operationStatus" layoutX="541.0" layoutY="145.0" prefHeight="15.0" prefWidth="162.0" styleClass="error-label" />
+            <TextField fx:id="teach_teacherID" disable="true" layoutX="537.0" layoutY="58.0" promptText="TeacherID" />
+            <ChoiceBox fx:id="teach_course1" layoutX="189.0" layoutY="142.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="teach_course2" layoutX="363.0" layoutY="143.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="teach_position" layoutX="540.0" layoutY="16.0" prefHeight="26.0" prefWidth="162.0" />
+            <Button fx:id="teach_genIDBtn" layoutX="536.0" layoutY="99.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
+            <Button fx:id="teach_deleteBtn" layoutX="829.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
+            <Button fx:id="teach_clearBtn" layoutX="829.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
+            <Button fx:id="teach_updateBtn" layoutX="829.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
+            <Button fx:id="teach_addBtn" layoutX="829.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+         <Label fx:id="operationStatus" layoutX="540.0" layoutY="146.0" prefHeight="31.0" prefWidth="265.0" styleClass="error-label" />
+         <ChoiceBox fx:id="teach_deptID" layoutX="14.0" layoutY="142.0" prefWidth="150.0" />
         </AnchorPane>
     </VBox>
 </AnchorPane>
