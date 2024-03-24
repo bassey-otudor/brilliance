@@ -2,7 +2,7 @@ package learn.brilliance.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import learn.brilliance.Controller.Admin.FacultiesController;
+import learn.brilliance.Controller.Admin.DepartmentsController;
 import learn.brilliance.View.ViewFactory;
 
 import java.sql.ResultSet;
@@ -12,7 +12,6 @@ public class Model {
     private static Model model;
     private final ViewFactory viewFactory;
     connectDB connectDB;
-    FacultiesController facultiesController;
 
     // Admin variables
     private boolean adminLoginStatus;

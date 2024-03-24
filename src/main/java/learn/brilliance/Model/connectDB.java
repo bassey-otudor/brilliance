@@ -37,7 +37,11 @@ public class connectDB {
     }
 
     // Faculty section
-    // Get all faculties and store the in a list
+    /**
+     * This method is used to retrieve the faculty data from the database.
+     *
+     * @return A ResultSet containing the faculty data.
+     */
     public ResultSet getFacultyData() {
         Statement stmt;
         ResultSet resultSet = null;
@@ -89,10 +93,10 @@ public class connectDB {
         }
 
     }
-    public void updateFaculty(String facultyID,String facultyName, String director, String department1, String department2, String department3) {
+    public void updateFaculty(String facultyID,String facultyName, String director) {
         try {
             Statement stmt = conn.createStatement();
-            String update = "UPDATE faculties SET facultyID = '"+facultyID+"', facultyName ='"+facultyName+"', Director ='"+director+"', Department1 ='"+department1+"', Department2 ='"+department2+"', Department3 ='"+department3+"' WHERE facultyID ='"+facultyID+"';";
+            String update = "UPDATE faculties SET facultyID = '"+facultyID+"', facultyName ='"+facultyName+"', Director ='"+director+"' WHERE facultyID ='"+facultyID+"';";
             stmt.executeUpdate(update);
         } catch (SQLException e) {
             System.out.println("Error executing update.");
@@ -110,17 +114,30 @@ public class connectDB {
         }
     }
 
+    public void deleteFacultyDepartments(String facultyID) {
+
+        try{
+            Statement stmt;
+            stmt = this.conn.createStatement();
+            stmt.executeUpdate("DELETE FROM departments WHERE facultyID = '"+facultyID+"';");
+
+        } catch (SQLException e) {
+            System.out.println("Unable to delete departments in faculty.");
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Department section
      */
-    public ObservableList<String> getHod() {
+    public ObservableList<String> getHod(String facultyID) {
 
         List<String> hodList = new ArrayList<>();
         Statement stmt;
         ResultSet resultSet;
 
         try {
-            String sql = "SELECT CONCAT(fname, ' ', lName) AS deptHod FROM teachers WHERE position = 'hod'";
+            String sql = "SELECT CONCAT(fname, ' ', lName) AS deptHod FROM teachers WHERE position = 'hod' AND facultyID ='"+facultyID+"'";
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
 
@@ -161,13 +178,13 @@ public class connectDB {
         assert faculityList instanceof ObservableList<String>;
         return (ObservableList<String>) faculityList;
     }
-    public ObservableList<String> getMinor1() {
+    public ObservableList<String> getMinor1(String facultyID) {
         List<String> minor1List = new ArrayList<>();
         Statement stmt;
         ResultSet resultSet;
 
         try {
-            String sql = "SELECT minorID from minors;";
+            String sql = "SELECT minorID FROM minors WHERE facultyID = '"+facultyID+"';";
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
 
@@ -184,13 +201,13 @@ public class connectDB {
         assert minor1List instanceof ObservableList<String>;
         return (ObservableList<String>) minor1List;
     }
-    public ObservableList<String> getMinor2() {
+    public ObservableList<String> getMinor2(String facultyID) {
         List<String> minor2List = new ArrayList<>();
         Statement stmt;
         ResultSet resultSet;
 
         try {
-            String sql = "SELECT minorID from minors;";
+            String sql = "SELECT minorID FROM minors WHERE facultyID = '"+facultyID+"'";
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
 
@@ -302,75 +319,6 @@ public class connectDB {
         return resultSet;
     }
 
-    public ObservableList<String> getGender() {
-        List<String> genderList = new ArrayList<>();
-
-        String selectGenders = "SELECT gender FROM genders;";
-        Statement stmt;
-        ResultSet resultSet;
-        try{
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(selectGenders);
-
-            while (resultSet.next()) {
-                genderList.add(resultSet.getString("gender"));
-            }
-            genderList = FXCollections.observableArrayList(genderList);
-
-        } catch (SQLException e) {
-            System.out.println("Unable to retrieve gender data.");
-            e.printStackTrace();
-        }
-
-        assert genderList instanceof ObservableList<String>;
-        return (ObservableList<String>) genderList;
-    }
-    public ObservableList<String> getCourseDepartments() {
-        List<String> departmentList = new ArrayList<>();
-
-        String selectDepartments = "SELECT deptID FROM departments;";
-        Statement stmt;
-        ResultSet resultSet;
-
-        try {
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(selectDepartments);
-            while (resultSet.next()) {
-                departmentList.add(resultSet.getString("deptID"));
-            }
-            departmentList = FXCollections.observableArrayList(departmentList);
-
-        } catch (SQLException e) {
-            System.out.println("Unable to retrieve departments.");
-            e.printStackTrace();
-        }
-
-        assert departmentList instanceof ObservableList<String>;
-        return (ObservableList<String>) departmentList;
-    }
-    public ObservableList<String> getCourses() {
-        List<String> courseList = new ArrayList<>();
-
-        String selectCourses = "SELECT courseID FROM courses;";
-        Statement stmt;
-        ResultSet resultSet;
-
-        try {
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(selectCourses);
-            while (resultSet.next()) {
-                courseList.add(resultSet.getString("courseID"));
-            }
-            courseList = FXCollections.observableArrayList(courseList);
-
-        } catch (SQLException e) {
-            System.out.println("Unable to retrieve courses.");
-            e.printStackTrace();
-        }
-
-        assert courseList instanceof ObservableList<String>;
-        return (ObservableList<String>) courseList;
-    }
     public ObservableList<String> getPosition() {
         List<String> positionList = new ArrayList<>();
 
@@ -450,6 +398,38 @@ public class connectDB {
 
         return rowCount;
     }
+    public void insertTeacherInCourse (String teacherID, String courseID, boolean operation) {
+        Statement stmt;
+
+        if(operation) {
+            try{
+                String insertTeacher = "UPDATE courses SET teacherID = '"+teacherID+"';";
+                stmt = conn.createStatement();
+                stmt.executeUpdate(insertTeacher);
+
+            } catch (SQLException e) {
+                System.out.println("Unable to assign course to teacher.");
+                e.printStackTrace();
+            }
+
+        } else {
+
+            try{
+
+                String setNull = "NULL";
+                String deleteTeacher = "UPDATE courses SET teacherID = '"+ setNull +"' WHERE courseID = '"+courseID+"'";
+                stmt = conn.createStatement();
+                stmt.executeUpdate(deleteTeacher);
+
+            } catch (SQLException e) {
+                System.out.println("Unable to delete course from teacher.");
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
 
     // Courses
     public ResultSet getCourseData() {
@@ -469,40 +449,6 @@ public class connectDB {
 
         return resultSet;
     }
-
-    public ObservableList<String> getLevel() {
-        final String [] levels = {"1", "2", "3", "4"};
-        List<String > levelList = new ArrayList<>();
-        Collections.addAll(levelList, levels);
-
-        levelList = FXCollections.observableArrayList(levelList);
-        return (ObservableList<String>) levelList;
-    }
-
-    public ObservableList<String> getCourseDepartments(String facultyID) {
-        List<String> departmentList = new ArrayList<>();
-
-        String selectDepartments = "SELECT deptID FROM departments WHERE facultyID = '"+facultyID+"';";
-        Statement stmt;
-        ResultSet resultSet;
-
-        try {
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(selectDepartments);
-            while (resultSet.next()) {
-                departmentList.add(resultSet.getString("deptID"));
-            }
-            departmentList = FXCollections.observableArrayList(departmentList);
-
-        } catch (SQLException e) {
-            System.out.println("Unable to retrieve departments.");
-            e.printStackTrace();
-        }
-
-        assert departmentList instanceof ObservableList<String>;
-        return (ObservableList<String>) departmentList;
-    }
-
     public ObservableList<String> getCourseTeacher(String departmentID) {
         List<String> teacherList = new ArrayList<>();
 
@@ -595,7 +541,6 @@ public class connectDB {
         }
     }
 
-
     /**
  * This method is used to insert or delete a course from a teacher.
  *
@@ -620,7 +565,7 @@ public class connectDB {
 
     } else {
 
-        String setNull = "null";
+        String setNull = "NULL";
 
         try {
             String deleteCourse = "UPDATE teachers SET " + column + " = '" + setNull + "' WHERE teacherID = '" + teacherID + "';";
@@ -643,19 +588,21 @@ public class connectDB {
      * @return A ResultSet containing the teacher's information, including any courses they are assigned to.
      */
     public ResultSet checkTeacherCoursesColumns(String teacherID) {
-        String checkCourses = "SELECT * FROM teachers WHERE teacherID ='"+teacherID+"';";
+        String checkCourses = "SELECT course1, course2 FROM teachers WHERE teacherID ='"+teacherID+"';";
         Statement stmt;
         ResultSet resultSet = null;
         try{
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(checkCourses);
+
         } catch (SQLException e) {
-            System.out.println("Unable to get departments in the faculty.");
+            System.out.println("Unable to get verify assigned courses.");
             e.printStackTrace();
         }
 
         return resultSet;
     }
+
 
     // Utility methods
 
@@ -665,21 +612,21 @@ public class connectDB {
      * @param tableName The name of the table to search in.
      * @param idColumn The name of the column that contains the unique ID of the entity.
      * @param entityID The unique ID of the entity to check.
-     * @param nameColumn The name of the column that contains the name of the entity.
+     * @param columnName The name of the column that contains the name of the entity.
      * @param entityName The name of the entity to check.
      * @return A boolean value indicating whether the entity exists or not.
      */
-    public boolean checkData(String tableName, String idColumn, String entityID, String nameColumn, String entityName) {
+    public boolean checkData(String tableName, String idColumn, String entityID, String columnName, String entityName) {
 
         boolean doesExists = false;
-        String checkCourse = "SELECT * FROM "+tableName+" WHERE "+idColumn+" = '"+entityID+"' OR '"+nameColumn+"' = '"+entityName+"';";
+        String checkCourse = "SELECT * FROM "+tableName+" WHERE "+idColumn+" = '"+entityID+"' OR '"+columnName+"' = '"+entityName+"';";
         Statement stmt;
         ResultSet resultSet;
 
         try {
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(checkCourse);
-            while (resultSet.isBeforeFirst()) {
+            while (resultSet.next()) {
                 doesExists = true;
             }
 
@@ -690,5 +637,83 @@ public class connectDB {
 
         return doesExists;
     }
+    public ObservableList<String> getGender() {
+        List<String> genderList = new ArrayList<>();
+
+        String selectGenders = "SELECT gender FROM genders;";
+        Statement stmt;
+        ResultSet resultSet;
+        try{
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectGenders);
+
+            while (resultSet.next()) {
+                genderList.add(resultSet.getString("gender"));
+            }
+            genderList = FXCollections.observableArrayList(genderList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve gender data.");
+            e.printStackTrace();
+        }
+
+        assert genderList instanceof ObservableList<String>;
+        return (ObservableList<String>) genderList;
+    }
+    public ObservableList<String> getLevel() {
+        final String [] levels = {"1", "2", "3", "4"};
+        List<String > levelList = new ArrayList<>();
+        Collections.addAll(levelList, levels);
+
+        levelList = FXCollections.observableArrayList(levelList);
+        return (ObservableList<String>) levelList;
+    }
+    public ObservableList<String> getFacultyDepartments(String facultyID) {
+        List<String> departmentList = new ArrayList<>();
+
+        String selectDepartments = "SELECT deptID FROM departments WHERE facultyID = '"+facultyID+"';";
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectDepartments);
+            while (resultSet.next()) {
+                departmentList.add(resultSet.getString("deptID"));
+            }
+            departmentList = FXCollections.observableArrayList(departmentList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve departments.");
+            e.printStackTrace();
+        }
+
+        assert departmentList instanceof ObservableList<String>;
+        return (ObservableList<String>) departmentList;
+    }
+    public ObservableList<String> getDepartmentCourses(String departmentID) {
+        List<String> courseList = new ArrayList<>();
+
+        String selectCourses = "SELECT courseID FROM courses WHERE deptID = '"+departmentID+"';";
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectCourses);
+            while (resultSet.next()) {
+                courseList.add(resultSet.getString("courseID"));
+            }
+            courseList = FXCollections.observableArrayList(courseList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve courses.");
+            e.printStackTrace();
+        }
+
+        assert courseList instanceof ObservableList<String>;
+        return (ObservableList<String>) courseList;
+    }
+
 
 }

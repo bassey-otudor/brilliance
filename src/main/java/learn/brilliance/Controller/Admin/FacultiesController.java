@@ -4,7 +4,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import learn.brilliance.Model.Department;
 import learn.brilliance.Model.Faculty;
 import learn.brilliance.Model.Model;
 
@@ -16,7 +15,7 @@ public class FacultiesController implements Initializable {
 
     private final String idColumn = "facultyID";
     private final String tableName = "faculties";
-    private final String nameColumn = "facultyName";
+    private final String columnName = "facultyName";
     public TextField faculty_searchField;
     public TableView<Faculty> faculty_tableView;
     public TableColumn<Faculty, String> faculty_tableView_col_facID;
@@ -36,6 +35,9 @@ public class FacultiesController implements Initializable {
     public Button faculty_updateBtn;
     public Button faculty_addBtn;
     public Label operationStatus;
+    public TextField faculty_dept1ID;
+    public TextField faculty_dept2ID;
+    public TextField faculty_dept3ID;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -89,32 +91,55 @@ public class FacultiesController implements Initializable {
     }
     private void createFaculty() {
         String facultyName = faculty_facName.getText();
-        String facultyID = faculty_facID.getText();
+        String facultyID = faculty_facID.getText().toUpperCase();
         String facultyDirector = faculty_director.getValue();
         String department1 = faculty_dept1.getText();
         String department2 = faculty_dept2.getText();
         String department3 = faculty_dept3.getText();
+        String department1ID = faculty_dept1ID.getText().toUpperCase();
+        String department2ID = faculty_dept2ID.getText().toUpperCase();
+        String department3ID = faculty_dept3ID.getText().toUpperCase();
 
-        // boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID, nameColumn, facultyName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID, columnName, facultyName);
 
         try {
 
             if(facultyID.isEmpty() || facultyName.isEmpty()) {
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
-                operationStatus.setText("Please fill all fields.");
+                operationStatus.setText("Please fill required fields.");
 
             } else {
 
-                Model.getInstance().getConnectDB().createFaculty(facultyID, facultyName, facultyDirector, department1, department2, department3);
-                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
-                operationStatus.setText("Added faculty successfully.");
+                if(doesExist) {
+                    operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                    operationStatus.setText("This faculty already exists.");
 
-                // Update faculty table
-                faculty_tableView.setItems(Model.getInstance().setFaculties());
-                // Update departments table
-                // dept_tableView.setItems(Model.getInstance().setDepartments());
+                } else {
 
-                clearFields();
+                    if(!department1ID.isEmpty() && department2ID.isEmpty() && department3ID.isEmpty()) {
+                        Model.getInstance().getConnectDB().createDepartment(department1ID, department1, facultyID, "NULL", "NULL", "NULL");
+
+                    } else if(!department1ID.isEmpty() && !department2ID.isEmpty() && department3.isEmpty()) {
+                        Model.getInstance().getConnectDB().createDepartment(department1ID, department1, facultyID, "NULL", "NULL", "NULL");
+                        Model.getInstance().getConnectDB().createDepartment(department2ID, department2, facultyID, "NULL", "NULL", "NULL");
+
+                    } else if(!department1ID.isEmpty() && !department2ID.isEmpty()) {
+                        Model.getInstance().getConnectDB().createDepartment(department1ID, department1, facultyID, "NULL", "NULL", "NULL");
+                        Model.getInstance().getConnectDB().createDepartment(department2ID, department2, facultyID, "NULL", "NULL", "NULL");
+                        Model.getInstance().getConnectDB().createDepartment(department3ID, department3, facultyID, "NULL", "NULL", "NULL");
+                    }
+
+                    Model.getInstance().getConnectDB().createFaculty(facultyID, facultyName, facultyDirector, department1, department2, department3);
+                    operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
+                    operationStatus.setText("Added faculty successfully.");
+
+                    // Update faculty table
+                    faculty_tableView.setItems(Model.getInstance().setFaculties());
+                    // Update departments table
+                    // dept_tableView.setItems(Model.getInstance().setDepartments());
+
+                    clearFields();
+                }
             }
 
         } catch (Exception e) {
@@ -125,31 +150,45 @@ public class FacultiesController implements Initializable {
     }
     private void updateFaculty() {
         String facultyName = faculty_facName.getText();
-        String facultyID = faculty_facID.getText();
+        String facultyID = faculty_facID.getText().toUpperCase();
         String facultyDirector = faculty_director.getValue();
-        String department1 = faculty_dept1.getText();
-        String department2 = faculty_dept2.getText();
-        String department3 = faculty_dept3.getText();
+        String department1 = faculty_dept1.getText().toUpperCase();
+        String department2 = faculty_dept2.getText().toUpperCase();
+        String department3 = faculty_dept3.getText().toUpperCase();
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID, columnName, facultyName);
 
-        if (facultyID.isEmpty() || facultyName.isEmpty() || facultyDirector.isEmpty() || department1.isEmpty() || department2.isEmpty()) {
+        if (facultyID.isEmpty() || facultyName.isEmpty() || facultyDirector.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
             operationStatus.setText("Please fill all fields.");
+
         } else {
-            Model.getInstance().getConnectDB().updateFaculty(facultyID, facultyName, facultyDirector, department1, department2, department3);
-            operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;");
-            operationStatus.setText("Updated faculty successfully.");
-            faculty_tableView.setItems(Model.getInstance().setFaculties());
-            clearFields();
+
+            if(doesExist) {
+
+                Model.getInstance().getConnectDB().updateFaculty(facultyID, facultyName, facultyDirector);
+                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;");
+                operationStatus.setText("Updated faculty successfully.");
+                faculty_tableView.setItems(Model.getInstance().setFaculties());
+                clearFields();
+
+            } else {
+                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                operationStatus.setText("Faculty not found.");
+            }
         }
     }
     private void deleteFaculty() {
-        String facultyID = faculty_facID.getText();
+        String facultyID = faculty_facID.getText().toUpperCase();
+        String facultyName = faculty_facName.getText();
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID, columnName, facultyName);
 
         if(facultyID.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
             operationStatus.setText("Please enter a faculty ID.");
         } else {
             Model.getInstance().getConnectDB().deleteFaculty(facultyID);
+            Model.getInstance().getConnectDB().deleteFacultyDepartments(facultyID);
+
             operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;");
             operationStatus.setText("Deleted faculty successfully.");
             clearFields();
@@ -174,10 +213,10 @@ public class FacultiesController implements Initializable {
  * Initializes the faculty table view by populating it with data from the database.
  */
     private void initialiseFacultiesTable() {
-    if (Model.getInstance().getFaculties().isEmpty()) {
-        Model.getInstance().setFaculties();
+        if (Model.getInstance().getFaculties().isEmpty()) {
+            Model.getInstance().setFaculties();
+        }
     }
-}
 
     private void bindFacultyTableData() {
         faculty_tableView_col_facID.setCellValueFactory(cellData -> cellData.getValue().facultyIDProperty());

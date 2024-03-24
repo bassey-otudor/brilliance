@@ -46,7 +46,7 @@ public class CoursesController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         course_faculty.setItems(Model.getInstance().getConnectDB().getFaculties());
         course_faculty.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal)
-                -> course_dept.setItems(Model.getInstance().getConnectDB().getCourseDepartments(newVal)));
+                -> course_dept.setItems(Model.getInstance().getConnectDB().getFacultyDepartments(newVal)));
 
         course_dept.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldVal, newVal)
                 -> course_teacher.setItems(Model.getInstance().getConnectDB().getCourseTeacher(newVal))));
@@ -101,7 +101,7 @@ public class CoursesController implements Initializable {
     }
     private void createCourse() {
 
-        String courseID = course_courseID.getText();
+        String courseID = course_courseID.getText().toUpperCase();
         String courseName = course_courseName.getText();
         String courseFaculty = course_faculty.getValue();
         String courseLevel = course_level.getValue();
@@ -112,7 +112,7 @@ public class CoursesController implements Initializable {
         boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID, nameColumn, courseName);
 
         try {
-            if(courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || teacherID.isEmpty() || facultyID.isEmpty()) {
+            if(courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || facultyID.isEmpty()) {
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 operationStatus.setText("Please fill required fields.");
 
@@ -158,14 +158,14 @@ public class CoursesController implements Initializable {
         }
     }
     private void updateCourse() {
-        String courseID = course_courseID.getText();
+        String courseID = course_courseID.getText().toUpperCase();
         String courseName = course_courseName.getText();
         String courseFaculty = course_faculty.getValue();
         String courseLevel = course_level.getValue();
         String departmentID = course_dept.getValue();
         String teacherID = course_teacher.getValue();
         String facultyID = course_faculty.getValue();
-        boolean operation = true;;
+        boolean operation = true;
         boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID, nameColumn, courseName);
 
         try {
@@ -211,7 +211,7 @@ public class CoursesController implements Initializable {
     }
     private void deleteCourse() {
 
-        String courseID = course_courseID.getText();
+        String courseID = course_courseID.getText().toUpperCase();
         String courseName = course_courseName.getText();
         String teacherID = course_teacher.getValue();
         boolean operation = false;
