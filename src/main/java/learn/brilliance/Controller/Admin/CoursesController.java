@@ -17,7 +17,7 @@ public class CoursesController implements Initializable {
 
     private final String idColumn = "courseID";
     private final String tableName = "courses";
-    private final String nameColumn = "courseName";
+    private final String columnName = "courseName";
     public TextField course_searchField;
     public ChoiceBox<String> course_filterFaculty;
     public ChoiceBox<String> course_filterDept;
@@ -109,7 +109,7 @@ public class CoursesController implements Initializable {
         String teacherID = course_teacher.getValue();
         String facultyID = course_faculty.getValue();
         boolean operation = true;
-        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID, nameColumn, courseName);
+        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID, columnName, courseName);
 
         try {
             if(courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || facultyID.isEmpty()) {
@@ -126,18 +126,22 @@ public class CoursesController implements Initializable {
 
                 } else {
 
-                    ResultSet resultSet = Model.getInstance().getConnectDB().checkTeacherCoursesColumns(teacherID);
+                        ResultSet resultSet = Model.getInstance().getConnectDB().checkTeacherCoursesColumns(teacherID);
 
-                    while (resultSet.next()) {
-                        if (resultSet.getString("course1").isEmpty()) {
-                            String column = "course1";
-                            Model.getInstance().getConnectDB().insertCoursesInTeacher(column, teacherID, courseID, operation);
+                        while (resultSet.next()) {
 
-                        } else if(resultSet.getString("course2").isEmpty()) {
-                            String column = "course2";
-                            Model.getInstance().getConnectDB().insertCoursesInTeacher(column, teacherID, courseID, operation);
+                            if ((resultSet.getString("course1") == null ||  resultSet.getString("course1").isEmpty()) && (resultSet.getString("course2") == null ||  resultSet.getString("course2").isEmpty()))  {
+                                String column = "course1";
+                                Model.getInstance().getConnectDB().insertCoursesInTeacher(column, teacherID, courseID, operation);
+
+                            } else if ((resultSet.getString("course2") == null ||  resultSet.getString("course2").isEmpty())) {
+                                String column = "course2";
+                                Model.getInstance().getConnectDB().insertCoursesInTeacher(column, teacherID, courseID, operation);
+                            }
+
+
                         }
-                    }
+
 
                     Model.getInstance().getConnectDB().createCourse(courseID, courseName, courseLevel, departmentID, teacherID, facultyID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
@@ -146,7 +150,7 @@ public class CoursesController implements Initializable {
                     // Update the course table with new info
                     course_tableView.setItems(Model.getInstance().setCourses());
                     // Update the teacher table with new info
-                    teacher_tableView.setItems(Model.getInstance().setTeachers());
+                    // teacher_tableView.setItems(Model.getInstance().setTeachers());
                     // Clear entries
                     clearFields();
                 }
@@ -166,12 +170,13 @@ public class CoursesController implements Initializable {
         String teacherID = course_teacher.getValue();
         String facultyID = course_faculty.getValue();
         boolean operation = true;
-        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID, nameColumn, courseName);
+        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID, columnName, courseName);
 
         try {
             if (courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || teacherID.isEmpty() || facultyID.isEmpty()) {
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 operationStatus.setText("Please fill required fields.");
+
             } else {
 
                 if (doesExists) {
@@ -181,6 +186,7 @@ public class CoursesController implements Initializable {
                         if (resultSet.getString("course1").isEmpty()) {
                             String column = "course1";
                             Model.getInstance().getConnectDB().insertCoursesInTeacher(column, teacherID, courseID, operation);
+
                         } else if(resultSet.getString("course2").isEmpty()) {
                             String column = "course2";
                             Model.getInstance().getConnectDB().insertCoursesInTeacher(column, teacherID, courseID, operation);
@@ -194,7 +200,7 @@ public class CoursesController implements Initializable {
                     // Update the course table with new info
                     course_tableView.setItems(Model.getInstance().setCourses());
                     // Update the teacher table with new info
-                    teacher_tableView.setItems(Model.getInstance().setTeachers());
+                    // eacher_tableView.setItems(Model.getInstance().setTeachers());
                     // Clear entries
                     clearFields();
 
@@ -215,7 +221,7 @@ public class CoursesController implements Initializable {
         String courseName = course_courseName.getText();
         String teacherID = course_teacher.getValue();
         boolean operation = false;
-        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn,courseID, nameColumn, courseName);
+        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn,courseID, columnName, courseName);
 
         try {
             if (courseID.isEmpty() || teacherID.isEmpty()) {
@@ -247,7 +253,7 @@ public class CoursesController implements Initializable {
                     // Update the course table with new info
                     course_tableView.setItems(Model.getInstance().setCourses());
                     // Update the teacher table with new info
-                    teacher_tableView.setItems(Model.getInstance().setTeachers());
+                    // teacher_tableView.setItems(Model.getInstance().setTeachers());
                     // Clear entries
                     clearFields();
                 }

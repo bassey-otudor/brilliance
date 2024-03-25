@@ -5,13 +5,15 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class connectDB {
     private Connection conn;
-    private static final String connURL = "jdbc:sqlite:school_db_structure.db";
+    //private static final String connURL = "jdbc:sqlite:school_db_structure.db";
+    private static final String connURL = "jdbc:sqlite:final.db";
     private static final String username = "root";
     private static final String password = "";
     public connectDB() {
@@ -137,12 +139,12 @@ public class connectDB {
         ResultSet resultSet;
 
         try {
-            String sql = "SELECT CONCAT(fname, ' ', lName) AS deptHod FROM teachers WHERE position = 'hod' AND facultyID ='"+facultyID+"'";
+            String sql = "SELECT CONCAT(fname, ' ', lName) AS departmentHOD FROM teachers WHERE position = 'HOD' AND facultyID ='"+facultyID+"'";
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
 
             while (resultSet.next()) {
-                hodList.add(resultSet.getString("departmentHod"));
+                hodList.add(resultSet.getString("departmentHOD"));
             }
 
             hodList = FXCollections.observableArrayList(hodList);
@@ -452,16 +454,18 @@ public class connectDB {
     public ObservableList<String> getCourseTeacher(String departmentID) {
         List<String> teacherList = new ArrayList<>();
 
-        String selectTeachers = "SELECT * FROM teachers WHERE deptID = '"+departmentID+"';";
+        // String selectTeachersID = "SELECT * FROM teachers WHERE deptID = '"+departmentID+"';";
+
+        String selectTeacherNames = "SELECT CONCAT(fname, ' ', lName) AS teacherFullNames FROM teachers WHERE deptID = '"+departmentID+"'";
         Statement stmt;
         ResultSet resultSet;
 
         try {
             stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(selectTeachers);
+            resultSet = stmt.executeQuery(selectTeacherNames);
 
             while (resultSet.next()) {
-               teacherList.add(resultSet.getString("teacherID"));
+               teacherList.add(resultSet.getString("teacherFullNames"));
             }
             teacherList = FXCollections.observableArrayList(teacherList);
 
@@ -487,7 +491,7 @@ public class connectDB {
     public void createCourse(String courseID, String courseName, String courseLevel, String departmentID, String teacherID, String facultyID) {
 
         String createCourse = "INSERT INTO Courses " +
-                "(courseID, courseName, courseLevel, deptName, teacherID, facultyID)" +
+                "(courseID, courseName, courseLevel, deptID, teacherID, facultyID)" +
                 "VALUES ('"+courseID+"', '"+courseName+"', '"+courseLevel+"', '"+departmentID+"', '"+teacherID+"', '"+facultyID+"');";
         Statement stmt;
         try {
@@ -544,17 +548,17 @@ public class connectDB {
     /**
  * This method is used to insert or delete a course from a teacher.
  *
- * @param column The column name of the courses table that will be updated.
+ * @param columnName The column name of the courses table that will be updated.
  * @param teacherID The ID of the teacher that the course will be assigned or removed from.
  * @param courseID The ID of the course that will be assigned or removed.
  * @param operation A boolean value indicating whether to insert or delete the course.
  */
-    public void insertCoursesInTeacher(String column, String teacherID, String courseID, boolean operation) {
+    public void insertCoursesInTeacher(String columnName, String teacherID, String courseID, boolean operation) {
 
     if (operation) {
         try {
 
-            String insertCourse = "UPDATE teachers SET " + column + " = '" + courseID + "' WHERE teacherID = '" + teacherID + "';";
+            String insertCourse = "UPDATE teachers SET " + columnName + " = '" + courseID + "' WHERE teacherID = '" + teacherID + "';";
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(insertCourse);
 
@@ -568,7 +572,7 @@ public class connectDB {
         String setNull = "NULL";
 
         try {
-            String deleteCourse = "UPDATE teachers SET " + column + " = '" + setNull + "' WHERE teacherID = '" + teacherID + "';";
+            String deleteCourse = "UPDATE teachers SET " + columnName + " = '" + setNull + "' WHERE teacherID = '" + teacherID + "';";
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(deleteCourse);
 

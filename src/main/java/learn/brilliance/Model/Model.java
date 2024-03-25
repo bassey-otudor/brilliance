@@ -172,7 +172,7 @@ public class Model {
                       resultSet.getString("courseID"),
                       resultSet.getString("courseName"),
                       resultSet.getString("courseLevel"),
-                      resultSet.getString("deptName"),
+                      resultSet.getString("deptID"),
                       resultSet.getString("teacherID"),
                       resultSet.getString("facultyID")
 

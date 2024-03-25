@@ -156,13 +156,13 @@ public class DepartmentsController implements Initializable {
     private void updateDepartment() {
         String departmentID = dept_deptID.getText();
         String departmentName = dept_deptName.getText();
-        String facultyID = dept_faculty.getSelectionModel().toString();
-        String hod = dept_hod.getSelectionModel().toString();
-        String minor1 = dept_minor1.getSelectionModel().toString();
-        String minor2 = dept_minor2.getSelectionModel().toString();
+        String facultyID = dept_faculty.getSelectionModel().getSelectedItem();
+        String hod = dept_hod.getSelectionModel().getSelectedItem();
+        String minor1 = dept_minor1.getSelectionModel().getSelectedItem();
+        String minor2 = dept_minor2.getSelectionModel().getSelectedItem();
         boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID, columnName, departmentName);
 
-        if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty() || hod.isEmpty() || minor1.isEmpty() || minor2.isEmpty()) {
+        if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty() || hod.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
             operationStatus.setText("Please fill required fields.");
 
