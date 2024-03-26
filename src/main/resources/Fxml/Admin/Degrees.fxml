@@ -2,7 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -15,36 +15,39 @@
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="degree_searchField" layoutX="173.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
             <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="183.0" layoutY="24.0" />
-            <ChoiceBox fx:id="degree_filterDept" layoutX="440.0" layoutY="7.0" prefHeight="28.0" prefWidth="171.0" />
+            <ComboBox fx:id="degree_filterFaciulty" layoutX="440.0" layoutY="7.0" prefHeight="28.0" prefWidth="171.0" />
             <Label layoutX="24.0" layoutY="9.0" styleClass="label-table-title" text="Degree Details" />
-            <ChoiceBox fx:id="degree_filterDuration" layoutX="630.0" layoutY="7.0" prefHeight="28.0" prefWidth="157.0" />
+            <ComboBox fx:id="degree_filterDegree" layoutX="630.0" layoutY="7.0" prefHeight="28.0" prefWidth="157.0" />
         </AnchorPane>
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
             <TableView fx:id="degree_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627" prefWidth="915.1079387831637" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columns>
-                    <TableColumn fx:id="degree_tableView_col_degreeID" prefWidth="85.64029717445374" text="DegreeID" />
-                    <TableColumn fx:id="degree_tableView_col_degreeName" prefWidth="302.27337646484375" text="DegreeName" />
-                    <TableColumn fx:id="degree_tableView_col_deptID" prefWidth="116.94967651367188" text="DeptmentID" />
-                    <TableColumn fx:id="degree_tableView_col_duration" prefWidth="116.48919677734375" text="Duration" />
-                    <TableColumn fx:id="degree_tableView_col_numCourses" prefWidth="132.14398193359375" text="No. of Courses" />
-               <TableColumn fx:id="degree_tableView_col_totalCredits" prefWidth="111.65472412109375" text="TotalCredits" />
-               <TableColumn fx:id="degree_tableView_col_requiredCredits" prefWidth="132.60430908203125" text="RequiredCredits" />
+                    <TableColumn fx:id="degree_tableView_col_degreeID" prefWidth="85.17989134788513" text="Degree ID" />
+                    <TableColumn fx:id="degree_tableView_col_degreeName" prefWidth="269.12227630615234" text="Degree Name" />
+                    <TableColumn fx:id="degree_tableView_col_deptID" prefWidth="98.30215454101562" text="Deptment ID" />
+               <TableColumn fx:id="degree_tableView_col_minor" prefWidth="83.79855346679688" text="Minor" />
+                    <TableColumn fx:id="degree_tableView_col_duration" prefWidth="84.71942138671875" text="Duration" />
+                    <TableColumn fx:id="degree_tableView_col_numCourses" prefWidth="120.6331787109375" text="No. of Courses" />
+               <TableColumn fx:id="degree_tableView_col_totalCredits" prefWidth="126.6187744140625" text="Total Credits" />
+               <TableColumn fx:id="degree_tableView_col_requiredCredits" minWidth="9.20867919921875" prefWidth="128.46038818359375" text="Required Credits" />
                 </columns>
             </TableView>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <TextField fx:id="degree_degreeName" layoutX="38.0" layoutY="13.0" prefHeight="29.0" prefWidth="354.0" promptText="Degree Name" />
-            <TextField fx:id="degree_degreeID" disable="true" editable="false" layoutX="422.0" layoutY="100.0" prefHeight="26.0" prefWidth="162.0" promptText="Course ID" />
-            <ChoiceBox fx:id="degree_deptID" layoutX="38.0" layoutY="59.0" prefHeight="26.0" prefWidth="162.0" />
-            <ChoiceBox fx:id="degree_duration" layoutX="38.0" layoutY="101.0" prefHeight="26.0" prefWidth="162.0" />
-            <ChoiceBox fx:id="degree_numCourses" layoutX="38.0" layoutY="142.0" prefHeight="26.0" prefWidth="162.0" />
-         <ChoiceBox fx:id="degree_totalCredits" layoutX="231.0" layoutY="102.0" prefHeight="26.0" prefWidth="162.0" />
-         <ChoiceBox fx:id="degree_requiredCredits" layoutX="232.0" layoutY="142.0" prefHeight="26.0" prefWidth="162.0" />
-            <Button fx:id="degree_genIDBtn" layoutX="422.0" layoutY="142.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
+            <TextField fx:id="degree_degreeID" disable="true" editable="false" layoutX="419.0" layoutY="103.0" prefHeight="26.0" prefWidth="162.0" promptText="Degree ID" />
+            <ComboBox fx:id="degree_facultyID" layoutX="38.0" layoutY="58.0" prefHeight="26.0" prefWidth="162.0" promptText="Faculty" />
+            <TextField fx:id="degree_duration" layoutX="38.0" layoutY="104.0" prefHeight="26.0" prefWidth="162.0" promptText="Duration" />
+            <TextField fx:id="degree_numCourses" layoutX="231.0" layoutY="104.0" prefHeight="26.0" prefWidth="162.0" promptText="Number of Courses" />
+         <TextField fx:id="degree_totalCredits" layoutX="38.0" layoutY="146.0" prefHeight="26.0" prefWidth="162.0" promptText="Total Credits" />
+         <TextField fx:id="degree_requiredCredits" layoutX="231.0" layoutY="146.0" prefHeight="26.0" prefWidth="162.0" promptText="Required Credits" />
+            <Button fx:id="degree_genIDBtn" layoutX="422.0" layoutY="143.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
             <Button fx:id="degree_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="degree_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
             <Button fx:id="degree_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
             <Button fx:id="degree_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+         <ComboBox fx:id="degree_deptID" layoutX="231.0" layoutY="58.0" prefHeight="26.0" prefWidth="162.0" promptText="Department" />
+         <ComboBox fx:id="degree_minor" layoutX="419.0" layoutY="55.0" prefHeight="26.0" prefWidth="162.0" promptText="Minor" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

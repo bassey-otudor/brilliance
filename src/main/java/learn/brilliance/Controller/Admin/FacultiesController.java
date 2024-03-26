@@ -26,7 +26,7 @@ public class FacultiesController implements Initializable {
     public TableColumn<Faculty, String> faculty_tableView_col_facDept3;
     public TextField faculty_facName;
     public TextField faculty_facID;
-    public ChoiceBox<String> faculty_director;
+    public ComboBox<String> faculty_director;
     public TextField faculty_dept1;
     public TextField faculty_dept2;
     public TextField faculty_dept3;

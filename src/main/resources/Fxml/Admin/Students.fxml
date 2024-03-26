@@ -12,13 +12,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ComboBox?>
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.StudentsController">
     <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="stud_searchField" layoutX="181.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
             <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="194.0" layoutY="24.0" />
-            <ChoiceBox fx:id="stud_filterDept" layoutX="448.0" layoutY="7.0" prefHeight="27.0" prefWidth="175.0" />
-            <ChoiceBox fx:id="stud_filterCourse" layoutX="648.0" layoutY="7.0" prefWidth="150.0" />
+            <ComboBox fx:id="stud_filterDept" layoutX="448.0" layoutY="7.0" prefHeight="27.0" prefWidth="175.0" />
+            <ComboBox fx:id="stud_filterCourse" layoutX="648.0" layoutY="7.0" prefWidth="150.0" />
             <Label layoutX="24.0" layoutY="9.0" styleClass="label-table-title" text="Student Details" />
         </AnchorPane>
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
@@ -43,12 +44,12 @@
             <TextField fx:id="stud_email" layoutX="191.0" layoutY="14.0" prefHeight="28.0" prefWidth="325.0" promptText="Email" />
             <TextField fx:id="stud_phoneNum" layoutX="191.0" layoutY="56.0" prefHeight="28.0" prefWidth="146.0" promptText="Phone Number" />
             <DatePicker fx:id="stud_dob" layoutX="363.0" layoutY="56.0" prefHeight="27.0" prefWidth="151.0" promptText="Date of Birth" />
-            <ChoiceBox fx:id="stud_gender" layoutX="14.0" layoutY="99.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="stud_department" layoutX="15.0" layoutY="141.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="stud_degree" layoutX="189.0" layoutY="99.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="stud_minor" layoutX="189.0" layoutY="141.0" prefWidth="150.0" />
+            <ComboBox fx:id="stud_gender" layoutX="14.0" layoutY="99.0" prefWidth="150.0" />
+            <ComboBox fx:id="stud_department" layoutX="15.0" layoutY="141.0" prefWidth="150.0" />
+            <ComboBox fx:id="stud_degree" layoutX="189.0" layoutY="99.0" prefWidth="150.0" />
+            <ComboBox fx:id="stud_minor" layoutX="189.0" layoutY="141.0" prefWidth="150.0" />
             <PasswordField fx:id="stud_pwd" layoutX="364.0" layoutY="99.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
-            <ChoiceBox fx:id="stud_level" layoutX="364.0" layoutY="141.0" prefWidth="150.0" />
+            <ComboBox fx:id="stud_level" layoutX="364.0" layoutY="141.0" prefWidth="150.0" />
             <TextField fx:id="stud_studentID" disable="true" editable="false" layoutX="547.0" layoutY="99.0" promptText="StudentID" />
             <Button fx:id="stud_genIDBtn" layoutX="546.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
             <Button fx:id="stud_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />

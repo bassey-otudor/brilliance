@@ -18,7 +18,7 @@ public class DepartmentsController implements Initializable {
     public final String columnName = "deptName";
 
     public TextField dept_searchField;
-    public ChoiceBox<String> dept_filterDept;
+    public ComboBox<String> dept_filterDept;
     public TableView<Department> dept_tableView;
     public TableColumn<Department, String> dept_tableView_col_deptID;
     public TableColumn<Department, String> dept_tableView_col_deptName;
@@ -27,10 +27,10 @@ public class DepartmentsController implements Initializable {
     public TableColumn<Department, String> dept_tableView_col_minor1;
     public TableColumn<Department, String> dept_tableView_col_minor2;
     public TextField dept_deptName;
-    public ChoiceBox<String> dept_faculty;
-    public ChoiceBox<String> dept_minor2;
-    public ChoiceBox<String> dept_hod;
-    public ChoiceBox<String> dept_minor1;
+    public ComboBox<String> dept_faculty;
+    public ComboBox<String> dept_minor2;
+    public ComboBox<String> dept_hod;
+    public ComboBox<String> dept_minor1;
     public Button dept_deleteBtn;
     public Button dept_clearBtn;
     public Button dept_updateBtn;

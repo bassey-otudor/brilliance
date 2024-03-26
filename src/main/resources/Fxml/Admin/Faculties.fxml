@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ComboBox?>
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.FacultiesController">
     <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
@@ -31,7 +32,7 @@
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <TextField fx:id="faculty_facName" layoutX="17.0" layoutY="20.0" prefHeight="29.0" prefWidth="230.0" promptText="Faculty Name" />
-            <ChoiceBox fx:id="faculty_director" layoutX="18.0" layoutY="112.0" prefHeight="26.0" prefWidth="230.0" />
+            <ComboBox fx:id="faculty_director" layoutX="18.0" layoutY="112.0" prefHeight="26.0" prefWidth="230.0" />
             <Button fx:id="faculty_deleteBtn" layoutX="809.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="faculty_clearBtn" layoutX="809.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
             <Button fx:id="faculty_updateBtn" layoutX="809.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />

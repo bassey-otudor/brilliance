@@ -12,8 +12,7 @@ import java.util.List;
 
 public class connectDB {
     private Connection conn;
-    //private static final String connURL = "jdbc:sqlite:school_db_structure.db";
-    private static final String connURL = "jdbc:sqlite:final.db";
+    private static final String connURL = "jdbc:sqlite:school_database_structure.db";
     private static final String username = "root";
     private static final String password = "";
     public connectDB() {
@@ -454,8 +453,6 @@ public class connectDB {
     public ObservableList<String> getCourseTeacher(String departmentID) {
         List<String> teacherList = new ArrayList<>();
 
-        // String selectTeachersID = "SELECT * FROM teachers WHERE deptID = '"+departmentID+"';";
-
         String selectTeacherNames = "SELECT CONCAT(fname, ' ', lName) AS teacherFullNames FROM teachers WHERE deptID = '"+departmentID+"'";
         Statement stmt;
         ResultSet resultSet;
@@ -478,6 +475,57 @@ public class connectDB {
         return (ObservableList<String>) teacherList;
     }
 
+    public ObservableList<String> getTeacherID(String firstName, String lastName) {
+        List<String> teacherID = new ArrayList<>();
+
+        String selectTeacherID = "SELECT teacherID FROM teachers WHERE fName = '"+firstName+"' AND lName = '"+lastName+"'";
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectTeacherID);
+
+            while (resultSet.next()) {
+                teacherID.add(resultSet.getString("teacherID"));
+            }
+            teacherID = FXCollections.observableArrayList(teacherID);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve list of filtered list of teachers.");
+            e.printStackTrace();
+        }
+
+        assert teacherID instanceof ObservableList<String>;
+        return (ObservableList<String>) teacherID;
+    }
+
+    public ObservableList<String> getCreditValue() {
+        List<String> creditValueList = new ArrayList<>();
+
+        String selectCreditValue = "SELECT * FROM creditValue";
+
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectCreditValue);
+
+            while (resultSet.next()) {
+                creditValueList.add(resultSet.getString("creditValue"));
+            }
+            creditValueList = FXCollections.observableArrayList(creditValueList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve list of credit values.");
+            e.printStackTrace();
+        }
+
+        assert creditValueList instanceof ObservableList<String>;
+        return (ObservableList<String>) creditValueList;
+    }
+
     /**
      * Creates a new course in the database.
      *
@@ -488,11 +536,11 @@ public class connectDB {
      * @param teacherID The ID of the teacher that is teaching the course.
      * @param facultyID The ID of the faculty that is associated with the course.
      */
-    public void createCourse(String courseID, String courseName, String courseLevel, String departmentID, String teacherID, String facultyID) {
+    public void createCourse(String courseID, String courseName, String courseLevel, String departmentID, String creditValue,String teacherID, String teacherName,String facultyID) {
 
         String createCourse = "INSERT INTO Courses " +
-                "(courseID, courseName, courseLevel, deptID, teacherID, facultyID)" +
-                "VALUES ('"+courseID+"', '"+courseName+"', '"+courseLevel+"', '"+departmentID+"', '"+teacherID+"', '"+facultyID+"');";
+                "(courseID, courseName, courseLevel, deptID, creditValue ,teacherID, teacherName, facultyID)" +
+                "VALUES ('"+courseID+"', '"+courseName+"', '"+courseLevel+"', '"+departmentID+"', '"+creditValue+"','"+teacherID+"', '"+teacherName+"', '"+facultyID+"');";
         Statement stmt;
         try {
             stmt = conn.createStatement();
@@ -514,8 +562,8 @@ public class connectDB {
      * @param teacherID The ID of the teacher that is teaching the course.
      * @param facultyID The ID of the faculty that is associated with the course.
      */
-    public void updateCourse(String courseID, String courseName, String courseLevel, String departmentID, String teacherID, String facultyID) {
-        String updateCourse = "UPDATE courses SET courseID = '"+courseID+"', courseName = '"+courseName+"', courseLevel = '"+courseLevel+"', deptID = '"+departmentID+"', teacherID = '"+teacherID+"', facultyID = '"+facultyID+"' WHERE courseID = '"+courseID+"'";
+    public void updateCourse(String courseID, String courseName, String courseLevel, String departmentID, String creditValue,String teacherID, String teacherName, String facultyID) {
+        String updateCourse = "UPDATE courses SET courseID = '"+courseID+"', courseName = '"+courseName+"', courseLevel = '"+courseLevel+"', deptID = '"+departmentID+"', creditValue ='"+creditValue+"',teacherID = '"+teacherID+"', teacherName = '"+teacherName+"', facultyID = '"+facultyID+"' WHERE courseID = '"+courseID+"'";
 
         Statement stmt;
         try {
@@ -592,7 +640,7 @@ public class connectDB {
      * @return A ResultSet containing the teacher's information, including any courses they are assigned to.
      */
     public ResultSet checkTeacherCoursesColumns(String teacherID) {
-        String checkCourses = "SELECT course1, course2 FROM teachers WHERE teacherID ='"+teacherID+"';";
+        String checkCourses = "SELECT teacherID, course1, course2 FROM teachers WHERE teacherID ='"+teacherID+"';";
         Statement stmt;
         ResultSet resultSet = null;
         try{
@@ -665,9 +713,24 @@ public class connectDB {
         return (ObservableList<String>) genderList;
     }
     public ObservableList<String> getLevel() {
-        final String [] levels = {"1", "2", "3", "4"};
-        List<String > levelList = new ArrayList<>();
-        Collections.addAll(levelList, levels);
+        List<String> levelList = new ArrayList<>();
+
+        String selectLevels = "SELECT * FROM levels";
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectLevels);
+
+            while (resultSet.next()) {
+                levelList.add(resultSet.getString("level"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get levels");
+            e.printStackTrace();
+        }
 
         levelList = FXCollections.observableArrayList(levelList);
         return (ObservableList<String>) levelList;

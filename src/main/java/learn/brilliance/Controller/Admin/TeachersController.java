@@ -17,8 +17,8 @@ public class TeachersController implements Initializable {
     private final String idColumn = "teacherID";
     private final String columnName = "fName";
     public TextField teach_searchField;
-    public ChoiceBox<String> teach_filterDept;
-    public ChoiceBox<String> teach_filterCourse;
+    public ComboBox<String> teach_filterDept;
+    public ComboBox<String> teach_filterCourse;
     public TableView<Teacher> teach_tableView;
     public TableColumn<Teacher, String> teach_tableView_col_teacherID;
     public TableColumn<Teacher, String> teach_tableView_col_fName;
@@ -38,13 +38,13 @@ public class TeachersController implements Initializable {
     public TextField teach_phoneNum;
     public DatePicker teach_dob;
     public PasswordField teach_pwd;
-    public ChoiceBox<String> teach_gender;
+    public ComboBox<String> teach_gender;
     public TextField teach_teacherID;
-    public ChoiceBox<String> teach_deptID;
-    public ChoiceBox<String> teach_facultyID;
-    public ChoiceBox<String> teach_course1;
-    public ChoiceBox<String> teach_course2;
-    public ChoiceBox<String> teach_position;
+    public ComboBox<String> teach_deptID;
+    public ComboBox<String> teach_facultyID;
+    public ComboBox<String> teach_course1;
+    public ComboBox<String> teach_course2;
+    public ComboBox<String> teach_position;
     public Label operationStatus;
     public Button teach_genIDBtn;
     public Button teach_deleteBtn;
@@ -146,10 +146,7 @@ public class TeachersController implements Initializable {
 
             } else {
 
-                assert course1 != null;
-                assert course2 != null;
-
-                if (course1.isEmpty() && course2.isEmpty()) {
+                if (course1 == null && course2 == null) {
                     Model.getInstance().getConnectDB().createTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob, password, course1, course2, position, facultyID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Teacher created successfully.");
@@ -159,10 +156,11 @@ public class TeachersController implements Initializable {
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Teacher created successfully.");
 
+                    assert course1 != null;
                     alterTeacherInCourses(teacherID, course1, course2, operation);
 
                     // Update teacher table with new data
-                    // teach_tableView.setItems(Model.getInstance().setTeachers());
+                    teach_tableView.setItems(Model.getInstance().setTeachers());
                     clearFields();
                 }
             }

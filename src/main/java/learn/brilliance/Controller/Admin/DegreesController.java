@@ -8,8 +8,8 @@ import java.util.ResourceBundle;
 
 public class DegreesController implements Initializable {
     public TextField degree_searchField;
-    public ChoiceBox degree_filterDept;
-    public ChoiceBox degree_filterDuration;
+    public ComboBox degree_filterDept;
+    public ComboBox degree_filterDuration;
     public TableView degree_tableView;
     public TableColumn degree_tableView_col_degreeID;
     public TableColumn degree_tableView_col_degreeName;
@@ -20,11 +20,11 @@ public class DegreesController implements Initializable {
     public TableColumn degree_tableView_col_requiredCredits;
     public TextField degree_degreeName;
     public TextField degree_degreeID;
-    public ChoiceBox degree_deptID;
-    public ChoiceBox degree_duration;
-    public ChoiceBox degree_numCourses;
-    public ChoiceBox degree_totalCredits;
-    public ChoiceBox degree_requiredCredits;
+    public ComboBox degree_deptID;
+    public ComboBox degree_duration;
+    public ComboBox degree_numCourses;
+    public ComboBox degree_totalCredits;
+    public ComboBox degree_requiredCredits;
     public Button degree_genIDBtn;
     public Button degree_deleteBtn;
     public Button degree_clearBtn;

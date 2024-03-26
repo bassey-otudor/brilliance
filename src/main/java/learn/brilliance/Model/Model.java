@@ -174,7 +174,9 @@ public class Model {
                       resultSet.getString("courseLevel"),
                       resultSet.getString("deptID"),
                       resultSet.getString("teacherID"),
-                      resultSet.getString("facultyID")
+                      resultSet.getString("teacherName"),
+                      resultSet.getString("facultyID"),
+                      resultSet.getString("creditValue")
 
                 );
                 courseList.add(courseData);

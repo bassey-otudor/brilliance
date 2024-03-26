@@ -19,9 +19,9 @@ public class CoursesController implements Initializable {
     private final String tableName = "courses";
     private final String columnName = "courseName";
     public TextField course_searchField;
-    public ChoiceBox<String> course_filterFaculty;
-    public ChoiceBox<String> course_filterDept;
-    public ChoiceBox<String> course_filterLevel;
+    public ComboBox<String> course_filterFaculty;
+    public ComboBox<String> course_filterDept;
+    public ComboBox<String> course_filterLevel;
     public TableView<Course> course_tableView;
     public TableColumn<Course, String> course_tableView_col_facultyID;
     public TableView<Teacher> teacher_tableView;
@@ -30,16 +30,18 @@ public class CoursesController implements Initializable {
     public TableColumn<Course, String> course_tableView_col_level;
     public TableColumn<Course, String> course_tableView_col_dept;
     public TableColumn<Course, String> course_tableView_col_teacher;
+    public TableColumn<Course, String> course_tableView_col_creditValue;
     public TextField course_courseName;
     public TextField course_courseID;
-    public ChoiceBox<String> course_level;
-    public ChoiceBox<String> course_dept;
-    public ChoiceBox<String> course_teacher;
+    public ComboBox<String> course_creditValue;
+    public ComboBox<String> course_level;
+    public ComboBox<String> course_dept;
+    public ComboBox<String> course_teacher;
     public Button course_deleteBtn;
     public Button course_clearBtn;
     public Button course_updateBtn;
     public Button course_addBtn;
-    public ChoiceBox<String> course_faculty;
+    public ComboBox<String> course_faculty;
     public Label operationStatus;
 
     @Override
@@ -52,7 +54,7 @@ public class CoursesController implements Initializable {
                 -> course_teacher.setItems(Model.getInstance().getConnectDB().getCourseTeacher(newVal))));
 
         course_level.setItems(Model.getInstance().getConnectDB().getLevel());
-
+        course_creditValue.setItems(Model.getInstance().getConnectDB().getCreditValue());
         course_addBtn.setOnAction(e -> createCourse());
         course_updateBtn.setOnAction(e -> updateCourse());
         course_deleteBtn.setOnAction(e -> deleteCourse());
@@ -106,13 +108,15 @@ public class CoursesController implements Initializable {
         String courseFaculty = course_faculty.getValue();
         String courseLevel = course_level.getValue();
         String departmentID = course_dept.getValue();
-        String teacherID = course_teacher.getValue();
+        String teacherName = course_teacher.getValue();
+        String teacherID = getTeacherID(teacherName);
         String facultyID = course_faculty.getValue();
+        String creditValue = course_creditValue.getValue();
         boolean operation = true;
         boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID, columnName, courseName);
 
         try {
-            if(courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || facultyID.isEmpty()) {
+            if(courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || creditValue.isEmpty() || facultyID.isEmpty()) {
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 operationStatus.setText("Please fill required fields.");
 
@@ -126,24 +130,27 @@ public class CoursesController implements Initializable {
 
                 } else {
 
-                        ResultSet resultSet = Model.getInstance().getConnectDB().checkTeacherCoursesColumns(teacherID);
-
-                        while (resultSet.next()) {
-
-                            if ((resultSet.getString("course1") == null ||  resultSet.getString("course1").isEmpty()) && (resultSet.getString("course2") == null ||  resultSet.getString("course2").isEmpty()))  {
-                                String column = "course1";
-                                Model.getInstance().getConnectDB().insertCoursesInTeacher(column, teacherID, courseID, operation);
-
-                            } else if ((resultSet.getString("course2") == null ||  resultSet.getString("course2").isEmpty())) {
-                                String column = "course2";
-                                Model.getInstance().getConnectDB().insertCoursesInTeacher(column, teacherID, courseID, operation);
-                            }
+                    ResultSet resultSet = Model.getInstance().getConnectDB().checkTeacherCoursesColumns(teacherID);
+                    String course1 = "";
+                    String course2 = "";
+                    while (resultSet.next()) {
+                        course1 = resultSet.getString("course1");
+                        course2 = resultSet.getString("course2");
+                    }
 
 
-                        }
+                    if (course1 == null || course1.isEmpty() || course1.equals("NULL")) {
+                        String column = "course1";
+                        Model.getInstance().getConnectDB().insertCoursesInTeacher(column, teacherID, courseID, operation);
+                        System.out.println(course2 + " " + teacherID + " " + column);
+
+                    } else if (course2 == null || course2.isEmpty() || course2.equals("NULL")) {
+                        String column = "course2";
+                        Model.getInstance().getConnectDB().insertCoursesInTeacher(column, teacherID, courseID, operation);
+                    }
 
 
-                    Model.getInstance().getConnectDB().createCourse(courseID, courseName, courseLevel, departmentID, teacherID, facultyID);
+                    Model.getInstance().getConnectDB().createCourse(courseID, courseName, courseLevel, departmentID, creditValue, teacherID, teacherName, facultyID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Course successfully added.");
 
@@ -167,13 +174,15 @@ public class CoursesController implements Initializable {
         String courseFaculty = course_faculty.getValue();
         String courseLevel = course_level.getValue();
         String departmentID = course_dept.getValue();
-        String teacherID = course_teacher.getValue();
+        String teacherName = course_teacher.getValue();
+        String teacherID = null;
         String facultyID = course_faculty.getValue();
+        String creditValue = course_creditValue.getValue();
         boolean operation = true;
         boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID, columnName, courseName);
 
         try {
-            if (courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || teacherID.isEmpty() || facultyID.isEmpty()) {
+            if (courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || teacherID.isEmpty() || creditValue.isEmpty() ||facultyID.isEmpty()) {
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 operationStatus.setText("Please fill required fields.");
 
@@ -193,14 +202,14 @@ public class CoursesController implements Initializable {
                         }
                     }
 
-                    Model.getInstance().getConnectDB().updateCourse(courseID, courseName, courseLevel, departmentID, teacherID, facultyID);
+                    Model.getInstance().getConnectDB().updateCourse(courseID, courseName, courseLevel, departmentID, creditValue,teacherID, teacherName, facultyID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Course successfully updated.");
 
                     // Update the course table with new info
                     course_tableView.setItems(Model.getInstance().setCourses());
                     // Update the teacher table with new info
-                    // eacher_tableView.setItems(Model.getInstance().setTeachers());
+                    // teacher_tableView.setItems(Model.getInstance().setTeachers());
                     // Clear entries
                     clearFields();
 
@@ -263,6 +272,17 @@ public class CoursesController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    private String getTeacherID(String teacherName) {
+
+        String teacherID = null;
+        String[] names = teacherName.split(" ");
+
+        teacherID = String.valueOf(Model.getInstance().getConnectDB().getTeacherID(names[0], names[1]));
+        teacherID = teacherID.substring(1, teacherID.length() - 1);
+        return teacherID;
+    }
+
     private void clearFields() {
         course_courseID.setText("");
         course_courseName.setText("");
@@ -270,6 +290,7 @@ public class CoursesController implements Initializable {
         course_level.setValue(null);
         course_dept.setValue(null);
         course_teacher.setValue(null);
+        course_creditValue.setValue(null);
     }
     private void initialiseCoursesTable() {
         if(Model.getInstance().getCourses().isEmpty()) {
@@ -281,7 +302,8 @@ public class CoursesController implements Initializable {
         course_tableView_col_courseName.setCellValueFactory(cellData -> cellData.getValue().courseNameProperty());
         course_tableView_col_level.setCellValueFactory(cellData -> cellData.getValue().courseLevelProperty());
         course_tableView_col_dept.setCellValueFactory(cellData -> cellData.getValue().departmentIDProperty());
-        course_tableView_col_teacher.setCellValueFactory(cellData -> cellData.getValue().teacherIDProperty());
+        course_tableView_col_creditValue.setCellValueFactory(cellData -> cellData.getValue().creditValueProperty());
+        course_tableView_col_teacher.setCellValueFactory(cellData -> cellData.getValue().teacherNameProperty());
         course_tableView_col_facultyID.setCellValueFactory(cellData -> cellData.getValue().facultyIDProperty());
     }
     private void selectCourses() {
@@ -292,6 +314,7 @@ public class CoursesController implements Initializable {
         course_courseName.setText(String.valueOf(courses.courseNameProperty().get()));
         course_level.setValue(String.valueOf(courses.courseLevelProperty().get()));
         course_dept.setValue(String.valueOf(courses.departmentIDProperty().get()));
+        course_creditValue.setValue(String.valueOf(courses.creditValueProperty().get()));
         course_teacher.setValue(String.valueOf(courses.teacherIDProperty().get()));
         course_faculty.setValue(String.valueOf(courses.facultyIDProperty().get()));
     }

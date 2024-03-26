@@ -9,16 +9,16 @@ import java.util.ResourceBundle;
 public class MinorsController implements Initializable {
 
     public TextField minor_searchField;
-    public ChoiceBox minor_filterDegree;
+    public ComboBox minor_filterDegree;
     public TableView minor_tableView;
     public TableColumn minor_tableView_col_minorID;
     public TableColumn minor_tableView_col_courseID;
     public TableColumn minor_tableView_col_minorName;
     public TableColumn minor_tableView_col_degree;
     public TextField minor_minorID;
-    public ChoiceBox minor_courseID;
-    public ChoiceBox minor_minorName;
-    public ChoiceBox minor_degree;
+    public ComboBox minor_courseID;
+    public ComboBox minor_minorName;
+    public ComboBox minor_degree;
     public Button minor_genIDBtn;
     public Button minor_deleteBtn;
     public Button minor_clearBtn;

@@ -8,8 +8,8 @@ import java.util.ResourceBundle;
 
 public class StudentsController implements Initializable {
     public TextField stud_searchField;
-    public ChoiceBox stud_filterDept;
-    public ChoiceBox stud_filterCourse;
+    public ComboBox stud_filterDept;
+    public ComboBox stud_filterCourse;
     public TableView stud_tableView;
     public TableColumn stud_tableView_col_studentID;
     public TableColumn stud_tableView_col_fName;
@@ -26,12 +26,12 @@ public class StudentsController implements Initializable {
     public TextField stud_email;
     public TextField stud_phoneNum;
     public DatePicker stud_dob;
-    public ChoiceBox stud_gender;
-    public ChoiceBox stud_department;
-    public ChoiceBox stud_degree;
-    public ChoiceBox stud_minor;
+    public ComboBox stud_gender;
+    public ComboBox stud_department;
+    public ComboBox stud_degree;
+    public ComboBox stud_minor;
     public PasswordField stud_pwd;
-    public ChoiceBox stud_level;
+    public ComboBox stud_level;
     public TextField stud_studentID;
     public Button stud_genIDBtn;
     public Button stud_deleteBtn;

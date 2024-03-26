@@ -2,7 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -15,7 +15,7 @@
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="dept_searchField" layoutX="231.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
             <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="241.0" layoutY="24.0" />
-            <ChoiceBox fx:id="dept_filterDept" layoutX="498.0" layoutY="7.0" prefHeight="27.0" prefWidth="175.0" value="-- Filter by --" />
+            <ComboBox fx:id="dept_filterDept" layoutX="498.0" layoutY="7.0" prefHeight="27.0" prefWidth="175.0" value="-- Filter by --" />
             <Label layoutX="24.0" layoutY="9.0" styleClass="label-table-title" text="Department Details" />
         </AnchorPane>
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
@@ -23,7 +23,7 @@
                 <columns>
                     <TableColumn fx:id="dept_tableView_col_deptID" prefWidth="112.34534358978271" text="DepartmentID" />
                     <TableColumn fx:id="dept_tableView_col_deptName" prefWidth="270.2733383178711" text="DepartmentName" />
-                    <TableColumn fx:id="dept_tableView_col_faculty" prefWidth="148.94973754882812" text="Facultiy" />
+                    <TableColumn fx:id="dept_tableView_col_faculty" prefWidth="148.94973754882812" text="Faculty" />
                <TableColumn fx:id="dept_tableView_col_hod" prefWidth="208.34527587890625" text="HOD" />
                <TableColumn fx:id="dept_tableView_col_minor1" prefWidth="132.60430908203125" text="Minor1" />
                <TableColumn fx:id="dept_tableView_col_minor2" prefWidth="123.62591552734375" text="Minor2" />
@@ -31,12 +31,12 @@
             </TableView>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
-            <ChoiceBox fx:id="dept_faculty" layoutX="17.0" layoutY="58.0" prefHeight="26.0" prefWidth="278.0" value="-- Select Faculty ID --" />
+            <ComboBox fx:id="dept_faculty" layoutX="17.0" layoutY="58.0" prefHeight="26.0" prefWidth="278.0" promptText="Faculty ID"/>
             <TextField fx:id="dept_deptName" layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="278.0" promptText="Department Name" />
          <TextField fx:id="dept_deptID" layoutX="318.0" layoutY="14.0" prefHeight="29.0" prefWidth="156.0" promptText="Department ID" />
-            <ChoiceBox fx:id="dept_hod" layoutX="18.0" layoutY="100.0" prefHeight="26.0" prefWidth="278.0" value="-- Select HOD --" />
-            <ChoiceBox fx:id="dept_minor1" layoutX="319.0" layoutY="58.0" prefHeight="26.0" prefWidth="278.0" value="-- Select First Minor--" />
-            <ChoiceBox fx:id="dept_minor2" layoutX="318.0" layoutY="99.0" prefHeight="26.0" prefWidth="278.0" value="-- Select Second Minor --" />
+            <ComboBox fx:id="dept_hod" layoutX="18.0" layoutY="100.0" prefHeight="26.0" prefWidth="278.0" promptText="Head of Department" />
+            <ComboBox fx:id="dept_minor1" layoutX="319.0" layoutY="58.0" prefHeight="26.0" prefWidth="278.0" promptText="First Minor" />
+            <ComboBox fx:id="dept_minor2" layoutX="318.0" layoutY="99.0" prefHeight="26.0" prefWidth="278.0" promptText="Second Minor" />
             <Button fx:id="dept_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="dept_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
             <Button fx:id="dept_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
