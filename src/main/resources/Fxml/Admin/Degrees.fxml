@@ -15,7 +15,7 @@
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="degree_searchField" layoutX="173.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
             <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="183.0" layoutY="24.0" />
-            <ComboBox fx:id="degree_filterFaciulty" layoutX="440.0" layoutY="7.0" prefHeight="28.0" prefWidth="171.0" />
+            <ComboBox fx:id="degree_filterFaculty" layoutX="440.0" layoutY="7.0" prefHeight="28.0" prefWidth="171.0" />
             <Label layoutX="24.0" layoutY="9.0" styleClass="label-table-title" text="Degree Details" />
             <ComboBox fx:id="degree_filterDegree" layoutX="630.0" layoutY="7.0" prefHeight="28.0" prefWidth="157.0" />
         </AnchorPane>
@@ -24,7 +24,7 @@
                 <columns>
                     <TableColumn fx:id="degree_tableView_col_degreeID" prefWidth="85.17989134788513" text="Degree ID" />
                     <TableColumn fx:id="degree_tableView_col_degreeName" prefWidth="269.12227630615234" text="Degree Name" />
-                    <TableColumn fx:id="degree_tableView_col_deptID" prefWidth="98.30215454101562" text="Deptment ID" />
+                    <TableColumn fx:id="degree_tableView_col_deptID" prefWidth="98.30215454101562" text="Department ID" />
                <TableColumn fx:id="degree_tableView_col_minor" prefWidth="83.79855346679688" text="Minor" />
                     <TableColumn fx:id="degree_tableView_col_duration" prefWidth="84.71942138671875" text="Duration" />
                     <TableColumn fx:id="degree_tableView_col_numCourses" prefWidth="120.6331787109375" text="No. of Courses" />
@@ -37,7 +37,7 @@
             <TextField fx:id="degree_degreeName" layoutX="38.0" layoutY="13.0" prefHeight="29.0" prefWidth="354.0" promptText="Degree Name" />
             <TextField fx:id="degree_degreeID" disable="true" editable="false" layoutX="419.0" layoutY="103.0" prefHeight="26.0" prefWidth="162.0" promptText="Degree ID" />
             <ComboBox fx:id="degree_facultyID" layoutX="38.0" layoutY="58.0" prefHeight="26.0" prefWidth="162.0" promptText="Faculty" />
-            <TextField fx:id="degree_duration" layoutX="38.0" layoutY="104.0" prefHeight="26.0" prefWidth="162.0" promptText="Duration" />
+            <ComboBox fx:id="degree_duration" layoutX="38.0" layoutY="104.0" prefHeight="26.0" prefWidth="162.0" promptText="Duration" />
             <TextField fx:id="degree_numCourses" layoutX="231.0" layoutY="104.0" prefHeight="26.0" prefWidth="162.0" promptText="Number of Courses" />
          <TextField fx:id="degree_totalCredits" layoutX="38.0" layoutY="146.0" prefHeight="26.0" prefWidth="162.0" promptText="Total Credits" />
          <TextField fx:id="degree_requiredCredits" layoutX="231.0" layoutY="146.0" prefHeight="26.0" prefWidth="162.0" promptText="Required Credits" />

@@ -5,9 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class connectDB {
@@ -399,12 +397,12 @@ public class connectDB {
 
         return rowCount;
     }
-    public void insertTeacherInCourse (String teacherID, String courseID, boolean operation) {
+    public void insertTeacherInCourse (String teacherID, String teacherName, String courseID, boolean operation) {
         Statement stmt;
 
         if(operation) {
             try{
-                String insertTeacher = "UPDATE courses SET teacherID = '"+teacherID+"';";
+                String insertTeacher = "UPDATE courses SET teacherID = '"+teacherID+"', teacherName = '"+teacherName+"' WHERE courseID = '"+courseID+"';";
                 stmt = conn.createStatement();
                 stmt.executeUpdate(insertTeacher);
 
@@ -418,7 +416,7 @@ public class connectDB {
             try{
 
                 String setNull = "NULL";
-                String deleteTeacher = "UPDATE courses SET teacherID = '"+ setNull +"' WHERE courseID = '"+courseID+"'";
+                String deleteTeacher = "UPDATE courses SET teacherID = '"+ setNull +"', teacherName = '"+setNull+"'";
                 stmt = conn.createStatement();
                 stmt.executeUpdate(deleteTeacher);
 
@@ -525,6 +523,31 @@ public class connectDB {
         assert creditValueList instanceof ObservableList<String>;
         return (ObservableList<String>) creditValueList;
     }
+    public ObservableList<String> getCoursePosition() {
+        List<String> coursePositionList = new ArrayList<>();
+
+        String selectCoursePosition = "SELECT * FROM course_position";
+
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectCoursePosition);
+
+            while (resultSet.next()) {
+                coursePositionList.add(resultSet.getString("course_position"));
+            }
+            coursePositionList = FXCollections.observableArrayList(coursePositionList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve list of course positions.");
+            e.printStackTrace();
+        }
+
+        assert coursePositionList instanceof ObservableList<String>;
+        return (ObservableList<String>) coursePositionList;
+    }
 
     /**
      * Creates a new course in the database.
@@ -617,10 +640,10 @@ public class connectDB {
 
     } else {
 
-        String setNull = "NULL";
-
         try {
-            String deleteCourse = "UPDATE teachers SET " + columnName + " = '" + setNull + "' WHERE teacherID = '" + teacherID + "';";
+
+            System.out.println(teacherID);
+            String deleteCourse = "UPDATE teachers SET  " + columnName + "  =  + null +  WHERE teacherID = '" + teacherID + "';";
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(deleteCourse);
 

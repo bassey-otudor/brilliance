@@ -24,12 +24,13 @@
             <TableView fx:id="course_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627" prefWidth="915.1079387831637" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columns>
                     <TableColumn fx:id="course_tableView_col_courseID" prefWidth="85.64029717445374" text="Course ID" />
-                    <TableColumn fx:id="course_tableView_col_courseName" prefWidth="256.23028564453125" text="Course Name" />
-                    <TableColumn fx:id="course_tableView_col_level" prefWidth="80.8057861328125" text="Level" />
-                    <TableColumn fx:id="course_tableView_col_dept" prefWidth="157.4676513671875" text="Department" />
-                    <TableColumn fx:id="course_tableView_col_teacher" minWidth="0.0" prefWidth="218.24462890625" text="Teacher" />
-                    <TableColumn fx:id="course_tableView_col_facultyID" prefWidth="94.6187744140625" text="Faculty ID" />
-                    <TableColumn fx:id="course_tableView_col_creditValue" prefWidth="102.90643310546875" text="Credit Value" />
+                    <TableColumn fx:id="course_tableView_col_courseName" prefWidth="192.00005340576172" text="Course Name" />
+                    <TableColumn fx:id="course_tableView_col_level" prefWidth="64.92083740234375" text="Level" />
+                    <TableColumn fx:id="course_tableView_col_dept" prefWidth="113.95684814453125" text="Department" />
+                    <TableColumn fx:id="course_tableView_col_teacher" minWidth="0.0" prefWidth="228.60433959960938" text="Teacher Name" />
+               <TableColumn fx:id="course_tableView_col_teacherID" minWidth="0.0" prefWidth="99.4532470703125" text="Teacher ID" />
+                    <TableColumn fx:id="course_tableView_col_facultyID" prefWidth="96.69061279296875" text="Faculty ID" />
+                    <TableColumn fx:id="course_tableView_col_creditValue" prefWidth="111.8848876953125" text="Credit Value" />
                 </columns>
             </TableView>
         </AnchorPane>
@@ -37,15 +38,17 @@
             <TextField fx:id="course_courseName" layoutX="38.0" layoutY="13.0" prefHeight="29.0" prefWidth="278.0" promptText="Course Name" />
             <ComboBox fx:id="course_faculty" layoutX="37.0" layoutY="62.0" prefHeight="26.0" prefWidth="278.0" promptText="Faculty" />
             <ComboBox fx:id="course_dept" layoutX="38.0" layoutY="107.0" prefHeight="26.0" prefWidth="278.0" promptText="Department" />
-            <ComboBox fx:id="course_teacher" layoutX="353.0" layoutY="14.0" prefHeight="26.0" prefWidth="278.0" promptText="Teacher" />
-            <TextField fx:id="course_courseID" layoutX="355.0" layoutY="58.0" prefHeight="26.0" prefWidth="124.0" promptText="Course ID" />
-            <ComboBox fx:id="course_level" layoutX="357.0" layoutY="106.0" prefHeight="26.0" prefWidth="278.0" promptText="Level" />
-         <ComboBox fx:id="course_creditValue" layoutX="509.0" layoutY="60.0" prefWidth="124.0" promptText="Credit Value" />
-            <Button fx:id="course_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
-            <Button fx:id="course_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
-            <Button fx:id="course_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
-            <Button fx:id="course_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+            <ComboBox fx:id="course_teacher" layoutX="353.0" layoutY="14.0" prefHeight="28.0" prefWidth="220.0" promptText="Teacher" />
+            <TextField fx:id="course_courseID" layoutX="355.0" layoutY="58.0" prefHeight="29.0" prefWidth="146.0" promptText="Course ID" />
+            <ComboBox fx:id="course_level" layoutX="357.0" layoutY="106.0" prefHeight="28.0" prefWidth="146.0" promptText="Level" />
+         <ComboBox fx:id="course_creditValue" layoutX="538.0" layoutY="60.0" prefHeight="28.0" prefWidth="171.0" promptText="Credit Value" />
+            <Button fx:id="course_deleteBtn" layoutX="756.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
+            <Button fx:id="course_clearBtn" layoutX="756.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
+            <Button fx:id="course_updateBtn" layoutX="756.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
+            <Button fx:id="course_addBtn" layoutX="756.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
          <Label fx:id="operationStatus" layoutX="361.0" layoutY="147.0" prefHeight="22.0" prefWidth="273.0" styleClass="error-label" />
+         <TextField fx:id="course_teacherID" disable="true" layoutX="591.0" layoutY="13.0" prefHeight="29.0" prefWidth="114.0" promptText="Teacher ID" />
+         <ComboBox fx:id="course_firstSecond" disable="true" layoutX="540.0" layoutY="105.0" prefHeight="28.0" prefWidth="171.0" promptText="1st or 2nd Course" />
         </AnchorPane>
     </VBox>
 </AnchorPane>
