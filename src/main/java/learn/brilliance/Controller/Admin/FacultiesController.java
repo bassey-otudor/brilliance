@@ -51,14 +51,14 @@ public class FacultiesController implements Initializable {
         // Faculty tableView section
         initialiseFacultiesTable();
         bindFacultyTableData();
-        faculty_tableView.setItems(Model.getInstance().setFaculties());
+        faculty_tableView.setItems(Model.getInstance().setAllFaculties());
         faculty_tableView.setOnMouseClicked(e -> selectFaculties());
         searchFaculties();
     }
 
     // search the faculty table
     private void searchFaculties() {
-        FilteredList<Faculty> searchFilter = new FilteredList<>(Model.getInstance().setFaculties(), e -> true);
+        FilteredList<Faculty> searchFilter = new FilteredList<>(Model.getInstance().setAllFaculties(), e -> true);
         faculty_searchField.textProperty().addListener(((observableValue, oldVal, newVal) -> {
             searchFilter.setPredicate(predicateFaculty -> {
                 if(newVal == null || newVal.isEmpty()) {
@@ -134,7 +134,7 @@ public class FacultiesController implements Initializable {
                     operationStatus.setText("Added faculty successfully.");
 
                     // Update faculty table
-                    faculty_tableView.setItems(Model.getInstance().setFaculties());
+                    faculty_tableView.setItems(Model.getInstance().setAllFaculties());
                     // Update departments table
                     // dept_tableView.setItems(Model.getInstance().setDepartments());
 
@@ -168,7 +168,7 @@ public class FacultiesController implements Initializable {
                 Model.getInstance().getConnectDB().updateFaculty(facultyID, facultyName, facultyDirector);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;");
                 operationStatus.setText("Updated faculty successfully.");
-                faculty_tableView.setItems(Model.getInstance().setFaculties());
+                faculty_tableView.setItems(Model.getInstance().setAllFaculties());
                 clearFields();
 
             } else {
@@ -192,29 +192,31 @@ public class FacultiesController implements Initializable {
             operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;");
             operationStatus.setText("Deleted faculty successfully.");
             clearFields();
-            faculty_tableView.setItems(Model.getInstance().setFaculties());
+            faculty_tableView.setItems(Model.getInstance().setAllFaculties());
         }
     }
-
 
     /**
  * Clears all text fields in the faculty form.
  */
     private void clearFields() {
-    faculty_facName.setText("");
-    faculty_facID.setText("");
-    faculty_director.setValue("");
-    faculty_dept1.setText("");
-    faculty_dept2.setText("");
-    faculty_dept3.setText("");
+    faculty_facName.setText(null);
+    faculty_facID.setText(null);
+    faculty_director.setValue(null);
+    faculty_dept1.setText(null);
+    faculty_dept2.setText(null);
+    faculty_dept3.setText(null);
+    faculty_dept1ID.setText(null);
+    faculty_dept2ID.setText(null);
+    faculty_dept3ID.setText(null);
 }
 
     /**
  * Initializes the faculty table view by populating it with data from the database.
  */
     private void initialiseFacultiesTable() {
-        if (Model.getInstance().getFaculties().isEmpty()) {
-            Model.getInstance().setFaculties();
+        if (Model.getInstance().getAllFaculties().isEmpty()) {
+            Model.getInstance().setAllFaculties();
         }
     }
 

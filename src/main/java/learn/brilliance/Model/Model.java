@@ -2,7 +2,6 @@ package learn.brilliance.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import learn.brilliance.Controller.Admin.DepartmentsController;
 import learn.brilliance.View.ViewFactory;
 
 import java.sql.ResultSet;
@@ -19,6 +18,7 @@ public class Model {
     private final ObservableList<Department> departments;
     private final ObservableList<Teacher> teachers;
     private final ObservableList<Course> courses;
+    private final ObservableList<Degree> degree;
     private Model() {
         this.viewFactory = new ViewFactory();
         this.connectDB = new connectDB();
@@ -29,6 +29,7 @@ public class Model {
         this.departments = FXCollections.observableArrayList();
         this.teachers = FXCollections.observableArrayList();
         this.courses = FXCollections.observableArrayList();
+        this.degree = FXCollections.observableArrayList();
     }
     public static synchronized Model getInstance() {
         if(model == null) {
@@ -65,10 +66,10 @@ public class Model {
 
     // Binding data section
     // Faculties
-    public ObservableList<Faculty> getFaculties() {
+    public ObservableList<Faculty> getAllFaculties() {
         return faculties;
     }
-    public ObservableList<Faculty> setFaculties() {
+    public ObservableList<Faculty> setAllFaculties() {
         ResultSet resultSet = connectDB.getFacultyData();
         ObservableList<Faculty> facultiesList = FXCollections.observableArrayList();
         Faculty facultyData;
@@ -95,14 +96,14 @@ public class Model {
     }
 
     // Departments
-    public ObservableList<Department> getDepartments() { return departments; }
+    public ObservableList<Department> getAllDepartments() { return departments; }
 
     /**
      * This method uses the ResultSet returned by the getDepartmentData() method.
      * The attributes of every department is gotten and stored in an ObservableList of departments.
      * This method is called and the list used to initialise the departmentView table.
      */
-    public ObservableList<Department> setDepartments() {
+    public ObservableList<Department> setAllDepartments() {
         ResultSet resultSet = connectDB.getDepartmentData();
         ObservableList<Department> departmentList = FXCollections.observableArrayList();
         Department departmentData;
@@ -126,8 +127,8 @@ public class Model {
     }
 
     // Teachers
-    public ObservableList<Teacher> getTeachers() { return teachers; }
-    public ObservableList<Teacher> setTeachers() {
+    public ObservableList<Teacher> getAllTeachers() { return teachers; }
+    public ObservableList<Teacher> setAllTeachers() {
         ResultSet resultSet = connectDB.getTeacherData();
         ObservableList<Teacher> teacherList = FXCollections.observableArrayList();
         Teacher teacherData;
@@ -160,8 +161,8 @@ public class Model {
     }
 
     // Courses
-    public ObservableList<Course> getCourses() { return courses; }
-    public ObservableList<Course> setCourses() {
+    public ObservableList<Course> getAllCourses() { return courses; }
+    public ObservableList<Course> setAllCourses() {
         ResultSet resultSet = connectDB.getCourseData();
         ObservableList<Course> courseList = FXCollections.observableArrayList();
         Course courseData;
@@ -187,6 +188,35 @@ public class Model {
         }
 
         return courseList;
+    }
+
+    //  Degrees
+    public ObservableList<Degree> getAllDegrees() { return degree; }
+
+    public ObservableList<Degree> setAllDegrees() {
+        ResultSet resultSet = Model.getInstance().connectDB.getDegreeData();
+        ObservableList<Degree> degreeList = FXCollections.observableArrayList();
+        Degree degreeData;
+
+        try {
+            while(resultSet.next()) {
+                degreeData = new Degree(
+                        resultSet.getString("degreeID"),
+                        resultSet.getString("degreeName"),
+                        resultSet.getString("departmentID"),
+                        resultSet.getString("duration"),
+                        resultSet.getString("numberOfCourses"),
+                        resultSet.getString("totalCredits"),
+                        resultSet.getString("requiredCredits")
+                );
+                degreeList.add(degreeData);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve degree data");
+        }
+
+        return degreeList;
     }
 
 }

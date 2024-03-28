@@ -642,8 +642,7 @@ public class connectDB {
 
         try {
 
-            System.out.println(teacherID);
-            String deleteCourse = "UPDATE teachers SET  " + columnName + "  =  + null +  WHERE teacherID = '" + teacherID + "';";
+            String deleteCourse = "UPDATE teachers SET  " + columnName + "  = null WHERE teacherID = '" + teacherID + "';";
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(deleteCourse);
 
@@ -679,6 +678,89 @@ public class connectDB {
     }
 
 
+    // Degree methods
+
+    public ResultSet getDegreeData() {
+        Statement stmt;
+        ResultSet resultSet = null;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery("SELECT * FROM department_degrees;");
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve degree data.");
+            e.printStackTrace();
+        }
+
+        return resultSet;
+    }
+    public ObservableList<String> getDuration() {
+        List<String> durationList = new ArrayList<>();
+
+        String selectDuration = "SELECT duration FROM degree_duration;";
+        Statement stmt;
+        ResultSet resultSet;
+        try{
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectDuration);
+            while (resultSet.next()) {
+                durationList.add(resultSet.getString("duration"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get duration list.");
+            e.printStackTrace();
+        }
+
+        return FXCollections.observableArrayList(durationList);
+    }
+    public void createDegree(String degreeID, String degreeName, String departmentID, String duration, String numberOfCourses, String totalCredits, String requiredCredits) {
+        String createDegree = "INSERT INTO department_degrees "
+                + "(degreeID, degreeName, departmentID, duration, numberOfCourses, totalCredits, requiredCredits)"
+                +  "VALUES ('"+degreeID+"', '"+degreeName+"', '"+departmentID+"', '"+duration+"', '"+numberOfCourses+"', '"+totalCredits+"' , '"+requiredCredits+"');";
+
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeQuery(createDegree);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to create degree.");
+            e.printStackTrace();
+        }
+    }
+    public void updateDegree(String degreeID, String degreeName, String departmentID, String duration, String numberOfCourses, String totalCredits, String requiredCredits) {
+        String updateCourse = "UPDATE department_degrees SET " +
+                "degreeID = '"+degreeID+"', degreeName = '"+degreeName+"', " +
+                "departmentID = '"+departmentID+"', duration = '"+duration+"', " +
+                "numberOfCourses = '"+numberOfCourses+"', totalCredits = '"+totalCredits+"', " +
+                "requiredCredits = '"+requiredCredits+"');";
+
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(updateCourse);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to update course.");
+            e.printStackTrace();
+        }
+    }
+    public void deleteDegree(String degreeID) {
+        String deleteDegree = "DELETE from department_degrees WHERE degreeID = '"+degreeID+"');";
+
+        Statement stmt;
+
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(deleteDegree);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to delete course.");
+            e.printStackTrace();
+        }
+    }
+
     // Utility methods
 
     /**
@@ -712,6 +794,12 @@ public class connectDB {
 
         return doesExists;
     }
+
+    /**
+     * This method is used to retrieve the list of available genders.
+     *
+     * @return An ObservableList containing the list of available genders.
+     */
     public ObservableList<String> getGender() {
         List<String> genderList = new ArrayList<>();
 

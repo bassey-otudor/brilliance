@@ -22,12 +22,12 @@ public class Degree {
         this.requiredCredits = new SimpleStringProperty(this, "RequiredCredits", requiredCreits);
     }
 
-    public StringProperty degreeProperty() { return degreeID; }
+    public StringProperty degreeIDProperty() { return degreeID; }
     public StringProperty degreeNameProperty() { return degreeName; }
     public StringProperty departmentIDProperty() { return departmentID; }
     public StringProperty durationProperty() { return duration; }
     public StringProperty numberOfCoursesProperty() { return numberOfCourses; }
     public StringProperty totalCreditsProperty() { return totalCredits; }
-    public StringProperty reqCredits() { return requiredCredits; }
+    public StringProperty requiredCreditsProperty() { return requiredCredits; }
 
 }

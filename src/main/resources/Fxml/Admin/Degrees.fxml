@@ -42,12 +42,13 @@
          <TextField fx:id="degree_totalCredits" layoutX="38.0" layoutY="146.0" prefHeight="26.0" prefWidth="162.0" promptText="Total Credits" />
          <TextField fx:id="degree_requiredCredits" layoutX="231.0" layoutY="146.0" prefHeight="26.0" prefWidth="162.0" promptText="Required Credits" />
             <Button fx:id="degree_genIDBtn" layoutX="422.0" layoutY="143.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
-            <Button fx:id="degree_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
-            <Button fx:id="degree_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
-            <Button fx:id="degree_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
-            <Button fx:id="degree_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+            <Button fx:id="degree_deleteBtn" layoutX="821.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
+            <Button fx:id="degree_clearBtn" layoutX="821.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
+            <Button fx:id="degree_updateBtn" layoutX="821.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
+            <Button fx:id="degree_addBtn" layoutX="821.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
          <ComboBox fx:id="degree_deptID" layoutX="231.0" layoutY="58.0" prefHeight="26.0" prefWidth="162.0" promptText="Department" />
          <ComboBox fx:id="degree_minor" layoutX="419.0" layoutY="55.0" prefHeight="26.0" prefWidth="162.0" promptText="Minor" />
+         <Label fx:id="operationStatus" layoutX="598.0" layoutY="142.0" prefHeight="31.0" prefWidth="207.0" textAlignment="CENTER" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

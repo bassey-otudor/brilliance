@@ -69,14 +69,14 @@ public class CoursesController implements Initializable {
         // course tableView section
         initialiseCoursesTable();
         bindCoursesTableData();
-        course_tableView.setItems(Model.getInstance().setCourses());
+        course_tableView.setItems(Model.getInstance().setAllCourses());
         course_tableView.setOnMouseClicked(e -> selectCourses());
         searchCourses();
     }
 
 
     private void searchCourses() {
-        FilteredList<Course> searchFilter = new FilteredList<>(Model.getInstance().setCourses(), e -> true);
+        FilteredList<Course> searchFilter = new FilteredList<>(Model.getInstance().setAllCourses(), e -> true);
         course_searchField.textProperty().addListener(((observableValue, oldVal, newVal) -> {
             searchFilter.setPredicate(predicateCourse -> {
                 if(newVal == null || newVal.isEmpty()) {
@@ -146,7 +146,7 @@ public class CoursesController implements Initializable {
                     operationStatus.setText("Course successfully added.");
 
                     // Update the course table with new info
-                    course_tableView.setItems(Model.getInstance().setCourses());
+                    course_tableView.setItems(Model.getInstance().setAllCourses());
                     // Update the teacher table with new info
                     // teacher_tableView.setItems(Model.getInstance().setTeachers());
                     // Clear entries
@@ -192,7 +192,7 @@ public class CoursesController implements Initializable {
                     operationStatus.setText("Course successfully updated.");
 
                     // Update the course table with new info
-                    course_tableView.setItems(Model.getInstance().setCourses());
+                    course_tableView.setItems(Model.getInstance().setAllCourses());
                     // Clear entries
                     clearFields();
 
@@ -236,7 +236,7 @@ public class CoursesController implements Initializable {
                     operationStatus.setText("Course successfully deleted.");
 
                     // Update the course table with new info
-                    course_tableView.setItems(Model.getInstance().setCourses());
+                    course_tableView.setItems(Model.getInstance().setAllCourses());
 
                     // Clear entries
                     clearFields();
@@ -269,18 +269,20 @@ public class CoursesController implements Initializable {
     }
 
     private void clearFields() {
-        course_courseID.setText("");
-        course_courseName.setText("");
+        course_courseID.setText(null);
+        course_courseName.setText(null);
         course_faculty.setValue(null);
         course_level.setValue(null);
         course_dept.setValue(null);
         course_teacher.setValue(null);
+        course_teacher.setValue(null);
         course_creditValue.setValue(null);
+        course_firstSecond.setValue(null);
         course_firstSecond.setDisable(true);
     }
     private void initialiseCoursesTable() {
-        if(Model.getInstance().getCourses().isEmpty()) {
-            Model.getInstance().setCourses();
+        if(Model.getInstance().getAllCourses().isEmpty()) {
+            Model.getInstance().setAllCourses();
         }
     }
     private void bindCoursesTableData() {

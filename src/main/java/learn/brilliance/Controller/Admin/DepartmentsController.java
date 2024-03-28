@@ -59,14 +59,14 @@ public class DepartmentsController implements Initializable {
         // Department tableview section
         initialiseDepartmentsTable();
         bindDepartmentsTableData();
-        dept_tableView.setItems(Model.getInstance().setDepartments());
+        dept_tableView.setItems(Model.getInstance().setAllDepartments());
         dept_tableView.setOnMouseClicked(e -> selectDepartments());
         searchDepartments();
     }
 
 
     private void searchDepartments() {
-        FilteredList<Department> searchFilter = new FilteredList<>(Model.getInstance().setDepartments(), e -> true);
+        FilteredList<Department> searchFilter = new FilteredList<>(Model.getInstance().setAllDepartments(), e -> true);
         dept_searchField.textProperty().addListener(((observableValue, oldVal, newVal) -> {
             searchFilter.setPredicate(predicateFaculty -> {
                 if(newVal == null || newVal.isEmpty()) {
@@ -142,7 +142,7 @@ public class DepartmentsController implements Initializable {
                     operationStatus.setText("Department successfully added.");
 
                     // Update departments table
-                    dept_tableView.setItems(Model.getInstance().setDepartments());
+                    dept_tableView.setItems(Model.getInstance().setAllDepartments());
                     //Update faculty table
                     // faculty_tableView.setItems(Model.getInstance().setFaculties());
                     clearFields();
@@ -173,7 +173,7 @@ public class DepartmentsController implements Initializable {
                 Model.getInstance().getConnectDB().updateDepartment(departmentID, departmentName, facultyID, hod, minor1, minor2);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                 operationStatus.setText("Department successfully updated.");
-                dept_tableView.setItems(Model.getInstance().setDepartments());
+                dept_tableView.setItems(Model.getInstance().setAllDepartments());
                 // faculty_tableView.setItems(Model.getInstance().setFaculties());
                 clearFields();
             } else {
@@ -202,7 +202,7 @@ public class DepartmentsController implements Initializable {
                 Model.getInstance().getConnectDB().deleteDepartment(departmentID);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                 operationStatus.setText("Department successfully deleted.");
-                dept_tableView.setItems(Model.getInstance().setDepartments());
+                dept_tableView.setItems(Model.getInstance().setAllDepartments());
                 // faculty_tableView.setItems(Model.getInstance().setFaculties());
                 clearFields();
 
@@ -213,20 +213,20 @@ public class DepartmentsController implements Initializable {
         }
     }
     private void clearFields() {
-        dept_deptID.setText("");
-        dept_deptName.setText("");
-        dept_faculty.setValue("");
-        dept_hod.setValue("");
-        dept_minor1.setValue("");
-        dept_minor2.setValue("");
+        dept_deptID.setText(null);
+        dept_deptName.setText(null);
+        dept_faculty.setValue(null);
+        dept_hod.setValue(null);
+        dept_minor1.setValue(null);
+        dept_minor2.setValue(null);
     }
 
    /**
  * Initialises the departments table by populating it with data from the database.
  */
     public void initialiseDepartmentsTable() {
-        if (Model.getInstance().getDepartments().isEmpty()) {
-            Model.getInstance().setDepartments();
+        if (Model.getInstance().getAllDepartments().isEmpty()) {
+            Model.getInstance().setAllDepartments();
         }
     }
 

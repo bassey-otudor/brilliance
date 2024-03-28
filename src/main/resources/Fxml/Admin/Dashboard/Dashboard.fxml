@@ -94,7 +94,7 @@
                <Circle fill="#af14d6" layoutX="300.0" layoutY="20.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                <Label layoutX="311.0" layoutY="11.0" text="Total" />
             </AnchorPane>
-            <LineChart fx:id="dashboard_lineGraph" layoutX="8.0" layoutY="39.0" prefHeight="234.0" prefWidth="637.0">
+            <LineChart fx:id="dashboard_lineGraph" layoutX="8.0" layoutY="39.0" prefHeight="234.0" prefWidth="616.0">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>

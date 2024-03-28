@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.ComboBox?>
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.MinorsController">
     <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
@@ -21,19 +21,19 @@
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
             <TableView fx:id="minor_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627" prefWidth="915.1079387831637" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columns>
-                    <TableColumn fx:id="minor_tableView_col_minorID" prefWidth="119.71227812767029" text="MinorID" />
-                    <TableColumn fx:id="minor_tableView_col_courseID" prefWidth="184.17261505126953" text="CourseID" />
-                    <TableColumn fx:id="minor_tableView_col_minorName" prefWidth="305.0359802246094" text="MinorName" />
+                    <TableColumn fx:id="minor_tableView_col_minorID" prefWidth="119.71227812767029" text="Minor ID" />
+                    <TableColumn fx:id="minor_tableView_col_courseID" prefWidth="184.17261505126953" text="Course ID" />
+                    <TableColumn fx:id="minor_tableView_col_minorName" prefWidth="305.0359802246094" text="Minor Name" />
                     <TableColumn fx:id="minor_tableView_col_degree" prefWidth="384.9208984375" text="Degree" />
                 </columns>
             </TableView>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <TextField fx:id="minor_minorID" disable="true" editable="false" layoutX="35.0" layoutY="139.0" prefHeight="29.0" prefWidth="278.0" promptText="Minor ID" />
-            <ComboBox fx:id="minor_courseID" layoutX="36.0" layoutY="17.0" prefHeight="26.0" prefWidth="278.0" />
-            <ComboBox fx:id="minor_minorName" layoutX="35.0" layoutY="59.0" prefHeight="26.0" prefWidth="278.0" />
-            <ComboBox fx:id="minor_degree" layoutX="36.0" layoutY="100.0" prefHeight="26.0" prefWidth="278.0" />
-            <Button fx:id="minor_genIDBtn" layoutX="355.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
+            <ComboBox fx:id="minor_courseID" layoutX="36.0" layoutY="17.0" prefHeight="26.0" prefWidth="278.0" promptText="Course ID" />
+            <ComboBox fx:id="minor_minorName" layoutX="35.0" layoutY="59.0" prefHeight="26.0" prefWidth="278.0" promptText="Minor Name" />
+            <ComboBox fx:id="minor_degree" layoutX="36.0" layoutY="100.0" prefHeight="26.0" prefWidth="278.0" promptText="Degree" />
+            <Button fx:id="minor_genIDBtn" layoutX="333.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
             <Button fx:id="minor_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="minor_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
             <Button fx:id="minor_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />

@@ -77,14 +77,14 @@ public class TeachersController implements Initializable {
         // Teacher tableview section
         initialiseTeachersTable();
         bindTeachersTableData();
-        teach_tableView.setItems(Model.getInstance().setTeachers());
+        teach_tableView.setItems(Model.getInstance().setAllTeachers());
         teach_tableView.setOnMouseClicked(e -> selectTeacher());
 
         searchTeacher();
     }
 
     private void searchTeacher() {
-        FilteredList<Teacher> searchFilter = new FilteredList<>(Model.getInstance().setTeachers(), e -> true);
+        FilteredList<Teacher> searchFilter = new FilteredList<>(Model.getInstance().setAllTeachers(), e -> true);
         teach_searchField.textProperty().addListener(((observableValue, oldVal, newVal) -> {
             searchFilter.setPredicate(predicateTeacher -> {
                 if (newVal == null || newVal.isEmpty()) {
@@ -164,7 +164,7 @@ public class TeachersController implements Initializable {
             }
 
             // Update teacher table with new data
-            teach_tableView.setItems(Model.getInstance().setTeachers());
+            teach_tableView.setItems(Model.getInstance().setAllTeachers());
             clearFields();
         }
     }
@@ -203,7 +203,7 @@ public class TeachersController implements Initializable {
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Teacher updated successfully.");
 
-                    teach_tableView.setItems(Model.getInstance().setTeachers());
+                    teach_tableView.setItems(Model.getInstance().setAllTeachers());
                     alterTeacherInCourses(teacherID, course1, teacherName, course2, operation);
 
                     clearFields();
@@ -252,7 +252,7 @@ public class TeachersController implements Initializable {
 
             operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
             operationStatus.setText("Teacher deleted successfully.");
-            teach_tableView.setItems(Model.getInstance().setTeachers());
+            teach_tableView.setItems(Model.getInstance().setAllTeachers());
             clearFields();
 
         } else {
@@ -279,8 +279,8 @@ public class TeachersController implements Initializable {
     }
 
     private void initialiseTeachersTable() {
-        if (Model.getInstance().getTeachers().isEmpty()) {
-            Model.getInstance().setTeachers();
+        if (Model.getInstance().getAllTeachers().isEmpty()) {
+            Model.getInstance().setAllTeachers();
         }
     }
 
