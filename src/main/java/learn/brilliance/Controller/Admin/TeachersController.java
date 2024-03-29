@@ -264,15 +264,15 @@ public class TeachersController implements Initializable {
     }
 
     private void clearFields() {
-        teach_teacherID.setText("");
-        teach_fName.setText("");
-        teach_lName.setText("");
+        teach_teacherID.setText(null);
+        teach_fName.setText(null);
+        teach_lName.setText(null);
         teach_gender.setValue(null);
-        teach_phoneNum.setText("");
-        teach_email.setText("");
+        teach_phoneNum.setText(null);
+        teach_email.setText(null);
         teach_deptID.setValue(null);
         teach_dob.setValue(null);
-        teach_pwd.setText("");
+        teach_pwd.setText(null);
         teach_course1.setValue(null);
         teach_course2.setValue(null);
         teach_position.setValue(null);

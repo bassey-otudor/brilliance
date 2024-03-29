@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import learn.brilliance.Model.Degree;
 import learn.brilliance.Model.Model;
 
+import org.apache.commons.lang3.StringUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -50,6 +51,7 @@ public class DegreesController implements Initializable {
                 -> degree_minor.setItems(Model.getInstance().getConnectDB().getDepartmentCourses(newValue)));
         degree_duration.setItems(Model.getInstance().getConnectDB().getDuration());
 
+        degree_genIDBtn.setOnAction(e -> generateDegreeID());
         degree_addBtn.setOnAction(e -> createDegree());
         degree_updateBtn.setOnAction(e -> updateDegree());
         degree_deleteBtn.setOnAction(e -> deleteDegree());
@@ -61,13 +63,12 @@ public class DegreesController implements Initializable {
         degree_tableView.setItems(Model.getInstance().setAllDegrees());
         degree_tableView.setOnMouseClicked(e -> selectDegree());
 
-
     }
 
     private void createDegree() {
         String degreeID = degree_degreeID.getText();
         String degreeName = degree_degreeName.getText();
-        String facultyID = degree_facultyID.getValue();
+        String minor = degree_minor.getValue();
         String duration = degree_duration.getValue();
         String numberOfDegree = degree_numCourses.getText();
         String totalCredits = degree_totalCredits.getText();
@@ -88,9 +89,10 @@ public class DegreesController implements Initializable {
 
             } else {
 
-                Model.getInstance().getConnectDB().createDegree(degreeID, degreeName, departmentID, duration, numberOfDegree, totalCredits, requiredCredit);
+                Model.getInstance().getConnectDB().createDegree(degreeID, degreeName, departmentID, minor, duration, numberOfDegree, totalCredits, requiredCredit);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em");
                 operationStatus.setText("Degree successfully added.");
+                degree_tableView.setItems(Model.getInstance().setAllDegrees());
             }
         }
     }
@@ -98,6 +100,7 @@ public class DegreesController implements Initializable {
     private void updateDegree() {
         String degreeID = degree_degreeID.getText();
         String degreeName = degree_degreeName.getText();
+        String minor = degree_minor.getValue();
         String duration = degree_duration.getValue();
         String numberOfCourses = degree_numCourses.getText();
         String totalCredits = degree_totalCredits.getText();
@@ -112,9 +115,10 @@ public class DegreesController implements Initializable {
         } else {
 
             if(doesExist) {
-                Model.getInstance().getConnectDB().updateDegree(degreeID, degreeName, departmentID, duration, numberOfCourses, totalCredits, requiredCredit);
+                Model.getInstance().getConnectDB().updateDegree(degreeID, degreeName, departmentID, minor, duration, numberOfCourses, totalCredits, requiredCredit);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em");
                 operationStatus.setText("Degree updated successfully.");
+                degree_tableView.setItems(Model.getInstance().setAllDegrees());
 
             } else {
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1em");
@@ -137,6 +141,12 @@ public class DegreesController implements Initializable {
                 Model.getInstance().getConnectDB().deleteDegree(degreeID);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em");
                 operationStatus.setText("Degree deleted successfully.");
+                degree_tableView.setItems(Model.getInstance().setAllDegrees());
+
+            } else {
+                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1em");
+                operationStatus.setText("Degree not found.");
+                degree_degreeID.setStyle("-fx-border-color: #EC6666");
             }
         }
     }
@@ -162,6 +172,7 @@ public class DegreesController implements Initializable {
         degree_tableView_col_degreeID.setCellValueFactory(cellData -> cellData.getValue().degreeIDProperty());
         degree_tableView_col_degreeName.setCellValueFactory(cellData -> cellData.getValue().degreeNameProperty());
         degree_tableView_col_deptID.setCellValueFactory(cellData -> cellData.getValue().departmentIDProperty());
+        degree_tableView_col_minor.setCellValueFactory(cellData -> cellData.getValue().minorProperty());
         degree_tableView_col_duration.setCellValueFactory(cellData -> cellData.getValue().durationProperty());
         degree_tableView_col_numCourses.setCellValueFactory(cellData -> cellData.getValue().numberOfCoursesProperty());
         degree_tableView_col_totalCredits.setCellValueFactory(cellData -> cellData.getValue().totalCreditsProperty());
@@ -169,7 +180,10 @@ public class DegreesController implements Initializable {
     }
     private void generateDegreeID() {
         String departmentID = degree_deptID.getValue();
-
+        String rowCount = String.valueOf(Model.getInstance().getConnectDB().getDegreeRowCount(departmentID) + 1);
+        String degreeCode =  StringUtils.left(departmentID, 2);
+        String generatedID = departmentID + "-" + degreeCode + "X0" + rowCount;
+        degree_degreeID.setText(generatedID);
     }
 
     private void selectDegree() {

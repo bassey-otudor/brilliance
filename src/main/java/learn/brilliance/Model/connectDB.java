@@ -714,27 +714,26 @@ public class connectDB {
 
         return FXCollections.observableArrayList(durationList);
     }
-    public void createDegree(String degreeID, String degreeName, String departmentID, String duration, String numberOfCourses, String totalCredits, String requiredCredits) {
-        String createDegree = "INSERT INTO department_degrees "
-                + "(degreeID, degreeName, departmentID, duration, numberOfCourses, totalCredits, requiredCredits)"
-                +  "VALUES ('"+degreeID+"', '"+degreeName+"', '"+departmentID+"', '"+duration+"', '"+numberOfCourses+"', '"+totalCredits+"' , '"+requiredCredits+"');";
+    public void createDegree(String degreeID, String degreeName, String departmentID, String minor, String duration, String numberOfCourses, String totalCredits, String requiredCredits) {
+        String createDegree = "INSERT INTO  department_degrees " +
+                "(degreeID, degreeName, departmentID, minor, duration, numberOfCourses, totalCredits, requiredCredits)" +
+                "VALUES ('"+degreeID+"', '"+degreeName+"', '"+departmentID+"', '"+minor+"', '"+duration+"', '"+numberOfCourses+"', '"+totalCredits+"', '"+requiredCredits+"')";
 
         Statement stmt;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(createDegree);
+            stmt.executeUpdate(createDegree);
 
         } catch (SQLException e) {
-            System.out.println("Unable to create degree.");
-            e.printStackTrace();
+            System.out.println("Unable to create degree");
         }
     }
-    public void updateDegree(String degreeID, String degreeName, String departmentID, String duration, String numberOfCourses, String totalCredits, String requiredCredits) {
+    public void updateDegree(String degreeID, String degreeName, String departmentID, String minor, String duration, String numberOfCourses, String totalCredits, String requiredCredits) {
         String updateCourse = "UPDATE department_degrees SET " +
                 "degreeID = '"+degreeID+"', degreeName = '"+degreeName+"', " +
-                "departmentID = '"+departmentID+"', duration = '"+duration+"', " +
+                "departmentID = '"+departmentID+"', minor = '"+minor+"' ,duration = '"+duration+"', " +
                 "numberOfCourses = '"+numberOfCourses+"', totalCredits = '"+totalCredits+"', " +
-                "requiredCredits = '"+requiredCredits+"');";
+                "requiredCredits = '"+requiredCredits+"';";
 
         Statement stmt;
         try {
@@ -747,7 +746,7 @@ public class connectDB {
         }
     }
     public void deleteDegree(String degreeID) {
-        String deleteDegree = "DELETE from department_degrees WHERE degreeID = '"+degreeID+"');";
+        String deleteDegree = "DELETE from department_degrees WHERE degreeID = '"+degreeID+"';";
 
         Statement stmt;
 
@@ -759,6 +758,27 @@ public class connectDB {
             System.out.println("Unable to delete course.");
             e.printStackTrace();
         }
+    }
+
+    public int getDegreeRowCount(String departmentID) {
+        String degreeRowCount = "SELECT departmentID, COUNT(degreeID) AS idCount FROM department_degrees WHERE departmentID = '"+departmentID+"';";
+        Statement stmt;
+        ResultSet resultSet = null;
+        int rowCount = 0;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet= stmt.executeQuery(degreeRowCount);
+            if(resultSet.next()) {
+                rowCount = resultSet.getInt("idCount");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get degree row count.");
+            e.printStackTrace();
+        }
+
+        return rowCount;
     }
 
     // Utility methods

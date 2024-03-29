@@ -204,6 +204,7 @@ public class Model {
                         resultSet.getString("degreeID"),
                         resultSet.getString("degreeName"),
                         resultSet.getString("departmentID"),
+                        resultSet.getString("minor"),
                         resultSet.getString("duration"),
                         resultSet.getString("numberOfCourses"),
                         resultSet.getString("totalCredits"),

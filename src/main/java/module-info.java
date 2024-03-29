@@ -4,8 +4,9 @@ module com.learn.briliance {
     requires de.jensd.fx.glyphs.fontawesome;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
-            
-                            
+    requires commons.lang3;
+
+
     opens learn.brilliance to javafx.fxml;
     exports learn.brilliance;
     exports learn.brilliance.Controller;
