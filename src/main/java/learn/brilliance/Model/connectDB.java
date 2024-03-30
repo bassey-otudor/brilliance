@@ -730,10 +730,10 @@ public class connectDB {
     }
     public void updateDegree(String degreeID, String degreeName, String departmentID, String minor, String duration, String numberOfCourses, String totalCredits, String requiredCredits) {
         String updateCourse = "UPDATE department_degrees SET " +
-                "degreeID = '"+degreeID+"', degreeName = '"+degreeName+"', " +
+                "degreeName = '"+degreeName+"', " +
                 "departmentID = '"+departmentID+"', minor = '"+minor+"' ,duration = '"+duration+"', " +
                 "numberOfCourses = '"+numberOfCourses+"', totalCredits = '"+totalCredits+"', " +
-                "requiredCredits = '"+requiredCredits+"';";
+                "requiredCredits = '"+requiredCredits+"' WHERE degreeID ='"+degreeID+"';";
 
         Statement stmt;
         try {

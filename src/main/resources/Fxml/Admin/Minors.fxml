@@ -15,29 +15,35 @@
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="minor_searchField" layoutX="231.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
             <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="241.0" layoutY="24.0" />
-            <ComboBox fx:id="minor_filterDegree" layoutX="498.0" layoutY="7.0" prefHeight="27.0" prefWidth="175.0" />
             <Label layoutX="24.0" layoutY="9.0" styleClass="label-table-title" text="Minor Details" />
         </AnchorPane>
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
-            <TableView fx:id="minor_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627" prefWidth="915.1079387831637" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="minor_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627" prefWidth="842.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columns>
-                    <TableColumn fx:id="minor_tableView_col_minorID" prefWidth="119.71227812767029" text="Minor ID" />
-                    <TableColumn fx:id="minor_tableView_col_courseID" prefWidth="184.17261505126953" text="Course ID" />
-                    <TableColumn fx:id="minor_tableView_col_minorName" prefWidth="305.0359802246094" text="Minor Name" />
-                    <TableColumn fx:id="minor_tableView_col_degree" prefWidth="384.9208984375" text="Degree" />
+                    <TableColumn fx:id="minor_tableView_col_minorID" prefWidth="86.10075163841248" text="Minor ID" />
+                    <TableColumn fx:id="minor_tableView_col_minorName" prefWidth="237.12240600585938" text="Minor Name" />
+                    <TableColumn fx:id="minor_tableView_col_degree" prefWidth="106.12939453125" text="Degree" />
+                    <TableColumn fx:id="minor_tableView_col_course1ID" prefWidth="109.12225341796875" text="Course 1" />
+               <TableColumn fx:id="minor_tableView_col_course2ID" prefWidth="115.568359375" text="Course 2" />
+               <TableColumn fx:id="minor_tableView_col_course3ID" prefWidth="115.798583984375" text="Course 3" />
+               <TableColumn fx:id="minor_tableView_col_course4ID" prefWidth="114.18707275390625" text="Course 4" />
+               <TableColumn fx:id="minor_tableView_col_course5ID" prefWidth="111.1942138671875" text="Course 5" />
                 </columns>
             </TableView>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
-            <TextField fx:id="minor_minorID" disable="true" editable="false" layoutX="35.0" layoutY="139.0" prefHeight="29.0" prefWidth="278.0" promptText="Minor ID" />
-            <ComboBox fx:id="minor_courseID" layoutX="36.0" layoutY="17.0" prefHeight="26.0" prefWidth="278.0" promptText="Course ID" />
-            <ComboBox fx:id="minor_minorName" layoutX="35.0" layoutY="59.0" prefHeight="26.0" prefWidth="278.0" promptText="Minor Name" />
-            <ComboBox fx:id="minor_degree" layoutX="36.0" layoutY="100.0" prefHeight="26.0" prefWidth="278.0" promptText="Degree" />
-            <Button fx:id="minor_genIDBtn" layoutX="333.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
-            <Button fx:id="minor_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
-            <Button fx:id="minor_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
-            <Button fx:id="minor_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
-            <Button fx:id="minor_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+            <TextField fx:id="minor_minorID" disable="true" editable="false" layoutX="348.0" layoutY="75.0" prefHeight="29.0" prefWidth="139.0" promptText="Minor ID" />
+            <TextField fx:id="minor_minorName" layoutX="35.0" layoutY="24.0" prefHeight="26.0" prefWidth="278.0" promptText="Minor Name" />
+            <ComboBox fx:id="minor_facultyID" layoutX="35.0" layoutY="76.0" prefHeight="28.0" prefWidth="126.0" promptText="Faculty" />
+         <ComboBox fx:id="minor_departmentID" layoutX="187.0" layoutY="76.0" prefHeight="28.0" prefWidth="126.0" promptText="Department" />
+         <ComboBox fx:id="minor_courseID" layoutX="35.0" layoutY="120.0" prefHeight="28.0" prefWidth="126.0" promptText="Course ID" />
+            <ComboBox fx:id="minor_degreeID" layoutX="187.0" layoutY="120.0" prefHeight="28.0" prefWidth="126.0" promptText="Degree" />
+         <ComboBox fx:id="minor_courseNumber" layoutX="350.0" layoutY="27.0" prefHeight="28.0" prefWidth="137.0" promptText="Course No." />
+            <Button fx:id="minor_genIDBtn" layoutX="348.0" layoutY="121.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" styleClass="button-genID" text="Generate ID" />
+            <Button fx:id="minor_deleteBtn" layoutX="786.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
+            <Button fx:id="minor_clearBtn" layoutX="786.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
+            <Button fx:id="minor_updateBtn" layoutX="786.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
+            <Button fx:id="minor_addBtn" layoutX="786.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

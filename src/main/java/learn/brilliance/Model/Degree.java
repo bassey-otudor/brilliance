@@ -16,8 +16,8 @@ public class Degree {
     public Degree(String degreeID, String degreeName, String departmentID, String minor, String duration, String  numberOfCourses, String totalCredits, String requiredCreits) {
         this.degreeID = new SimpleStringProperty(this, "DegreeID", degreeID);
         this.degreeName = new SimpleStringProperty(this, "DegreeName", degreeName);
-        this.departmentID = new SimpleStringProperty("DepartmentID", departmentID);
-        this.minor = new SimpleStringProperty("Minor", minor);
+        this.departmentID = new SimpleStringProperty(this, "DepartmentID", departmentID);
+        this.minor = new SimpleStringProperty(this, "Minor", minor);
         this.duration = new SimpleStringProperty(this, "Duration", duration);
         this.numberOfCourses = new SimpleStringProperty(this, "NumberOfCourses", numberOfCourses);
         this.totalCredits = new SimpleStringProperty(this, "TotalCredits", totalCredits);

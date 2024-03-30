@@ -142,6 +142,7 @@ public class DegreesController implements Initializable {
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em");
                 operationStatus.setText("Degree deleted successfully.");
                 degree_tableView.setItems(Model.getInstance().setAllDegrees());
+                clearFields();
 
             } else {
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1em");
@@ -193,6 +194,7 @@ public class DegreesController implements Initializable {
         degree_degreeID.setText(String.valueOf(degrees.degreeIDProperty().get()));
         degree_degreeName.setText(String.valueOf(degrees.degreeNameProperty().get()));
         degree_deptID.setValue(String.valueOf(degrees.departmentIDProperty().get()));
+        degree_minor.setValue(String.valueOf(degrees.minorProperty().get()));
         degree_duration.setValue(String.valueOf(degrees.durationProperty().get()));
         degree_numCourses.setText(String.valueOf(degrees.numberOfCoursesProperty().get()));
         degree_totalCredits.setText(String.valueOf(degrees.totalCreditsProperty().get()));
