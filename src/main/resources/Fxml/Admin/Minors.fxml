@@ -32,18 +32,19 @@
             </TableView>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
-            <TextField fx:id="minor_minorID" disable="true" editable="false" layoutX="348.0" layoutY="75.0" prefHeight="29.0" prefWidth="139.0" promptText="Minor ID" />
-            <TextField fx:id="minor_minorName" layoutX="35.0" layoutY="24.0" prefHeight="26.0" prefWidth="278.0" promptText="Minor Name" />
-            <ComboBox fx:id="minor_facultyID" layoutX="35.0" layoutY="76.0" prefHeight="28.0" prefWidth="126.0" promptText="Faculty" />
-         <ComboBox fx:id="minor_departmentID" layoutX="187.0" layoutY="76.0" prefHeight="28.0" prefWidth="126.0" promptText="Department" />
-         <ComboBox fx:id="minor_courseID" layoutX="35.0" layoutY="120.0" prefHeight="28.0" prefWidth="126.0" promptText="Course ID" />
-            <ComboBox fx:id="minor_degreeID" layoutX="187.0" layoutY="120.0" prefHeight="28.0" prefWidth="126.0" promptText="Degree" />
-         <ComboBox fx:id="minor_courseNumber" layoutX="350.0" layoutY="27.0" prefHeight="28.0" prefWidth="137.0" promptText="Course No." />
-            <Button fx:id="minor_genIDBtn" layoutX="348.0" layoutY="121.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" styleClass="button-genID" text="Generate ID" />
-            <Button fx:id="minor_deleteBtn" layoutX="786.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
-            <Button fx:id="minor_clearBtn" layoutX="786.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
-            <Button fx:id="minor_updateBtn" layoutX="786.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
-            <Button fx:id="minor_addBtn" layoutX="786.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+            <TextField fx:id="minor_minorID" disable="true" editable="false" layoutX="341.0" layoutY="94.0" prefHeight="29.0" prefWidth="139.0" promptText="Minor ID" />
+            <TextField fx:id="minor_minorName" layoutX="28.0" layoutY="43.0" prefHeight="26.0" prefWidth="278.0" promptText="Minor Name" />
+            <ComboBox fx:id="minor_facultyID" layoutX="28.0" layoutY="95.0" prefHeight="28.0" prefWidth="126.0" promptText="Faculty" />
+         <ComboBox fx:id="minor_departmentID" layoutX="180.0" layoutY="95.0" prefHeight="28.0" prefWidth="126.0" promptText="Department" />
+         <ComboBox fx:id="minor_courseID" layoutX="28.0" layoutY="139.0" prefHeight="28.0" prefWidth="126.0" promptText="Course ID" />
+            <ComboBox fx:id="minor_degreeID" layoutX="180.0" layoutY="139.0" prefHeight="28.0" prefWidth="126.0" promptText="Degree" />
+         <ComboBox fx:id="minor_courseNumber" layoutX="343.0" layoutY="46.0" prefHeight="28.0" prefWidth="137.0" promptText="Course No." />
+            <Button fx:id="minor_genIDBtn" layoutX="341.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" styleClass="button-genID" text="Generate ID" />
+            <Button fx:id="minor_deleteBtn" layoutX="800.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
+            <Button fx:id="minor_clearBtn" layoutX="800.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
+            <Button fx:id="minor_updateBtn" layoutX="800.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
+            <Button fx:id="minor_addBtn" layoutX="800.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+         <Label fx:id="operationStatus" layoutX="520.0" layoutY="147.0" prefHeight="15.0" prefWidth="239.0" textAlignment="CENTER" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

@@ -77,7 +77,7 @@ public class DegreesController implements Initializable {
         String degreeMinor = degree_minor.getValue();
         boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, degreeID, columnName, degreeName);
 
-        if(degreeID.isEmpty() || degreeName.isEmpty() || degreeMinor.isEmpty() || duration.isEmpty()) {
+        if(degreeID == null || degreeName == null || degreeMinor == null || duration == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1em");
             operationStatus.setText("Please fill all required fields.");
 
@@ -93,6 +93,7 @@ public class DegreesController implements Initializable {
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em");
                 operationStatus.setText("Degree successfully added.");
                 degree_tableView.setItems(Model.getInstance().setAllDegrees());
+                clearFields();
             }
         }
     }
@@ -109,7 +110,7 @@ public class DegreesController implements Initializable {
         String degreeMinor = degree_minor.getValue();
         boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, degreeID, columnName, degreeName);
 
-        if(degreeID.isEmpty() || degreeName.isEmpty() || degreeMinor.isEmpty() || duration.isEmpty()) {
+        if(degreeID == null || degreeName == null || degreeMinor == null || duration == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1em");
             operationStatus.setText("Please fill all required fields.");
         } else {
@@ -131,7 +132,7 @@ public class DegreesController implements Initializable {
         String degreeName = degree_degreeName.getText();
         boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, degreeID, columnName, degreeName);
 
-        if(degreeID.isEmpty()) {
+        if(degreeID == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1em");
             operationStatus.setText("Enter a Degree ID.");
             degree_degreeID.setStyle("-fx-border-color: #EC6666");
@@ -183,10 +184,20 @@ public class DegreesController implements Initializable {
         String departmentID = degree_deptID.getValue();
         String rowCount = String.valueOf(Model.getInstance().getConnectDB().getDegreeRowCount(departmentID) + 1);
         String degreeCode =  StringUtils.left(departmentID, 2);
-        String generatedID = departmentID + "-" + degreeCode + "X0" + rowCount;
+        String generatedID = null;
+
+        if(rowCount.length() == 1) {
+            generatedID = departmentID + "-" + degreeCode + "X00" + rowCount;
+
+        } else if (rowCount.length() == 2) {
+            generatedID = departmentID + "-" + degreeCode + "X0" + rowCount;
+
+        } else {
+            generatedID = departmentID + "-" + degreeCode + "X" + rowCount;
+        }
+
         degree_degreeID.setText(generatedID);
     }
-
     private void selectDegree() {
         Degree degrees = degree_tableView.getSelectionModel().getSelectedItem();
         int num = degree_tableView.getSelectionModel().getSelectedIndex();

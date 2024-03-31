@@ -386,9 +386,9 @@ public class connectDB {
         int rowCount = 0;
         try {
             stmt = this.conn.createStatement();
-            resultSet = stmt.executeQuery("SELECT COUNT(teacherID) AS id_count FROM teachers;");
+            resultSet = stmt.executeQuery("SELECT seq FROM sqlite_sequence WHERE name = 'teachers';");
             if(resultSet.next()) {
-                rowCount = resultSet.getInt("id_count");
+                rowCount = resultSet.getInt("seq");
             }
         } catch (SQLException e) {
             System.out.println("Unable to get row count.");
@@ -694,6 +694,12 @@ public class connectDB {
 
         return resultSet;
     }
+
+    /**
+     * Returns a list of all available degree durations.
+     *
+     * @return a list of degree durations
+     */
     public ObservableList<String> getDuration() {
         List<String> durationList = new ArrayList<>();
 
@@ -714,6 +720,19 @@ public class connectDB {
 
         return FXCollections.observableArrayList(durationList);
     }
+
+    /**
+     * Creates a new degree in the database.
+     *
+     * @param degreeID The unique ID of the degree.
+     * @param degreeName The name of the degree.
+     * @param departmentID The ID of the department that the degree belongs to.
+     * @param minor The minor that is associated with the degree.
+     * @param duration The duration of the degree.
+     * @param numberOfCourses The number of courses required for the degree.
+     * @param totalCredits The total credits required for the degree.
+     * @param requiredCredits The required credits for the degree.
+     */
     public void createDegree(String degreeID, String degreeName, String departmentID, String minor, String duration, String numberOfCourses, String totalCredits, String requiredCredits) {
         String createDegree = "INSERT INTO  department_degrees " +
                 "(degreeID, degreeName, departmentID, minor, duration, numberOfCourses, totalCredits, requiredCredits)" +
@@ -728,6 +747,19 @@ public class connectDB {
             System.out.println("Unable to create degree");
         }
     }
+
+    /**
+     * Updates the information of a degree in the database.
+     *
+     * @param degreeID The unique ID of the degree to update.
+     * @param degreeName The name of the degree to update.
+     * @param departmentID The ID of the department that the degree belongs to.
+     * @param minor The minor that is associated with the degree.
+     * @param duration The duration of the degree.
+     * @param numberOfCourses The number of courses required for the degree.
+     * @param totalCredits The total credits required for the degree.
+     * @param requiredCredits The required credits for the degree.
+     */
     public void updateDegree(String degreeID, String degreeName, String departmentID, String minor, String duration, String numberOfCourses, String totalCredits, String requiredCredits) {
         String updateCourse = "UPDATE department_degrees SET " +
                 "degreeName = '"+degreeName+"', " +
@@ -745,6 +777,12 @@ public class connectDB {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Deletes a degree from the database.
+     *
+     * @param degreeID The unique ID of the degree to delete.
+     */
     public void deleteDegree(String degreeID) {
         String deleteDegree = "DELETE from department_degrees WHERE degreeID = '"+degreeID+"';";
 
@@ -760,8 +798,14 @@ public class connectDB {
         }
     }
 
+    /**
+     * This method is used to retrieve the number of rows in the department_degrees table.
+     *
+     * @param departmentID The ID of the department to retrieve the number of degrees for.
+     * @return The number of rows in the department_degrees table for the specified department.
+     */
     public int getDegreeRowCount(String departmentID) {
-        String degreeRowCount = "SELECT departmentID, COUNT(degreeID) AS idCount FROM department_degrees WHERE departmentID = '"+departmentID+"';";
+        String degreeRowCount = "SELECT seq FROM sqlite_sequence WHERE name = 'department_degrees';";
         Statement stmt;
         ResultSet resultSet = null;
         int rowCount = 0;
@@ -770,7 +814,7 @@ public class connectDB {
             stmt = conn.createStatement();
             resultSet= stmt.executeQuery(degreeRowCount);
             if(resultSet.next()) {
-                rowCount = resultSet.getInt("idCount");
+                rowCount = resultSet.getInt("seq");
             }
 
         } catch (SQLException e) {
@@ -779,6 +823,87 @@ public class connectDB {
         }
 
         return rowCount;
+    }
+
+    // Minors section
+
+    /**
+     * Creates a new minor in the database.
+     *
+     * @param minorID The unique ID of the minor.
+     * @param minorName The name of the minor.
+     * @param degreeID The ID of the degree that the minor belongs to.
+     * @param facultyID The ID of the faculty that the minor belongs to.
+     * @param departmentID The ID of the department that the minor belongs to.
+     * @param course1 The first course that is required for the minor.
+     * @param course2 The second course that is required for the minor.
+     * @param course3 The third course that is required for the minor.
+     * @param course4 The fourth course that is required for the minor.
+     * @param course5 The fifth course that is required for the minor.
+     */
+    public void createMinor(String minorID, String minorName, String degreeID, String facultyID, String departmentID, String course1, String course2, String course3, String course4, String course5) {
+        String createMinor = "INSERT INTO minors" +
+                "(minorID, minorName, degreeID, facultyID, departmentID, course1, course3, course4, course5)" +
+                "VALUES ('"+minorID+"', '"+minorName+"', '"+degreeID+"', '"+facultyID+"', '"+departmentID+"', '"+course1+"', '"+course2+"', '"+course3+"', '"+course4+"', '"+course5+"')";
+
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(createMinor);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to create minor");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Updates the information of a minor in the database.
+     *
+     * @param minorName The name of the minor to update.
+     * @param degreeID The ID of the degree that the minor belongs to.
+     * @param facultyID The ID of the faculty that the minor belongs to.
+     * @param departmentID The ID of the department that the minor belongs to.
+     * @param course1 The first course that is required for the minor.
+     * @param course2 The second course that is required for the minor.
+     * @param course3 The third course that is required for the minor.
+     * @param course4 The fourth course that is required for the minor.
+     * @param course5 The fifth course that is required for the minor.
+     */
+    public void updateMinor(String minorName, String degreeID, String facultyID, String departmentID, String course1, String course2, String course3, String course4, String course5) {
+        String updateMinor = "UPDATE minors SET " +
+                "minorName = '"+minorName+"', degreeID = '"+degreeID+"', facultyID = '"+facultyID+"'," +
+                " departmentID = '"+departmentID+"', course1 = '"+course1+"', course2 = '"+course2+"', " +
+                "course3 = '"+course3+"', course4 = '"+course4+"', course5 = '"+course5+"'";
+
+        Statement stmt;
+
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(updateMinor);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to update minor.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to delete a minor from the database.
+     *
+     * @param minorID The ID of the minor to delete.
+     */
+    public void deleteMinor(String minorID) {
+        String deleteMinor = "DELETE FROM minors WHERE minorID = '"+minorID+"'";
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(deleteMinor);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to delete minor.");
+            e.printStackTrace();
+        }
     }
 
     // Utility methods
@@ -866,6 +991,13 @@ public class connectDB {
         levelList = FXCollections.observableArrayList(levelList);
         return (ObservableList<String>) levelList;
     }
+
+    /**
+     * This method is used to retrieve the list of departments associated with a specific faculty.
+     *
+     * @param facultyID The ID of the faculty to retrieve the departments for.
+     * @return An ObservableList containing the list of departments associated with the faculty.
+     */
     public ObservableList<String> getFacultyDepartments(String facultyID) {
         List<String> departmentList = new ArrayList<>();
 
@@ -889,6 +1021,13 @@ public class connectDB {
         assert departmentList instanceof ObservableList<String>;
         return (ObservableList<String>) departmentList;
     }
+
+    /**
+     * This method is used to retrieve the list of courses associated with a specific department.
+     *
+     * @param departmentID The ID of the department to retrieve the courses for.
+     * @return An ObservableList containing the list of courses associated with the department.
+     */
     public ObservableList<String> getDepartmentCourses(String departmentID) {
         List<String> courseList = new ArrayList<>();
 

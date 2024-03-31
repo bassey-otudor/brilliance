@@ -2,7 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.ComboBox?>
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.StudentsController">
     <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
@@ -43,19 +42,20 @@
             <TextField fx:id="stud_lName" layoutX="16.0" layoutY="56.0" prefHeight="29.0" prefWidth="151.0" promptText="Last Name" />
             <TextField fx:id="stud_email" layoutX="191.0" layoutY="14.0" prefHeight="28.0" prefWidth="325.0" promptText="Email" />
             <TextField fx:id="stud_phoneNum" layoutX="191.0" layoutY="56.0" prefHeight="28.0" prefWidth="146.0" promptText="Phone Number" />
-            <DatePicker fx:id="stud_dob" layoutX="363.0" layoutY="56.0" prefHeight="27.0" prefWidth="151.0" promptText="Date of Birth" />
-            <ComboBox fx:id="stud_gender" layoutX="14.0" layoutY="99.0" prefWidth="150.0" />
-            <ComboBox fx:id="stud_department" layoutX="15.0" layoutY="141.0" prefWidth="150.0" />
-            <ComboBox fx:id="stud_degree" layoutX="189.0" layoutY="99.0" prefWidth="150.0" />
-            <ComboBox fx:id="stud_minor" layoutX="189.0" layoutY="141.0" prefWidth="150.0" />
-            <PasswordField fx:id="stud_pwd" layoutX="364.0" layoutY="99.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
-            <ComboBox fx:id="stud_level" layoutX="364.0" layoutY="141.0" prefWidth="150.0" />
+            <DatePicker fx:id="stud_dob" layoutX="363.0" layoutY="96.0" prefHeight="27.0" prefWidth="151.0" promptText="Date of Birth" />
+            <ComboBox fx:id="stud_gender" layoutX="14.0" layoutY="99.0" prefWidth="150.0" promptText="Gender" />
+            <ComboBox fx:id="stud_department" layoutX="15.0" layoutY="141.0" prefWidth="150.0" promptText="Department" />
+            <ComboBox fx:id="stud_degree" layoutX="365.0" layoutY="57.0" prefWidth="150.0" promptText="Degree" />
+            <ComboBox fx:id="stud_minor" layoutX="189.0" layoutY="141.0" prefWidth="150.0" promptText="Minor" />
+            <PasswordField fx:id="stud_pwd" layoutX="364.0" layoutY="136.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
+            <ComboBox fx:id="stud_level" layoutX="546.0" layoutY="14.0" prefWidth="150.0" promptText="Level" />
             <TextField fx:id="stud_studentID" disable="true" editable="false" layoutX="547.0" layoutY="99.0" promptText="StudentID" />
             <Button fx:id="stud_genIDBtn" layoutX="546.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
-            <Button fx:id="stud_deleteBtn" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
-            <Button fx:id="stud_clearBtn" layoutX="740.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
-            <Button fx:id="stud_updateBtn" layoutX="740.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
-            <Button fx:id="stud_addBtn" layoutX="740.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+            <Button fx:id="stud_deleteBtn" layoutX="798.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
+            <Button fx:id="stud_clearBtn" layoutX="798.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
+            <Button fx:id="stud_updateBtn" layoutX="798.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
+            <Button fx:id="stud_addBtn" layoutX="798.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
+         <ComboBox fx:id="stud_faculty" layoutX="191.0" layoutY="98.0" prefWidth="150.0" promptText="Faculty" />
         </AnchorPane>
     </VBox>
 </AnchorPane>
