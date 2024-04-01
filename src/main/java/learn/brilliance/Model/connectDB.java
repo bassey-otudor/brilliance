@@ -827,6 +827,41 @@ public class connectDB {
 
     // Minors section
 
+    public ResultSet getMinorData() {
+        Statement stmt;
+        ResultSet resultSet = null;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery("SELECT * FROM minors;");
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get minors.");
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+    public ObservableList<String> getCourseNumber() {
+        List<String> courseNumberList = new ArrayList<>();
+        String getCourseList = "SELECT * FROM minors";
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getCourseList);
+            while (resultSet.next()) {
+                courseNumberList.add(resultSet.getString("courseNumber"));
+            }
+            courseNumberList = FXCollections.observableArrayList(courseNumberList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve course number list.");
+            e.printStackTrace();
+        }
+        assert courseNumberList instanceof ObservableList<String>;
+        return (ObservableList<String>) courseNumberList;
+    }
+
     /**
      * Creates a new minor in the database.
      *
@@ -835,16 +870,12 @@ public class connectDB {
      * @param degreeID The ID of the degree that the minor belongs to.
      * @param facultyID The ID of the faculty that the minor belongs to.
      * @param departmentID The ID of the department that the minor belongs to.
-     * @param course1 The first course that is required for the minor.
-     * @param course2 The second course that is required for the minor.
-     * @param course3 The third course that is required for the minor.
-     * @param course4 The fourth course that is required for the minor.
-     * @param course5 The fifth course that is required for the minor.
+     * @param courseID The first course that is required for the minor.
      */
-    public void createMinor(String minorID, String minorName, String degreeID, String facultyID, String departmentID, String course1, String course2, String course3, String course4, String course5) {
+    public void createMinor(String minorID, String minorName, String degreeID, String facultyID, String departmentID, String courseID, String courseNumber) {
         String createMinor = "INSERT INTO minors" +
-                "(minorID, minorName, degreeID, facultyID, departmentID, course1, course3, course4, course5)" +
-                "VALUES ('"+minorID+"', '"+minorName+"', '"+degreeID+"', '"+facultyID+"', '"+departmentID+"', '"+course1+"', '"+course2+"', '"+course3+"', '"+course4+"', '"+course5+"')";
+                "(minorID, minorName, degreeID, facultyID, departmentID, '"+courseNumber+"')" +
+                "VALUES ('"+minorID+"', '"+minorName+"', '"+degreeID+"', '"+facultyID+"', '"+departmentID+"', '"+courseID+"')";
 
         Statement stmt;
         try {
@@ -857,24 +888,11 @@ public class connectDB {
         }
     }
 
-    /**
-     * Updates the information of a minor in the database.
-     *
-     * @param minorName The name of the minor to update.
-     * @param degreeID The ID of the degree that the minor belongs to.
-     * @param facultyID The ID of the faculty that the minor belongs to.
-     * @param departmentID The ID of the department that the minor belongs to.
-     * @param course1 The first course that is required for the minor.
-     * @param course2 The second course that is required for the minor.
-     * @param course3 The third course that is required for the minor.
-     * @param course4 The fourth course that is required for the minor.
-     * @param course5 The fifth course that is required for the minor.
-     */
-    public void updateMinor(String minorName, String degreeID, String facultyID, String departmentID, String course1, String course2, String course3, String course4, String course5) {
+
+    public void updateMinor(String minorID, String minorName, String degreeID, String facultyID, String departmentID, String courseID, String courseNumber) {
         String updateMinor = "UPDATE minors SET " +
                 "minorName = '"+minorName+"', degreeID = '"+degreeID+"', facultyID = '"+facultyID+"'," +
-                " departmentID = '"+departmentID+"', course1 = '"+course1+"', course2 = '"+course2+"', " +
-                "course3 = '"+course3+"', course4 = '"+course4+"', course5 = '"+course5+"'";
+                " departmentID = '"+departmentID+"', '"+courseNumber+"' = '"+courseID+"' WHERE minorID = '"+minorID+"';";
 
         Statement stmt;
 

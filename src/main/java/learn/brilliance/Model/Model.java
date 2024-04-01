@@ -19,6 +19,7 @@ public class Model {
     private final ObservableList<Teacher> teachers;
     private final ObservableList<Course> courses;
     private final ObservableList<Degree> degree;
+    private final ObservableList<Minor> minor;
     private Model() {
         this.viewFactory = new ViewFactory();
         this.connectDB = new connectDB();
@@ -30,6 +31,7 @@ public class Model {
         this.teachers = FXCollections.observableArrayList();
         this.courses = FXCollections.observableArrayList();
         this.degree = FXCollections.observableArrayList();
+        this.minor = FXCollections.observableArrayList();
     }
     public static synchronized Model getInstance() {
         if(model == null) {
@@ -218,6 +220,35 @@ public class Model {
         }
 
         return degreeList;
+    }
+    public ObservableList<Minor> getAllMinors() { return minor; }
+    public ObservableList<Minor> setAllMinors() {
+        ResultSet resultSet = Model.getInstance().connectDB.getMinorData();
+        ObservableList<Minor> minorList = FXCollections.observableArrayList();
+        Minor minorData;
+
+        try {
+            while (resultSet.next()) {
+                minorData = new Minor(
+                        resultSet.getString("minorID"),
+                        resultSet.getString("minorName"),
+                        resultSet.getString("degreeName"),
+                        resultSet.getString("facultyID"),
+                        resultSet.getString("departmentID"),
+                        resultSet.getString("course1"),
+                        resultSet.getString("course2"),
+                        resultSet.getString("course3"),
+                        resultSet.getString("course4"),
+                        resultSet.getString("course5")
+                );
+                minorList.add(minorData);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get minor data");
+        }
+        return minorList;
+
     }
 
 }
