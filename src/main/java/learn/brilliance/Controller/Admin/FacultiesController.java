@@ -59,7 +59,7 @@ public class FacultiesController implements Initializable {
     // search the faculty table
     private void searchFaculties() {
         FilteredList<Faculty> searchFilter = new FilteredList<>(Model.getInstance().setAllFaculties(), e -> true);
-        faculty_searchField.textProperty().addListener(((observableValue, oldVal, newVal) -> {
+        faculty_searchField.textProperty().addListener((observableValue, oldVal, newVal) -> {
             searchFilter.setPredicate(predicateFaculty -> {
                 if(newVal == null || newVal.isEmpty()) {
                     return true;
@@ -77,17 +77,13 @@ public class FacultiesController implements Initializable {
                     return true;
                 } else if (predicateFaculty.department2Property().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if (predicateFaculty.department3Property().toString().toLowerCase().contains(searchKey)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                } else return predicateFaculty.department3Property().toString().toLowerCase().contains(searchKey);
             });
 
             SortedList<Faculty> sortedList = new SortedList<>(searchFilter);
             sortedList.comparatorProperty().bind(faculty_tableView.comparatorProperty());
             faculty_tableView.setItems(sortedList);
-        }));
+        });
     }
     private void createFaculty() {
         String facultyName = faculty_facName.getText();

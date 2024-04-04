@@ -92,13 +92,21 @@ public class TeachersController implements Initializable {
                 }
                 String searchKey = newVal.toLowerCase();
 
-                if (predicateTeacher.departmentIDProperty().toString().toLowerCase().contains(searchKey)) {
+                if (predicateTeacher.teacherIDProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
                 } else if (predicateTeacher.firstNameProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
                 } else if (predicateTeacher.lastNameProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if (predicateTeacher.departmentIDProperty().toString().toLowerCase().contains(searchKey)) {
+                } else if (predicateTeacher.phoneNumberProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateTeacher.emailProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateTeacher.genderProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateTeacher.facultyIDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if(predicateTeacher.departmentIDProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
                 } else if (predicateTeacher.course1Property().toString().toLowerCase().contains(searchKey)) {
                     return true;
@@ -106,9 +114,7 @@ public class TeachersController implements Initializable {
                     return true;
                 } else if (predicateTeacher.positionProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else {
-                    return false;
-                }
+                } else return predicateTeacher.dobProperty().toString().toLowerCase().contains(searchKey);
             });
 
             SortedList<Teacher> sortedList = new SortedList<>(searchFilter);

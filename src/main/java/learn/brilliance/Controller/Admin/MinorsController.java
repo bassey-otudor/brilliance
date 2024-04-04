@@ -4,6 +4,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import learn.brilliance.Model.Minor;
 import learn.brilliance.Model.Model;
+import org.apache.commons.lang3.StringUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +24,8 @@ public class MinorsController implements Initializable {
     public TableColumn <Minor, String> minor_tableView_col_course3ID;
     public TableColumn <Minor, String> minor_tableView_col_course4ID;
     public TableColumn<Minor, String>  minor_tableView_col_course5ID;
+    public TableColumn<Minor, String>  minor_tableView_col_facultyID;
+    public TableColumn<Minor, String>  minor_tableView_col_departmentID;
     public TextField minor_minorID;
     public ComboBox<String> minor_facultyID;
     public TextField minor_minorName;
@@ -30,6 +33,7 @@ public class MinorsController implements Initializable {
     public ComboBox<String> minor_courseID;
     public ComboBox<String> minor_degreeID;
     public ComboBox<String> minor_courseNumber;
+    public ComboBox<String> minor_number;
     public Button minor_genIDBtn;
     public Button minor_deleteBtn;
     public Button minor_clearBtn;
@@ -39,10 +43,30 @@ public class MinorsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Minor table manipulation section
+        minor_facultyID.setItems(Model.getInstance().getConnectDB().getFaculties());
+        minor_facultyID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
+                -> minor_departmentID.setItems(Model.getInstance().getConnectDB().getFacultyDepartments(newValue)));
+        minor_departmentID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
+                -> minor_courseID.setItems(Model.getInstance().getConnectDB().getDepartmentCourses(newValue)));
+        minor_departmentID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
+                -> minor_degreeID.setItems(Model.getInstance().getConnectDB().getDepartmentDegrees(newValue)));
+        minor_courseNumber.setItems(Model.getInstance().getConnectDB().getCourseNumber());
+        minor_number.setItems(Model.getInstance().getConnectDB().getMinorNumber());
+        minor_addBtn.setOnAction(e -> createMinor());
+        minor_updateBtn.setOnAction(e -> updateMinor());
+        minor_deleteBtn.setOnAction(e -> deleteMinor());
+        minor_clearBtn.setOnAction(e -> clearFields());
+        minor_genIDBtn.setOnAction(e -> generateMinorID());
+        minor_tableView.setOnMouseClicked(e -> selectMinor());
 
+        // Minor tableView section
+        initialiseMinorTable();
+        bindMinorsTableData();
+        minor_tableView.setItems(Model.getInstance().setAllMinors());
     }
 
-    public void createMinor() {
+    private void createMinor() {
         String minorID = minor_minorID.getText();
         String minorName = minor_minorName.getText();
         String facultyID = minor_facultyID.getValue();
@@ -50,25 +74,28 @@ public class MinorsController implements Initializable {
         String degreeID = minor_degreeID.getValue();
         String courseID = minor_courseID.getValue();
         String courseNumber = minor_courseNumber.getValue();
+        String minorNumber = minor_number.getValue();
         boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID, columnName, minorName);
 
         if(minorID == null || minorName == null || facultyID == null || departmentID == null || degreeID == null) {
-            operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+            operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em; -fx-font-weight: bold");
             operationStatus.setText(" Please fill all required fields.");
 
         } else {
             if(doesExist) {
-                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em; -fx-font-weight: bold");
                 operationStatus.setText("Minor already exist.");
 
             } else {
                 Model.getInstance().getConnectDB().createMinor(minorID, minorName, degreeID, facultyID, departmentID, courseID, courseNumber);
-                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;");
-                operationStatus.setText(".");
+                Model.getInstance().getConnectDB().insertMinorIntoDepartment(minorNumber, minorName, departmentID, true);
+                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;  -fx-font-weight: bold");
+                operationStatus.setText("Minor successfully created.");
+                minor_tableView.setItems(Model.getInstance().setAllMinors());
             }
         }
     }
-    public void updateMinor() {
+    private void updateMinor() {
         String minorID = minor_minorID.getText();
         String minorName = minor_minorName.getText();
         String facultyID = minor_facultyID.getValue();
@@ -76,47 +103,54 @@ public class MinorsController implements Initializable {
         String degreeID = minor_degreeID.getValue();
         String courseID = minor_courseID.getValue();
         String courseNumber = minor_courseNumber.getValue();
+        String minorNumber = minor_number.getValue();
         boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID, columnName, minorName);
 
         if(minorID == null || minorName == null || facultyID == null || departmentID == null || degreeID == null) {
-            operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+            operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;  -fx-font-weight: bold");
             operationStatus.setText("Please fill all required fields.");
 
         } else {
             if(doesExist) {
                 Model.getInstance().getConnectDB().updateMinor(minorID, minorName, degreeID, facultyID, departmentID, courseID, courseNumber);
-                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;");
+                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;  -fx-font-weight: bold");
                 operationStatus.setText("Minor successfully updated.");
-
+                Model.getInstance().getConnectDB().insertMinorIntoDepartment(minorNumber, minorName, departmentID, true);
+                minor_tableView.setItems(Model.getInstance().setAllMinors());
 
             } else {
-                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;  -fx-font-weight: bold");
                 operationStatus.setText("Minor not found.");
             }
         }
     }
-    public void deleteMinor() {
+    private void deleteMinor() {
         String minorID = minor_minorID.getText();
         String minorName = minor_minorName.getText();
+        String departmentID = minor_departmentID.getValue();
+        String minorNumber = minor_number.getValue();
         boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID, columnName, minorName);
 
-        if(minorID == null || minorName == null) {
-            operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+        if(minorID == null || minorName == null || departmentID == null || minorNumber == null) {
+            operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;  -fx-font-weight: bold");
             operationStatus.setText(" Please fill all required fields.");
 
         } else {
             if(doesExist) {
                 Model.getInstance().getConnectDB().deleteMinor(minorID);
-                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;");
+                operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em;  -fx-font-weight: bold");
                 operationStatus.setText("Minor successfully deleted.");
+                minor_tableView.setItems(Model.getInstance().setAllMinors());
+                Model.getInstance().getConnectDB().insertMinorIntoDepartment(minorNumber, minorName,departmentID, false);
+                clearFields();
 
             } else {
-                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;  -fx-font-weight: bold");
                 operationStatus.setText("Minor not found.");
             }
         }
     }
-    public void clearFields() {
+    private void clearFields() {
         minor_minorID.setText(null);
         minor_minorName.setText(null);
         minor_facultyID.setValue(null);
@@ -125,6 +159,50 @@ public class MinorsController implements Initializable {
         minor_courseID.setValue(null);
         minor_courseNumber.setValue(null);
     }
+    private void initialiseMinorTable() {
+        if(Model.getInstance().getAllMinors().isEmpty()) {
+            Model.getInstance().setAllMinors();
+        }
+    }
+    private void bindMinorsTableData() {
+        minor_tableView_col_minorID.setCellValueFactory(cellData -> cellData.getValue().minorIDProperty());
+        minor_tableView_col_minorName.setCellValueFactory(cellData -> cellData.getValue().minorNameProperty());
+        minor_tableView_col_degree.setCellValueFactory(cellData -> cellData.getValue().degreeIDProperty());
+        minor_tableView_col_course1ID.setCellValueFactory(cellData -> cellData.getValue().course1IDProperty());
+        minor_tableView_col_course2ID.setCellValueFactory(cellData -> cellData.getValue().course2IDProperty());
+        minor_tableView_col_course3ID.setCellValueFactory(cellData -> cellData.getValue().course3IDProperty());
+        minor_tableView_col_course4ID.setCellValueFactory(cellData -> cellData.getValue().course4IDProperty());
+        minor_tableView_col_course5ID.setCellValueFactory(cellData -> cellData.getValue().course5IDProperty());
+        minor_tableView_col_facultyID.setCellValueFactory(cellData -> cellData.getValue().facultyIDProperty());
+        minor_tableView_col_departmentID.setCellValueFactory(cellData -> cellData.getValue().departmentIDProperty());
 
+    }
+    private void generateMinorID() {
+        String minorName = minor_minorName.getText();
+        String degreeID = minor_degreeID.getValue();
+        String minorID = null;
+        if(minorName == null || degreeID == null) {
+            minor_minorName.setStyle("-fx-border-color: #EC6666; -fx-font-size: 1.0em;");
+            minor_degreeID.setStyle("-fx-border-color: #EC6666; -fx-font-size: 1.0em;");
+            operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;  -fx-font-weight: bold");
+            operationStatus.setText("Select a degree and enter a minor name.");
 
+        } else {
+            String minorCode = StringUtils.left(minorName, 4);
+            minorID = (degreeID + "-" + minorCode).toUpperCase();
+        }
+
+        minor_minorID.setText(minorID);
+    }
+    private void selectMinor() {
+        Minor minor = minor_tableView.getSelectionModel().getSelectedItem();
+        int num = minor_tableView.getSelectionModel().getSelectedIndex();
+        if((num - 1) < -1) return;
+        minor_minorID.setText(String.valueOf(minor.minorIDProperty().get()));
+        minor_minorName.setText(String.valueOf(minor.minorNameProperty().get()));
+        minor_degreeID.setValue(String.valueOf(minor.degreeIDProperty().get()));
+        minor_courseID.setValue(String.valueOf(minor.course1IDProperty().get()));
+        minor_facultyID.setValue(String.valueOf(minor.facultyIDProperty().get()));
+        minor_departmentID.setValue(String.valueOf(minor.departmentIDProperty().get()));
+    }
 }

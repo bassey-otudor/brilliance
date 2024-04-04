@@ -77,7 +77,7 @@ public class CoursesController implements Initializable {
 
     private void searchCourses() {
         FilteredList<Course> searchFilter = new FilteredList<>(Model.getInstance().setAllCourses(), e -> true);
-        course_searchField.textProperty().addListener(((observableValue, oldVal, newVal) -> {
+        course_searchField.textProperty().addListener((observableValue, oldVal, newVal) -> {
             searchFilter.setPredicate(predicateCourse -> {
                 if(newVal == null || newVal.isEmpty()) {
                     return true;
@@ -95,17 +95,17 @@ public class CoursesController implements Initializable {
                     return true;
                 } else if (predicateCourse.teacherIDProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateCourse.facultyIDProperty().toString().toLowerCase().contains(searchKey)) {
+                } else if (predicateCourse.teacherNameProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else {
-                    return false;
-                }
+                }else if (predicateCourse.facultyIDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else return predicateCourse.creditValueProperty().toString().toLowerCase().contains(searchKey);
             });
 
             SortedList<Course> sortedList = new SortedList<>(searchFilter);
             sortedList.comparatorProperty().bind(course_tableView.comparatorProperty());
             course_tableView.setItems(sortedList);
-        }));
+        });
     }
     private void createCourse() {
 
@@ -217,7 +217,7 @@ public class CoursesController implements Initializable {
         boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn,courseID, columnName, courseName);
 
         try {
-            if (courseID.isEmpty() || teacherID.isEmpty() || coursePosition.length() == 0 ) {
+            if (courseID.isEmpty() || teacherID.isEmpty() || coursePosition.length() == 0) {
                 course_courseID.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 course_teacher.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 course_firstSecond.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");

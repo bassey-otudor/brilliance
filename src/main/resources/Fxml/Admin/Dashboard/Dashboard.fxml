@@ -17,7 +17,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../../Styles/AdminDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.Dashboard.DashboardController">
    <HBox layoutX="129.0" layoutY="210.0" prefHeight="558.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <VBox prefHeight="600.0" prefWidth="633.0">
+      <VBox prefHeight="600.0" prefWidth="655.0">
          <AnchorPane prefHeight="118.0" prefWidth="520.0" styleClass="main-container">
             <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="108.0" prefWidth="628.0" stylesheets="@../../../Styles/AdminDashboard.css">
                <styleClass>
@@ -94,7 +94,7 @@
                <Circle fill="#af14d6" layoutX="300.0" layoutY="20.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                <Label layoutX="311.0" layoutY="11.0" text="Total" />
             </AnchorPane>
-            <LineChart fx:id="dashboard_lineGraph" layoutX="8.0" layoutY="39.0" prefHeight="234.0" prefWidth="616.0">
+            <LineChart fx:id="dashboard_lineGraph" layoutX="8.0" layoutY="39.0" prefHeight="234.0" prefWidth="635.0">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>

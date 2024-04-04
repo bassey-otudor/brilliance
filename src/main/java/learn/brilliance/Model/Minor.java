@@ -6,7 +6,7 @@ import javafx.beans.property.StringProperty;
 public class Minor {
     public final StringProperty minorID;
     public final StringProperty minorName;
-    public final StringProperty degreeName;
+    public final StringProperty degreeID;
     public final StringProperty course1ID;
     public final StringProperty course2ID;
     public final StringProperty course3ID;
@@ -15,10 +15,10 @@ public class Minor {
     public final StringProperty facultyID;
     public final StringProperty departmentID;
 
-    public Minor(String minorID, String minorName, String degreeName, String facultyID, String departmentID, String course1ID, String course2ID, String course3ID, String course4ID, String course5ID) {
+    public Minor(String minorID, String minorName, String degreeID, String facultyID, String departmentID, String course1ID, String course2ID, String course3ID, String course4ID, String course5ID) {
         this.minorID = new SimpleStringProperty(this, "MinorID", minorID);
         this.minorName = new SimpleStringProperty(this, "MinorName", minorName);
-        this.degreeName = new SimpleStringProperty(this, "DegreeName", degreeName);
+        this.degreeID = new SimpleStringProperty(this, "DegreeName", degreeID);
         this.facultyID = new SimpleStringProperty(this, "FacultyID", facultyID);
         this.departmentID = new SimpleStringProperty(this, "DepartmentID", departmentID);
         this.course1ID = new SimpleStringProperty(this, "Course1ID", course1ID);
@@ -31,7 +31,7 @@ public class Minor {
 
     public StringProperty minorIDProperty() { return minorID; }
     public StringProperty minorNameProperty() { return minorName; }
-    public StringProperty degreeNameProperty() { return degreeName; }
+    public StringProperty degreeIDProperty() { return degreeID; }
     public StringProperty facultyIDProperty() { return facultyID; }
     public StringProperty departmentIDProperty() { return departmentID; }
     public StringProperty course1IDProperty() { return course1ID; }

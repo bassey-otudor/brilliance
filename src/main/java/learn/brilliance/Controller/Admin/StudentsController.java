@@ -27,6 +27,7 @@ public class StudentsController implements Initializable {
     public TextField stud_phoneNum;
     public DatePicker stud_dob;
     public ComboBox stud_gender;
+    public ComboBox stud_faculty;
     public ComboBox stud_department;
     public ComboBox stud_degree;
     public ComboBox stud_minor;

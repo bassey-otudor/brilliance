@@ -46,10 +46,10 @@ public class DepartmentsController implements Initializable {
             -> dept_hod.setItems(Model.getInstance().getConnectDB().getHod(newValue)));
 
         dept_faculty.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal)
-            -> dept_minor1.setItems(Model.getInstance().getConnectDB().getMinor1(newVal)));
+            -> dept_minor1.setItems(Model.getInstance().getConnectDB().getMinor(newVal)));
 
-        dept_minor1.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal)
-            -> dept_minor2.setItems(Model.getInstance().getConnectDB().getMinor2(newVal)));
+        dept_faculty.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal)
+            -> dept_minor2.setItems(Model.getInstance().getConnectDB().getMinor(newVal)));
 
         dept_addBtn.setOnAction(e -> createDepartment());
         dept_updateBtn.setOnAction(e -> updateDepartment());
@@ -85,11 +85,7 @@ public class DepartmentsController implements Initializable {
                     return true;
                 } else if (predicateFaculty.minor1Property().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if (predicateFaculty.minor2Property().toString().toLowerCase().contains(searchKey)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                } else return predicateFaculty.minor2Property().toString().toLowerCase().contains(searchKey);
             });
 
             SortedList<Department> sortedList = new SortedList<>(searchFilter);
@@ -121,33 +117,40 @@ public class DepartmentsController implements Initializable {
 
                 } else {
 
-                    ResultSet resultSet = Model.getInstance().getConnectDB().checkEmptyDepartmentsColumns(facultyID);
-                    while (resultSet.next()) {
-                        if(resultSet.getString("Department1").isEmpty()) {
-                            String column = "Department1";
-                            Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                    if(minor1.equals(minor2)) {
+                        operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                        operationStatus.setText("Minors cannot be the same.");
 
-                        } else if (resultSet.getString("Department2").isEmpty()){
-                            String column = "Department2";
-                            Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                    } else {
+                        ResultSet resultSet = Model.getInstance().getConnectDB().checkEmptyDepartmentsColumns(facultyID);
+                        while (resultSet.next()) {
+                            if(resultSet.getString("Department1").isEmpty()) {
+                                String column = "Department1";
+                                Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
 
-                        } else if (resultSet.getString("Department3").isEmpty()) {
-                            String column = "Department3";
-                            Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                            } else if (resultSet.getString("Department2").isEmpty()){
+                                String column = "Department2";
+                                Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+
+                            } else if (resultSet.getString("Department3").isEmpty()) {
+                                String column = "Department3";
+                                Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                            }
                         }
+
+                        Model.getInstance().getConnectDB().createDepartment(departmentID, departmentName, facultyID, hod, minor1, minor2);
+                        operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
+                        operationStatus.setText("Department successfully added.");
+
+                        // Update departments table
+                        dept_tableView.setItems(Model.getInstance().setAllDepartments());
+                        //Update faculty table
+                        // faculty_tableView.setItems(Model.getInstance().setFaculties());
+                        clearFields();
                     }
-
-                    Model.getInstance().getConnectDB().createDepartment(departmentID, departmentName, facultyID, hod, minor1, minor2);
-                    operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
-                    operationStatus.setText("Department successfully added.");
-
-                    // Update departments table
-                    dept_tableView.setItems(Model.getInstance().setAllDepartments());
-                    //Update faculty table
-                    // faculty_tableView.setItems(Model.getInstance().setFaculties());
-                    clearFields();
                 }
             }
+
         } catch (SQLException e) {
             System.out.println("Unable to create department.");
             e.printStackTrace();

@@ -25,17 +25,17 @@
             <TableView fx:id="teach_tableView" layoutX="44.0" layoutY="75.0" prefHeight="369.0" prefWidth="999.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                 <columns>
                     <TableColumn fx:id="teach_tableView_col_teacherID" prefWidth="83.56835699081421" text="Teacher ID" />
-                    <TableColumn fx:id="teach_tableView_col_fName" prefWidth="80.57551574707031" text="First Name" />
-                    <TableColumn fx:id="teach_tableView_col_lName" prefWidth="89.09349060058594" text="Last Name" />
+                    <TableColumn fx:id="teach_tableView_col_fName" prefWidth="85.0" text="First Name" />
+                    <TableColumn fx:id="teach_tableView_col_lName" prefWidth="90.0" text="Last Name" />
                     <TableColumn fx:id="teach_tableView_col_phoneNum" prefWidth="120.172607421875" text="Phone No." />
-                    <TableColumn fx:id="teach_tableView_col_email" prefWidth="105.66912841796875" text="Email" />
-                    <TableColumn fx:id="teach_tableView_col_gender" minWidth="0.0" prefWidth="49.956817626953125" text="Gender" />
+                    <TableColumn fx:id="teach_tableView_col_email" prefWidth="250.0" text="Email" />
+                    <TableColumn fx:id="teach_tableView_col_gender" minWidth="0.0" prefWidth="52.0" text="Gender" />
                <TableColumn fx:id="teach_tableView_col_facultyID" minWidth="0.0" prefWidth="72.74822998046875" text="Faculty" />
                     <TableColumn fx:id="teach_tableView_col_department" prefWidth="94.38848876953125" text="Department" />
                     <TableColumn fx:id="teach_tableView_col_course1" prefWidth="72.978515625" text="Course1" />
                     <TableColumn fx:id="teach_tableView_col_course2" prefWidth="66.99285888671875" text="Course2" />
                     <TableColumn fx:id="teach_tableView_col_position" prefWidth="82.877685546875" text="Position" />
-                    <TableColumn fx:id="teach_tableView_col_dob" prefWidth="73.89923095703125" text="DoB" />
+                    <TableColumn fx:id="teach_tableView_col_dob" prefWidth="75.0" text="DoB" />
                 </columns>
             </TableView>
         </AnchorPane>

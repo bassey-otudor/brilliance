@@ -29,8 +29,8 @@ public class LoginController implements Initializable {
     public TextField signup_fName;
     public TextField signup_lName;
     public TextField signup_email;
-    public ChoiceBox signup_departments;
-    public ChoiceBox signup_degree;
+    public ChoiceBox<String> signup_departments;
+    public ChoiceBox<String> signup_degree;
     public TextField signup_phoneNum;
     public TextField signup_minor;
     public PasswordField signup_password;
@@ -210,10 +210,7 @@ public class LoginController implements Initializable {
             e.printStackTrace();
         }
     }
-    private void clearFields() {
-        loginID.setText("");
-        password.setText("");
-    }
+
     private void hideLoginForm() {
         login_loginForm.setVisible(false);
         login_control.setVisible(false);

@@ -1,5 +1,7 @@
 package learn.brilliance.Controller.Admin;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import learn.brilliance.Model.Degree;
@@ -26,6 +28,7 @@ public class DegreesController implements Initializable {
     public TableColumn<Degree, String> degree_tableView_col_numCourses;
     public TableColumn<Degree, String> degree_tableView_col_totalCredits;
     public TableColumn<Degree, String> degree_tableView_col_requiredCredits;
+    public TableColumn<Degree, String> degree_tableView_col_facultyID;
     public TextField degree_degreeName;
     public TextField degree_degreeID;
     public ComboBox<String> degree_facultyID;
@@ -48,7 +51,7 @@ public class DegreesController implements Initializable {
         degree_facultyID.getSelectionModel().selectedItemProperty().addListener((observable,  oldVal, newVal)
                 -> degree_deptID.setItems(Model.getInstance().getConnectDB().getFacultyDepartments(newVal)));
         degree_deptID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
-                -> degree_minor.setItems(Model.getInstance().getConnectDB().getDepartmentCourses(newValue)));
+                -> degree_minor.setItems(Model.getInstance().getConnectDB().getDepartmentMinors(newValue)));
         degree_duration.setItems(Model.getInstance().getConnectDB().getDuration());
 
         degree_genIDBtn.setOnAction(e -> generateDegreeID());
@@ -62,6 +65,7 @@ public class DegreesController implements Initializable {
         bindDegreeTableData();
         degree_tableView.setItems(Model.getInstance().setAllDegrees());
         degree_tableView.setOnMouseClicked(e -> selectDegree());
+        searchDegrees();
 
     }
 
@@ -73,6 +77,7 @@ public class DegreesController implements Initializable {
         String numberOfDegree = degree_numCourses.getText();
         String totalCredits = degree_totalCredits.getText();
         String requiredCredit = degree_requiredCredits.getText();
+        String facultyID = degree_facultyID.getValue();
         String departmentID = degree_deptID.getValue();
         String degreeMinor = degree_minor.getValue();
         boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, degreeID, columnName, degreeName);
@@ -89,7 +94,7 @@ public class DegreesController implements Initializable {
 
             } else {
 
-                Model.getInstance().getConnectDB().createDegree(degreeID, degreeName, departmentID, minor, duration, numberOfDegree, totalCredits, requiredCredit);
+                Model.getInstance().getConnectDB().createDegree(degreeID, degreeName, departmentID, minor, duration, numberOfDegree, totalCredits, requiredCredit, facultyID);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em");
                 operationStatus.setText("Degree successfully added.");
                 degree_tableView.setItems(Model.getInstance().setAllDegrees());
@@ -106,6 +111,7 @@ public class DegreesController implements Initializable {
         String numberOfCourses = degree_numCourses.getText();
         String totalCredits = degree_totalCredits.getText();
         String requiredCredit = degree_requiredCredits.getText();
+        String facultyID = degree_facultyID.getValue();
         String departmentID = degree_deptID.getValue();
         String degreeMinor = degree_minor.getValue();
         boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, degreeID, columnName, degreeName);
@@ -116,7 +122,7 @@ public class DegreesController implements Initializable {
         } else {
 
             if(doesExist) {
-                Model.getInstance().getConnectDB().updateDegree(degreeID, degreeName, departmentID, minor, duration, numberOfCourses, totalCredits, requiredCredit);
+                Model.getInstance().getConnectDB().updateDegree(degreeID, degreeName, departmentID, minor, duration, numberOfCourses, totalCredits, requiredCredit, facultyID);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em");
                 operationStatus.setText("Degree updated successfully.");
                 degree_tableView.setItems(Model.getInstance().setAllDegrees());
@@ -179,12 +185,13 @@ public class DegreesController implements Initializable {
         degree_tableView_col_numCourses.setCellValueFactory(cellData -> cellData.getValue().numberOfCoursesProperty());
         degree_tableView_col_totalCredits.setCellValueFactory(cellData -> cellData.getValue().totalCreditsProperty());
         degree_tableView_col_requiredCredits.setCellValueFactory(cellData -> cellData.getValue().requiredCreditsProperty());
+        degree_tableView_col_facultyID.setCellValueFactory(cellData -> cellData.getValue().facultyIDProperty());
     }
     private void generateDegreeID() {
         String departmentID = degree_deptID.getValue();
         String rowCount = String.valueOf(Model.getInstance().getConnectDB().getDegreeRowCount(departmentID) + 1);
         String degreeCode =  StringUtils.left(departmentID, 2);
-        String generatedID = null;
+        String generatedID;
 
         if(rowCount.length() == 1) {
             generatedID = departmentID + "-" + degreeCode + "X00" + rowCount;
@@ -210,5 +217,38 @@ public class DegreesController implements Initializable {
         degree_numCourses.setText(String.valueOf(degrees.numberOfCoursesProperty().get()));
         degree_totalCredits.setText(String.valueOf(degrees.totalCreditsProperty().get()));
         degree_requiredCredits.setText(String.valueOf(degrees.requiredCreditsProperty().get()));
+    }
+    private void searchDegrees() {
+        FilteredList<Degree> searchFilter = new FilteredList<>(Model.getInstance().setAllDegrees(), e -> true);
+        degree_searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchFilter.setPredicate(predicateDegree -> {
+                if(newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String searchKey = newValue.toLowerCase();
+                if(predicateDegree.degreeIDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateDegree.degreeNameProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateDegree.departmentIDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateDegree.minorProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateDegree.durationProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateDegree.numberOfCoursesProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateDegree.totalCreditsProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateDegree.requiredCreditsProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else return predicateDegree.facultyIDProperty().toString().toLowerCase().contains(searchKey);
+
+            });
+
+            SortedList<Degree> sortedList = new SortedList<>(searchFilter);
+            sortedList.comparatorProperty().bind(degree_tableView.comparatorProperty());
+            degree_tableView.setItems(sortedList);
+        });
     }
 }

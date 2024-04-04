@@ -210,7 +210,8 @@ public class Model {
                         resultSet.getString("duration"),
                         resultSet.getString("numberOfCourses"),
                         resultSet.getString("totalCredits"),
-                        resultSet.getString("requiredCredits")
+                        resultSet.getString("requiredCredits"),
+                        resultSet.getString("facultyID")
                 );
                 degreeList.add(degreeData);
             }
@@ -232,7 +233,7 @@ public class Model {
                 minorData = new Minor(
                         resultSet.getString("minorID"),
                         resultSet.getString("minorName"),
-                        resultSet.getString("degreeName"),
+                        resultSet.getString("degreeID"),
                         resultSet.getString("facultyID"),
                         resultSet.getString("departmentID"),
                         resultSet.getString("course1"),
@@ -246,6 +247,7 @@ public class Model {
 
         } catch (SQLException e) {
             System.out.println("Unable to get minor data");
+            e.printStackTrace();
         }
         return minorList;
 
