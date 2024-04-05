@@ -2,6 +2,8 @@ package learn.brilliance.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import learn.brilliance.Model.Accounts.Teacher;
+import learn.brilliance.Model.Accounts.Student;
 import learn.brilliance.View.ViewFactory;
 
 import java.sql.ResultSet;
@@ -20,6 +22,7 @@ public class Model {
     private final ObservableList<Course> courses;
     private final ObservableList<Degree> degree;
     private final ObservableList<Minor> minor;
+    private final ObservableList<Student> students;
     private Model() {
         this.viewFactory = new ViewFactory();
         this.connectDB = new connectDB();
@@ -32,6 +35,7 @@ public class Model {
         this.courses = FXCollections.observableArrayList();
         this.degree = FXCollections.observableArrayList();
         this.minor = FXCollections.observableArrayList();
+        this.students = FXCollections.observableArrayList();
     }
     public static synchronized Model getInstance() {
         if(model == null) {
@@ -251,6 +255,41 @@ public class Model {
         }
         return minorList;
 
+    }
+
+    public ObservableList<Student> getAllStudents() { return students; }
+    public ObservableList<Student> setAllStudents() {
+        ResultSet resultSet = Model.getInstance().connectDB.getStudentData();
+        ObservableList<Student> studentList = FXCollections.observableArrayList();
+        Student studentData;
+
+        try {
+            while (resultSet.next()) {
+                studentData = new Student(
+                        resultSet.getString("studentID"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getString("gender"),
+                        resultSet.getString("dob"),
+                        resultSet.getString("phoneNumber"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password"),
+                        resultSet.getString("facultyID"),
+                        resultSet.getString("departmentID"),
+                        resultSet.getString("degreeID"),
+                        resultSet.getString("minorID"),
+                        resultSet.getString("level"),
+                        resultSet.getString("registrationDate")
+
+                );
+                studentList.add(studentData);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get student data.");
+            e.printStackTrace();
+        }
+        return studentList;
     }
 
 }

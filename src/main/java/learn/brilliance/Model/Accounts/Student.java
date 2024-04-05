@@ -10,21 +10,26 @@ public class Student extends Accounts {
     public StringProperty degree;
     public StringProperty minor;
     public StringProperty level;
-    protected Student(String firstName, String lastName, String gender, String phoneNum, String email, String deptID, LocalDate dob, String password, String studentID, String degree, String minor, String level) {
-        super(firstName, lastName, gender, phoneNum, email, deptID, dob, password);
+    public StringProperty registrationDate;
+    public Student(String firstName, String lastName, String gender, String dob, String password, String phoneNumber, String email, String facultyID, String departmentID, String studentID, String degree, String minor, String level, String registrationDate) {
+        super(firstName, lastName, gender, phoneNumber, email, facultyID, departmentID, dob, password);
         this.studentID = new SimpleStringProperty(this, "StudentID", studentID);
         this.degree = new SimpleStringProperty(this, "Degree", degree);
         this.minor = new SimpleStringProperty(this, "Minor", minor);
         this.level = new SimpleStringProperty(this, "Level", level);
+        this.registrationDate = new SimpleStringProperty(this, "Registration Date", registrationDate);
     }
-    public StringProperty getStudentID() {return studentID;}
-    public StringProperty getDegree() {
+    public StringProperty studentIDProperty() {return studentID;}
+    public StringProperty degreeProperty() {
         return degree;
     }
-    public StringProperty getMinor() {
+    public StringProperty minorProperty() {
         return minor;
     }
-    public StringProperty getLevel() {
+    public StringProperty levelProperty() {
         return level;
+    }
+    public StringProperty registrationDateProperty() {
+        return registrationDate;
     }
 }

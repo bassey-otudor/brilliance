@@ -10,21 +10,21 @@ public class Teacher extends Accounts{
     public StringProperty firstCourse;
     public StringProperty secondCourse;
     public StringProperty position;
-    protected Teacher(String firstName, String lastName, String gender, String phoneNum, String email, String deptID, LocalDate dob, String password, String teacherID, String firstCourse, String secondCourse, String position) {
-        super(firstName, lastName, gender, phoneNum, email, deptID, dob, password);
+    public Teacher(String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String password, String facultyID, String departmentID, String teacherID, String firstCourse, String secondCourse, String position) {
+        super(firstName, lastName, gender, dob, password, phoneNumber, email, facultyID, departmentID);
         this.teacherID = new SimpleStringProperty(this, "TeacherID", teacherID);
-        this.firstCourse = new SimpleStringProperty(this, "Course1", firstCourse);
-        this.secondCourse = new SimpleStringProperty(this, "Course2", secondCourse);
+        this.firstCourse = new SimpleStringProperty(this, "FirstCourse", firstCourse);
+        this.secondCourse = new SimpleStringProperty(this, "SecondCourse", secondCourse);
         this.position = new SimpleStringProperty(this, "Position", position);
     }
-    public StringProperty getTeacherID() {return teacherID;}
-    public StringProperty getFirstCourse() {
+    public StringProperty teacherIDProperty() {return teacherID;}
+    public StringProperty firstCourseProperty() {
         return firstCourse;
     }
-    public StringProperty getSecondCourse() {
+    public StringProperty secondCourseProperty() {
         return secondCourse;
     }
-    public StringProperty getPosition() {
+    public StringProperty positionProperty() {
         return position;
     }
 }

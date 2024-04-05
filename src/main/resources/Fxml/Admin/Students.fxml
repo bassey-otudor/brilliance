@@ -24,16 +24,19 @@
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
             <TableView fx:id="stud_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627" prefWidth="915.1079387831637" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columns>
-                    <TableColumn fx:id="stud_tableView_col_studentID" prefWidth="71.82732796669006" text="StudentID" />
-                    <TableColumn fx:id="stud_tableView_col_fName" prefWidth="104.97842407226562" text="FirstName" />
-                    <TableColumn fx:id="stud_tableView_col_lName" prefWidth="90.01434326171875" text="LastName" />
-                    <TableColumn fx:id="stud_tableView_col_phoneNum" prefWidth="101.98564147949219" text="PhoneNum" />
-                    <TableColumn fx:id="stud_tableView_col_email" prefWidth="186.24456787109375" text="Email" />
-                    <TableColumn fx:id="stud_tableView_col_gender" minWidth="0.0" prefWidth="63.53961181640625" text="Gender" />
-                    <TableColumn fx:id="stud_tableView_col_dept" prefWidth="80.80572509765625" text="Department" />
-                    <TableColumn fx:id="stud_tableView_col_degree" prefWidth="106.359619140625" text="Degree" />
-                    <TableColumn fx:id="stud_tableView_col_minor" prefWidth="118.7913818359375" text="Minor" />
-                    <TableColumn fx:id="stud_tableView_col_level" prefWidth="67.4532470703125" text="Level" />
+                    <TableColumn fx:id="stud_tableView_col_studentID" text="Student ID" />
+                    <TableColumn fx:id="stud_tableView_col_fName" prefWidth="104.97842407226562" text="First Name" />
+                    <TableColumn fx:id="stud_tableView_col_lName" prefWidth="104.0" text="Last Name" />
+                    <TableColumn fx:id="stud_tableView_col_gender" minWidth="0.0" prefWidth="75.0" text="Gender" />
+               <TableColumn fx:id="stud_tableView_col_dob" minWidth="0.0" prefWidth="90.0" text="DoB" />
+                    <TableColumn fx:id="stud_tableView_col_phoneNum" prefWidth="104.0" text="Phone Number" />
+                    <TableColumn fx:id="stud_tableView_col_email" prefWidth="200.0" text="Email" />
+               <TableColumn fx:id="stud_tableView_col_facultyID" minWidth="0.0" prefWidth="79.42449951171875" text="Faculty" />
+                    <TableColumn fx:id="stud_tableView_col_deptID" prefWidth="85.0" text="Department" />
+                    <TableColumn fx:id="stud_tableView_col_degreeID" prefWidth="104.0" text="Degree" />
+                    <TableColumn fx:id="stud_tableView_col_minorID" prefWidth="118.7913818359375" text="Minor" />
+                    <TableColumn fx:id="stud_tableView_col_level" prefWidth="50.0" text="Level" />
+               <TableColumn fx:id="stud_tableView_col_regDate" prefWidth="50.0" text="Registration Date" />
                 </columns>
             </TableView>
         </AnchorPane>
@@ -48,9 +51,9 @@
             <ComboBox fx:id="stud_degree" layoutX="365.0" layoutY="57.0" prefWidth="150.0" promptText="Degree" />
             <ComboBox fx:id="stud_minor" layoutX="189.0" layoutY="141.0" prefWidth="150.0" promptText="Minor" />
             <PasswordField fx:id="stud_pwd" layoutX="364.0" layoutY="136.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
-            <ComboBox fx:id="stud_level" layoutX="546.0" layoutY="14.0" prefWidth="150.0" promptText="Level" />
-            <TextField fx:id="stud_studentID" disable="true" editable="false" layoutX="547.0" layoutY="99.0" promptText="StudentID" />
-            <Button fx:id="stud_genIDBtn" layoutX="546.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
+            <ComboBox fx:id="stud_level" layoutX="546.0" layoutY="14.0" prefHeight="28.0" prefWidth="162.0" promptText="Level" />
+            <TextField fx:id="stud_studentID" disable="true" editable="false" layoutX="546.0" layoutY="59.0" promptText="StudentID" />
+            <Button fx:id="stud_genIDBtn" layoutX="545.0" layoutY="100.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
             <Button fx:id="stud_deleteBtn" layoutX="798.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="stud_clearBtn" layoutX="798.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />
             <Button fx:id="stud_updateBtn" layoutX="798.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />

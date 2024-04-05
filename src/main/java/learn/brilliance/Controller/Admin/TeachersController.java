@@ -5,7 +5,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import learn.brilliance.Model.Model;
-import learn.brilliance.Model.Teacher;
+import learn.brilliance.Model.Accounts.Teacher;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -108,9 +108,9 @@ public class TeachersController implements Initializable {
                     return true;
                 } else if(predicateTeacher.departmentIDProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if (predicateTeacher.course1Property().toString().toLowerCase().contains(searchKey)) {
+                } else if (predicateTeacher.firstCourseProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if (predicateTeacher.course2Property().toString().toLowerCase().contains(searchKey)) {
+                } else if (predicateTeacher.secondCourseProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
                 } else if (predicateTeacher.positionProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
@@ -299,8 +299,8 @@ public class TeachersController implements Initializable {
         teach_tableView_col_gender.setCellValueFactory(cellData -> cellData.getValue().genderProperty());
         teach_tableView_col_facultyID.setCellValueFactory(cellData -> cellData.getValue().facultyIDProperty());
         teach_tableView_col_department.setCellValueFactory(cellData -> cellData.getValue().departmentIDProperty());
-        teach_tableView_col_course1.setCellValueFactory(cellData -> cellData.getValue().course1Property());
-        teach_tableView_col_course2.setCellValueFactory(cellData -> cellData.getValue().course2Property());
+        teach_tableView_col_course1.setCellValueFactory(cellData -> cellData.getValue().firstCourseProperty());
+        teach_tableView_col_course2.setCellValueFactory(cellData -> cellData.getValue().secondCourseProperty());
         teach_tableView_col_position.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
         teach_tableView_col_dob.setCellValueFactory(cellData -> cellData.getValue().dobProperty());
 
@@ -336,8 +336,8 @@ public class TeachersController implements Initializable {
         teach_facultyID.setValue(String.valueOf(teacher.facultyIDProperty().get()));
         teach_deptID.setValue(String.valueOf(teacher.departmentIDProperty().get()));
         teach_dob.setValue(LocalDate.parse(teacher.dobProperty().get()));
-        teach_course1.setValue(String.valueOf(teacher.course1Property().get()));
-        teach_course2.setValue(String.valueOf(teacher.course2Property().get()));
+        teach_course1.setValue(String.valueOf(teacher.firstCourseProperty().get()));
+        teach_course2.setValue(String.valueOf(teacher.secondCourseProperty().get()));
         teach_position.setValue(String.valueOf(teacher.positionProperty().get()));
     }
 }

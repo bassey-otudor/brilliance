@@ -992,6 +992,62 @@ public class connectDB {
 
     }
 
+    // Student section
+
+    public ResultSet getStudentData() {
+        Statement stmt;
+        ResultSet resultSet = null;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery("SELECT * FROM students;");
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get all student data.");
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+    public void createStudent(String studentID, String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String password, String facultyID, String departmentID, String degreeID, String minorID, String level, String registrationDate) {
+        String createStudent = "INSERT INTO students" +
+                "(studentID, firstName, lastName, gender, dob, phoneNumber, email, password, facultyID, departmentID, degreeID, minorID, level, registrationDate)" +
+                "VALUES ('"+studentID+"', '"+firstName+"', '"+lastName+"', '"+gender+"', '"+dob+"', '"+phoneNumber+"', '"+email+"', '"+password+"', '"+facultyID+"', '"+departmentID+"', '"+degreeID+"', '"+minorID+"', '"+level+"', '"+registrationDate+"')";
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeQuery(createStudent);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to create student.");
+            e.printStackTrace();
+        }
+    }
+    public void updateStudent(String studentID, String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String password, String facultyID, String departmentID, String degreeID, String minorID, String level) {
+        String updateStudent = "UPDATE students SET firstName = '"+firstName+"', lastName = '"+lastName+"', gender = '"+gender+"', dob = '"+dob+"', phoneNumber = '"+phoneNumber+"', email = '"+email+"', password = '"+password+"', facultyID = '"+facultyID+"', departmentID = '"+departmentID+"', degreeID = '"+degreeID+"', minorID = '"+minorID+"', level = '"+level+"' WHERE studentID = '"+studentID+"';";
+        Statement stmt;
+
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(updateStudent);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to update student.");
+            e.printStackTrace();
+        }
+    }
+    public void deleteStudent(String studentID) {
+        String deleteStudent = "DELETE FROM students WHERE studentID = '"+studentID+"';";
+        Statement stmt;
+
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(deleteStudent);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to delete student.");
+            e.printStackTrace();
+        }
+    }
+
     // Utility methods
 
     /**

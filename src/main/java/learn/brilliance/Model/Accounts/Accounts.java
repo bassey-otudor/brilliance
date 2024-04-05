@@ -11,43 +11,46 @@ public abstract class Accounts {
     public final StringProperty firstName;
     public final StringProperty lastName;
     public final StringProperty gender;
-    public final StringProperty phoneNum;
+    public final StringProperty phoneNumber;
     public final StringProperty email;
-    public final StringProperty deptID;
-    public final ObjectProperty<LocalDate> dob;
+    public final StringProperty facultyID;
+    public final StringProperty departmentID;
+    public final StringProperty dob;
     public final StringProperty password;
-    protected Accounts(String firstName, String lastName, String gender, String phoneNum, String email, String deptID, LocalDate dob, String password) {
+    protected Accounts(String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String password, String facultyID, String departmentID) {
         this.firstName = new SimpleStringProperty(this,"First Name", firstName);
         this.lastName = new SimpleStringProperty(this,"Last Name", lastName);
         this.gender = new SimpleStringProperty(this,"Gender", gender);
-        this.phoneNum = new SimpleStringProperty(this,"Phone Number", phoneNum);
+        this.phoneNumber = new SimpleStringProperty(this,"Phone Number", phoneNumber);
         this.email = new SimpleStringProperty(this,"Email", email);
-        this.deptID = new SimpleStringProperty(this,"Department ID", deptID);
-        this.dob = new SimpleObjectProperty<LocalDate>(this,"Date of Birth", dob);
+        this.facultyID = new SimpleStringProperty(this, "FacultyID", facultyID);
+        this.departmentID = new SimpleStringProperty(this,"Department ID", departmentID);
+        this.dob = new SimpleStringProperty(this,"Date of Birth", dob);
         this.password = new SimpleStringProperty(this,"Password", password);
     }
-    public StringProperty getFirstName() {
+    public StringProperty firstNameProperty() {
         return firstName;
     }
-    public StringProperty getLastName() {
+    public StringProperty lastNameProperty() {
         return lastName;
     }
-    public StringProperty getGender() {
+    public StringProperty genderProperty() {
         return gender;
     }
-    public StringProperty getPhoneNum() {
-        return phoneNum;
+    public StringProperty phoneNumberProperty() {
+        return phoneNumber;
     }
-    public StringProperty getEmail() {
+    public StringProperty emailProperty() {
         return email;
     }
-    public StringProperty getDeptID() {
-        return deptID;
+    public StringProperty facultyIDProperty() { return facultyID; }
+    public StringProperty departmentIDProperty() {
+        return departmentID;
     }
-    public ObjectProperty<LocalDate> getDob() {
+    public StringProperty dobProperty() {
         return dob;
     }
-    public StringProperty getPassword() {
+    public StringProperty passwordProperty() {
         return password;
     }
 }
