@@ -29,14 +29,14 @@
                     <TableColumn fx:id="stud_tableView_col_lName" prefWidth="104.0" text="Last Name" />
                     <TableColumn fx:id="stud_tableView_col_gender" minWidth="0.0" prefWidth="75.0" text="Gender" />
                <TableColumn fx:id="stud_tableView_col_dob" minWidth="0.0" prefWidth="90.0" text="DoB" />
-                    <TableColumn fx:id="stud_tableView_col_phoneNum" prefWidth="104.0" text="Phone Number" />
+                    <TableColumn fx:id="stud_tableView_col_phoneNumber" prefWidth="104.0" text="Phone Number" />
                     <TableColumn fx:id="stud_tableView_col_email" prefWidth="200.0" text="Email" />
-               <TableColumn fx:id="stud_tableView_col_facultyID" minWidth="0.0" prefWidth="79.42449951171875" text="Faculty" />
-                    <TableColumn fx:id="stud_tableView_col_deptID" prefWidth="85.0" text="Department" />
-                    <TableColumn fx:id="stud_tableView_col_degreeID" prefWidth="104.0" text="Degree" />
-                    <TableColumn fx:id="stud_tableView_col_minorID" prefWidth="118.7913818359375" text="Minor" />
+               <TableColumn fx:id="stud_tableView_col_facultyID" minWidth="0.0" prefWidth="70.0" text="Faculty" />
+                    <TableColumn fx:id="stud_tableView_col_deptID" prefWidth="130.0" text="Department" />
+                    <TableColumn fx:id="stud_tableView_col_degreeID" prefWidth="130.0" text="Degree" />
+                    <TableColumn fx:id="stud_tableView_col_minorID" prefWidth="130.0" text="Minor" />
                     <TableColumn fx:id="stud_tableView_col_level" prefWidth="50.0" text="Level" />
-               <TableColumn fx:id="stud_tableView_col_regDate" prefWidth="50.0" text="Registration Date" />
+               <TableColumn fx:id="stud_tableView_col_regDate" prefWidth="100.0" text="Registration Date" />
                 </columns>
             </TableView>
         </AnchorPane>
@@ -44,13 +44,13 @@
             <TextField fx:id="stud_fName" layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="151.0" promptText="First Name" />
             <TextField fx:id="stud_lName" layoutX="16.0" layoutY="56.0" prefHeight="29.0" prefWidth="151.0" promptText="Last Name" />
             <TextField fx:id="stud_email" layoutX="191.0" layoutY="14.0" prefHeight="28.0" prefWidth="325.0" promptText="Email" />
-            <TextField fx:id="stud_phoneNum" layoutX="191.0" layoutY="56.0" prefHeight="28.0" prefWidth="146.0" promptText="Phone Number" />
+            <TextField fx:id="stud_phoneNumber" layoutX="191.0" layoutY="56.0" prefHeight="28.0" prefWidth="146.0" promptText="Phone Number" />
             <DatePicker fx:id="stud_dob" layoutX="363.0" layoutY="96.0" prefHeight="27.0" prefWidth="151.0" promptText="Date of Birth" />
             <ComboBox fx:id="stud_gender" layoutX="14.0" layoutY="99.0" prefWidth="150.0" promptText="Gender" />
             <ComboBox fx:id="stud_department" layoutX="15.0" layoutY="141.0" prefWidth="150.0" promptText="Department" />
             <ComboBox fx:id="stud_degree" layoutX="365.0" layoutY="57.0" prefWidth="150.0" promptText="Degree" />
             <ComboBox fx:id="stud_minor" layoutX="189.0" layoutY="141.0" prefWidth="150.0" promptText="Minor" />
-            <PasswordField fx:id="stud_pwd" layoutX="364.0" layoutY="136.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
+            <PasswordField fx:id="stud_password" layoutX="364.0" layoutY="136.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
             <ComboBox fx:id="stud_level" layoutX="546.0" layoutY="14.0" prefHeight="28.0" prefWidth="162.0" promptText="Level" />
             <TextField fx:id="stud_studentID" disable="true" editable="false" layoutX="546.0" layoutY="59.0" promptText="StudentID" />
             <Button fx:id="stud_genIDBtn" layoutX="545.0" layoutY="100.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
@@ -59,6 +59,7 @@
             <Button fx:id="stud_updateBtn" layoutX="798.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
             <Button fx:id="stud_addBtn" layoutX="798.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
          <ComboBox fx:id="stud_faculty" layoutX="191.0" layoutY="98.0" prefWidth="150.0" promptText="Faculty" />
+         <Label fx:id="operationStatus" layoutX="532.0" layoutY="142.0" prefHeight="15.0" prefWidth="253.0" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

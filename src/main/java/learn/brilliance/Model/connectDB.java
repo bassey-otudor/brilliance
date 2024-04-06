@@ -2,6 +2,7 @@ package learn.brilliance.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import learn.brilliance.Model.Accounts.Teacher;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -1014,15 +1015,15 @@ public class connectDB {
         Statement stmt;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(createStudent);
+            stmt.executeUpdate(createStudent);
 
         } catch (SQLException e) {
             System.out.println("Unable to create student.");
             e.printStackTrace();
         }
     }
-    public void updateStudent(String studentID, String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String password, String facultyID, String departmentID, String degreeID, String minorID, String level) {
-        String updateStudent = "UPDATE students SET firstName = '"+firstName+"', lastName = '"+lastName+"', gender = '"+gender+"', dob = '"+dob+"', phoneNumber = '"+phoneNumber+"', email = '"+email+"', password = '"+password+"', facultyID = '"+facultyID+"', departmentID = '"+departmentID+"', degreeID = '"+degreeID+"', minorID = '"+minorID+"', level = '"+level+"' WHERE studentID = '"+studentID+"';";
+    public void updateStudent(String studentID, String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String facultyID, String departmentID, String degreeID, String minorID, String level) {
+        String updateStudent = "UPDATE students SET firstName = '"+firstName+"', lastName = '"+lastName+"', gender = '"+gender+"', dob = '"+dob+"', phoneNumber = '"+phoneNumber+"', email = '"+email+"', facultyID = '"+facultyID+"', departmentID = '"+departmentID+"', degreeID = '"+degreeID+"', minorID = '"+minorID+"', level = '"+level+"' WHERE studentID = '"+studentID+"';";
         Statement stmt;
 
         try {
@@ -1046,6 +1047,48 @@ public class connectDB {
             System.out.println("Unable to delete student.");
             e.printStackTrace();
         }
+    }
+    public int getStudentRowCount() {
+        int rowCount = 0;
+        String studentCount = "SELECT seq FROM sqlite_sequence WHERE name ='students';";
+
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(studentCount);
+            while (resultSet.next()) {
+             rowCount = resultSet.getInt("seq");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get student count.");
+            e.printStackTrace();
+        }
+        return rowCount;
+    }
+
+    public ObservableList<String> getDegreeMinors(String degreeID) {
+        List<String> minorList = new ArrayList<>();
+        String getMinor = "SELECT * FROM minors WHERE degreeID = '"+degreeID+"';";
+
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getMinor);
+            while (resultSet.next()) {
+                minorList.add(resultSet.getString("minorID"));
+            }
+            minorList = FXCollections.observableArrayList(minorList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get degree minors.");
+            e.printStackTrace();
+        }
+        return FXCollections.observableArrayList(minorList);
     }
 
     // Utility methods
@@ -1112,7 +1155,7 @@ public class connectDB {
     public ObservableList<String> getLevel() {
         List<String> levelList = new ArrayList<>();
 
-        String selectLevels = "SELECT * FROM levels";
+        String selectLevels = "SELECT * FROM levels;";
         Statement stmt;
         ResultSet resultSet;
 

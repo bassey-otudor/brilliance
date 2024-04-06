@@ -1,11 +1,7 @@
 package learn.brilliance.Model.Accounts;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
-import java.time.LocalDate;
 
 public abstract class Accounts {
     public final StringProperty firstName;
@@ -21,12 +17,12 @@ public abstract class Accounts {
         this.firstName = new SimpleStringProperty(this,"First Name", firstName);
         this.lastName = new SimpleStringProperty(this,"Last Name", lastName);
         this.gender = new SimpleStringProperty(this,"Gender", gender);
+        this.dob = new SimpleStringProperty(this,"Date of Birth", dob);
         this.phoneNumber = new SimpleStringProperty(this,"Phone Number", phoneNumber);
         this.email = new SimpleStringProperty(this,"Email", email);
+        this.password = new SimpleStringProperty(this,"Password", password);
         this.facultyID = new SimpleStringProperty(this, "FacultyID", facultyID);
         this.departmentID = new SimpleStringProperty(this,"Department ID", departmentID);
-        this.dob = new SimpleStringProperty(this,"Date of Birth", dob);
-        this.password = new SimpleStringProperty(this,"Password", password);
     }
     public StringProperty firstNameProperty() {
         return firstName;
@@ -49,8 +45,5 @@ public abstract class Accounts {
     }
     public StringProperty dobProperty() {
         return dob;
-    }
-    public StringProperty passwordProperty() {
-        return password;
     }
 }
