@@ -1,5 +1,6 @@
 package learn.brilliance.Controller.Admin;
 
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import learn.brilliance.Model.Accounts.Student;
@@ -53,6 +54,7 @@ public class StudentsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Student tableView manipulation section
         stud_faculty.setItems(Model.getInstance().getConnectDB().getFaculties());
 
         stud_faculty.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal)
@@ -72,12 +74,50 @@ public class StudentsController implements Initializable {
         stud_deleteBtn.setOnAction(e -> deleteStudent());
         stud_clearBtn.setOnAction(e -> clearFields());
 
+        // Student tableView section
         initialiseStudentTable();
         bindStudentTableData();
         stud_tableView.setItems(Model.getInstance().setAllStudents());
         stud_tableView.setOnMouseClicked(e -> selectStudent());
+        searchStudents();
 
+    }
 
+    private void searchStudents() {
+        FilteredList<Student> searchFilter = new FilteredList<>(Model.getInstance().setAllStudents(), e -> true);
+        stud_searchField.textProperty().addListener(((observable, oldValue, newValue) -> {
+            searchFilter.setPredicate(predicateStudent -> {
+                if(newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String searchKey = newValue.toLowerCase();
+                if(predicateStudent.studentIDProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.firstNameProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.lastNameProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.genderProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.dobProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.phoneNumberProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.emailProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.facultyIDProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.departmentIDProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.degreeIDProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.minorIDProperty().toString().contains(searchKey)) {
+                    return true;
+                } else if(predicateStudent.levelProperty().toString().contains(searchKey)) {
+                    return true;
+                } else return predicateStudent.registrationDateProperty().toString().contains(searchKey);
+            });
+        }));
     }
 
     private void createStudent()   {

@@ -2,7 +2,6 @@ package learn.brilliance.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import learn.brilliance.Model.Accounts.Teacher;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -61,7 +60,7 @@ public class connectDB {
         ResultSet resultSet;
 
         try {
-            String getDirectors = "SELECT CONCAT(fname, ' ', lName) AS facultyDirector FROM teachers WHERE position = 'Director'";
+            String getDirectors = "SELECT CONCAT(fname, ' ', lName) AS facultyDirector FROM teachers WHERE position = 'Director' ORDER BY facultyDirector ASC";
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(getDirectors);
 
@@ -136,7 +135,7 @@ public class connectDB {
         ResultSet resultSet;
 
         try {
-            String sql = "SELECT CONCAT(fname, ' ', lName) AS departmentHOD FROM teachers WHERE position = 'HOD' AND facultyID ='"+facultyID+"'";
+            String sql = "SELECT CONCAT(fname, ' ', lName) AS departmentHOD FROM teachers WHERE position = 'HOD' AND facultyID ='"+facultyID+"' ORDER BY departmentHOD ASC";
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
 
@@ -159,7 +158,7 @@ public class connectDB {
         ResultSet resultSet;
 
         try {
-            String sql = "SELECT facultyID from faculties;";
+            String sql = "SELECT facultyID from faculties ORDER BY facultyID ASC;";
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
 
@@ -181,7 +180,7 @@ public class connectDB {
         ResultSet resultSet;
 
         try {
-            String sql = "SELECT * FROM minors WHERE facultyID = '"+facultyID+"';";
+            String sql = "SELECT * FROM minors WHERE facultyID = '"+facultyID+"' ORDER BY  minorName ASC;";
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
 
@@ -295,7 +294,7 @@ public class connectDB {
     public ObservableList<String> getPosition() {
         List<String> positionList = new ArrayList<>();
 
-        String selectPositions = "SELECT position FROM position;";
+        String selectPositions = "SELECT position FROM position ORDER BY position ASC;";
         Statement stmt;
         ResultSet resultSet;
 
@@ -423,7 +422,7 @@ public class connectDB {
     public ObservableList<String> getCourseTeacher(String departmentID) {
         List<String> teacherList = new ArrayList<>();
 
-        String selectTeacherNames = "SELECT CONCAT(fname, ' ', lName) AS teacherFullNames FROM teachers WHERE deptID = '"+departmentID+"'";
+        String selectTeacherNames = "SELECT CONCAT(fname, ' ', lName) AS teacherFullNames FROM teachers WHERE deptID = '"+departmentID+"' ORDER BY teacherFullNames ASC";
         Statement stmt;
         ResultSet resultSet;
 
@@ -696,7 +695,7 @@ public class connectDB {
     public ObservableList<String> getDepartmentMinors(String departmentID) {
         List<String> minorList = new ArrayList<>();
 
-        String selectCourses = "SELECT * FROM minors WHERE departmentID = '"+departmentID+"';";
+        String selectCourses = "SELECT * FROM minors WHERE departmentID = '"+departmentID+"' ORDER BY minorID ASC;";
         Statement stmt;
         ResultSet resultSet;
 
@@ -797,10 +796,9 @@ public class connectDB {
     /**
      * This method is used to retrieve the number of rows in the department_degrees table.
      *
-     * @param departmentID The ID of the department to retrieve the number of degrees for.
      * @return The number of rows in the department_degrees table for the specified department.
      */
-    public int getDegreeRowCount(String departmentID) {
+    public int getDegreeRowCount() {
         String degreeRowCount = "SELECT seq FROM sqlite_sequence WHERE name = 'department_degrees';";
         Statement stmt;
         ResultSet resultSet;
@@ -863,7 +861,7 @@ public class connectDB {
 
     public ObservableList<String> getDepartmentDegrees(String departmentID) {
         List<String> degreeList = new ArrayList<>();
-        String getDegree = "SELECT * FROM department_degrees WHERE departmentID = '"+departmentID+"';";
+        String getDegree = "SELECT * FROM department_degrees WHERE departmentID = '"+departmentID+"' ORDER BY degreeID ASC;";
         Statement stmt;
         ResultSet resultSet;
 
@@ -1071,10 +1069,10 @@ public class connectDB {
 
     public ObservableList<String> getDegreeMinors(String degreeID) {
         List<String> minorList = new ArrayList<>();
-        String getMinor = "SELECT * FROM minors WHERE degreeID = '"+degreeID+"';";
+        String getMinor = "SELECT * FROM minors WHERE degreeID = '"+degreeID+"' ORDER BY minorID ASC;";
 
         Statement stmt;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
 
         try {
             stmt = conn.createStatement();
@@ -1184,7 +1182,7 @@ public class connectDB {
     public ObservableList<String> getFacultyDepartments(String facultyID) {
         List<String> departmentList = new ArrayList<>();
 
-        String selectDepartments = "SELECT deptID FROM departments WHERE facultyID = '"+facultyID+"';";
+        String selectDepartments = "SELECT deptID FROM departments WHERE facultyID = '"+facultyID+"' ORDER BY deptID ASC;";
         Statement stmt;
         ResultSet resultSet;
 
@@ -1213,7 +1211,7 @@ public class connectDB {
     public ObservableList<String> getDepartmentCourses(String departmentID) {
         List<String> courseList = new ArrayList<>();
 
-        String selectCourses = "SELECT courseID FROM courses WHERE deptID = '"+departmentID+"';";
+        String selectCourses = "SELECT courseID FROM courses WHERE deptID = '"+departmentID+"' ORDER BY courseID ASC ;";
         Statement stmt;
         ResultSet resultSet;
 
@@ -1231,6 +1229,72 @@ public class connectDB {
         }
 
         return FXCollections.observableArrayList(courseList);
+    }
+    public ObservableList<String> getAllDepartments() {
+        List<String> departmentList = new ArrayList<>();
+
+        String selectDepartments = "SELECT deptID FROM departments ORDER BY deptID ASC ;";
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(selectDepartments);
+            while (resultSet.next()) {
+                departmentList.add(resultSet.getString("deptID"));
+            }
+            departmentList = FXCollections.observableArrayList(departmentList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve courses.");
+            e.printStackTrace();
+        }
+
+        return FXCollections.observableArrayList(departmentList);
+    }
+    public ObservableList<String> getFilterByTeachers() {
+        List<String> filterByList = new ArrayList<>();
+
+        String getFilter = "SELECT criteria FROM filter_criteria ORDER BY criteria ASC;";
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getFilter);
+            while (resultSet.next()) {
+                filterByList.add(resultSet.getString("criteria"));
+            }
+            filterByList = FXCollections.observableArrayList(filterByList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get filter.");
+            e.printStackTrace();
+        }
+
+        return FXCollections.observableArrayList(filterByList);
+    }
+    public ObservableList<String> generalFilterBy() {
+        List<String> filterByList = new ArrayList<>();
+
+        String getFilter = "SELECT criteria FROM filter_criteria LIMIT 2;";
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getFilter);
+            while (resultSet.next()) {
+                filterByList.add(resultSet.getString("criteria"));
+            }
+            filterByList = FXCollections.observableArrayList(filterByList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get filter.");
+            e.printStackTrace();
+        }
+
+        return FXCollections.observableArrayList(filterByList);
     }
 
 

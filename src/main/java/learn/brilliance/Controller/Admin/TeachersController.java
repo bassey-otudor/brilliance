@@ -17,8 +17,9 @@ public class TeachersController implements Initializable {
     private final String idColumn = "teacherID";
     private final String columnName = "fName";
     public TextField teach_searchField;
-    public ComboBox<String> teach_filterDept;
-    public ComboBox<String> teach_filterCourse;
+    public ComboBox<String> teach_filterBy;
+    public ComboBox<String> teach_filterOptions;
+    public Button teach_resetFilterBtn;
     public TableView<Teacher> teach_tableView;
     public TableColumn<Teacher, String> teach_tableView_col_teacherID;
     public TableColumn<Teacher, String> teach_tableView_col_fName;
@@ -55,6 +56,11 @@ public class TeachersController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Teacher tableView manipulation section
+        teach_filterBy.setItems(Model.getInstance().getConnectDB().getFilterByTeachers());
+        teach_filterBy.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal)
+                -> filterOptions(newVal));
+
         teach_facultyID.setItems(Model.getInstance().getConnectDB().getFaculties());
         teach_facultyID.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal)
                 -> teach_deptID.setItems(Model.getInstance().getConnectDB().getFacultyDepartments(newVal)));
@@ -67,6 +73,8 @@ public class TeachersController implements Initializable {
 
         teach_gender.setItems(Model.getInstance().getConnectDB().getGender());
         teach_position.setItems(Model.getInstance().getConnectDB().getPosition());
+        teach_resetFilterBtn.setOnAction(e -> resetFilters());
+
 
         teach_addBtn.setOnAction(e -> createTeacher());
         teach_updateBtn.setOnAction(e -> updateTeacher());
@@ -81,11 +89,12 @@ public class TeachersController implements Initializable {
         teach_tableView.setOnMouseClicked(e -> selectTeacher());
 
         searchTeacher();
+        filterTeacher();
     }
 
     private void searchTeacher() {
         FilteredList<Teacher> searchFilter = new FilteredList<>(Model.getInstance().setAllTeachers(), e -> true);
-        teach_searchField.textProperty().addListener(((observableValue, oldVal, newVal) -> {
+        teach_searchField.textProperty().addListener((observableValue, oldVal, newVal) -> {
             searchFilter.setPredicate(predicateTeacher -> {
                 if (newVal == null || newVal.isEmpty()) {
                     return true;
@@ -120,7 +129,38 @@ public class TeachersController implements Initializable {
             SortedList<Teacher> sortedList = new SortedList<>(searchFilter);
             sortedList.comparatorProperty().bind(teach_tableView.comparatorProperty());
             teach_tableView.setItems(sortedList);
-        }));
+        });
+    }
+    private void filterOptions(String val) {
+        switch (val){
+            case "Faculty" -> teach_filterOptions.setItems(Model.getInstance().getConnectDB().getFaculties());
+            case "Department" -> teach_filterOptions.setItems(Model.getInstance().getConnectDB().getAllDepartments());
+            case "Position" -> teach_filterOptions.setItems(Model.getInstance().getConnectDB().getPosition());
+            case "Gender" -> teach_filterOptions.setItems(Model.getInstance().getConnectDB().getGender());
+        }
+    }
+    private void filterTeacher() {
+        FilteredList<Teacher> searchFilter = new FilteredList<>(Model.getInstance().setAllTeachers(), e -> true);
+        teach_filterOptions.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
+            searchFilter.setPredicate(predicateTeacher -> {
+                if(newVal == null || newVal.isEmpty()) {
+                    return true;
+                }
+
+                String filterKey = newVal.toLowerCase();
+                if(predicateTeacher.facultyIDProperty().toString().toLowerCase().contains(filterKey)) {
+                    return true;
+                } else if(predicateTeacher.departmentIDProperty().toString().toLowerCase().contains(filterKey)) {
+                    return true;
+                } else if(predicateTeacher.positionProperty().toString().toLowerCase().contains(filterKey)) {
+                    return true;
+                } else return predicateTeacher.genderProperty().toString().toLowerCase().contains(filterKey);
+            });
+
+            SortedList<Teacher> sortedList = new SortedList<>(searchFilter);
+            sortedList.comparatorProperty().bind(teach_tableView.comparatorProperty());
+            teach_tableView.setItems(sortedList);
+        });
     }
 
     private void createTeacher() {
@@ -282,6 +322,10 @@ public class TeachersController implements Initializable {
         teach_course1.setValue(null);
         teach_course2.setValue(null);
         teach_position.setValue(null);
+    }
+    private void resetFilters() {
+        teach_filterBy.setValue("");
+        teach_filterOptions.setValue("");
     }
 
     private void initialiseTeachersTable() {

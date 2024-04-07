@@ -17,9 +17,10 @@
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
             <TextField fx:id="teach_searchField" layoutX="181.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
             <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="194.0" layoutY="24.0" />
-            <ComboBox fx:id="teach_filterDept" layoutX="448.0" layoutY="7.0" prefHeight="27.0" prefWidth="175.0" />
-            <ComboBox fx:id="teach_filterCourse" layoutX="648.0" layoutY="7.0" prefWidth="150.0" />
+            <ComboBox fx:id="teach_filterBy" layoutX="448.0" layoutY="7.0" prefHeight="28.0" prefWidth="151.0" promptText="Filter by..." />
             <Label layoutX="24.0" layoutY="9.0" styleClass="label-table-title" text="Teacher Details" />
+         <Button fx:id="teach_resetFilterBtn" layoutX="852.0" layoutY="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="85.0" styleClass="button-clear" text="Reset Filters" />
+         <ComboBox fx:id="teach_filterOptions" layoutX="637.0" layoutY="7.0" prefHeight="28.0" prefWidth="151.0" promptText="Options" />
         </AnchorPane>
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
             <TableView fx:id="teach_tableView" layoutX="44.0" layoutY="75.0" prefHeight="369.0" prefWidth="999.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
@@ -27,15 +28,15 @@
                     <TableColumn fx:id="teach_tableView_col_teacherID" prefWidth="83.56835699081421" text="Teacher ID" />
                     <TableColumn fx:id="teach_tableView_col_fName" prefWidth="85.0" text="First Name" />
                     <TableColumn fx:id="teach_tableView_col_lName" prefWidth="90.0" text="Last Name" />
+                    <TableColumn fx:id="teach_tableView_col_gender" minWidth="0.0" prefWidth="52.0" text="Gender" />
+                    <TableColumn fx:id="teach_tableView_col_dob" prefWidth="75.0" text="DoB" />
                     <TableColumn fx:id="teach_tableView_col_phoneNum" prefWidth="120.172607421875" text="Phone No." />
                     <TableColumn fx:id="teach_tableView_col_email" prefWidth="250.0" text="Email" />
-                    <TableColumn fx:id="teach_tableView_col_gender" minWidth="0.0" prefWidth="52.0" text="Gender" />
                <TableColumn fx:id="teach_tableView_col_facultyID" minWidth="0.0" prefWidth="72.74822998046875" text="Faculty" />
                     <TableColumn fx:id="teach_tableView_col_department" prefWidth="94.38848876953125" text="Department" />
                     <TableColumn fx:id="teach_tableView_col_course1" prefWidth="72.978515625" text="Course1" />
                     <TableColumn fx:id="teach_tableView_col_course2" prefWidth="66.99285888671875" text="Course2" />
                     <TableColumn fx:id="teach_tableView_col_position" prefWidth="82.877685546875" text="Position" />
-                    <TableColumn fx:id="teach_tableView_col_dob" prefWidth="75.0" text="DoB" />
                 </columns>
             </TableView>
         </AnchorPane>
@@ -47,6 +48,7 @@
             <ComboBox fx:id="teach_gender" layoutX="14.0" layoutY="99.0" prefWidth="150.0" promptText="Gender" />
             <DatePicker fx:id="teach_dob" layoutX="363.0" layoutY="56.0" prefHeight="27.0" prefWidth="151.0" promptText="Date of Birth" />
             <ComboBox fx:id="teach_facultyID" layoutX="189.0" layoutY="99.0" prefWidth="150.0" promptText="Faculty" />
+         <ComboBox fx:id="teach_deptID" layoutX="14.0" layoutY="142.0" prefWidth="150.0" promptText="Department" />
             <PasswordField fx:id="teach_pwd" layoutX="364.0" layoutY="99.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
             <TextField fx:id="teach_teacherID" disable="true" layoutX="537.0" layoutY="58.0" promptText="TeacherID" />
             <ComboBox fx:id="teach_course1" layoutX="189.0" layoutY="142.0" prefWidth="150.0" promptText="First Course" />
@@ -58,7 +60,6 @@
             <Button fx:id="teach_updateBtn" layoutX="829.0" layoutY="99.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-update" text="Update" />
             <Button fx:id="teach_addBtn" layoutX="829.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
          <Label fx:id="operationStatus" layoutX="540.0" layoutY="146.0" prefHeight="31.0" prefWidth="265.0" styleClass="error-label" />
-         <ComboBox fx:id="teach_deptID" layoutX="14.0" layoutY="142.0" prefWidth="150.0" promptText="Department" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

@@ -10,8 +10,8 @@ public class Teacher extends Accounts{
     public StringProperty firstCourse;
     public StringProperty secondCourse;
     public StringProperty position;
-    public Teacher(String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String password, String facultyID, String departmentID, String teacherID, String firstCourse, String secondCourse, String position) {
-        super(firstName, lastName, gender, dob, password, phoneNumber, email, facultyID, departmentID);
+    public Teacher(String teacherID, String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String password, String facultyID, String departmentID, String firstCourse, String secondCourse, String position) {
+        super(firstName, lastName, gender, dob, phoneNumber, email, password, facultyID, departmentID);
         this.teacherID = new SimpleStringProperty(this, "TeacherID", teacherID);
         this.firstCourse = new SimpleStringProperty(this, "FirstCourse", firstCourse);
         this.secondCourse = new SimpleStringProperty(this, "SecondCourse", secondCourse);

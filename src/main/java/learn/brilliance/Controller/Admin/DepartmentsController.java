@@ -4,6 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import learn.brilliance.Model.Accounts.Teacher;
 import learn.brilliance.Model.Department;
 import learn.brilliance.Model.Model;
 
@@ -18,7 +19,7 @@ public class DepartmentsController implements Initializable {
     public final String columnName = "deptName";
 
     public TextField dept_searchField;
-    public ComboBox<String> dept_filterDept;
+    public ComboBox<String> dept_filterBy;
     public TableView<Department> dept_tableView;
     public TableColumn<Department, String> dept_tableView_col_deptID;
     public TableColumn<Department, String> dept_tableView_col_deptName;
@@ -36,10 +37,13 @@ public class DepartmentsController implements Initializable {
     public Button dept_updateBtn;
     public Button dept_addBtn;
     public TextField dept_deptID;
+    public Button dept_resetFilterBtn;
     public Label operationStatus;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        dept_filterBy.setItems(Model.getInstance().getConnectDB().getFaculties());
 
         dept_faculty.setItems(Model.getInstance().getConnectDB().getFaculties());
         dept_faculty.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newValue)
@@ -55,6 +59,7 @@ public class DepartmentsController implements Initializable {
         dept_updateBtn.setOnAction(e -> updateDepartment());
         dept_deleteBtn.setOnAction(e -> deleteDepartment());
         dept_clearBtn.setOnAction(e -> clearFields());
+        dept_resetFilterBtn.setOnAction(e -> resetFilters());
 
         // Department tableview section
         initialiseDepartmentsTable();
@@ -62,6 +67,7 @@ public class DepartmentsController implements Initializable {
         dept_tableView.setItems(Model.getInstance().setAllDepartments());
         dept_tableView.setOnMouseClicked(e -> selectDepartments());
         searchDepartments();
+        filterTeacher();
     }
 
 
@@ -92,6 +98,22 @@ public class DepartmentsController implements Initializable {
             sortedList.comparatorProperty().bind(dept_tableView.comparatorProperty());
             dept_tableView.setItems(sortedList);
         }));
+    }
+    private void filterTeacher() {
+        FilteredList<Department> searchFilter = new FilteredList<>(Model.getInstance().setAllDepartments(), e -> true);
+        dept_filterBy.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
+            searchFilter.setPredicate(predicateTeacher -> {
+                if(newVal == null || newVal.isEmpty()) {
+                    return true;
+                }
+                String filterKey = newVal.toLowerCase();
+                return predicateTeacher.facultyIDProperty().toString().toLowerCase().contains(filterKey);
+            });
+
+            SortedList<Department> sortedList = new SortedList<>(searchFilter);
+            sortedList.comparatorProperty().bind(dept_tableView.comparatorProperty());
+            dept_tableView.setItems(sortedList);
+        });
     }
 
     private void createDepartment() {
@@ -222,6 +244,9 @@ public class DepartmentsController implements Initializable {
         dept_hod.setValue(null);
         dept_minor1.setValue(null);
         dept_minor2.setValue(null);
+    }
+    private void resetFilters() {
+        dept_filterBy.setValue(null);
     }
 
    /**

@@ -1,5 +1,7 @@
 package learn.brilliance.Controller.Admin;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import learn.brilliance.Model.Minor;
@@ -40,17 +42,26 @@ public class MinorsController implements Initializable {
     public Button minor_updateBtn;
     public Button minor_addBtn;
     public Label operationStatus;
+    public ComboBox<String> minor_filterBy;
+    public ComboBox<String> minor_filterOptions;
+    public Button minor_resetFilterBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Minor table manipulation section
+        minor_filterBy.setItems(Model.getInstance().getConnectDB().generalFilterBy());
+        minor_filterBy.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> filterOptions(newVal));
+
         minor_facultyID.setItems(Model.getInstance().getConnectDB().getFaculties());
         minor_facultyID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
                 -> minor_departmentID.setItems(Model.getInstance().getConnectDB().getFacultyDepartments(newValue)));
+
         minor_departmentID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
                 -> minor_courseID.setItems(Model.getInstance().getConnectDB().getDepartmentCourses(newValue)));
+
         minor_departmentID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
                 -> minor_degreeID.setItems(Model.getInstance().getConnectDB().getDepartmentDegrees(newValue)));
+
         minor_courseNumber.setItems(Model.getInstance().getConnectDB().getCourseNumber());
         minor_number.setItems(Model.getInstance().getConnectDB().getMinorNumber());
         minor_addBtn.setOnAction(e -> createMinor());
@@ -58,12 +69,16 @@ public class MinorsController implements Initializable {
         minor_deleteBtn.setOnAction(e -> deleteMinor());
         minor_clearBtn.setOnAction(e -> clearFields());
         minor_genIDBtn.setOnAction(e -> generateMinorID());
+        minor_resetFilterBtn.setOnAction(e -> resetFilter());
         minor_tableView.setOnMouseClicked(e -> selectMinor());
 
         // Minor tableView section
         initialiseMinorTable();
         bindMinorsTableData();
         minor_tableView.setItems(Model.getInstance().setAllMinors());
+        searchMinor();
+        selectMinor();
+        filterMinor();
     }
 
     private void createMinor() {
@@ -204,5 +219,70 @@ public class MinorsController implements Initializable {
         minor_courseID.setValue(String.valueOf(minor.course1IDProperty().get()));
         minor_facultyID.setValue(String.valueOf(minor.facultyIDProperty().get()));
         minor_departmentID.setValue(String.valueOf(minor.departmentIDProperty().get()));
+    }
+
+    private void searchMinor() {
+        FilteredList<Minor> searchFilter = new FilteredList<>(Model.getInstance().setAllMinors(), e -> true);
+        minor_searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchFilter.setPredicate(predicateMinor -> {
+                if(newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String searchKey = newValue.toLowerCase();
+                if(predicateMinor.minorIDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if(predicateMinor.minorNameProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if(predicateMinor.facultyIDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateMinor.departmentIDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if(predicateMinor.degreeIDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if(predicateMinor.course1IDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if(predicateMinor.course2IDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if(predicateMinor.course3IDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if(predicateMinor.course4IDProperty().toString().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else return predicateMinor.course5IDProperty().toString().toLowerCase().contains(searchKey);
+            });
+
+            SortedList<Minor> sortedList = new SortedList<>(searchFilter);
+            sortedList.comparatorProperty().bind(minor_tableView.comparatorProperty());
+            minor_tableView.setItems(sortedList);
+        });
+    }
+    private void filterMinor() {
+        FilteredList<Minor> searchFilter = new FilteredList<>(Model.getInstance().setAllMinors(), e -> true);
+        minor_filterOptions.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            searchFilter.setPredicate(predicateMinor -> {
+                if(newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String filterKey = newValue.toLowerCase();
+                if(predicateMinor.facultyIDProperty().toString().toLowerCase().contains(filterKey)) {
+                    return true;
+                } else return predicateMinor.departmentIDProperty().toString().toLowerCase().contains(filterKey);
+            });
+
+            SortedList<Minor> sortedList = new SortedList<>(searchFilter);
+            sortedList.comparatorProperty().bind(minor_tableView.comparatorProperty());
+            minor_tableView.setItems(sortedList);
+        });
+    }
+    private void filterOptions(String val) {
+        switch (val){
+            case "Faculty" -> minor_filterOptions.setItems(Model.getInstance().getConnectDB().getFaculties());
+            case "Department" -> minor_filterOptions.setItems(Model.getInstance().getConnectDB().getAllDepartments());
+        }
+    }
+    private void resetFilter() {
+        minor_filterBy.setValue("");
+        minor_filterOptions.setValue("");
     }
 }

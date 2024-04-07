@@ -16,9 +16,8 @@ public class CoursesController implements Initializable {
     private final String tableName = "courses";
     private final String columnName = "courseName";
     public TextField course_searchField;
-    public ComboBox<String> course_filterFaculty;
-    public ComboBox<String> course_filterDept;
-    public ComboBox<String> course_filterLevel;
+    public ComboBox<String> course_filterBy;
+    public ComboBox<String> course_filterOptions;
     public TableView<Course> course_tableView;
     public TableColumn<Course, String> course_tableView_col_facultyID;
     public TableColumn<Course, String> course_tableView_col_courseID;
@@ -42,9 +41,13 @@ public class CoursesController implements Initializable {
     public Label operationStatus;
     public TextField course_teacherID;
     public ComboBox<String> course_firstSecond;
+    public Button course_resetFilterBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        course_filterBy.setItems(Model.getInstance().getConnectDB().generalFilterBy());
+        course_filterBy.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> filterOptions(newVal));
         course_faculty.setItems(Model.getInstance().getConnectDB().getFaculties());
         course_faculty.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal)
                 -> course_dept.setItems(Model.getInstance().getConnectDB().getFacultyDepartments(newVal)));
@@ -65,6 +68,7 @@ public class CoursesController implements Initializable {
         course_updateBtn.setOnAction(e -> updateCourse());
         course_deleteBtn.setOnAction(e -> deleteCourse());
         course_clearBtn.setOnAction(e -> clearFields());
+        course_resetFilterBtn.setOnAction(e -> resetFilter());
 
         // course tableView section
         initialiseCoursesTable();
@@ -72,6 +76,8 @@ public class CoursesController implements Initializable {
         course_tableView.setItems(Model.getInstance().setAllCourses());
         course_tableView.setOnMouseClicked(e -> selectCourses());
         searchCourses();
+        selectCourses();
+        filterCourses();
     }
 
 
@@ -308,5 +314,33 @@ public class CoursesController implements Initializable {
         course_teacherID.setText(String.valueOf(courses.teacherIDProperty().get()));
         course_faculty.setValue(String.valueOf(courses.facultyIDProperty().get()));
     }
+    private void filterCourses() {
+        FilteredList<Course> searchFilter = new FilteredList<>(Model.getInstance().setAllCourses(), e -> true);
+        course_filterOptions.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
+            searchFilter.setPredicate(predicateCourse -> {
+                if(newVal == null || newVal.isEmpty()) {
+                    return true;
+                }
 
+                String filterKey = newVal.toLowerCase();
+                if(predicateCourse.facultyIDProperty().toString().toLowerCase().contains(filterKey)) {
+                    return true;
+                } else return predicateCourse.departmentIDProperty().toString().toLowerCase().contains(filterKey);
+            });
+
+            SortedList<Course> sortedList = new SortedList<>(searchFilter);
+            sortedList.comparatorProperty().bind(course_tableView.comparatorProperty());
+            course_tableView.setItems(sortedList);
+        });
+    }
+    private void filterOptions(String val) {
+        switch (val){
+            case "Faculty" -> course_filterOptions.setItems(Model.getInstance().getConnectDB().getFaculties());
+            case "Department" -> course_filterOptions.setItems(Model.getInstance().getConnectDB().getAllDepartments());
+        }
+    }
+    private void resetFilter() {
+        course_filterBy.setValue("");
+        course_filterOptions.setValue("");
+    }
 }

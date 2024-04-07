@@ -17,8 +17,8 @@ public class DegreesController implements Initializable {
     private final static String idColumn = "degreeID";
     private final static String columnName = "degreeName";
     public TextField degree_searchField;
-    public ComboBox<String> degree_filterFaculty;
-    public ComboBox<String> degree_filterDegree;
+    public ComboBox<String> degree_filterBy;
+    public ComboBox<String> degree_filterOptions;
     public TableView<Degree> degree_tableView;
     public TableColumn<Degree, String> degree_tableView_col_degreeID;
     public TableColumn<Degree, String> degree_tableView_col_degreeName;
@@ -41,24 +41,32 @@ public class DegreesController implements Initializable {
     public Button degree_clearBtn;
     public Button degree_updateBtn;
     public Button degree_addBtn;
+    public Button degree_resetFilterBtn;
     public ComboBox<String> degree_deptID;
     public ComboBox<String> degree_minor;
     public Label operationStatus;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        degree_filterBy.setItems(Model.getInstance().getConnectDB().generalFilterBy());
+        degree_filterBy.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> filterOptions(newVal));
+
         degree_facultyID.setItems(Model.getInstance().getConnectDB().getFaculties());
         degree_facultyID.getSelectionModel().selectedItemProperty().addListener((observable,  oldVal, newVal)
                 -> degree_deptID.setItems(Model.getInstance().getConnectDB().getFacultyDepartments(newVal)));
         degree_deptID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
                 -> degree_minor.setItems(Model.getInstance().getConnectDB().getDepartmentMinors(newValue)));
         degree_duration.setItems(Model.getInstance().getConnectDB().getDuration());
+        degree_filterBy.valueProperty().addListener(((observableValue, oldVal, newVal)
+                -> degree_filterOptions.setDisable(Boolean.parseBoolean(newVal))
+        ));
 
         degree_genIDBtn.setOnAction(e -> generateDegreeID());
         degree_addBtn.setOnAction(e -> createDegree());
         degree_updateBtn.setOnAction(e -> updateDegree());
         degree_deleteBtn.setOnAction(e -> deleteDegree());
         degree_clearBtn.setOnAction(e ->clearFields());
+        degree_resetFilterBtn.setOnAction(e -> resetFilter());
 
         // TableView section
         initialiseDegreeTable();
@@ -66,6 +74,7 @@ public class DegreesController implements Initializable {
         degree_tableView.setItems(Model.getInstance().setAllDegrees());
         degree_tableView.setOnMouseClicked(e -> selectDegree());
         searchDegrees();
+        filterDegree();
 
     }
 
@@ -102,7 +111,6 @@ public class DegreesController implements Initializable {
             }
         }
     }
-
     private void updateDegree() {
         String degreeID = degree_degreeID.getText();
         String degreeName = degree_degreeName.getText();
@@ -189,7 +197,7 @@ public class DegreesController implements Initializable {
     }
     private void generateDegreeID() {
         String departmentID = degree_deptID.getValue();
-        String rowCount = String.valueOf(Model.getInstance().getConnectDB().getDegreeRowCount(departmentID) + 1);
+        String rowCount = String.valueOf(Model.getInstance().getConnectDB().getDegreeRowCount() + 1);
         String degreeCode =  StringUtils.left(departmentID, 2);
         String generatedID;
 
@@ -250,5 +258,34 @@ public class DegreesController implements Initializable {
             sortedList.comparatorProperty().bind(degree_tableView.comparatorProperty());
             degree_tableView.setItems(sortedList);
         });
+    }
+    private void filterDegree() {
+        FilteredList<Degree> searchFilter = new FilteredList<>(Model.getInstance().setAllDegrees(), e -> true);
+        degree_filterOptions.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            searchFilter.setPredicate(predicateDegree -> {
+                if(newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String filterKey = newValue.toLowerCase();
+                if(predicateDegree.facultyIDProperty().toString().toLowerCase().contains(filterKey)) {
+                    return true;
+                } else return predicateDegree.departmentIDProperty().toString().toLowerCase().contains(filterKey);
+            });
+
+            SortedList<Degree> sortedList = new SortedList<>(searchFilter);
+            sortedList.comparatorProperty().bind(degree_tableView.comparatorProperty());
+            degree_tableView.setItems(sortedList);
+        });
+    }
+    private void filterOptions(String val) {
+        switch (val){
+            case "Faculty" -> degree_filterOptions.setItems(Model.getInstance().getConnectDB().getFaculties());
+            case "Department" -> degree_filterOptions.setItems(Model.getInstance().getConnectDB().getAllDepartments());
+        }
+    }
+    private void resetFilter() {
+        degree_filterBy.setValue("");
+        degree_filterOptions.setValue("");
     }
 }

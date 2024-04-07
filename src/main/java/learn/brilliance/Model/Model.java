@@ -145,15 +145,15 @@ public class Model {
                         resultSet.getString("fName"),
                         resultSet.getString("lName"),
                         resultSet.getString("gender"),
+                        resultSet.getString("dob"),
                         resultSet.getString("phoneNum"),
                         resultSet.getString("email"),
-                        resultSet.getString("deptID"),
-                        resultSet.getString("dob"),
                         resultSet.getString("password"),
+                        resultSet.getString("facultyID"),
+                        resultSet.getString("deptID"),
                         resultSet.getString("course1"),
                         resultSet.getString("course2"),
-                        resultSet.getString("position"),
-                        resultSet.getString("facultyID")
+                        resultSet.getString("position")
                 );
 
                 teacherList.add(teacherData);

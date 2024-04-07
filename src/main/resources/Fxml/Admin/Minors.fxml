@@ -13,9 +13,12 @@
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.MinorsController">
     <VBox layoutX="322.0" layoutY="107.0" prefHeight="600.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="50.0" prefWidth="915.0">
-            <TextField fx:id="minor_searchField" layoutX="231.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
-            <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="241.0" layoutY="24.0" />
+            <TextField fx:id="minor_searchField" layoutX="182.0" layoutY="6.0" prefHeight="28.0" prefWidth="253.0" promptText="Search" styleClass="text-field-search" />
+            <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="192.0" layoutY="24.0" />
             <Label layoutX="24.0" layoutY="9.0" styleClass="label-table-title" text="Minor Details" />
+         <ComboBox fx:id="minor_filterBy" layoutX="460.0" layoutY="7.0" prefWidth="150.0" promptText="Filter by..." />
+         <ComboBox fx:id="minor_filterOptions" layoutX="638.0" layoutY="7.0" prefWidth="150.0" promptText="Option" />
+         <Button fx:id="minor_resetFilterBtn" layoutX="829.0" layoutY="6.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" styleClass="button-clear" text="Reset Filter" />
         </AnchorPane>
         <AnchorPane prefHeight="378.0" prefWidth="915.0">
             <TableView fx:id="minor_tableView" layoutX="44.0" layoutY="75.0" prefHeight="409.55396807427627" prefWidth="842.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
