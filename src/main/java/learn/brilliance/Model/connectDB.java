@@ -1252,7 +1252,47 @@ public class connectDB {
 
         return FXCollections.observableArrayList(departmentList);
     }
-    public ObservableList<String> getFilterByTeachers() {
+    public ObservableList<String> getAllDegrees() {
+        List<String> degreeList = new ArrayList<>();
+        String getDegrees = "SELECT degreeID FROM department_degrees ORDER BY degreeID ASC";
+
+        Statement stmt;
+        ResultSet resultSet;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getDegrees);
+            while (resultSet.next()) {
+                degreeList.add(resultSet.getString("degreeID"));
+            }
+            degreeList = FXCollections.observableArrayList(degreeList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get all degrees");
+            e.printStackTrace();
+        }
+        return FXCollections.observableArrayList(degreeList);
+    }
+    public ObservableList<String> getAllMinors() {
+        List<String> minorList = new ArrayList<>();
+        String getMinors = "SELECT minorID FROM minors ORDER BY minorID ASC";
+
+        Statement stmt;
+        ResultSet resultSet;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getMinors);
+            while (resultSet.next()) {
+                minorList.add(resultSet.getString("minorID"));
+            }
+            minorList = FXCollections.observableArrayList(minorList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get all minors");
+            e.printStackTrace();
+        }
+        return FXCollections.observableArrayList(minorList);
+    }
+    public ObservableList<String> getFilterByForTeachers() {
         List<String> filterByList = new ArrayList<>();
 
         String getFilter = "SELECT criteria FROM filter_criteria ORDER BY criteria ASC;";
@@ -1294,6 +1334,26 @@ public class connectDB {
             e.printStackTrace();
         }
 
+        return FXCollections.observableArrayList(filterByList);
+    }
+    public ObservableList<String> getFilterByForStudents() {
+        List<String> filterByList = new ArrayList<>();
+        String getFilter = "SELECT criteria FROM filter_criteria WHERE marker = 'student' ORDER BY criteria ASC";
+
+        Statement stmt;
+        ResultSet resultSet;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getFilter);
+            while (resultSet.next()) {
+                filterByList.add(resultSet.getString("criteria"));
+            }
+            filterByList = FXCollections.observableArrayList(filterByList);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to get student filter");
+            e.printStackTrace();
+        }
         return FXCollections.observableArrayList(filterByList);
     }
 

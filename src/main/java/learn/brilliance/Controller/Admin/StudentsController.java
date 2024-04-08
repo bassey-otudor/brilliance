@@ -1,6 +1,7 @@
 package learn.brilliance.Controller.Admin;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import learn.brilliance.Model.Accounts.Student;
@@ -16,8 +17,8 @@ public class StudentsController implements Initializable {
     private final String idColumn = "studentID";
     private final String columnName = "firstName";
     public TextField stud_searchField;
-    public ComboBox<String> stud_filterDept;
-    public ComboBox<String> stud_filterCourse;
+    public ComboBox<String> stud_filterBy;
+    public ComboBox<String> stud_filterOptions;
     public TableView<Student> stud_tableView;
     public TableColumn<Student, String> stud_tableView_col_studentID;
     public TableColumn<Student, String> stud_tableView_col_fName;
@@ -50,11 +51,14 @@ public class StudentsController implements Initializable {
     public Button stud_clearBtn;
     public Button stud_updateBtn;
     public Button stud_addBtn;
+    public Button stud_resetFilterBtn;
     public Label operationStatus;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Student tableView manipulation section
+        stud_filterBy.setItems(Model.getInstance().getConnectDB().getFilterByForStudents());
+        stud_filterBy.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> filterOptions(newVal));
         stud_faculty.setItems(Model.getInstance().getConnectDB().getFaculties());
 
         stud_faculty.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal)
@@ -73,6 +77,7 @@ public class StudentsController implements Initializable {
         stud_updateBtn.setOnAction(e -> updateStudent());
         stud_deleteBtn.setOnAction(e -> deleteStudent());
         stud_clearBtn.setOnAction(e -> clearFields());
+        stud_resetFilterBtn.setOnAction(e -> resetFilter());
 
         // Student tableView section
         initialiseStudentTable();
@@ -80,7 +85,8 @@ public class StudentsController implements Initializable {
         stud_tableView.setItems(Model.getInstance().setAllStudents());
         stud_tableView.setOnMouseClicked(e -> selectStudent());
         searchStudents();
-
+        selectStudent();
+        filterStudents();
     }
 
     private void searchStudents() {
@@ -119,7 +125,37 @@ public class StudentsController implements Initializable {
             });
         }));
     }
+    private void filterOptions(String val) {
+        switch (val){
+            case "Faculty" -> stud_filterOptions.setItems(Model.getInstance().getConnectDB().getFaculties());
+            case "Department" -> stud_filterOptions.setItems(Model.getInstance().getConnectDB().getAllDepartments());
+            case "Degree" -> stud_filterOptions.setItems(Model.getInstance().getConnectDB().getAllDegrees());
+            case "Minor" -> stud_filterOptions.setItems(Model.getInstance().getConnectDB().getAllMinors());
+        }
+    }
+    private void filterStudents() {
+        FilteredList<Student> searchFilter = new FilteredList<>(Model.getInstance().setAllStudents(), e -> true);
+        stud_filterOptions.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
+            searchFilter.setPredicate(predicateTeacher -> {
+                if(newVal == null || newVal.isEmpty()) {
+                    return true;
+                }
 
+                String filterKey = newVal.toLowerCase();
+                if(predicateTeacher.facultyIDProperty().toString().toLowerCase().contains(filterKey)) {
+                    return true;
+                } else if(predicateTeacher.departmentIDProperty().toString().toLowerCase().contains(filterKey)) {
+                    return true;
+                } else if(predicateTeacher.degreeIDProperty().toString().toLowerCase().contains(filterKey)) {
+                    return true;
+                } else return predicateTeacher.minorIDProperty().toString().toLowerCase().contains(filterKey);
+            });
+
+            SortedList<Student> sortedList = new SortedList<>(searchFilter);
+            sortedList.comparatorProperty().bind(stud_tableView.comparatorProperty());
+            stud_tableView.setItems(sortedList);
+        });
+    }
     private void createStudent()   {
         String studentID = stud_studentID.getText();
         String firstName = stud_fName.getText();
@@ -307,5 +343,9 @@ public class StudentsController implements Initializable {
         stud_degree.setValue(String.valueOf(student.degreeIDProperty().get()));
         stud_minor.setValue(String.valueOf(student.minorIDProperty().get()));
         stud_level.setValue(String.valueOf(student.levelProperty().get()));
+    }
+    private void resetFilter() {
+        stud_filterBy.setValue("");
+        stud_filterOptions.setValue("");
     }
 }

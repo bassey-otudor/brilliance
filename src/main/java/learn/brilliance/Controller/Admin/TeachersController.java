@@ -57,7 +57,7 @@ public class TeachersController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // Teacher tableView manipulation section
-        teach_filterBy.setItems(Model.getInstance().getConnectDB().getFilterByTeachers());
+        teach_filterBy.setItems(Model.getInstance().getConnectDB().getFilterByForTeachers());
         teach_filterBy.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal)
                 -> filterOptions(newVal));
 
