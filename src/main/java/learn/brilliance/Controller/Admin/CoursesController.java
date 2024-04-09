@@ -154,7 +154,8 @@ public class CoursesController implements Initializable {
                     // Update the course table with new info
                     course_tableView.setItems(Model.getInstance().setAllCourses());
                     // Update the teacher table with new info
-                    // teacher_tableView.setItems(Model.getInstance().setTeachers());
+                    Model.getInstance().teachersController.initialiseTeachersTable();
+                    Model.getInstance().teachersController.teach_tableView.setItems(Model.getInstance().setAllTeachers());
                     // Clear entries
                     clearFields();
                 }

@@ -5,7 +5,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import learn.brilliance.Model.Accounts.Student;
-import learn.brilliance.Model.Accounts.Teacher;
 import learn.brilliance.Model.Model;
 
 import java.net.URL;
@@ -91,7 +90,7 @@ public class StudentsController implements Initializable {
 
     private void searchStudents() {
         FilteredList<Student> searchFilter = new FilteredList<>(Model.getInstance().setAllStudents(), e -> true);
-        stud_searchField.textProperty().addListener(((observable, oldValue, newValue) -> {
+        stud_searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchFilter.setPredicate(predicateStudent -> {
                 if(newValue == null || newValue.isEmpty()) {
                     return true;
@@ -123,7 +122,7 @@ public class StudentsController implements Initializable {
                     return true;
                 } else return predicateStudent.registrationDateProperty().toString().contains(searchKey);
             });
-        }));
+        });
     }
     private void filterOptions(String val) {
         switch (val){

@@ -35,6 +35,24 @@ public class connectDB {
         return resultSet;
     }
 
+    // Dashboard
+    public ResultSet getTotalRegisteredStudents() {
+        String getRegisteredStudents = "SELECT registrationDate, COUNT(ID) from students;";
+        List<String> yearTotalPair = new ArrayList<>();
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getRegisteredStudents);
+
+        } catch (SQLException ex) {
+            System.out.println("Unable to get registered students");
+            ex.printStackTrace();
+        }
+        return resultSet;
+    }
+
     // Faculty section
     /**
      * This method is used to retrieve the faculty data from the database.

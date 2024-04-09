@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class TeachersController implements Initializable {
-
+    
     private final String tableName = "teachers";
     private final String idColumn = "teacherID";
     private final String columnName = "fName";
@@ -262,7 +262,6 @@ public class TeachersController implements Initializable {
 
         }
     }
-
     private void alterTeacherInCourses(String teacherID, String course1, String course2, String teacherName, boolean operation) {
         if (!course1.isEmpty() && !course2.isEmpty()) {
 
@@ -282,7 +281,6 @@ public class TeachersController implements Initializable {
             Model.getInstance().getConnectDB().insertTeacherInCourse(teacherID, teacherName, course1, operation);
         }
     }
-
     private void deleteTeacher() {
         String teacherID = teach_teacherID.getText();
         String firstName = teach_fName.getText();
@@ -308,7 +306,6 @@ public class TeachersController implements Initializable {
 
 
     }
-
     private void clearFields() {
         teach_teacherID.setText(null);
         teach_fName.setText(null);
@@ -327,13 +324,11 @@ public class TeachersController implements Initializable {
         teach_filterBy.setValue("");
         teach_filterOptions.setValue("");
     }
-
-    private void initialiseTeachersTable() {
+    public void initialiseTeachersTable() {
         if (Model.getInstance().getAllTeachers().isEmpty()) {
             Model.getInstance().setAllTeachers();
         }
     }
-
     private void bindTeachersTableData() {
         teach_tableView_col_teacherID.setCellValueFactory(cellData -> cellData.getValue().teacherIDProperty());
         teach_tableView_col_fName.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
@@ -349,7 +344,6 @@ public class TeachersController implements Initializable {
         teach_tableView_col_dob.setCellValueFactory(cellData -> cellData.getValue().dobProperty());
 
     }
-
     private void generateTeacherID() {
         String rowCount = String.valueOf(Model.getInstance().getConnectDB().getTeacherRowCount() + 1);
         String prefix = "SE";
@@ -366,7 +360,6 @@ public class TeachersController implements Initializable {
         }
 
     }
-
     private void selectTeacher() {
         Teacher teacher = teach_tableView.getSelectionModel().getSelectedItem();
         int num = teach_tableView.getSelectionModel().getSelectedIndex();

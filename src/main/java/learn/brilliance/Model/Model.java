@@ -2,6 +2,8 @@ package learn.brilliance.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import learn.brilliance.Controller.Admin.TeachersController;
 import learn.brilliance.Model.Accounts.Teacher;
 import learn.brilliance.Model.Accounts.Student;
 import learn.brilliance.View.ViewFactory;
@@ -23,6 +25,7 @@ public class Model {
     private final ObservableList<Degree> degree;
     private final ObservableList<Minor> minor;
     private final ObservableList<Student> students;
+    public final TeachersController teachersController = new TeachersController();
     private Model() {
         this.viewFactory = new ViewFactory();
         this.connectDB = new connectDB();

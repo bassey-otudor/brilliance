@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import learn.brilliance.Controller.Admin.AdminController;
+import learn.brilliance.Controller.Admin.TeachersController;
 import learn.brilliance.Controller.Student.StudentController;
 import learn.brilliance.Controller.Teacher.TeacherController;
 import learn.brilliance.View.Enums.AccountType;
