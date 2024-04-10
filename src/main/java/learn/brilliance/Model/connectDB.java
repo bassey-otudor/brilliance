@@ -7,6 +7,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class connectDB {
     private Connection conn;
@@ -16,8 +18,8 @@ public class connectDB {
     public connectDB() {
         try {
             this.conn = DriverManager.getConnection(connURL, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -29,16 +31,16 @@ public class connectDB {
             stmt = conn.createStatement();
             String sql = "SELECT * FROM admin WHERE username = '" + username + "' AND password = '" + password + "'";
             resultSet = stmt.executeQuery(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultSet;
     }
 
     // Dashboard
     public ResultSet getTotalRegisteredStudents() {
-        String getRegisteredStudents = "SELECT registrationDate, COUNT(ID) from students;";
-        List<String> yearTotalPair = new ArrayList<>();
+        String getRegisteredStudents = "SELECT registrationDate, COUNT(registrationDate) AS Occurences FROM students GROUP BY registrationDate;";
+
         Statement stmt;
         ResultSet resultSet = null;
 
@@ -47,8 +49,40 @@ public class connectDB {
             resultSet = stmt.executeQuery(getRegisteredStudents);
 
         } catch (SQLException ex) {
-            System.out.println("Unable to get registered students");
-            ex.printStackTrace();
+            System.out.println("Unable to get registered students.");
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultSet;
+    }
+    public ResultSet getAllRegisteredMaleStudents() {
+        String getRegisteredMaleStudents = "SELECT registrationDate , COUNT(gender) AS Male FROM students WHERE gender = 'Male' GROUP BY registrationDate;";
+
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getRegisteredMaleStudents);
+
+        } catch (SQLException ex) {
+            System.out.println("Unable to get registered male students.");
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultSet;
+    }
+    public ResultSet getAllRegisteredFemaleStudents() {
+        String getRegisteredFemaleStudents = "SELECT registrationDate , COUNT(gender) AS Female FROM students WHERE gender = 'Female' GROUP BY registrationDate;;";
+
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getRegisteredFemaleStudents);
+
+        } catch (SQLException ex) {
+            System.out.println("Unable to get registered female students.");
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultSet;
     }

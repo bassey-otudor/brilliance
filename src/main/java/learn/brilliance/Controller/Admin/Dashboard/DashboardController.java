@@ -13,9 +13,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class  DashboardController implements Initializable {
@@ -51,21 +49,36 @@ public class  DashboardController implements Initializable {
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Year");
         yAxis.setLabel("Number of Students");
-        LineChart<String, Number> studentLineChart = new LineChart<>(xAxis, yAxis);
-        XYChart.Series<String, Number> studentTotal = new XYChart.Series<>();
+        XYChart.Series<String, Number> totalAdmissions = new XYChart.Series<>(); // Total students chart
+        totalAdmissions.setName("Total Admissions");
 
-        ResultSet resultSet = Model.getInstance().getConnectDB().getTotalRegisteredStudents();
+        XYChart.Series<String, Number> maleStudents = new XYChart.Series<>(); // Male students chart
+        maleStudents.setName("Male");
+
+        XYChart.Series<String, Number> femaleStudents = new XYChart.Series<>(); // Female students chart
+        femaleStudents.setName("Female");
+
+        ResultSet totalRegisteredStudents = Model.getInstance().getConnectDB().getTotalRegisteredStudents();
+        ResultSet registeredMaleStudents = Model.getInstance().getConnectDB().getAllRegisteredMaleStudents();
+        ResultSet registeredFemaleStudents = Model.getInstance().getConnectDB().getAllRegisteredFemaleStudents();
         try {
-            for(int i = 2021; i <= LocalDate.now().getYear(); i++) {
-                while (resultSet.next()) {
-                    studentTotal.getData().add(new XYChart.Data<>(resultSet.getString(1), resultSet.getInt(2)));
-                }
+            while (totalRegisteredStudents.next()) {
+                totalAdmissions.getData().add(new XYChart.Data<>(totalRegisteredStudents.getString(1), totalRegisteredStudents.getInt(2)));
             }
-            dashboard_lineGraphStudents.getData().addAll(studentTotal);
+            while (registeredMaleStudents.next()) {
+               maleStudents.getData().add(new XYChart.Data<>(registeredMaleStudents.getString(1), registeredMaleStudents.getInt(2)));
+
+            }
+            while (registeredFemaleStudents.next()) {
+                femaleStudents.getData().add(new XYChart.Data<>(registeredFemaleStudents.getString(1), registeredFemaleStudents.getInt(2)));
+            }
+
+            dashboard_lineGraphStudents.getData().addAll(maleStudents, femaleStudents, totalAdmissions);
 
         } catch (SQLException e) {
             System.out.println("Unable to display line graph. " + e.getMessage());
         }
+
     }
 }
 

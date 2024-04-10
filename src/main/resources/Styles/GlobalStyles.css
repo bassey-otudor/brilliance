@@ -253,3 +253,15 @@
 .choice-box:focused {
     -fx-border-width: 0.8px;
 }
+
+.chart-series-line {
+    -fx-stroke-width: 2px;
+}
+
+.default-color0.chart-series-line { -fx-stroke: #c24394; }
+.default-color1.chart-series-line { -fx-stroke: #2b6dcb; }
+.default-color2.chart-series-line { -fx-stroke: #2bcb8e; }
+
+.default-color0.chart-line-symbol {-fx-background-color: #c24394, white}
+.default-color1.chart-line-symbol {-fx-background-color: #2b6dcb, white}
+.default-color2.chart-line-symbol {-fx-background-color: #2bcb8e, white}
