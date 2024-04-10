@@ -38,6 +38,22 @@ public class connectDB {
     }
 
     // Dashboard
+    public ResultSet getPieChartData() {
+        String chartData = "SELECT departmentID , COUNT(departmentID) AS Occurrences FROM students GROUP BY departmentID;";
+
+        Statement stmt;
+        ResultSet resultSet = null;
+
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(chartData);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return resultSet;
+    }
     public ResultSet getTotalRegisteredStudents() {
         String getRegisteredStudents = "SELECT registrationDate, COUNT(registrationDate) AS Occurences FROM students GROUP BY registrationDate;";
 

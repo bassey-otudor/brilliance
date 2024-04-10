@@ -90,38 +90,42 @@ public class StudentsController implements Initializable {
 
     private void searchStudents() {
         FilteredList<Student> searchFilter = new FilteredList<>(Model.getInstance().setAllStudents(), e -> true);
-        stud_searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        stud_searchField.textProperty().addListener((observable, oldVal, newVal) -> {
             searchFilter.setPredicate(predicateStudent -> {
-                if(newValue == null || newValue.isEmpty()) {
+                if(newVal == null || newVal.isEmpty()) {
                     return true;
                 }
-                String searchKey = newValue.toLowerCase();
-                if(predicateStudent.studentIDProperty().toString().contains(searchKey)) {
+                String searchKey = newVal.toLowerCase();
+                if(predicateStudent.studentIDProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.firstNameProperty().toString().contains(searchKey)) {
+                } else if(predicateStudent.firstNameProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.lastNameProperty().toString().contains(searchKey)) {
+                } else if(predicateStudent.lastNameProperty().toString().toLowerCase().toLowerCase().contains(searchKey)) {
                     return true;
                 } else if(predicateStudent.genderProperty().toString().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.dobProperty().toString().contains(searchKey)) {
+                } else if(predicateStudent.dobProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.phoneNumberProperty().toString().contains(searchKey)) {
+                } else if(predicateStudent.phoneNumberProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.emailProperty().toString().contains(searchKey)) {
+                } else if(predicateStudent.emailProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.facultyIDProperty().toString().contains(searchKey)) {
+                } else if(predicateStudent.facultyIDProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.departmentIDProperty().toString().contains(searchKey)) {
+                } else if(predicateStudent.departmentIDProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.degreeIDProperty().toString().contains(searchKey)) {
+                } else if(predicateStudent.degreeIDProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.minorIDProperty().toString().contains(searchKey)) {
+                } else if(predicateStudent.minorIDProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.levelProperty().toString().contains(searchKey)) {
+                } else if(predicateStudent.levelProperty().toString().toLowerCase().toLowerCase().contains(searchKey)) {
                     return true;
-                } else return predicateStudent.registrationDateProperty().toString().contains(searchKey);
+                } else return predicateStudent.registrationDateProperty().toString().toLowerCase().contains(searchKey);
             });
+
+            SortedList<Student> sortedList = new SortedList<>(searchFilter);
+            sortedList.comparatorProperty().bind(stud_tableView.comparatorProperty());
+            stud_tableView.setItems(sortedList);
         });
     }
     private void filterOptions(String val) {

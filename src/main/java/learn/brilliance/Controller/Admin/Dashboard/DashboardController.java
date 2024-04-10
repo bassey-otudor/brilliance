@@ -1,5 +1,7 @@
 package learn.brilliance.Controller.Admin.Dashboard;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
@@ -8,6 +10,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import learn.brilliance.Model.Model;
+import learn.brilliance.Model.connectDB;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -15,6 +18,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class  DashboardController implements Initializable {
 
@@ -40,8 +45,24 @@ public class  DashboardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         dashboard_date.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("EEEE, MMMM d yyyy")));
         studentLineChart();
+        departmentPieChart();
     }
 
+    private void departmentPieChart() {
+        dashboard_pieChartDepartments.getData().clear();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        ResultSet resultSet = Model.getInstance().getConnectDB().getPieChartData();
+        try {
+            while (resultSet.next()) {
+                pieChartData.add(new PieChart.Data(resultSet.getString(1), resultSet.getInt(2)));
+            }
+
+        } catch(SQLException ex) {
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        dashboard_pieChartDepartments.setData(pieChartData);
+    }
     private void studentLineChart() {
         dashboard_lineGraphStudents.getData().clear();
 

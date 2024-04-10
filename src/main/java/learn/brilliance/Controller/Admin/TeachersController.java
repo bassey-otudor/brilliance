@@ -88,6 +88,7 @@ public class TeachersController implements Initializable {
         teach_tableView.setItems(Model.getInstance().setAllTeachers());
         teach_tableView.setOnMouseClicked(e -> selectTeacher());
 
+        selectTeacher();
         searchTeacher();
         filterTeacher();
     }

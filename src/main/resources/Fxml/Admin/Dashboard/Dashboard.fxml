@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
@@ -12,78 +11,51 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../../Styles/AdminDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.Dashboard.DashboardController">
    <HBox layoutX="129.0" layoutY="210.0" prefHeight="558.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <VBox prefHeight="600.0" prefWidth="655.0">
-         <AnchorPane prefHeight="118.0" prefWidth="520.0" styleClass="main-container">
-            <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="108.0" prefWidth="628.0" stylesheets="@../../../Styles/AdminDashboard.css">
-               <styleClass>
-                  <String fx:value="main-container" />
-                  <String fx:value="card" />
-               </styleClass>
-               <Label fx:id="dashboard_date" layoutX="394.0" layoutY="10.0" styleClass="label-dashboard" text="Thursday April 27, 2023" />
-               <Label fx:id="dashboard_greeting" layoutX="14.0" layoutY="42.0" prefHeight="23.0" prefWidth="106.0" styleClass="label-title" text="Good morning">
-                  <font>
-                     <Font size="1.0" />
-                  </font></Label>
-               <Label fx:id="dashboard_message" layoutX="12.0" layoutY="67.0" prefHeight="19.0" prefWidth="403.0" styleClass="label-message" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq." textFill="#40c5cf">
-                  <font>
-                     <Font name="Times New Roman Italic" size="14.0" />
-                  </font>
-               </Label>
-               <Label layoutX="12.0" layoutY="10.0" styleClass="label-dashboard" text="My Dashboard">
-                  <font>
-                     <Font name="Segoe UI Italic" size="12.0" />
-                  </font></Label>
-               <FontAwesomeIconView fx:id="dashboard_messageIcon" fill="#ec6666" glyphName="INFO_CIRCLE" layoutX="541.0" layoutY="88.0" size="60" />
-            </AnchorPane>
-         </AnchorPane>
-         <AnchorPane prefHeight="200.0" prefWidth="669.0" styleClass="main-container">
-            <AnchorPane layoutX="5.0" layoutY="8.0" prefHeight="187.0" prefWidth="510.0">
-               <styleClass>
-                  <String fx:value="main-container" />
-                  <String fx:value="card" />
-               </styleClass>
-               <PieChart fx:id="dashboard_pieChartDepartments" layoutX="4.0" layoutY="21.0" prefHeight="160.0" prefWidth="200.0" />
-               <AnchorPane layoutX="216.0" layoutY="3.0" prefHeight="180.0" prefWidth="412.0">
-                  <Circle fill="DODGERBLUE" layoutX="14.0" layoutY="22.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="25.0" layoutY="13.0" text="Chemistry" />
-                  <Circle fill="#607914" layoutX="151.0" layoutY="22.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="162.0" layoutY="13.0" text="Archeology" />
-                  <Circle fill="#ec6666" layoutX="14.0" layoutY="49.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="25.0" layoutY="40.0" text="Computer Sc." />
-                  <Circle fill="#004e97" layoutX="151.0" layoutY="49.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="162.0" layoutY="40.0" text="Economics" />
-                  <Circle fill="#79d2de" layoutX="15.0" layoutY="75.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="26.0" layoutY="66.0" text="Geology" />
-                  <Circle fill="#ffb97b" layoutX="152.0" layoutY="75.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="163.0" layoutY="66.0" text="Geography" />
-                  <Circle fill="#62cf98" layoutX="15.0" layoutY="102.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="26.0" layoutY="93.0" text="Health Sciences" />
-                  <Circle fill="#ff1fb6" layoutX="152.0" layoutY="102.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="163.0" layoutY="93.0" text="Law &amp; Political Science" />
-                  <Circle fill="#af14d6" layoutX="15.0" layoutY="129.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="26.0" layoutY="120.0" text="Mathematics" />
-                  <Circle fill="#c6563d" layoutX="152.0" layoutY="129.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="163.0" layoutY="120.0" text="Management" />
-                  <Circle fill="#d6cf14" layoutX="16.0" layoutY="155.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="27.0" layoutY="146.0" text="Physics" />
-                  <Circle fill="#b8c3cd" layoutX="153.0" layoutY="155.0" radius="5.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Label layoutX="164.0" layoutY="146.0" text="Philosophy" />
+         <HBox prefHeight="333.0" prefWidth="640.0">
+            <children>
+               <AnchorPane prefHeight="75.0" prefWidth="292.0" styleClass="main-container">
+                  <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="68.0" prefWidth="200.0" stylesheets="@../../../Styles/AdminDashboard.css">
+                     <styleClass>
+                        <String fx:value="main-container" />
+                        <String fx:value="card" />
+                     </styleClass>
+                     <Label fx:id="dashboard_date" layoutX="12.0" layoutY="39.0" styleClass="label-greeting" text="Thursday April 27, 2023" />
+                     <Label layoutX="12.0" layoutY="10.0" prefHeight="23.0" prefWidth="137.0" styleClass="label-dashboard" text="My Dashboard">
+                        <font>
+                           <Font name="Segoe UI Italic" size="12.0" />
+                        </font>
+                     </Label>
+                  </AnchorPane>
+                  <AnchorPane layoutX="6.0" layoutY="81.0" prefHeight="247.0" prefWidth="200.0" stylesheets="@../../../Styles/AdminDashboard.css">
+                     <styleClass>
+                        <String fx:value="main-container" />
+                        <String fx:value="card" />
+                     </styleClass>
+                  </AnchorPane>
                </AnchorPane>
-               <Label layoutX="48.0" layoutY="4.0" text="Students by Department" />
-            </AnchorPane>
-         </AnchorPane>
-         <AnchorPane prefHeight="264.0" prefWidth="520.0" styleClass="main-container">
-            <LineChart fx:id="dashboard_lineGraphStudents" layoutX="8.0" prefHeight="273.0" prefWidth="635.0" styleClass="chart-series-line" stylesheets="@../../../Styles/GlobalStyles.css" title="Admission per Year">
+               <AnchorPane prefHeight="333.0" prefWidth="428.0" styleClass="main-container">
+                  <AnchorPane layoutX="3.0" layoutY="6.0" prefHeight="325.0" prefWidth="423.0">
+                     <styleClass>
+                        <String fx:value="main-container" />
+                        <String fx:value="card" />
+                     </styleClass>
+                     <PieChart fx:id="dashboard_pieChartDepartments" layoutY="-1.6906475009684254" prefHeight="325.2949729561284" prefWidth="423.36691809364476" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </AnchorPane>
+               </AnchorPane>
+            </children>
+         </HBox>
+         <AnchorPane prefHeight="225.0" prefWidth="640.0" styleClass="main-container">
+            <LineChart fx:id="dashboard_lineGraphStudents" layoutX="8.0" layoutY="3.0" prefHeight="247.0" prefWidth="627.0" styleClass="chart-series-line" stylesheets="@../../../Styles/GlobalStyles.css" title="Admissions/yr">
                <xAxis>
-                  <CategoryAxis side="BOTTOM" />
+                  <CategoryAxis prefHeight="11.0" prefWidth="541.0" side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis side="LEFT" />
+                  <NumberAxis prefHeight="182.0" prefWidth="27.0" side="LEFT" />
                </yAxis>
             </LineChart>
          </AnchorPane>
@@ -92,7 +64,7 @@
          <children>
             <AnchorPane prefHeight="600.0" prefWidth="169.0">
                <children>
-                  <AnchorPane layoutY="6.0" prefHeight="587.0" prefWidth="171.0">
+                  <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="587.0" prefWidth="171.0">
                      <children>
                         <VBox layoutX="39.0" layoutY="0.6906475009684254" prefHeight="579.0" prefWidth="171.0" visible="false" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                            <children>
