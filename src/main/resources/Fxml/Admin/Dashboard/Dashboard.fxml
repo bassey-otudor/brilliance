@@ -31,7 +31,7 @@
                         </font>
                      </Label>
                   </AnchorPane>
-                  <AnchorPane layoutX="6.0" layoutY="81.0" prefHeight="247.0" prefWidth="200.0" stylesheets="@../../../Styles/AdminDashboard.css">
+                  <AnchorPane layoutX="6.0" layoutY="81.0" prefHeight="251.0" prefWidth="200.0" stylesheets="@../../../Styles/AdminDashboard.css">
                      <styleClass>
                         <String fx:value="main-container" />
                         <String fx:value="card" />
@@ -50,7 +50,7 @@
             </children>
          </HBox>
          <AnchorPane prefHeight="225.0" prefWidth="640.0" styleClass="main-container">
-            <LineChart fx:id="dashboard_lineGraphStudents" layoutX="8.0" layoutY="3.0" prefHeight="247.0" prefWidth="627.0" styleClass="chart-series-line" stylesheets="@../../../Styles/GlobalStyles.css" title="Admissions/yr">
+            <LineChart fx:id="dashboard_lineGraphStudents" layoutX="14.0" layoutY="7.0" prefHeight="247.0" prefWidth="627.0" styleClass="chart-series-line" stylesheets="@../../../Styles/GlobalStyles.css" title="Admissions/yr">
                <xAxis>
                   <CategoryAxis prefHeight="11.0" prefWidth="541.0" side="BOTTOM" />
                </xAxis>

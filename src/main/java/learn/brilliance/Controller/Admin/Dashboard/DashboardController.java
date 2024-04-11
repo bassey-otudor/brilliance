@@ -1,14 +1,20 @@
 package learn.brilliance.Controller.Admin.Dashboard;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import learn.brilliance.Model.Model;
 import learn.brilliance.Model.connectDB;
 
@@ -17,16 +23,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class  DashboardController implements Initializable {
-
+public class  DashboardController extends PieChart implements Initializable {
+    private final Map<PieChart.Data, Text> labels = new HashMap<>();
     public Label dashboard_greeting;
-    public Label dashboard_adminUsername;
     public Label dashboard_message;
-    public Label dashboard_time;
     public Label dashboard_date;
     public PieChart dashboard_pieChartDepartments;
     public LineChart<String, Number> dashboard_lineGraphStudents;
@@ -49,7 +56,6 @@ public class  DashboardController implements Initializable {
     }
 
     private void departmentPieChart() {
-        dashboard_pieChartDepartments.getData().clear();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         ResultSet resultSet = Model.getInstance().getConnectDB().getPieChartData();
         try {
@@ -62,6 +68,15 @@ public class  DashboardController implements Initializable {
         }
 
         dashboard_pieChartDepartments.setData(pieChartData);
+        dashboard_pieChartDepartments.setLegendVisible(false);
+        pieChartData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName(), " ", data.pieValueProperty()
+                        )
+                )
+        );
+
     }
     private void studentLineChart() {
         dashboard_lineGraphStudents.getData().clear();
