@@ -19,6 +19,11 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 6,0,1,1) ;
 }
 
+.card-fix {
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 6,0,1,1) ;
+}
+
 .label {
     -fx-text-fill: #707070;
     -fx-font-family: "Segoe UI";
@@ -63,6 +68,7 @@
     -fx-font-size: 13px;
     -fx-font-family: Segoe UI;
     -fx-padding: 4px 4px 4px 28px;
+    -fx-max-height: 20px;
 }
 
 .text-field-search:focused {
@@ -160,6 +166,29 @@
     -fx-font-size: 13px;
     -fx-text-alignment: center;
     -fx-font-weight: Bold;
+}
+
+.button-course {
+    -fx-text-fill: white;
+    -fx-font-weight: Bold;
+    -fx-text-alignment: center;
+    -fx-font-family: Segoe UI;
+    -fx-background-radius: 0;
+    -fx-background-color: #40C5CF;
+}
+
+.button-course-not-selected {
+    -fx-text-fill: #40C5CF;
+    -fx-font-weight: Bold;
+    -fx-text-alignment: center;
+    -fx-font-family: Segoe UI;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+}
+
+.button-course:hover {
+    -fx-background-radius: 0;
+    -fx-cursor: hand;
 }
 
 

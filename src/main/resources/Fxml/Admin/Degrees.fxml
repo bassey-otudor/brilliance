@@ -27,7 +27,7 @@
                     <TableColumn fx:id="degree_tableView_col_degreeName" prefWidth="269.12227630615234" text="Degree Name" />
                     <TableColumn fx:id="degree_tableView_col_deptID" prefWidth="98.30215454101562" text="Department ID" />
                <TableColumn fx:id="degree_tableView_col_minor" prefWidth="110.0" text="Minor" />
-                    <TableColumn fx:id="degree_tableView_col_duration" prefWidth="84.71942138671875" text="Duration" />
+                    <TableColumn fx:id="degree_tableView_col_duration" prefWidth="84.71942138671875" text="Duration (y)" />
                     <TableColumn fx:id="degree_tableView_col_numCourses" prefWidth="120.6331787109375" text="No. of Courses" />
                <TableColumn fx:id="degree_tableView_col_totalCredits" prefWidth="126.6187744140625" text="Total Credits" />
                <TableColumn fx:id="degree_tableView_col_requiredCredits" minWidth="9.20867919921875" prefWidth="128.46038818359375" text="Required Credits" />

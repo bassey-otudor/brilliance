@@ -3,6 +3,7 @@
 .white-bg {
     -fx-background-color: #FFFFFF;
 }
+
 .menu-container {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 5px;
@@ -20,6 +21,10 @@
     -fx-border-radius: 5px;
     -fx-padding: 0px 0px 0px 12px;
     -fx-icon-color: #40C5CF;
+}
+
+.FontAwesomeIconView {
+    -fx-fill: #ffffff;
 }
 
 .menu-button:hover {

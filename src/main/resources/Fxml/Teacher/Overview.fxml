@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/AdminDashboard.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="learn.brilliance.Controller.Teacher.OverviewController">
+   <HBox layoutX="400.0" layoutY="250.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0"
+         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="600.0" prefWidth="487.0">
+         <HBox prefHeight="330.0" prefWidth="488.0" styleClass="main-container">
+            <VBox prefHeight="330.0" prefWidth="178.0">
+               <AnchorPane prefHeight="90.0" prefWidth="178.0">
+                  <AnchorPane layoutX="4.834532506778978" layoutY="2.7625900038737017" prefHeight="81.0"
+                              prefWidth="171.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0"
+                              AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="3.0">
+                     <styleClass>
+                        <String fx:value="card"/>
+                        <String fx:value="main-container"/>
+                     </styleClass>
+                  </AnchorPane>
+               </AnchorPane>
+               <AnchorPane prefHeight="247.0" prefWidth="178.0">
+                  <AnchorPane layoutX="5.0" layoutY="2.0" prefHeight="240.0" prefWidth="170.0">
+                     <styleClass>
+                        <String fx:value="main-container"/>
+                        <String fx:value="card"/>
+                     </styleClass>
+                     <ListView layoutX="-15.0" layoutY="20.0" prefHeight="240.34533033701206"
+                               prefWidth="185.78417776050645" AnchorPane.bottomAnchor="0.0"
+                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                               AnchorPane.topAnchor="0.0"/>
+                  </AnchorPane>
+               </AnchorPane>
+            </VBox>
+            <AnchorPane prefHeight="330.0" prefWidth="306.0">
+               <AnchorPane layoutX="4.0" layoutY="3.0" prefHeight="326.0" prefWidth="301.0">
+                  <styleClass>
+                     <String fx:value="card"/>
+                     <String fx:value="main-container"/>
+                  </styleClass>
+               </AnchorPane>
+            </AnchorPane>
+         </HBox>
+         <AnchorPane prefHeight="265.0" prefWidth="415.0" styleClass="main-container">
+            <AnchorPane layoutX="5.0" layoutY="7.0" prefHeight="256.0" prefWidth="478.0">
+               <styleClass>
+                  <String fx:value="main-container"/>
+                  <String fx:value="card"/>
+               </styleClass>
+               <ScatterChart prefHeight="256.23022285928585" prefWidth="478.6187181711188"
+                             title="Course Results" AnchorPane.bottomAnchor="0.0"
+                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                             AnchorPane.topAnchor="0.0">
+                  <xAxis>
+                     <CategoryAxis side="BOTTOM"/>
+                  </xAxis>
+                  <yAxis>
+                     <NumberAxis side="LEFT"/>
+                  </yAxis>
+               </ScatterChart>
+            </AnchorPane>
+         </AnchorPane>
+      </VBox>
+      <HBox prefHeight="600.0" prefWidth="524.0" stylesheets="@../../Styles/AdminDashboard.css">
+         <VBox prefHeight="600.0" prefWidth="169.0">
+            <AnchorPane prefHeight="42.0" prefWidth="169.0">
+               <AnchorPane layoutX="2.7625900038737017" layoutY="2.7625900038737017" prefHeight="35.0"
+                           prefWidth="163.0" stylesheets="@../../Styles/GlobalStyles.css"
+                           AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="3.0"
+                           AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+                  <styleClass>
+                     <String fx:value="card-fix"/>
+                     <String fx:value="main-container"/>
+                  </styleClass>
+                  <Label layoutX="57.0" layoutY="1.0" styleClass="label-title" text="Course1">
+                     <font>
+                        <Font name="System Bold" size="14.0"/>
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="16.0" text="Top Students"/>
+               </AnchorPane>
+            </AnchorPane>
+            <AnchorPane prefHeight="557.0" prefWidth="157.0">
+               <styleClass>
+                  <String fx:value="card-fix"/>
+                  <String fx:value="main-container"/>
+               </styleClass>
+               <ListView layoutX="4.143885005810552" layoutY="52.0" prefHeight="553.0" prefWidth="162.0"
+                         stylesheets="@../../Styles/GlobalStyles.css" AnchorPane.bottomAnchor="5.0"
+                         AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0"
+                         AnchorPane.topAnchor="0.0">
+                  <styleClass>
+                     <String fx:value="card-fix"/>
+                     <String fx:value="main-container"/>
+                  </styleClass>
+               </ListView>
+            </AnchorPane>
+         </VBox>
+         <VBox prefHeight="600.0" prefWidth="157.0">
+            <AnchorPane prefHeight="42.0" prefWidth="169.0">
+               <AnchorPane layoutX="2.7625900038737017" layoutY="2.7625900038737017" prefHeight="35.0"
+                           prefWidth="163.0" stylesheets="@../../Styles/GlobalStyles.css"
+                           AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="3.0"
+                           AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+                  <styleClass>
+                     <String fx:value="card-fix"/>
+                     <String fx:value="main-container"/>
+                  </styleClass>
+                  <Label layoutX="50.0" layoutY="-1.0" styleClass="label-title" text="Course1">
+                     <font>
+                        <Font name="System Bold" size="14.0"/>
+                     </font>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="16.0" text="Top Students"/>
+               </AnchorPane>
+            </AnchorPane>
+            <AnchorPane prefHeight="557.0" prefWidth="157.0">
+               <styleClass>
+                  <String fx:value="card-fix"/>
+                  <String fx:value="main-container"/>
+               </styleClass>
+               <ListView layoutX="4.143885005810552" layoutY="52.0" prefHeight="553.0" prefWidth="162.0"
+                         stylesheets="@../../Styles/GlobalStyles.css" AnchorPane.bottomAnchor="5.0"
+                         AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0"
+                         AnchorPane.topAnchor="0.0">
+                  <styleClass>
+                     <String fx:value="card-fix"/>
+                     <String fx:value="main-container"/>
+                  </styleClass>
+               </ListView>
+            </AnchorPane>
+         </VBox>
+         <VBox prefHeight="600.0" prefWidth="191.0">
+            <AnchorPane prefHeight="611.0" prefWidth="191.0">
+               <AnchorPane layoutX="2.0" layoutY="3.0" prefHeight="593.0" prefWidth="185.0"
+                           stylesheets="@../../Styles/GlobalStyles.css">
+                  <styleClass>
+                     <String fx:value="card-fix"/>
+                     <String fx:value="main-container"/>
+                  </styleClass>
+                  <Label layoutX="67.0" layoutY="6.0" text="Timeline"/>
+               </AnchorPane>
+            </AnchorPane>
+         </VBox>
+      </HBox>
+   </HBox>
+</AnchorPane>

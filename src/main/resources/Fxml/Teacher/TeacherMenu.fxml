@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="177.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Teacher.TeacherMenuController">
+   <stylesheets>
+      <URL value="@../../Styles/Menu.css" />
+   </stylesheets>
+   <AnchorPane layoutX="-1.0" layoutY="133.0" prefHeight="600.0" prefWidth="177.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="39.0" layoutY="33.0" prefHeight="600.0" prefWidth="177.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <AnchorPane prefHeight="57.0" prefWidth="177.0">
+            <Label layoutX="42.0" layoutY="17.0" styleClass="current-section" text="OVERVIEW" />
+            <Separator layoutX="13.0" layoutY="50.0" prefWidth="150.0" />
+         </AnchorPane>
+         <AnchorPane prefHeight="486.0" prefWidth="177.0">
+            <Button layoutX="30.0" layoutY="25.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="signout-button" text="Overview">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="PASTE" size="13" />
+               </graphic>
+            </Button>
+            <Button layoutX="31.0" layoutY="80.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="signout-button" text="Courses" textFill="#f8f0f0">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="BOOK" size="16" />
+               </graphic>
+            </Button>
+            <Button layoutX="31.0" layoutY="136.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="signout-button" text="Profile">
+               <graphic>
+                  <FontAwesomeIconView glyphName="USER" size="16" styleClass="FontAwesomeIconView" />
+               </graphic></Button>
+            <Button layoutX="31.0" layoutY="190.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="signout-button" text="Messages">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="ENVELOPE" />
+               </graphic>
+            </Button>
+            <Button layoutX="29.0" layoutY="437.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="signout-button" text="Settings">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="COGS" />
+               </graphic>
+            </Button>
+            <Separator layoutX="13.0" layoutY="482.0" prefWidth="150.0" />
+         </AnchorPane>
+         <AnchorPane prefHeight="48.0" prefWidth="177.0">
+            <Button layoutX="30.0" layoutY="11.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="118.0" styleClass="signout-button" text="Logout" textAlignment="CENTER">
+               <graphic>
+                  <FontAwesomeIconView fill="#f3f3f3" glyphName="SIGN_OUT" />
+               </graphic>
+            </Button>
+         </AnchorPane>
+      </VBox>
+   </AnchorPane>
+</AnchorPane>
