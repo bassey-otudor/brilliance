@@ -7,58 +7,47 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="177.0" stylesheets="@../../Styles/Menu.css"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="learn.brilliance.Controller.Teacher.TeacherMenuController">
+<AnchorPane prefHeight="600.0" prefWidth="177.0" stylesheets="@../../Styles/Menu.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Teacher.TeacherMenuController">
    <AnchorPane layoutX="3.0" layoutY="4.0" prefHeight="591.0" prefWidth="171.0" styleClass="menu-container">
-      <VBox layoutX="36.0" layoutY="155.0" prefHeight="591.1942608289721" prefWidth="171.2805802401695"
-            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-            AnchorPane.topAnchor="0.0">
+      <VBox layoutX="36.0" layoutY="155.0" prefHeight="591.1942608289721" prefWidth="171.2805802401695" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <AnchorPane prefHeight="55.0" prefWidth="171.0">
-            <Label fx:id="teacher_section" layoutX="46.0" layoutY="8.0" styleClass="current-section"
-                   text="Overview"/>
-            <Separator layoutX="10.0" layoutY="40.0" prefWidth="150.0"/>
+            <Label fx:id="teacher_section" layoutX="46.0" layoutY="8.0" styleClass="current-section" text="Overview" />
+            <Separator layoutX="10.0" layoutY="40.0" prefWidth="150.0" />
          </AnchorPane>
          <AnchorPane prefHeight="474.0" prefWidth="171.0">
-            <Button fx:id="teacher_overviewBtn" layoutX="20.0" layoutY="14.0" mnemonicParsing="false"
-                    prefHeight="28.0" prefWidth="130.0" styleClass="menu-button-teacher" text="Overview">
+            <Button fx:id="teacher_overviewBtn" layoutX="20.0" layoutY="14.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" styleClass="menu-button-teacher" text="Overview">
                <graphic>
-                  <FontAwesomeIconView glyphName="LIST" styleClass="fx-icon"/>
+                  <FontAwesomeIconView glyphName="LIST" styleClass="fx-icon" />
                </graphic>
             </Button>
-            <Button fx:id="teacher_coursesBtn" layoutX="20.0" layoutY="61.0" mnemonicParsing="false"
-                    prefHeight="28.0" prefWidth="130.0" styleClass="menu-button-teacher" text="Courses">
+            <Button fx:id="teacher_coursesBtn" layoutX="20.0" layoutY="61.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" styleClass="menu-button-teacher" text="Courses">
                <graphic>
-                  <FontAwesomeIconView glyphName="BOOK" size="14" styleClass="fx-icon"/>
+                  <FontAwesomeIconView glyphName="BOOK" size="14" styleClass="fx-icon" />
                </graphic>
             </Button>
-            <Button fx:id="teacher_profileBtn" layoutX="20.0" layoutY="108.0" mnemonicParsing="false"
-                    prefHeight="28.0" prefWidth="130.0" styleClass="menu-button-teacher" text="Profile">
+            <Button fx:id="teacher_profileBtn" layoutX="20.0" layoutY="108.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" styleClass="menu-button-teacher" text="Profile">
                <graphic>
-                  <FontAwesomeIconView glyphName="USER" size="16" styleClass="fx-icon"/>
+                  <FontAwesomeIconView glyphName="USER" size="16" styleClass="fx-icon" />
                </graphic>
             </Button>
-            <Button fx:id="teacher_messagesBtn" layoutX="20.0" layoutY="156.0" mnemonicParsing="false"
-                    prefHeight="28.0" prefWidth="130.0" styleClass="menu-button-teacher" text="Messages">
+            <Button fx:id="teacher_messagesBtn" layoutX="20.0" layoutY="156.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" styleClass="menu-button-teacher" text="Messages">
                <graphic>
-                  <FontAwesomeIconView glyphName="ENVELOPE" size="14" styleClass="fx-icon"/>
+                  <FontAwesomeIconView glyphName="ENVELOPE" size="14" styleClass="fx-icon" />
                </graphic>
             </Button>
-            <Button fx:id="teacher_settingsBtn" layoutX="20.0" layoutY="429.0" mnemonicParsing="false"
-                    prefHeight="28.0" prefWidth="130.0" styleClass="menu-button-teacher" text="Settings">
+            <Button fx:id="teacher_settingsBtn" layoutX="20.0" layoutY="429.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" styleClass="menu-button-teacher" text="Settings">
                <graphic>
-                  <FontAwesomeIconView glyphName="COG" size="16" styleClass="fx-icon"/>
+                  <FontAwesomeIconView glyphName="COG" size="16" styleClass="fx-icon" />
                </graphic>
             </Button>
          </AnchorPane>
          <AnchorPane prefHeight="62.0" prefWidth="171.0">
-            <Button fx:id="teacher_signoutBtn" layoutX="20.0" layoutY="22.0" mnemonicParsing="false"
-                    prefHeight="28.0" prefWidth="130.0" styleClass="signout-button" text="Log out">
+            <Button fx:id="teacher_signoutBtn" layoutX="20.0" layoutY="22.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" styleClass="signout-button" text="Log out">
                <graphic>
-                  <FontAwesomeIconView glyphName="SIGN_OUT" size="16" styleClass="fx-icon"/>
+                  <FontAwesomeIconView glyphName="SIGN_OUT" size="16" styleClass="fx-icon" />
                </graphic>
             </Button>
-            <Separator layoutX="10.0" layoutY="7.0" prefWidth="150.0"/>
+            <Separator layoutX="10.0" layoutY="7.0" prefWidth="150.0" />
          </AnchorPane>
       </VBox>
    </AnchorPane>
