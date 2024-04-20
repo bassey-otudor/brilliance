@@ -2,6 +2,7 @@ package learn.brilliance.View;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -11,13 +12,18 @@ import learn.brilliance.Controller.Admin.AdminController;
 import learn.brilliance.Controller.Admin.TeachersController;
 import learn.brilliance.Controller.Student.StudentController;
 import learn.brilliance.Controller.Teacher.TeacherController;
+import learn.brilliance.Model.courseRecords;
 import learn.brilliance.View.Enums.AccountType;
 import learn.brilliance.View.Enums.AdminMenuOptions;
+import learn.brilliance.View.Enums.TeacherMenuOptions;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ViewFactory {
     private AccountType accountType;
+
     // Admin view variables
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuOption;
     private AnchorPane dashboardView;
@@ -29,9 +35,19 @@ public class ViewFactory {
     private AnchorPane degreesView;
     private AnchorPane minorsView;
     private AnchorPane settingsView;
+
+    // Teacher view variables
+    private final ObjectProperty<TeacherMenuOptions> teacherSelectedMenuOption;
+    private AnchorPane teachersOverviewView;
+    private AnchorPane teacherCoursesView;
+    private AnchorPane teacherProfileView;
+    private AnchorPane teacherMessagesView;
+    private AnchorPane teacherSettingsView;
+
     public ViewFactory(){
         this.accountType = AccountType.ADMIN;
         this.adminSelectedMenuOption = new SimpleObjectProperty<>();
+        this.teacherSelectedMenuOption = new SimpleObjectProperty<>();
     }
 
     // Admin Menu option getters
@@ -132,6 +148,63 @@ public class ViewFactory {
         } return settingsView;
     }
 
+    // Teacher Menu option getters
+    public AnchorPane getTeachersOverviewView() {
+        if (teachersOverviewView == null) {
+            try {
+                teachersOverviewView = new FXMLLoader(getClass().getResource("Fxml/Teacher/Overview.fxml")).load();
+
+            } catch (IOException ex) {
+                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Overview page.", ex);
+            }
+        }
+
+        return teachersOverviewView;
+    }
+    public AnchorPane getTeacherCoursesView() {
+        if (teacherCoursesView == null) {
+            try {
+                teacherCoursesView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Courses.fxml")).load();
+
+            } catch (IOException ex) {
+                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Courses page.", ex);
+            }
+        }
+        return teacherCoursesView;
+    }
+    public AnchorPane getTeacherProfileView() {
+        if (teacherProfileView == null) {
+            try {
+                teacherProfileView = new FXMLLoader(getClass().getResource("Fxml/Teacher/Profile.fxml")).load();
+
+            } catch (IOException ex) {
+                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Profile page.", ex);
+            }
+        }
+        return teacherProfileView;
+    }
+    public AnchorPane getTeacherMessagesView() {
+        if (teacherMessagesView == null) {
+            try {
+                teacherMessagesView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Messages.fxml")).load();
+
+            } catch (IOException ex) {
+                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Messages page.", ex);
+            }
+        }
+        return teacherMessagesView;
+    }
+    public AnchorPane getTeacherSettingsView() {
+        if (teacherSettingsView == null) {
+            try {
+                teacherSettingsView = new FXMLLoader(getClass().getResource("Fxml/Teacher/Settings.fxml")).load();
+
+            } catch (IOException ex) {
+                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Settings page.", ex);
+            }
+        }
+        return teacherSettingsView;
+    }
     /*
     * Utility methods
     **/

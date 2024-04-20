@@ -2,7 +2,6 @@ package learn.brilliance.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
 import learn.brilliance.Controller.Admin.TeachersController;
 import learn.brilliance.Model.Accounts.Teacher;
 import learn.brilliance.Model.Accounts.Student;
@@ -10,11 +9,14 @@ import learn.brilliance.View.ViewFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Model {
     private static Model model;
     private final ViewFactory viewFactory;
     connectDB connectDB;
+    courseRecords courseRecords;
 
     // Admin variables
     private boolean adminLoginStatus;
@@ -26,9 +28,14 @@ public class Model {
     private final ObservableList<Minor> minor;
     private final ObservableList<Student> students;
     public final TeachersController teachersController = new TeachersController();
+
+    // Teacher variables
+    private boolean teacherLoginStatus;
+
     private Model() {
         this.viewFactory = new ViewFactory();
         this.connectDB = new connectDB();
+        this.courseRecords = new courseRecords();
 
         // Admin data
         this.adminLoginStatus = false;
@@ -52,6 +59,7 @@ public class Model {
     public connectDB getConnectDB() {
         return connectDB;
     }
+    public courseRecords getCourseRecords() { return courseRecords; }
 
 
     // Admin login  control
@@ -68,10 +76,26 @@ public class Model {
             if(resultSet.isBeforeFirst()) {
                 this.adminLoginStatus = true;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    // Teacher login control
+    public boolean getTeacherLoginStatus() { return this.teacherLoginStatus; }
+    public void setTeacherLoginStatus(boolean teacherLoginStatus) { this.teacherLoginStatus = teacherLoginStatus; }
+    public void evaluateTeacherLogin(String username, String password) {
+        ResultSet resultSet = connectDB.getTeacher(username, password);
+        try {
+            if(resultSet.isBeforeFirst()) {
+                this.teacherLoginStatus = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     // Binding data section
     // Faculties

@@ -37,7 +37,7 @@
                <String fx:value="card" />
                <String fx:value="main-container" />
             </styleClass>
-            <TableView fx:id="teacher_studentMarkTableView1" layoutX="124.0" layoutY="35.91367005035812" prefHeight="557.0" prefWidth="609.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
+            <TableView fx:id="teacher_studentMarkTableView1" layoutX="124.0" layoutY="35.91367005035812" prefHeight="557.0" prefWidth="609.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
                <columns>
                   <TableColumn fx:id="teacher_col_studentID1" prefWidth="105.0" text="Student ID" />
                   <TableColumn fx:id="teacher_col_studentName1" prefWidth="160.0" text="Student Name" />
@@ -46,6 +46,17 @@
                   <TableColumn fx:id="teacher_col_exam1" prefWidth="65.0" text="Exam" />
                   <TableColumn fx:id="teacher_col_total1" prefWidth="65.0" text="Total" />
                   <TableColumn fx:id="teacher_col_grade" prefWidth="65.0" text="Grade" />
+               </columns>
+            </TableView>
+            <TableView fx:id="teacher_studentMarkTableView2" layoutX="-2.0" layoutY="36.0" prefHeight="557.0" prefWidth="609.0">
+               <columns>
+                  <TableColumn fx:id="teacher_col_studentID2" prefWidth="105.0" text="Student ID" />
+                  <TableColumn fx:id="teacher_col_studentName2" prefWidth="160.0" text="Student Name" />
+                  <TableColumn fx:id="teacher_col_firstCA2" prefWidth="70.0" text="1st. CA" />
+                  <TableColumn fx:id="teacher_col_secondCA2" prefWidth="70.0" text="2nd. CA" />
+                  <TableColumn fx:id="teacher_col_exam2" prefWidth="65.0" text="Exam" />
+                  <TableColumn fx:id="teacher_col_total2" prefWidth="65.0" text="Total" />
+                  <TableColumn fx:id="teacher_col_grade2" prefWidth="65.0" text="Grade" />
                </columns>
             </TableView>
             <Label layoutX="14.0" layoutY="7.0" styleClass="label-table-title" text="BCHS1101" />

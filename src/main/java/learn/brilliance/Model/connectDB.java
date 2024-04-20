@@ -15,9 +15,12 @@ public class connectDB {
     private static final String connURL = "jdbc:sqlite:school_database_structure.db";
     private static final String username = "root";
     private static final String password = "";
+
+    // Connects to the general database (school_database_structure)
     public connectDB() {
         try {
             this.conn = DriverManager.getConnection(connURL, username, password);
+
         } catch (SQLException ex) {
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -29,8 +32,23 @@ public class connectDB {
         ResultSet resultSet = null;
         try {
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM admin WHERE username = '" + username + "' AND password = '" + password + "'";
-            resultSet = stmt.executeQuery(sql);
+            String getAdmin = "SELECT * FROM admin WHERE username = '" + username + "' AND password = '" + password + "'";
+            resultSet = stmt.executeQuery(getAdmin);
+        } catch (SQLException ex) {
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultSet;
+    }
+
+    // Get the teacher's information
+    public ResultSet getTeacher(String teacherID, String password) {
+        Statement stmt;
+        ResultSet resultSet = null;
+        try {
+            stmt = conn.createStatement();
+            String getTeacher = "SELECT * FROM teachers WHERE teacherID = '" + teacherID + "' AND password = '" + password + "'";
+            resultSet = stmt.executeQuery(getTeacher);
+
         } catch (SQLException ex) {
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }

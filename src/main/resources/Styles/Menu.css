@@ -22,6 +22,18 @@
     -fx-padding: 0px 0px 0px 12px;
     -fx-icon-color: #40C5CF;
 }
+.menu-button-teacher {
+    -fx-background-color: #40C5CF;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-font-family: Segoe UI;
+    -fx-alignment: center-left;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-border-radius: 5px;
+    -fx-padding: 0px 0px 0px 24px;
+    -fx-icon-color: #40C5CF;
+}
 
 .FontAwesomeIconView {
     -fx-fill: #ffffff;
@@ -37,8 +49,16 @@
     -fx-cursor: hand;
 }
 
+.menu-button-teacher:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 6,0,0,0) ;
+    -fx-cursor: hand;
+}
+
+
 .line {
     -fx-border-color: #40C5CF;
+    -fx-stroke-width: 2px;
+    -fx-background-color: #40C5cf;
 }
 
 .signout-button {
@@ -57,7 +77,7 @@
 
 .fx-icon {
     -fx-icon-size: 15px;
-    -fx-icon-color: #40C5CF;
+    -fx-fill: white;
 }
 
 .image-view {

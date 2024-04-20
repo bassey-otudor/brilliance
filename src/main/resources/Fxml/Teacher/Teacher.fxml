@@ -3,11 +3,12 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<BorderPane fx:id="teacher_parent" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="teacher_parent" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
     <left>
         <fx:include source="TeacherMenu.fxml"/>
     </left>
-    <right>
+    <center>
         <fx:include source="Overview.fxml"/>
-    </right>
+    </center>
 </BorderPane>

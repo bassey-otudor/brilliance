@@ -11,6 +11,7 @@ module com.learn.briliance {
     exports learn.brilliance;
     exports learn.brilliance.Controller;
     exports learn.brilliance.Controller.Admin;
+    exports learn.brilliance.Controller.Teacher;
     exports learn.brilliance.View;
     exports learn.brilliance.View.Enums;
     exports learn.brilliance.Model;
