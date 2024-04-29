@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import learn.brilliance.Controller.Admin.AdminController;
-import learn.brilliance.Controller.Admin.TeachersController;
 import learn.brilliance.Controller.Student.StudentController;
 import learn.brilliance.Controller.Teacher.TeacherController;
 import learn.brilliance.Model.courseRecords;
@@ -62,8 +61,8 @@ public class ViewFactory {
         if(dashboardView == null) {
             try {
                 dashboardView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Dashboard/Dashboard.fxml")).load();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException ex) {
+                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load admin dashboard.", ex);
             }
         }
         return dashboardView;
@@ -142,17 +141,20 @@ public class ViewFactory {
         if (settingsView == null) {
             try {
                 settingsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Settings.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load settings page", ex);
             }
         } return settingsView;
     }
 
     // Teacher Menu option getters
+    public ObjectProperty<TeacherMenuOptions> getTeacherSelectedMenuOption() {
+        return teacherSelectedMenuOption;
+    }
     public AnchorPane getTeachersOverviewView() {
         if (teachersOverviewView == null) {
             try {
-                teachersOverviewView = new FXMLLoader(getClass().getResource("Fxml/Teacher/Overview.fxml")).load();
+                teachersOverviewView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Overview.fxml")).load();
 
             } catch (IOException ex) {
                 Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Overview page.", ex);
@@ -175,7 +177,7 @@ public class ViewFactory {
     public AnchorPane getTeacherProfileView() {
         if (teacherProfileView == null) {
             try {
-                teacherProfileView = new FXMLLoader(getClass().getResource("Fxml/Teacher/Profile.fxml")).load();
+                teacherProfileView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Profile.fxml")).load();
 
             } catch (IOException ex) {
                 Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Profile page.", ex);
@@ -197,7 +199,7 @@ public class ViewFactory {
     public AnchorPane getTeacherSettingsView() {
         if (teacherSettingsView == null) {
             try {
-                teacherSettingsView = new FXMLLoader(getClass().getResource("Fxml/Teacher/Settings.fxml")).load();
+                teacherSettingsView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Settings.fxml")).load();
 
             } catch (IOException ex) {
                 Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Settings page.", ex);
@@ -243,8 +245,8 @@ public class ViewFactory {
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load scene", ex);
         }
         Stage stage = new Stage();
         stage.setScene(scene);

@@ -46,4 +46,5 @@ public abstract class Accounts {
     public StringProperty dobProperty() {
         return dob;
     }
+    public StringProperty passwordProperty() { return password; }
 }

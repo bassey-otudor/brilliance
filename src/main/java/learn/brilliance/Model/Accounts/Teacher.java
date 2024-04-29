@@ -3,7 +3,6 @@ package learn.brilliance.Model.Accounts;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import java.time.LocalDate;
 
 public class Teacher extends Accounts{
     public StringProperty teacherID;

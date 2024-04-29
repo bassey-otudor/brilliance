@@ -29,6 +29,11 @@
     -fx-font-family: "Segoe UI";
 }
 
+.label-text-field {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
 .label-teaching-start-date {
     -fx-font-family: "Times New Roman";
     -fx-font-size: 12px;

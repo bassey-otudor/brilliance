@@ -30,7 +30,9 @@ public class Model {
     public final TeachersController teachersController = new TeachersController();
 
     // Teacher variables
+    private final Teacher teacher;
     private boolean teacherLoginStatus;
+    private final ObservableList<CourseResults> courseResults;
 
     private Model() {
         this.viewFactory = new ViewFactory();
@@ -46,7 +48,13 @@ public class Model {
         this.degree = FXCollections.observableArrayList();
         this.minor = FXCollections.observableArrayList();
         this.students = FXCollections.observableArrayList();
+
+        // Teacher data
+        this.teacherLoginStatus = false;
+        this.teacher = new Teacher("", "", "", null, null, null, null, null , null, null, null, null, null);
+        this.courseResults = FXCollections.observableArrayList();
     }
+
     public static synchronized Model getInstance() {
         if(model == null) {
             model = new Model();
@@ -69,7 +77,6 @@ public class Model {
     public void setAdminLoginStatus(boolean adminLoginStatus) {
         this.adminLoginStatus = adminLoginStatus;
     }
-
     public void evaluateAdminLogin(String username, String password) {
         ResultSet resultSet = connectDB.getAdmin(username, password);
         try {
@@ -80,6 +87,9 @@ public class Model {
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public Teacher getTeacher() {
+        return teacher;
+    }
 
     // Teacher login control
     public boolean getTeacherLoginStatus() { return this.teacherLoginStatus; }
@@ -88,6 +98,20 @@ public class Model {
         ResultSet resultSet = connectDB.getTeacher(username, password);
         try {
             if(resultSet.isBeforeFirst()) {
+                this.teacher.teacherIDProperty().set(resultSet.getString("teacherID"));
+                this.teacher.firstNameProperty().set(resultSet.getString("fName"));
+                this.teacher.lastNameProperty().set(resultSet.getString("lName"));
+                this.teacher.genderProperty().set(resultSet.getString("gender"));
+                this.teacher.dobProperty().set(resultSet.getString("dob"));
+                this.teacher.phoneNumberProperty().set(resultSet.getString("phoneNum"));
+                this.teacher.emailProperty().set(resultSet.getString("email"));
+                this.teacher.passwordProperty().set(resultSet.getString("password"));
+                this.teacher.facultyIDProperty().set(resultSet.getString("facultyID"));
+                this.teacher.departmentIDProperty().set(resultSet.getString("deptID"));
+                this.teacher.firstCourseProperty().set(resultSet.getString("course1"));
+                this.teacher.secondCourseProperty().set(resultSet.getString("course2"));
+                this.teacher.positionProperty().set(resultSet.getString("position"));
+
                 this.teacherLoginStatus = true;
             }
 
@@ -121,9 +145,9 @@ public class Model {
                 facultiesList.add(facultyData);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to get faculty data");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return facultiesList;
     }
@@ -152,9 +176,9 @@ public class Model {
                 );
                 departmentList.add(departmentData);
             }
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to retrieve faculty data");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return departmentList;
     }
@@ -185,9 +209,9 @@ public class Model {
 
                 teacherList.add(teacherData);
             }
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to add teacher data into a list.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return  teacherList;
@@ -215,9 +239,9 @@ public class Model {
                 );
                 courseList.add(courseData);
             }
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to retrieve course data.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return courseList;
@@ -276,9 +300,9 @@ public class Model {
                 minorList.add(minorData);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to get minor data");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return minorList;
 
@@ -312,9 +336,9 @@ public class Model {
                 studentList.add(studentData);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to get student data.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return studentList;
     }

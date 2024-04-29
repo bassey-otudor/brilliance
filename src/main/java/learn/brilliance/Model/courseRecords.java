@@ -18,7 +18,7 @@ public class courseRecords {
             this.conn = DriverManager.getConnection(connURL, username, password);
 
         } catch (SQLException ex) {
-            Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to connect to the database", ex);
         }
     }
 

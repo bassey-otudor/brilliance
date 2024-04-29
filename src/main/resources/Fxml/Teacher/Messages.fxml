@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="learn.brilliance.Controller.Teacher.MessagesController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="learn.brilliance.Controller.Teacher.MessagesController">
+    <AnchorPane layoutX="373.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" styleClass="card-grey"
+                AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+                AnchorPane.topAnchor="5.0">
+        <Text layoutX="325.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coming Soon"
+              textAlignment="CENTER">
+            <font>
+                <Font size="58.0"/>
+            </font>
+        </Text>
+    </AnchorPane>
 </AnchorPane>

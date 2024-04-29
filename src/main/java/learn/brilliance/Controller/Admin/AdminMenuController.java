@@ -91,7 +91,6 @@ public class AdminMenuController implements Initializable {
     }
 
     private void sectionTitleSetter() {
-
             switch (Model.getInstance().getViewFactory().getAdminSelectedMenuOption().get()) {
                 case DASHBOARD -> admin_currentSection.setText("DASHBOARD");
                 case TEACHERS -> admin_currentSection.setText("TEACHERS");

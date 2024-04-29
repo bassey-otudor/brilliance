@@ -7,11 +7,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import learn.brilliance.Model.Model;
+import learn.brilliance.Model.connectDB;
 import learn.brilliance.View.Enums.AccountType;
 
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginController implements Initializable {
     public TextField loginID;
@@ -47,7 +50,7 @@ public class LoginController implements Initializable {
         acc_selector.valueProperty().addListener(observable -> setAcc_selector());
 
         loginBtn.setOnAction(e -> {
-            // Ensures that if account details are changes while the rememberMe checkbox is still checked, the new login id and or account type is saved.
+            // Ensures that if account details are changed while the rememberMe checkbox is still checked, the new login id and or account type is saved.
             if(rememberMe.isSelected()) {
                 setRememberMe();
                 onLogin();
@@ -99,10 +102,18 @@ public class LoginController implements Initializable {
                     errorLabel.setText("Invalid Credentials. Please try again.");
                 }
 
-            } else if (Model.getInstance().getViewFactory().getAccountType() == AccountType.STUDENT) {
-                Model.getInstance().getViewFactory().showStudentWindow();
+            } else if (Model.getInstance().getViewFactory().getAccountType() == AccountType.TEACHER) {
+                Model.getInstance().evaluateTeacherLogin(loginID.getText(), password.getText());
+                if(Model.getInstance().getTeacherLoginStatus()) {
+                    Model.getInstance().getViewFactory().closeStage(stage);
+                    Model.getInstance().getViewFactory().showTeacherWindow();
+
+                } else {
+                    errorLabel.setText("Wrong teacher ID or password. Please try again.");
+                }
+
             } else {
-                Model.getInstance().getViewFactory().showTeacherWindow();
+                Model.getInstance().getViewFactory().showLoginWindow();
             }
         }
     }
@@ -147,9 +158,9 @@ public class LoginController implements Initializable {
                     acc_selector.setValue(AccountType.STUDENT);
                 }
 
-            } catch (IOException e) {
+            } catch (IOException ex) {
                 System.out.println("File not found.");
-                e.printStackTrace();
+                Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
@@ -166,9 +177,9 @@ public class LoginController implements Initializable {
                     writer.close();
                 }
 
-            } catch (IOException e) {
+            } catch (IOException ex) {
                 System.out.println("Error creating file");
-                e.printStackTrace();
+                Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -192,9 +203,9 @@ public class LoginController implements Initializable {
                 writer.write(contents[0] + "-" + contents[1] + "-" + contents[2]);
                 writer.close();
 
-            } catch (Exception e) {
+            } catch (Exception ex) {
                 System.out.println("Error saving settings");
-                e.printStackTrace();
+                Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -206,8 +217,8 @@ public class LoginController implements Initializable {
             writer.write(String.valueOf(rememberMe.isSelected()));
             writer.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

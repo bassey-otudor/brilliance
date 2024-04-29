@@ -11,7 +11,7 @@
    <AnchorPane layoutX="3.0" layoutY="4.0" prefHeight="591.0" prefWidth="171.0" styleClass="menu-container">
       <VBox layoutX="36.0" layoutY="155.0" prefHeight="591.1942608289721" prefWidth="171.2805802401695" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <AnchorPane prefHeight="55.0" prefWidth="171.0">
-            <Label fx:id="teacher_section" layoutX="46.0" layoutY="8.0" styleClass="current-section" text="Overview" />
+            <Label fx:id="teacher_section" layoutX="38.0" layoutY="11.0" styleClass="current-section" text="OVERVIEW" textAlignment="CENTER" />
             <Separator layoutX="10.0" layoutY="40.0" prefWidth="150.0" />
          </AnchorPane>
          <AnchorPane prefHeight="474.0" prefWidth="171.0">
