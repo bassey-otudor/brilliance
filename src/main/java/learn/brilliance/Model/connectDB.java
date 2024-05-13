@@ -7,7 +7,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,7 +49,7 @@ public class connectDB {
 
     // Get the teacher's information
     public ResultSet getTeacher(String teacherID, String password) {
-        String getTeacher = "SELECT * FROM teacher WHERE teacherID=? AND password=?";
+        String getTeacher = "SELECT * FROM teachers WHERE teacherID=? AND password=?";
         ResultSet resultSet = null;
         try {
             preparedStatement = conn.prepareStatement(getTeacher);
@@ -766,11 +765,10 @@ public class connectDB {
         if (operation) {
             try {
 
-                String insertCourse = "UPDATE teachers SET ?=? WHERE teacherID =?;";
+                String insertCourse = "UPDATE teachers SET '"+columnName+"'=? WHERE teacherID =?;";
                 preparedStatement = conn.prepareStatement(insertCourse);
-                preparedStatement.setString(1, columnName);
-                preparedStatement.setString(2, courseID);
-                preparedStatement.setString(3, teacherID);
+                preparedStatement.setString(1, courseID);
+                preparedStatement.setString(2, teacherID);
                 preparedStatement.executeUpdate();
 
             } catch (SQLException ex) {
@@ -782,10 +780,9 @@ public class connectDB {
 
             try {
 
-                String deleteCourse = "UPDATE teachers SET  ?= null WHERE teacherID =?;";
+                String deleteCourse = "UPDATE teachers SET  '"+columnName+"'= null WHERE teacherID =?;";
                 preparedStatement = conn.prepareStatement(deleteCourse);
-                preparedStatement.setString(1, courseID);
-                preparedStatement.setString(2, teacherID);
+                preparedStatement.setString(1, teacherID);
                 preparedStatement.executeUpdate();
 
             } catch (SQLException ex) {
@@ -1004,7 +1001,7 @@ public class connectDB {
     }
 
     /**
-     * Minor section
+     * Minor page
      */
 
     public ResultSet getMinorData() {
@@ -1110,21 +1107,21 @@ public class connectDB {
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     public void updateMinor(String minorID, String minorName, String degreeID, String facultyID, String departmentID, String courseID, String courseNumber) {
-        String updateMinor = "UPDATE minors SET " +
-                "minorName = '"+minorName+"', degreeID = '"+degreeID+"', facultyID = '"+facultyID+"'," +
-                " departmentID = '"+departmentID+"', '"+courseNumber+"' = '"+courseID+"' WHERE minorID = '"+minorID+"';";
-
-        Statement stmt;
+        String updateMinor = "UPDATE minors SET minorName =?, degreeID =?, facultyID =?, departmentID =?, ?=? WHERE minorID =?;";
 
         try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(updateMinor);
-
-        } catch (SQLException e) {
+            preparedStatement = conn.prepareStatement(updateMinor);
+            preparedStatement.setString(1, minorName);
+            preparedStatement.setString(2, degreeID);
+            preparedStatement.setString(3, facultyID);
+            preparedStatement.setString(4, departmentID);
+            preparedStatement.setString(5, courseNumber);
+            preparedStatement.setString(6, courseID);
+            preparedStatement.setString(7, minorID);
+        } catch (SQLException ex) {
             System.out.println("Unable to update minor.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1134,49 +1131,52 @@ public class connectDB {
      * @param minorID The ID of the minor to delete.
      */
     public void deleteMinor(String minorID) {
-        String deleteMinor = "DELETE FROM minors WHERE minorID = '"+minorID+"'";
-        Statement stmt;
+        String deleteMinor = "DELETE FROM minors WHERE minorID =?";
         try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(deleteMinor);
+            preparedStatement = conn.prepareStatement(deleteMinor);
+            preparedStatement.setString(1, minorID);
+            preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to delete minor.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void insertMinorIntoDepartment(String minorNumber, String minorName, String departmentID, boolean operation) {
 
-        Statement stmt;
-
+        String insertMinor = "UPDATE departments SET ?=? WHERE deptID =?";
         if(operation) {
             try {
-                String insertMinor = "UPDATE departments SET '"+minorNumber+"' = '"+minorName+"' WHERE deptID = '"+departmentID+"'";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(insertMinor);
+                preparedStatement = conn.prepareStatement(insertMinor);
+                preparedStatement.setString(1, minorNumber);
+                preparedStatement.setString(2, minorName);
+                preparedStatement.setString(3, departmentID);
+                preparedStatement.executeUpdate();
 
-            } catch (SQLException e) {
+            } catch (SQLException ex) {
                 System.out.println("Unable to add minor to department.");
-                e.printStackTrace();
+                Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
 
             try {
-                String insertMinor = "UPDATE departments SET '"+minorNumber+"' = null WHERE deptID = '"+departmentID+"'";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(insertMinor);
+               preparedStatement = conn.prepareStatement(insertMinor);
+               preparedStatement.setString(1, minorNumber);
+               preparedStatement.setString(2, null);
+               preparedStatement.setString(3, departmentID);
+               preparedStatement.executeUpdate();
 
-            } catch (SQLException e) {
+            } catch (SQLException ex) {
                 System.out.println("Unable to add minor to department.");
-                e.printStackTrace();
+                Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
     }
 
-    // Student section
+    // Student page
 
     public ResultSet getStudentData() {
         Statement stmt;
@@ -1194,41 +1194,66 @@ public class connectDB {
     public void createStudent(String studentID, String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String password, String facultyID, String departmentID, String degreeID, String minorID, String level, String registrationDate) {
         String createStudent = "INSERT INTO students" +
                 "(studentID, firstName, lastName, gender, dob, phoneNumber, email, password, facultyID, departmentID, degreeID, minorID, level, registrationDate)" +
-                "VALUES ('"+studentID+"', '"+firstName+"', '"+lastName+"', '"+gender+"', '"+dob+"', '"+phoneNumber+"', '"+email+"', '"+password+"', '"+facultyID+"', '"+departmentID+"', '"+degreeID+"', '"+minorID+"', '"+level+"', '"+registrationDate+"')";
-        Statement stmt;
-        try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(createStudent);
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        } catch (SQLException e) {
+        try {
+            preparedStatement = conn.prepareStatement(createStudent);
+            preparedStatement.setString(1, studentID);
+            preparedStatement.setString(2, firstName);
+            preparedStatement.setString(3, lastName);
+            preparedStatement.setString(4, gender);
+            preparedStatement.setString(5, dob);
+            preparedStatement.setString(6, phoneNumber);
+            preparedStatement.setString(7, email);
+            preparedStatement.setString(8, password);
+            preparedStatement.setString(9, facultyID);
+            preparedStatement.setString(10, departmentID);
+            preparedStatement.setString(11, degreeID);
+            preparedStatement.setString(12, minorID);
+            preparedStatement.setString(13, level);
+            preparedStatement.setString(14, registrationDate);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
             System.out.println("Unable to create student.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void updateStudent(String studentID, String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String facultyID, String departmentID, String degreeID, String minorID, String level) {
-        String updateStudent = "UPDATE students SET firstName = '"+firstName+"', lastName = '"+lastName+"', gender = '"+gender+"', dob = '"+dob+"', phoneNumber = '"+phoneNumber+"', email = '"+email+"', facultyID = '"+facultyID+"', departmentID = '"+departmentID+"', degreeID = '"+degreeID+"', minorID = '"+minorID+"', level = '"+level+"' WHERE studentID = '"+studentID+"';";
-        Statement stmt;
+        String updateStudent = "UPDATE students SET firstName =?, lastName =?, gender =?, dob =?, phoneNumber =?, email =?, facultyID =?, departmentID =?, degreeID =?, minorID =?, level =? WHERE studentID =?;";
 
         try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(updateStudent);
+            preparedStatement = conn.prepareStatement(updateStudent);
+            preparedStatement.setString(1, firstName);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setString(3, gender);
+            preparedStatement.setString(4, dob);
+            preparedStatement.setString(5, phoneNumber);
+            preparedStatement.setString(6, email);
+            preparedStatement.setString(7, facultyID);
+            preparedStatement.setString(8, departmentID);
+            preparedStatement.setString(9, degreeID);
+            preparedStatement.setString(10, minorID);
+            preparedStatement.setString(11, level);
+            preparedStatement.setString(12, studentID);
+            preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to update student.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void deleteStudent(String studentID) {
-        String deleteStudent = "DELETE FROM students WHERE studentID = '"+studentID+"';";
-        Statement stmt;
+        String deleteStudent = "DELETE FROM students WHERE studentID =?;";
 
         try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(deleteStudent);
+            preparedStatement = conn.prepareStatement(deleteStudent);
+            preparedStatement.setString(1, studentID);
+            preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to delete student.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public int getStudentRowCount() {
@@ -1254,22 +1279,22 @@ public class connectDB {
 
     public ObservableList<String> getDegreeMinors(String degreeID) {
         List<String> minorList = new ArrayList<>();
-        String getMinor = "SELECT * FROM minors WHERE degreeID = '"+degreeID+"' ORDER BY minorID ASC;";
+        String getMinor = "SELECT * FROM minors WHERE degreeID =? ORDER BY minorID ASC;";
 
-        Statement stmt;
         ResultSet resultSet;
 
         try {
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(getMinor);
+            preparedStatement = conn.prepareStatement(getMinor);
+            preparedStatement.setString(1, degreeID);
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 minorList.add(resultSet.getString("minorID"));
             }
             minorList = FXCollections.observableArrayList(minorList);
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to get degree minors.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return FXCollections.observableArrayList(minorList);
     }
@@ -1282,27 +1307,34 @@ public class connectDB {
      * @param tableName The name of the table to search in.
      * @param idColumn The name of the column that contains the unique ID of the entity.
      * @param entityID The unique ID of the entity to check.
-     * @param columnName The name of the column that contains the name of the entity.
-     * @param entityName The name of the entity to check.
      * @return A boolean value indicating whether the entity exists or not.
      */
-    public boolean checkData(String tableName, String idColumn, String entityID, String columnName, String entityName) {
+    public boolean checkData(String tableName, String idColumn, String entityID) {
 
         boolean doesExists = false;
-        String checkCourse = "SELECT * FROM "+tableName+" WHERE "+idColumn+" = '"+entityID+"' OR '"+columnName+"' = '"+entityName+"';";
+        String odd = "SELECT * FROM '"+tableName+"' WHERE '"+idColumn+"' = '"+entityID+"'";
+        // String checkData = "SELECT * FROM ? WHERE ? = ?;";
         Statement stmt;
         ResultSet resultSet;
 
         try {
             stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(checkCourse);
-            while (resultSet.next()) {
+            resultSet = stmt.executeQuery(odd);
+            /*preparedStatement = conn.prepareStatement(checkData);
+            preparedStatement.setString(1, tableName);
+            preparedStatement.setString(2, idColumn);
+            preparedStatement.setString(3, entityID);
+*/
+            resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.isBeforeFirst()) {
                 doesExists = true;
+
             }
 
-        } catch (SQLException e) {
-            System.out.println("Unable to verify if course exists.");
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            System.out.println("Unable to verify if "+entityID+" exists.");
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return doesExists;
@@ -1367,21 +1399,21 @@ public class connectDB {
     public ObservableList<String> getFacultyDepartments(String facultyID) {
         List<String> departmentList = new ArrayList<>();
 
-        String selectDepartments = "SELECT deptID FROM departments WHERE facultyID = '"+facultyID+"' ORDER BY deptID ASC;";
-        Statement stmt;
+        String selectDepartments = "SELECT deptID FROM departments WHERE facultyID =? ORDER BY deptID ASC;";
         ResultSet resultSet;
 
         try {
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(selectDepartments);
+            preparedStatement = conn.prepareStatement(selectDepartments);
+            preparedStatement.setString(1, facultyID);
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 departmentList.add(resultSet.getString("deptID"));
             }
             departmentList = FXCollections.observableArrayList(departmentList);
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to retrieve departments.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return FXCollections.observableArrayList(departmentList);
@@ -1396,21 +1428,21 @@ public class connectDB {
     public ObservableList<String> getDepartmentCourses(String departmentID) {
         List<String> courseList = new ArrayList<>();
 
-        String selectCourses = "SELECT courseID FROM courses WHERE deptID = '"+departmentID+"' ORDER BY courseID ASC ;";
-        Statement stmt;
+        String selectCourses = "SELECT courseID FROM courses WHERE deptID =? ORDER BY courseID ASC ;";
         ResultSet resultSet;
 
         try {
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(selectCourses);
+            preparedStatement = conn.prepareStatement(selectCourses);
+            preparedStatement.setString(1, departmentID);
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 courseList.add(resultSet.getString("courseID"));
             }
             courseList = FXCollections.observableArrayList(courseList);
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to retrieve courses.");
-            e.printStackTrace();
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return FXCollections.observableArrayList(courseList);
@@ -1547,36 +1579,33 @@ public class connectDB {
      */
 
     // Update teacher contact information
-    public void updateContactInfo(String teacherID, String phoneNumber, String email, String option) {
-        String updateContactInfo = "UPDATE teachers SET phoneNum = ?, email = ?, option = ? WHERE teacherID = ?";
+    public void updateContactInfo(String teacherID, String phoneNumber, String email) {
+        String updateContactInfo = "UPDATE teachers SET phoneNum = ?, email = ? WHERE teacherID = ?";
 
         try {
             preparedStatement = conn.prepareStatement(updateContactInfo);
-
-            if(Objects.equals(option, "1")) { // both fields are filled
-                preparedStatement.setString(1, phoneNumber);
-                preparedStatement.setString(2, email);
-                preparedStatement.setString(3, teacherID);
-                preparedStatement.executeUpdate(updateContactInfo);
-
-            } else if (Objects.equals(option, "2")) { // only phone field is filled
-                preparedStatement.setString(1, phoneNumber);
-                preparedStatement.setString(2, null);
-                preparedStatement.setString(3, teacherID);
-                preparedStatement.executeUpdate(updateContactInfo);
-
-            } else if (Objects.equals(option, "3")) { // only the email field is filled
-                preparedStatement.setString(1, null);
-                preparedStatement.setString(2, email);
-                preparedStatement.setString(3, teacherID);
-                preparedStatement.executeUpdate(updateContactInfo);
-
-            }
+            preparedStatement.setString(1,phoneNumber);
+            preparedStatement.setString(2,email);
+            preparedStatement.setString(3,teacherID);
+            preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
             System.out.println("Unable to update teacher contact info");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    public void teacherChangePassword(String teacherID, String password) {
+        String changePassword = "UPDATE teachers SET password = ? WHERE teacherID = ?";
+        try {
+            preparedStatement = conn.prepareStatement(changePassword);
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, teacherID);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Unable to change password");
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

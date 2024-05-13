@@ -1,9 +1,12 @@
 package learn.brilliance.Controller.Admin;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 import learn.brilliance.Model.Faculty;
 import learn.brilliance.Model.Model;
 
@@ -96,7 +99,7 @@ public class FacultiesController implements Initializable {
         String department2ID = faculty_dept2ID.getText().toUpperCase();
         String department3ID = faculty_dept3ID.getText().toUpperCase();
 
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID, columnName, facultyName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID);
 
         try {
 
@@ -131,8 +134,7 @@ public class FacultiesController implements Initializable {
 
                     // Update faculty table
                     faculty_tableView.setItems(Model.getInstance().setAllFaculties());
-                    // Update departments table
-                    // dept_tableView.setItems(Model.getInstance().setDepartments());
+                    updateFacultiesTable();
 
                     clearFields();
                 }
@@ -151,7 +153,7 @@ public class FacultiesController implements Initializable {
         String department1 = faculty_dept1.getText().toUpperCase();
         String department2 = faculty_dept2.getText().toUpperCase();
         String department3 = faculty_dept3.getText().toUpperCase();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID, columnName, facultyName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID);
 
         if (facultyID.isEmpty() || facultyName.isEmpty() || facultyDirector.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
@@ -176,7 +178,7 @@ public class FacultiesController implements Initializable {
     private void deleteFaculty() {
         String facultyID = faculty_facID.getText().toUpperCase();
         String facultyName = faculty_facName.getText();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID, columnName, facultyName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID);
 
         if(facultyID.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
@@ -190,6 +192,13 @@ public class FacultiesController implements Initializable {
             clearFields();
             faculty_tableView.setItems(Model.getInstance().setAllFaculties());
         }
+    }
+    private void updateFacultiesTable() {  // Update courses table
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4), event -> { // keyFrame with a 4 seconds trigger
+            faculty_tableView.setItems(Model.getInstance().setAllFaculties());
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE); // repeats indefinitely
+        timeline.playFromStart();
     }
 
     /**

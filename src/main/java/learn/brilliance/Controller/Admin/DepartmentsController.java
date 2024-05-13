@@ -1,9 +1,12 @@
 package learn.brilliance.Controller.Admin;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 import learn.brilliance.Model.Accounts.Teacher;
 import learn.brilliance.Model.Department;
 import learn.brilliance.Model.Model;
@@ -123,7 +126,7 @@ public class DepartmentsController implements Initializable {
         String hod = dept_hod.getValue();
         String minor1 = dept_minor1.getValue();
         String minor2 = dept_minor2.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID, columnName, departmentName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID);
 
         try {
 
@@ -166,8 +169,7 @@ public class DepartmentsController implements Initializable {
 
                         // Update departments table
                         dept_tableView.setItems(Model.getInstance().setAllDepartments());
-                        //Update faculty table
-                        // faculty_tableView.setItems(Model.getInstance().setFaculties());
+                        updateDepartmentsTable();
                         clearFields();
                     }
                 }
@@ -185,7 +187,7 @@ public class DepartmentsController implements Initializable {
         String hod = dept_hod.getSelectionModel().getSelectedItem();
         String minor1 = dept_minor1.getSelectionModel().getSelectedItem();
         String minor2 = dept_minor2.getSelectionModel().getSelectedItem();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID, columnName, departmentName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID);
 
         if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty() || hod.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
@@ -214,7 +216,7 @@ public class DepartmentsController implements Initializable {
         String departmentID = dept_deptID.getText();
         String departmentName = dept_deptName.getText();
         String facultyID = dept_faculty.getSelectionModel().toString();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID, columnName, departmentName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID);
 
         if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
@@ -236,6 +238,13 @@ public class DepartmentsController implements Initializable {
                 operationStatus.setText("Department does not exist.");
             }
         }
+    }
+    private void updateDepartmentsTable() {  // Update courses table
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4), event -> { // keyFrame with a 4 seconds trigger
+            dept_tableView.setItems(Model.getInstance().setAllDepartments());
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE); // repeats indefinitely
+        timeline.playFromStart();
     }
     private void clearFields() {
         dept_deptID.setText(null);

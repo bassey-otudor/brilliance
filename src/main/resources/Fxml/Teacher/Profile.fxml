@@ -30,20 +30,19 @@
             <TextField fx:id="profile_teacherID" disable="true" layoutX="28.0" layoutY="97.0" prefHeight="29.0" prefWidth="356.0" promptText="Teacher ID" />
             <TextField fx:id="profile_email" layoutX="28.0" layoutY="314.0" prefHeight="29.0" prefWidth="376.0" promptText="E-mail" />
             <TextField fx:id="profile_phoneNumber" layoutX="28.0" layoutY="379.0" prefHeight="29.0" prefWidth="173.0" promptText="Phone Number" />
-            <PasswordField fx:id="profile_currentPassword" layoutX="31.0" layoutY="466.0" prefHeight="29.0" prefWidth="173.0" promptText="Current Password" />
-            <DatePicker fx:id="profile_dob" layoutX="221.0" layoutY="213.0" prefHeight="29.0" prefWidth="161.0" promptText="Date of Birth" />
+            <PasswordField fx:id="profile_confirmCurrentPassword" layoutX="31.0" layoutY="466.0" prefHeight="29.0" prefWidth="173.0" promptText="Current Password" />
+            <DatePicker fx:id="profile_dob" disable="true" layoutX="221.0" layoutY="213.0" prefHeight="29.0" prefWidth="161.0" promptText="Date of Birth" />
             <TextField fx:id="profile_gender" disable="true" layoutX="29.0" layoutY="212.0" prefHeight="29.0" prefWidth="173.0" promptText="Gender" />
-            <Label layoutX="31.0" layoutY="271.0" prefHeight="15.0" prefWidth="161.0" styleClass="label-text-field" text="Contact Information" />
+            <Label layoutX="31.0" layoutY="271.0" prefHeight="17.0" prefWidth="136.0" styleClass="label-text-field" text="Contact Information" />
             <Button fx:id="profile_contactInfoSaveBtn" layoutX="419.0" layoutY="377.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="72.0" styleClass="button-update" text="Save" />
             <Line endX="365.568359375" layoutX="132.0" layoutY="257.0" startX="-100.0" stroke="#40c5cf" strokeWidth="2.0" />
             <Line endX="365.568359375" layoutX="128.0" layoutY="423.0" startX="-100.0" stroke="#40c5cf" strokeWidth="2.0" />
             <Line endX="365.568359375" layoutX="127.0" layoutY="41.0" startX="-100.0" stroke="#40c5cf" strokeWidth="2.0" />
-            <Label layoutX="31.0" layoutY="434.0" prefHeight="17.0" prefWidth="147.0" styleClass="label-text-field" text="Security Information" />
+            <Label layoutX="31.0" layoutY="434.0" prefHeight="17.0" prefWidth="136.0" styleClass="label-text-field" text="Security Information" />
             <PasswordField fx:id="profile_newPassword" layoutX="229.0" layoutY="466.0" prefHeight="29.0" prefWidth="173.0" promptText="New Password" />
             <Button fx:id="profile_changePasswordBtn" layoutX="419.0" layoutY="466.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="72.0" styleClass="button-update" text="Save" />
-            <FontAwesomeIconView fx:id="profile_personalInfoSaveIcon" fill="#2fd168" glyphName="CHECK" layoutX="180.0" layoutY="61.0" size="14" visible="false" />
-            <FontAwesomeIconView fx:id="profile_contactInfoSaveIcon" fill="#2fd168" glyphName="CHECK" layoutX="181.0" layoutY="236.0" size="14" visible="false" />
-            <FontAwesomeIconView fx:id="profile_changePasswordIcon" fill="#2fd168" glyphName="CHECK" layoutX="184.0" layoutY="368.0" size="14" visible="false" />
+            <FontAwesomeIconView fx:id="profile_contactInfoSaveIcon" fill="#2fd168" glyphName="CHECK" layoutX="181.0" layoutY="286.0" size="14" visible="false" />
+            <FontAwesomeIconView fx:id="profile_changePasswordIcon" fill="#2fd168" glyphName="CHECK" layoutX="184.0" layoutY="449.0" size="14" smooth="false" visible="false" />
             <TextField fx:id="profile_teacherFaculty" disable="true" layoutX="669.0" layoutY="72.0" promptText="Faculty" />
             <TextField fx:id="profile_teacherDepartment" disable="true" layoutX="669.0" layoutY="151.0" promptText="Department" />
             <TextField fx:id="profile_teacherFirstCourse" disable="true" layoutX="669.0" layoutY="228.0" promptText="1st. Course" />
@@ -60,7 +59,6 @@
             <Label layoutX="38.0" layoutY="295.0" text="E-mail" />
             <Label layoutX="36.0" layoutY="356.0" prefHeight="15.0" prefWidth="85.0" text="Phone Number" />
          </AnchorPane>
-         <Label text="Label" />
       </AnchorPane>
    </HBox>
 </AnchorPane>

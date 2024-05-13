@@ -1,9 +1,12 @@
 package learn.brilliance.Controller.Admin;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 import learn.brilliance.Model.Minor;
 import learn.brilliance.Model.Model;
 import org.apache.commons.lang3.StringUtils;
@@ -76,6 +79,7 @@ public class MinorsController implements Initializable {
         initialiseMinorTable();
         bindMinorsTableData();
         minor_tableView.setItems(Model.getInstance().setAllMinors());
+        updateMinorsTable();
         searchMinor();
         selectMinor();
         filterMinor();
@@ -90,7 +94,7 @@ public class MinorsController implements Initializable {
         String courseID = minor_courseID.getValue();
         String courseNumber = minor_courseNumber.getValue();
         String minorNumber = minor_number.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID, columnName, minorName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID);
 
         if(minorID == null || minorName == null || facultyID == null || departmentID == null || degreeID == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em; -fx-font-weight: bold");
@@ -119,7 +123,7 @@ public class MinorsController implements Initializable {
         String courseID = minor_courseID.getValue();
         String courseNumber = minor_courseNumber.getValue();
         String minorNumber = minor_number.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID, columnName, minorName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID);
 
         if(minorID == null || minorName == null || facultyID == null || departmentID == null || degreeID == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;  -fx-font-weight: bold");
@@ -144,7 +148,7 @@ public class MinorsController implements Initializable {
         String minorName = minor_minorName.getText();
         String departmentID = minor_departmentID.getValue();
         String minorNumber = minor_number.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID, columnName, minorName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID);
 
         if(minorID == null || minorName == null || departmentID == null || minorNumber == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;  -fx-font-weight: bold");
@@ -164,6 +168,14 @@ public class MinorsController implements Initializable {
                 operationStatus.setText("Minor not found.");
             }
         }
+    }
+
+    private void updateMinorsTable() {  // Update courses table
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4), event -> { // keyFrame with a 4 seconds trigger
+            minor_tableView.setItems(Model.getInstance().setAllMinors());
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE); // repeats indefinitely
+        timeline.playFromStart();
     }
     private void clearFields() {
         minor_minorID.setText(null);

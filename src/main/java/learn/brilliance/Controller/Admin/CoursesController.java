@@ -1,20 +1,23 @@
 package learn.brilliance.Controller.Admin;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 import learn.brilliance.Model.Course;
 import learn.brilliance.Model.Model;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CoursesController implements Initializable {
-
-    private final String idColumn = "courseID";
     private final String tableName = "courses";
-    private final String columnName = "courseName";
+    private final String idColumn = "courseID";
     public TextField course_searchField;
     public ComboBox<String> course_filterBy;
     public ComboBox<String> course_filterOptions;
@@ -74,6 +77,7 @@ public class CoursesController implements Initializable {
         initialiseCoursesTable();
         bindCoursesTableData();
         course_tableView.setItems(Model.getInstance().setAllCourses());
+        updateCoursesTable();
         course_tableView.setOnMouseClicked(e -> selectCourses());
         searchCourses();
         selectCourses();
@@ -125,7 +129,7 @@ public class CoursesController implements Initializable {
         String facultyID = course_faculty.getValue();
         String creditValue = course_creditValue.getValue();
         boolean operation = true;
-        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID, columnName, courseName);
+        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID);
         String coursePosition = course_firstSecond.getValue();
 
         try {
@@ -143,7 +147,7 @@ public class CoursesController implements Initializable {
 
                 } else {
 
-                    if (coursePosition.length() > 0){
+                    if (!coursePosition.isEmpty()){
                         Model.getInstance().getConnectDB().insertCoursesInTeacher(coursePosition, teacherID, courseID, operation);
                     }
 
@@ -155,15 +159,15 @@ public class CoursesController implements Initializable {
                     course_tableView.setItems(Model.getInstance().setAllCourses());
                     // Update the teacher table with new info
                     Model.getInstance().teachersController.initialiseTeachersTable();
-                    Model.getInstance().teachersController.teach_tableView.setItems(Model.getInstance().setAllTeachers());
+
                     // Clear entries
                     clearFields();
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
 
             System.out.println("Unable to execute create course from controller.");
-            e.printStackTrace();
+            Logger.getLogger(ModuleLayer.Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     private void updateCourse() {
@@ -178,7 +182,7 @@ public class CoursesController implements Initializable {
         String creditValue = course_creditValue.getValue();
         String coursePosition = course_firstSecond.getValue();
         boolean operation = true;
-        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID, columnName, courseName);
+        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID);
 
         try {
             if (courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || teacherID.isEmpty() || creditValue.isEmpty() ||facultyID.isEmpty()) {
@@ -189,7 +193,7 @@ public class CoursesController implements Initializable {
 
                 if (doesExists) {
 
-                    if (coursePosition.length() > 0) {
+                    if (!coursePosition.isEmpty()) {
                         Model.getInstance().getConnectDB().insertCoursesInTeacher(coursePosition, teacherID, courseID, operation);
 
                     }
@@ -209,22 +213,21 @@ public class CoursesController implements Initializable {
                     operationStatus.setText("Course does not exist..");
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             System.out.println("Unable to update course from controller.");
-            e.printStackTrace();
+            Logger.getLogger(CoursesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     private void deleteCourse() {
 
-        String courseID = course_courseID.getText().toUpperCase();
-        String courseName = course_courseName.getText();
+        String courseID = course_courseID.getText();
         String teacherID = course_teacherID.getText();
         String coursePosition = course_firstSecond.getValue();
         boolean operation = false;
-        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn,courseID, columnName, courseName);
+        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn,courseID);
 
         try {
-            if (courseID.isEmpty() || teacherID.isEmpty() || coursePosition.length() == 0) {
+            if (courseID.isEmpty() || teacherID.isEmpty() || coursePosition.isEmpty()) {
                 course_courseID.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 course_teacher.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 course_firstSecond.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
@@ -232,11 +235,7 @@ public class CoursesController implements Initializable {
 
             } else {
 
-                if (!doesExists) {
-                    course_courseID.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
-                    operationStatus.setText("Course not found.");
-
-                } else {
+                if (doesExists) {
                     Model.getInstance().getConnectDB().insertCoursesInTeacher(coursePosition, teacherID, courseID, operation);
                     Model.getInstance().getConnectDB().deleteCourse(courseID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
@@ -245,23 +244,28 @@ public class CoursesController implements Initializable {
                     // Update the course table with new info
                     course_tableView.setItems(Model.getInstance().setAllCourses());
 
+                    // Update the teacher table with new info
+
                     // Clear entries
                     clearFields();
+
+                } else {
+                    System.out.println(courseID);
+                    course_courseID.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                    operationStatus.setText("Course not found.");
+
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             System.out.println("Unable to delete course from controller.");
-            e.printStackTrace();
+            Logger.getLogger(CoursesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     private String getTeacherID(String teacherName) {
 
         String teacherID = null;
 
-        if (teacherName == null) {
-            // Do nothing
-        } else {
+        if (teacherName != null) {
             String[] names = teacherName.split(" ");
 
             if (names.length == 2) {
@@ -274,7 +278,13 @@ public class CoursesController implements Initializable {
         }
         return teacherID;
     }
-
+    private void updateCoursesTable() {  // Update courses table
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4), event -> { // keyFrame with a 4 seconds trigger
+            course_tableView.setItems(Model.getInstance().setAllCourses());
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE); // repeats indefinitely
+        timeline.playFromStart();
+    }
     private void clearFields() {
         course_courseID.setText(null);
         course_courseName.setText(null);
@@ -287,7 +297,7 @@ public class CoursesController implements Initializable {
         course_firstSecond.setValue(null);
         course_firstSecond.setDisable(true);
     }
-    private void initialiseCoursesTable() {
+    public void initialiseCoursesTable() {
         if(Model.getInstance().getAllCourses().isEmpty()) {
             Model.getInstance().setAllCourses();
         }

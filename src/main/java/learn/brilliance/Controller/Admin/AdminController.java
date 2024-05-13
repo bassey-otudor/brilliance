@@ -24,6 +24,7 @@ public class AdminController implements Initializable {
                 case MINORS -> admin_parent.setCenter(Model.getInstance().getViewFactory().getMinorsView());
                 default -> admin_parent.setCenter(Model.getInstance().getViewFactory().getSettingsView());
             }
+
         });
     }
 }

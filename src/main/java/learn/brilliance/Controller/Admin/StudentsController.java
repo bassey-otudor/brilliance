@@ -1,11 +1,15 @@
 package learn.brilliance.Controller.Admin;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 import learn.brilliance.Model.Accounts.Student;
 import learn.brilliance.Model.Model;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -14,7 +18,22 @@ import java.util.ResourceBundle;
 public class StudentsController implements Initializable {
     private final String tableName = "students";
     private final String idColumn = "studentID";
-    private final String columnName = "firstName";
+
+    String studentID;
+    String firstName;
+    String lastName;
+    String gender;
+    String dob;
+    String phoneNumber;
+    String email;
+    String password;
+    String facultyID;
+    String departmentID;
+    String degreeID;
+    String minorID;
+    String level;
+    String registrationDate = String.valueOf(LocalDate.now());
+
     public TextField stud_searchField;
     public ComboBox<String> stud_filterBy;
     public ComboBox<String> stud_filterOptions;
@@ -82,6 +101,7 @@ public class StudentsController implements Initializable {
         initialiseStudentTable();
         bindStudentTableData();
         stud_tableView.setItems(Model.getInstance().setAllStudents());
+        updateStudentsTable();
         stud_tableView.setOnMouseClicked(e -> selectStudent());
         searchStudents();
         selectStudent();
@@ -160,21 +180,22 @@ public class StudentsController implements Initializable {
         });
     }
     private void createStudent()   {
-        String studentID = stud_studentID.getText();
-        String firstName = stud_fName.getText();
-        String lastName = stud_lName.getText();
-        String gender = stud_gender.getValue();
-        String dob = String.valueOf(stud_dob.getValue());
-        String phoneNumber = stud_phoneNumber.getText();
-        String email = stud_email.getText();
-        String password = stud_password.getText();
-        String facultyID = stud_faculty.getValue();
-        String departmentID = stud_department.getValue();
-        String degreeID = stud_degree.getValue();
-        String minorID = stud_minor.getValue();
-        String level = stud_level.getValue();
-        String registrationDate = String.valueOf(LocalDate.now());
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, studentID, columnName,null);
+        studentID = stud_studentID.getText();
+        firstName = stud_fName.getText();
+        lastName = stud_lName.getText();
+        gender = stud_gender.getValue();
+        dob = String.valueOf(stud_dob.getValue());
+        phoneNumber = stud_phoneNumber.getText();
+        email = stud_email.getText();
+        password = stud_password.getText();
+        facultyID = stud_faculty.getValue();
+        departmentID = stud_department.getValue();
+        degreeID = stud_degree.getValue();
+        minorID = stud_minor.getValue();
+        level = stud_level.getValue();
+        registrationDate = String.valueOf(LocalDate.now());
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, studentID);
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         if((studentID == null || studentID.isEmpty()) ||
                 (firstName == null || firstName.isEmpty()) ||
@@ -200,7 +221,7 @@ public class StudentsController implements Initializable {
                 operationStatus.setText("Student already exists.");
 
             } else {
-                Model.getInstance().getConnectDB().createStudent(studentID, firstName, lastName, gender, dob, phoneNumber, email, password, facultyID, departmentID, degreeID, minorID, level, registrationDate);
+                Model.getInstance().getConnectDB().createStudent(studentID, firstName, lastName, gender, dob, phoneNumber, email, hashedPassword, facultyID, departmentID, degreeID, minorID, level, registrationDate);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em; -fx-font-weight: bold");
                 operationStatus.setText("Student created successfully.");
                 stud_tableView.setItems(Model.getInstance().setAllStudents());
@@ -209,19 +230,19 @@ public class StudentsController implements Initializable {
         }
     }
     private void updateStudent() {
-        String studentID = stud_studentID.getText();
-        String firstName = stud_fName.getText();
-        String lastName = stud_lName.getText();
-        String gender = stud_gender.getValue();
-        String dob = String.valueOf(stud_dob.getValue());
-        String phoneNumber = stud_phoneNumber.getText();
-        String email = stud_email.getText();
-        String facultyID = stud_faculty.getValue();
-        String departmentID = stud_department.getValue();
-        String degreeID = stud_degree.getValue();
-        String minorID = stud_minor.getValue();
-        String level = stud_level.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, studentID, columnName,null);
+        studentID = stud_studentID.getText();
+        firstName = stud_fName.getText();
+        lastName = stud_lName.getText();
+        gender = stud_gender.getValue();
+        dob = String.valueOf(stud_dob.getValue());
+        phoneNumber = stud_phoneNumber.getText();
+        email = stud_email.getText();
+        facultyID = stud_faculty.getValue();
+        departmentID = stud_department.getValue();
+        degreeID = stud_degree.getValue();
+        minorID = stud_minor.getValue();
+        level = stud_level.getValue();
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, studentID);
 
         if((studentID == null || studentID.isEmpty()) ||
                 (firstName == null || firstName.isEmpty()) ||
@@ -256,8 +277,8 @@ public class StudentsController implements Initializable {
         }
     }
     private void deleteStudent() {
-        String studentID = stud_studentID.getText();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, studentID, columnName, null);
+        studentID = stud_studentID.getText();
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, studentID);
 
         if(studentID == null || studentID.isEmpty()) {
             stud_studentID.setStyle("-fx-border-color: #EC6666;");
@@ -279,6 +300,13 @@ public class StudentsController implements Initializable {
             }
         }
     }
+    private void updateStudentsTable() {  // Update courses table
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4), event -> { // keyFrame with a 4 seconds trigger
+            stud_tableView.setItems(Model.getInstance().setAllStudents());
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE); // repeats indefinitely
+        timeline.playFromStart();
+    }
     private void clearFields() {
         stud_studentID.setText(null);
         stud_fName.setText(null);
@@ -293,7 +321,7 @@ public class StudentsController implements Initializable {
         stud_degree.setValue(null);
         stud_minor.setValue(null);
     }
-    private void initialiseStudentTable() {
+    public void initialiseStudentTable() {
         if(Model.getInstance().getAllStudents().isEmpty()) {
             Model.getInstance().setAllStudents();
         }

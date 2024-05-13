@@ -308,6 +308,7 @@ public class Model {
 
     }
 
+    // Students
     public ObservableList<Student> getAllStudents() { return students; }
     public ObservableList<Student> setAllStudents() {
         ResultSet resultSet = Model.getInstance().connectDB.getStudentData();

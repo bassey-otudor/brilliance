@@ -2,7 +2,6 @@ package learn.brilliance.View;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableObjectValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -62,7 +61,7 @@ public class ViewFactory {
             try {
                 dashboardView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Dashboard/Dashboard.fxml")).load();
             } catch (IOException ex) {
-                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load admin dashboard.", ex);
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load admin dashboard.", ex);
             }
         }
         return dashboardView;
@@ -71,8 +70,9 @@ public class ViewFactory {
         if(teachersView == null) {
             try {
                 teachersView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Teachers.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
+
+            } catch (Exception ex) {
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load teachers view", ex);
             }
         }
         return teachersView;
@@ -81,8 +81,8 @@ public class ViewFactory {
         if (studentsView == null) {
           try {
               studentsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Students.fxml")).load();
-          } catch (IOException e) {
-              e.printStackTrace();
+          } catch (IOException ex) {
+              Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load students view", ex);
           }
         }
         return studentsView;
@@ -91,8 +91,8 @@ public class ViewFactory {
         if(departmentView == null) {
             try {
                 departmentView = new FXMLLoader(getClass().getResource("/Fxml/Admin/departments.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load departments view", ex);
             }
         }
         return departmentView;
@@ -101,8 +101,8 @@ public class ViewFactory {
         if (facultiesView == null) {
             try {
                 facultiesView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Faculties.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load faculties view", ex);
             }
         }
         return facultiesView;
@@ -111,8 +111,8 @@ public class ViewFactory {
         if (coursesView == null) {
             try {
                 coursesView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Courses.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load courses view", ex);
             }
         }
         return coursesView;
@@ -121,8 +121,8 @@ public class ViewFactory {
         if (degreesView == null) {
             try {
                 degreesView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Degrees.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load degrees view", ex);
             }
         }
         return degreesView;
@@ -131,8 +131,8 @@ public class ViewFactory {
         if (minorsView == null) {
             try {
                 minorsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Minors.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load minors view", ex);
             }
         }
         return minorsView;
@@ -142,7 +142,7 @@ public class ViewFactory {
             try {
                 settingsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Settings.fxml")).load();
             } catch (Exception ex) {
-                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load settings page", ex);
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load settings page", ex);
             }
         } return settingsView;
     }
@@ -157,7 +157,7 @@ public class ViewFactory {
                 teachersOverviewView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Overview.fxml")).load();
 
             } catch (IOException ex) {
-                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Overview page.", ex);
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load teacher Overview page.", ex);
             }
         }
 
@@ -169,7 +169,7 @@ public class ViewFactory {
                 teacherCoursesView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Courses.fxml")).load();
 
             } catch (IOException ex) {
-                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Courses page.", ex);
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load teacher Courses page.", ex);
             }
         }
         return teacherCoursesView;
@@ -180,7 +180,7 @@ public class ViewFactory {
                 teacherProfileView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Profile.fxml")).load();
 
             } catch (IOException ex) {
-                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Profile page.", ex);
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load teacher Profile page.", ex);
             }
         }
         return teacherProfileView;
@@ -191,7 +191,7 @@ public class ViewFactory {
                 teacherMessagesView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Messages.fxml")).load();
 
             } catch (IOException ex) {
-                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Messages page.", ex);
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load teacher Messages page.", ex);
             }
         }
         return teacherMessagesView;
@@ -202,7 +202,7 @@ public class ViewFactory {
                 teacherSettingsView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Settings.fxml")).load();
 
             } catch (IOException ex) {
-                Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load teacher Settings page.", ex);
+                Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load teacher Settings page.", ex);
             }
         }
         return teacherSettingsView;

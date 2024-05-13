@@ -3,9 +3,7 @@ package learn.brilliance.Controller.Admin;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import learn.brilliance.Model.Department;
 import learn.brilliance.Model.Model;
 import learn.brilliance.View.Enums.AdminMenuOptions;
 
@@ -13,8 +11,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AdminMenuController implements Initializable {
-
-    private TableView<Department> departmentTableView;
     public Label admin_currentSection;
     public Button admin_dashboardBtn;
     public Button admin_teachersBtn;
@@ -42,8 +38,8 @@ public class AdminMenuController implements Initializable {
         admin_degreesBtn.setOnAction(e -> onDegrees());
         admin_minorsBtn.setOnAction(e -> onMinors());
         admin_settingsBtn.setOnAction(e -> onSettings());
-        admin_logoutBtn.setOnAction(e -> onLogout()
-        );
+        admin_logoutBtn.setOnAction(e -> onLogout());
+
     }
     private void onDashboard() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuOption().set(AdminMenuOptions.DASHBOARD);

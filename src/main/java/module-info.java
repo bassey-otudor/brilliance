@@ -5,6 +5,7 @@ module com.learn.briliance {
     requires org.apache.commons.lang3;
     requires javafx.controls;
     requires javafx.fxml;
+    requires jbcrypt;
 
 
     opens learn.brilliance to javafx.fxml;
