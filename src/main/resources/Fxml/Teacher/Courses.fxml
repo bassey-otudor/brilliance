@@ -10,60 +10,34 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../Styles/GlobalStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Teacher.CoursesController">
    <HBox layoutX="244.0" layoutY="227.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <VBox prefHeight="600.0" prefWidth="177.0">
-         <AnchorPane prefHeight="548.0" prefWidth="177.0">
-            <AnchorPane layoutX="3.0" layoutY="3.0" prefHeight="592.0" prefWidth="175.0">
-               <styleClass>
-                  <String fx:value="card" />
-                  <String fx:value="main-container" />
-               </styleClass>
-               <AnchorPane layoutY="37.0" prefHeight="112.0" prefWidth="175.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                  <VBox layoutX="48.0" layoutY="-45.0" prefHeight="103.0" prefWidth="175.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <Button fx:id="teacher_course1Btn" mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" styleClass="button-course" text="BCHS1101" />
-                     <Button fx:id="teacher_course2Btn" mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" styleClass="button-course-not-selected" text="BCHS1102" />
-                  </VBox>
-               </AnchorPane>
-               <Label layoutX="56.0" layoutY="5.0" styleClass="label-table-title" text="Courses" />
-            </AnchorPane>
-         </AnchorPane>
-      </VBox>
-      <AnchorPane prefHeight="600.0" prefWidth="619.0">
-         <AnchorPane layoutX="7.0" layoutY="3.0" prefHeight="592.0" prefWidth="609.0">
+      <AnchorPane prefHeight="601.0" prefWidth="797.0">
+         <AnchorPane layoutX="7.0" layoutY="3.0" prefHeight="592.0" prefWidth="786.0">
             <styleClass>
                <String fx:value="card" />
                <String fx:value="main-container" />
             </styleClass>
-            <TableView fx:id="teacher_studentMarkTableView1" layoutX="124.0" layoutY="35.91367005035812" prefHeight="557.0" prefWidth="609.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
+            <TableView fx:id="teacher_studentMarkTableView" layoutX="-0.7679999765625007" layoutY="36.095998898437536" prefHeight="556.0" prefWidth="786.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="36.0">
                <columns>
-                  <TableColumn fx:id="teacher_col_studentID1" prefWidth="105.0" text="Student ID" />
-                  <TableColumn fx:id="teacher_col_studentName1" prefWidth="160.0" text="Student Name" />
-                  <TableColumn fx:id="teacher_col_firstCA1" prefWidth="70.0" text="1st. CA" />
-                  <TableColumn fx:id="teacher_col_secondCA1" prefWidth="70.0" text="2nd. CA" />
-                  <TableColumn fx:id="teacher_col_exam1" prefWidth="65.0" text="Exam" />
-                  <TableColumn fx:id="teacher_col_total1" prefWidth="65.0" text="Total" />
-                  <TableColumn fx:id="teacher_col_grade" prefWidth="65.0" text="Grade" />
+                  <TableColumn fx:id="teacher_col_studentID" prefWidth="105.0" text="Student ID" />
+                  <TableColumn fx:id="teacher_col_studentName" prefWidth="262.65599060058594" text="Student Name" />
+                  <TableColumn fx:id="teacher_col_firstCA" prefWidth="55.2960205078125" text="1st. CA" />
+                  <TableColumn fx:id="teacher_col_secondCA" prefWidth="70.65606689453125" text="2nd. CA" />
+                  <TableColumn fx:id="teacher_col_exam" prefWidth="54.527923583984375" text="Exam" />
+                  <TableColumn fx:id="teacher_col_total" prefWidth="70.656005859375" text="Total" />
+                  <TableColumn fx:id="teacher_col_grade" prefWidth="63.74395751953125" text="Grade" />
+                  <TableColumn fx:id="teacher_col_status" prefWidth="100.60797119140625" text="Status" />
                </columns>
             </TableView>
-            <TableView fx:id="teacher_studentMarkTableView2" layoutX="-2.0" layoutY="36.0" prefHeight="557.0" prefWidth="609.0">
-               <columns>
-                  <TableColumn fx:id="teacher_col_studentID2" prefWidth="105.0" text="Student ID" />
-                  <TableColumn fx:id="teacher_col_studentName2" prefWidth="160.0" text="Student Name" />
-                  <TableColumn fx:id="teacher_col_firstCA2" prefWidth="70.0" text="1st. CA" />
-                  <TableColumn fx:id="teacher_col_secondCA2" prefWidth="70.0" text="2nd. CA" />
-                  <TableColumn fx:id="teacher_col_exam2" prefWidth="65.0" text="Exam" />
-                  <TableColumn fx:id="teacher_col_total2" prefWidth="65.0" text="Total" />
-                  <TableColumn fx:id="teacher_col_grade2" prefWidth="65.0" text="Grade" />
-               </columns>
-            </TableView>
-            <Label layoutX="14.0" layoutY="7.0" styleClass="label-table-title" text="BCHS1101" />
-            <TextField fx:id="teacher_searchField" layoutX="116.0" layoutY="4.0" maxHeight="28.0" prefHeight="28.0" prefWidth="233.0" promptText="Search" styleClass="text-field-search" />
-            <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="125.0" layoutY="22.0" size="14" />
-            <ComboBox fx:id="teacher_filterBy" layoutX="362.0" layoutY="4.0" prefHeight="28.0" prefWidth="125.0" promptText="Filter by..." />
-            <Button fx:id="teacher_resetFilterBtn" layoutX="512.0" layoutY="3.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="75.0" styleClass="button-clear" text="Reset Filter" />
+            <Label fx:id="teacher_tableName" layoutX="14.0" layoutY="7.0" styleClass="label-table-title" text="BCHS1101" />
+            <TextField fx:id="teacher_searchField" layoutX="221.0" layoutY="5.0" maxHeight="27.0" prefHeight="27.0" prefWidth="261.0" promptText="Search" styleClass="text-field-search" />
+            <FontAwesomeIconView fill="#40c5cf" glyphName="SEARCH" layoutX="232.0" layoutY="23.0" size="14" />
+            <ComboBox fx:id="teacher_filterByGrade" layoutX="503.0" layoutY="4.0" prefHeight="28.0" prefWidth="91.0" promptText="Grade" />
+            <Button fx:id="teacher_resetFilterBtn" layoutX="701.0" layoutY="3.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="77.0" styleClass="button-clear" text="Reset Filter" />
+            <ComboBox fx:id="teacher_courseRecordYear" layoutX="106.0" layoutY="4.0" prefHeight="28.0" prefWidth="108.0" promptText="Select Year" />
+            <ComboBox fx:id="teacher_filterByStatus" layoutX="604.0" layoutY="4.0" prefHeight="28.0" prefWidth="91.0" promptText="Status" />
          </AnchorPane>
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -73,13 +47,14 @@
                <String fx:value="main-container" />
             </styleClass>
             <Button fx:id="teacher_clearBtn" layoutX="15.0" layoutY="423.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="162.0" styleClass="button-clear" text="Clear" />
-            <Label layoutX="15.0" layoutY="15.0" prefHeight="22.0" prefWidth="161.0" styleClass="label-table-title" text="Update Perfomance" />
+            <Label layoutX="26.0" layoutY="14.0" prefHeight="22.0" prefWidth="141.0" styleClass="label-text-field" text="Update Course Record" />
+            <Label fx:id="teacher_operationMessage" layoutX="5.0" layoutY="472.0" prefHeight="15.0" prefWidth="183.0" text="Error" textAlignment="CENTER" />
          </AnchorPane>
          <TextField fx:id="teacher_studentIDField" disable="true" layoutX="20.0" layoutY="50.0" promptText="Student ID" />
          <TextField fx:id="teacher_studentNameField" disable="true" layoutX="21.0" layoutY="95.0" promptText="Student Name" />
          <TextField fx:id="teacher_firstCAField" layoutX="21.0" layoutY="141.0" promptText="1st. CA" />
          <TextField fx:id="teacher_secondCAField" layoutX="20.0" layoutY="188.0" promptText="2nd. CA" />
-         <TextField fx:id="teacher_col_examField" layoutX="19.0" layoutY="234.0" promptText="Exam" />
+         <TextField fx:id="teacher_examField" layoutX="19.0" layoutY="234.0" promptText="Exam" />
          <TextField fx:id="teacher_totalField" disable="true" layoutX="20.0" layoutY="277.0" promptText="Total" />
          <TextField fx:id="teacher_gradeField" disable="true" layoutX="19.0" layoutY="321.0" promptText="Grade" />
          <Button fx:id="teacher_updateBtn" layoutX="19.0" layoutY="381.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="162.0" styleClass="button-update" text="Update" />

@@ -15,6 +15,8 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DepartmentsController implements Initializable {
     public final String tableName = "departments";
@@ -126,7 +128,7 @@ public class DepartmentsController implements Initializable {
         String hod = dept_hod.getValue();
         String minor1 = dept_minor1.getValue();
         String minor2 = dept_minor2.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(departmentID, tableName);
 
         try {
 
@@ -175,9 +177,9 @@ public class DepartmentsController implements Initializable {
                 }
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.out.println("Unable to create department.");
-            e.printStackTrace();
+            Logger.getLogger(DepartmentsController.class.getName()).log(Level.SEVERE, "Unable to create department", ex);
         }
     }
     private void updateDepartment() {
@@ -187,7 +189,7 @@ public class DepartmentsController implements Initializable {
         String hod = dept_hod.getSelectionModel().getSelectedItem();
         String minor1 = dept_minor1.getSelectionModel().getSelectedItem();
         String minor2 = dept_minor2.getSelectionModel().getSelectedItem();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(departmentID, tableName);
 
         if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty() || hod.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
@@ -211,16 +213,13 @@ public class DepartmentsController implements Initializable {
         }
 
     }
-
     private void deleteDepartment() {
         String departmentID = dept_deptID.getText();
-        String departmentName = dept_deptName.getText();
-        String facultyID = dept_faculty.getSelectionModel().toString();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, departmentID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(departmentID, tableName);
 
-        if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty()) {
+        if(departmentID.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
-            operationStatus.setText("Please fill all required fields.");
+            operationStatus.setText("Please enter a department ID.");
 
         } else {
 

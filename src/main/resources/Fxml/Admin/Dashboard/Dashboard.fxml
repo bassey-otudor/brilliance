@@ -7,7 +7,6 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -73,7 +72,6 @@
                            </children>
                         </VBox>
                         <Label layoutX="25.0" layoutY="5.0" styleClass="label-greeting" text="Departmental Results" />
-                        <Label fx:id="dashboard_termListView" layoutX="58.0" layoutY="22.0" styleClass="label-message" text="First Term" />
                      </children>
                      <styleClass>
                         <String fx:value="main-container" />
@@ -88,10 +86,9 @@
                      <children>
                         <VBox layoutX="4.143885005810552" layoutY="6.0" prefHeight="586.3597283221932" prefWidth="165.06475273145367" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane prefHeight="70.0" prefWidth="165.0">
+                              <AnchorPane prefHeight="36.0" prefWidth="165.0">
                                  <children>
                                     <Label layoutX="25.0" layoutY="4.0" styleClass="label-title" text="Teacher Success" />
-                                    <TextField layoutX="16.0" layoutY="28.0" prefHeight="19.0" prefWidth="137.0" />
                                  </children>
                               </AnchorPane>
                               <ListView fx:id="dashboard_teacherSuccess" prefHeight="521.0" prefWidth="165.0" />

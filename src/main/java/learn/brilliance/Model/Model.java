@@ -9,6 +9,7 @@ import learn.brilliance.View.ViewFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +17,7 @@ public class Model {
     private static Model model;
     private final ViewFactory viewFactory;
     connectDB connectDB;
-    courseRecords courseRecords;
+    connectRecord connectRecord;
 
     // Admin variables
     private boolean adminLoginStatus;
@@ -32,12 +33,14 @@ public class Model {
     // Teacher variables
     private final Teacher teacher;
     private boolean teacherLoginStatus;
-    private final ObservableList<CourseResults> courseResults;
+    private final ObservableList<CourseRecord> courseRecords;
+    private final ObservableList<CourseRecord> courseCATotals;
+    private final ObservableList<CourseRecord> courseOverall;
 
     private Model() {
         this.viewFactory = new ViewFactory();
         this.connectDB = new connectDB();
-        this.courseRecords = new courseRecords();
+        this.connectRecord = new connectRecord();
 
         // Admin data
         this.adminLoginStatus = false;
@@ -51,8 +54,10 @@ public class Model {
 
         // Teacher data
         this.teacherLoginStatus = false;
-        this.teacher = new Teacher("", "", "", null, null, null, null, null , null, null, null, null, null);
-        this.courseResults = FXCollections.observableArrayList();
+        this.teacher = new Teacher("", "", "", null, null, null, null, null , null, null, null, null);
+        this.courseRecords = FXCollections.observableArrayList();
+        this.courseCATotals = FXCollections.observableArrayList();
+        this.courseOverall = FXCollections.observableArrayList();
     }
 
     public static synchronized Model getInstance() {
@@ -67,7 +72,7 @@ public class Model {
     public connectDB getConnectDB() {
         return connectDB;
     }
-    public courseRecords getCourseRecords() { return courseRecords; }
+    public connectRecord getConnectRecord() { return connectRecord; }
 
 
     // Admin login  control
@@ -108,8 +113,7 @@ public class Model {
                 this.teacher.passwordProperty().set(resultSet.getString("password"));
                 this.teacher.facultyIDProperty().set(resultSet.getString("facultyID"));
                 this.teacher.departmentIDProperty().set(resultSet.getString("deptID"));
-                this.teacher.firstCourseProperty().set(resultSet.getString("course1"));
-                this.teacher.secondCourseProperty().set(resultSet.getString("course2"));
+                this.teacher.courseProperty().set(resultSet.getString("course"));
                 this.teacher.positionProperty().set(resultSet.getString("position"));
 
                 this.teacherLoginStatus = true;
@@ -120,6 +124,71 @@ public class Model {
         }
     }
 
+    // Binding data section
+    public ObservableList<CourseRecord> getAllCourseRecords() { return courseRecords; }
+    public ObservableList<CourseRecord> setAllCourseRecords(String year) {
+        String tableName = Model.getInstance().getTeacher().courseProperty().get() + "-" + year;
+
+        ResultSet resultSet = connectRecord.getCourseRecordData(tableName);
+        ObservableList<CourseRecord> courseRecordList = FXCollections.observableArrayList();
+        CourseRecord courseRecordData;
+
+        try {
+            while(resultSet.next()) {
+                courseRecordData = new CourseRecord(
+                        resultSet.getString("studentID"),
+                        resultSet.getString("studentName"),
+                        resultSet.getString("firstCA"),
+                        resultSet.getString("secondCA"),
+                        resultSet.getString("exam"),
+                        resultSet.getString("total"),
+                        resultSet.getString("grade"),
+                        resultSet.getString("status")
+
+                );
+                courseRecordList.add(courseRecordData);
+            }
+
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("studentID"));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Unable to retrieve first courseRecords");
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return courseRecordList;
+    }
+    // Overview page
+    public void prepareCATotals(ObservableList<CourseRecord> courseCATotal) {
+        String tableName = Model.getInstance().getTeacher().courseProperty().get() + "-" + LocalDate.now().getYear();
+        ResultSet resultSet = getConnectRecord().getCATotalOverall(tableName, "CA");
+
+        try {
+            while (resultSet.next()) {
+                String studentID = resultSet.getString("studentID");
+                String studentName = resultSet.getString("studentName");
+                String firstCA = resultSet.getString("firstCA");
+                String secondCA = resultSet.getString("secondCA");
+                String exam = resultSet.getString("exam");
+                String Total = resultSet.getString("Total");
+                String grade = resultSet.getString("grade");
+                String status = resultSet.getString("status");
+
+                courseCATotal.add(new CourseRecord(studentID, studentName, firstCA, secondCA, exam, Total, grade, status));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(learn.brilliance.Model.connectRecord.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void setAllCourseCATotals() {
+        prepareCATotals(courseCATotals);
+    }
+    public ObservableList<CourseRecord> getAllCourseCATotals() {
+        return courseCATotals;
+    }
 
     // Binding data section
     // Faculties
@@ -130,6 +199,7 @@ public class Model {
         ResultSet resultSet = connectDB.getFacultyData();
         ObservableList<Faculty> facultiesList = FXCollections.observableArrayList();
         Faculty facultyData;
+
         try{
 
             while (resultSet.next()) {
@@ -202,8 +272,7 @@ public class Model {
                         resultSet.getString("password"),
                         resultSet.getString("facultyID"),
                         resultSet.getString("deptID"),
-                        resultSet.getString("course1"),
-                        resultSet.getString("course2"),
+                        resultSet.getString("course"),
                         resultSet.getString("position")
                 );
 
@@ -343,5 +412,6 @@ public class Model {
         }
         return studentList;
     }
+
 
 }

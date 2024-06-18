@@ -6,22 +6,17 @@ import javafx.beans.property.StringProperty;
 
 public class Teacher extends Accounts{
     public StringProperty teacherID;
-    public StringProperty firstCourse;
-    public StringProperty secondCourse;
+    public StringProperty course;
     public StringProperty position;
-    public Teacher(String teacherID, String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String password, String facultyID, String departmentID, String firstCourse, String secondCourse, String position) {
+    public Teacher(String teacherID, String firstName, String lastName, String gender, String dob, String phoneNumber, String email, String password, String facultyID, String departmentID, String course, String position) {
         super(firstName, lastName, gender, dob, phoneNumber, email, password, facultyID, departmentID);
         this.teacherID = new SimpleStringProperty(this, "TeacherID", teacherID);
-        this.firstCourse = new SimpleStringProperty(this, "FirstCourse", firstCourse);
-        this.secondCourse = new SimpleStringProperty(this, "SecondCourse", secondCourse);
+        this.course = new SimpleStringProperty(this, "FirstCourse", course);
         this.position = new SimpleStringProperty(this, "Position", position);
     }
     public StringProperty teacherIDProperty() {return teacherID;}
-    public StringProperty firstCourseProperty() {
-        return firstCourse;
-    }
-    public StringProperty secondCourseProperty() {
-        return secondCourse;
+    public StringProperty courseProperty() {
+        return course;
     }
     public StringProperty positionProperty() {
         return position;

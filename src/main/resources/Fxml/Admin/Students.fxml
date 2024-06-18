@@ -53,7 +53,7 @@
             <ComboBox fx:id="stud_minor" layoutX="189.0" layoutY="141.0" prefWidth="150.0" promptText="Minor" />
             <PasswordField fx:id="stud_password" layoutX="364.0" layoutY="136.0" prefHeight="28.0" prefWidth="151.0" promptText="Password" />
             <ComboBox fx:id="stud_level" layoutX="546.0" layoutY="14.0" prefHeight="28.0" prefWidth="162.0" promptText="Level" />
-            <TextField fx:id="stud_studentID" disable="true" editable="false" layoutX="546.0" layoutY="59.0" promptText="StudentID" />
+            <TextField fx:id="stud_studentID" layoutX="546.0" layoutY="59.0" promptText="StudentID" />
             <Button fx:id="stud_genIDBtn" layoutX="545.0" layoutY="100.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="162.0" styleClass="button-genID" text="Generate ID" />
             <Button fx:id="stud_deleteBtn" layoutX="798.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-delete" text="Delete" />
             <Button fx:id="stud_clearBtn" layoutX="798.0" layoutY="55.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-clear" text="Clear" />

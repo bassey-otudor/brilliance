@@ -17,8 +17,8 @@
          <String fx:value="card-fix" />
          <String fx:value="label" />
       </styleClass>
-      <AnchorPane prefHeight="600.0" prefWidth="995.0">
-         <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="591.0" prefWidth="989.0">
+      <AnchorPane prefHeight="601.0" prefWidth="999.0">
+         <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="591.0" prefWidth="989.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
             <styleClass>
                <String fx:value="card-fix" />
                <String fx:value="main-container" />
@@ -45,12 +45,10 @@
             <FontAwesomeIconView fx:id="profile_changePasswordIcon" fill="#2fd168" glyphName="CHECK" layoutX="184.0" layoutY="449.0" size="14" smooth="false" visible="false" />
             <TextField fx:id="profile_teacherFaculty" disable="true" layoutX="669.0" layoutY="72.0" promptText="Faculty" />
             <TextField fx:id="profile_teacherDepartment" disable="true" layoutX="669.0" layoutY="151.0" promptText="Department" />
-            <TextField fx:id="profile_teacherFirstCourse" disable="true" layoutX="669.0" layoutY="228.0" promptText="1st. Course" />
-            <TextField fx:id="profile_teacherSecondCourse" disable="true" layoutX="669.0" layoutY="308.0" promptText="2nd. Course" />
+            <TextField fx:id="profile_teacherCourse" disable="true" layoutX="669.0" layoutY="228.0" promptText="1st. Course" />
             <Label layoutX="674.0" layoutY="48.0" styleClass="label-text-field" text="Faculty" />
             <Label layoutX="673.0" layoutY="120.0" prefHeight="17.0" prefWidth="102.0" styleClass="label-text-field" text="Department" />
             <Label layoutX="674.0" layoutY="195.0" prefHeight="17.0" prefWidth="102.0" styleClass="label-text-field" text="First Course" />
-            <Label layoutX="673.0" layoutY="274.0" prefHeight="17.0" prefWidth="102.0" styleClass="label-text-field" text="Second Course" />
             <Label layoutX="38.0" layoutY="78.0" prefHeight="15.0" prefWidth="59.0" text="Teacher ID" />
             <Label layoutX="38.0" layoutY="136.0" prefHeight="15.0" prefWidth="73.0" text="First Name" />
             <Label layoutX="223.0" layoutY="136.0" prefHeight="15.0" prefWidth="73.0" text="Last Name" />

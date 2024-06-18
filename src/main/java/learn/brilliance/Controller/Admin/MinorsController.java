@@ -94,7 +94,7 @@ public class MinorsController implements Initializable {
         String courseID = minor_courseID.getValue();
         String courseNumber = minor_courseNumber.getValue();
         String minorNumber = minor_number.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(minorID, tableName);
 
         if(minorID == null || minorName == null || facultyID == null || departmentID == null || degreeID == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em; -fx-font-weight: bold");
@@ -123,7 +123,7 @@ public class MinorsController implements Initializable {
         String courseID = minor_courseID.getValue();
         String courseNumber = minor_courseNumber.getValue();
         String minorNumber = minor_number.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(minorID, tableName);
 
         if(minorID == null || minorName == null || facultyID == null || departmentID == null || degreeID == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;  -fx-font-weight: bold");
@@ -148,7 +148,7 @@ public class MinorsController implements Initializable {
         String minorName = minor_minorName.getText();
         String departmentID = minor_departmentID.getValue();
         String minorNumber = minor_number.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, minorID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(minorID, tableName);
 
         if(minorID == null || minorName == null || departmentID == null || minorNumber == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;  -fx-font-weight: bold");

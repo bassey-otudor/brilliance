@@ -1,11 +1,15 @@
 package learn.brilliance.Controller.Teacher;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 import learn.brilliance.Model.Model;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -27,7 +31,7 @@ public class ProfileController implements Initializable {
     public FontAwesomeIconView profile_changePasswordIcon;
     public TextField profile_teacherFaculty;
     public TextField profile_teacherDepartment;
-    public TextField profile_teacherFirstCourse;
+    public TextField profile_teacherCourse;
     public TextField profile_teacherSecondCourse;
 
     @Override
@@ -35,8 +39,9 @@ public class ProfileController implements Initializable {
         profile_contactInfoSaveBtn.setOnAction(e -> updateContactInfo());
         profile_changePasswordBtn.setOnAction(e -> changePassword());
         bindTeacherData();
+        keepUserInfoUpdated();
     }
-
+    // Update the teacher's contact information.
     private void updateContactInfo() {
         String email;
         String phoneNumber;
@@ -67,7 +72,6 @@ public class ProfileController implements Initializable {
         }
 
     }
-
     // change password validator
     private void changePassword() {
         String confirmCurrentPassword;
@@ -108,23 +112,20 @@ public class ProfileController implements Initializable {
             }
         }
     }
-
-
     // Binds the teacher data to the profile
     private void bindTeacherData() {
         profile_teacherID.setText(Model.getInstance().getTeacher().teacherIDProperty().get());
         profile_firstName.setText(Model.getInstance().getTeacher().firstNameProperty().get());
         profile_lastName.setText(Model.getInstance().getTeacher().lastNameProperty().get());
         profile_gender.setText(Model.getInstance().getTeacher().genderProperty().get());
+        profile_dob.setValue(LocalDate.parse((Model.getInstance().getTeacher().dobProperty().get())));
         profile_email.setText(Model.getInstance().getTeacher().emailProperty().get());
         profile_phoneNumber.setText(Model.getInstance().getTeacher().phoneNumberProperty().get());
         profile_teacherFaculty.setText(Model.getInstance().getTeacher().facultyIDProperty().get());
         profile_teacherDepartment.setText(Model.getInstance().getTeacher().departmentIDProperty().get());
-        profile_teacherFirstCourse.setText(Model.getInstance().getTeacher().firstCourseProperty().get());
-        profile_teacherSecondCourse.setText(Model.getInstance().getTeacher().secondCourseProperty().get());
+        profile_teacherCourse.setText(Model.getInstance().getTeacher().courseProperty().get());
 
     }
-
     // timer to execute the resetConfirmStyles() method
     private void resetStyleTimer() {
         final Timer timer = new Timer();
@@ -139,13 +140,30 @@ public class ProfileController implements Initializable {
                 5000
         );
     }
-
-
     // reset all styles to default
     private void resetConfirmStyles() {
         profile_contactInfoSaveIcon.setVisible(false);
         profile_changePasswordIcon.setVisible(false);
         profile_confirmCurrentPassword.setStyle("-fx-border-color: linear-gradient(to right, #40C5CF, #2ca772); -fx-border-width: 0.2px;");
         profile_newPassword.setStyle("-fx-border-color: linear-gradient(to right, #40C5CF, #2ca772); -fx-border-width: 0.2px;");
+    }
+    // Update user info
+    private void updateUserInfo() {
+        profile_teacherID.setText(Model.getInstance().getTeacher().teacherIDProperty().get());
+        profile_firstName.setText(Model.getInstance().getTeacher().firstNameProperty().get());
+        profile_lastName.setText(Model.getInstance().getTeacher().lastNameProperty().get());
+        profile_gender.setText(Model.getInstance().getTeacher().genderProperty().get());
+        profile_email.setText(Model.getInstance().getTeacher().emailProperty().get());
+        profile_teacherFaculty.setText(Model.getInstance().getTeacher().facultyIDProperty().get());
+        profile_teacherDepartment.setText(Model.getInstance().getTeacher().departmentIDProperty().get());
+        profile_teacherCourse.setText(Model.getInstance().getTeacher().courseProperty().get());
+    }
+    // Update user info indefinitely
+    private void keepUserInfoUpdated() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(6), event -> {
+            updateUserInfo();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.playFromStart();
     }
 }

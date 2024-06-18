@@ -129,7 +129,7 @@ public class CoursesController implements Initializable {
         String facultyID = course_faculty.getValue();
         String creditValue = course_creditValue.getValue();
         boolean operation = true;
-        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID);
+        boolean doesExists = Model.getInstance().getConnectDB().checkData(courseID, tableName);
         String coursePosition = course_firstSecond.getValue();
 
         try {
@@ -182,7 +182,7 @@ public class CoursesController implements Initializable {
         String creditValue = course_creditValue.getValue();
         String coursePosition = course_firstSecond.getValue();
         boolean operation = true;
-        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn, courseID);
+        boolean doesExists = Model.getInstance().getConnectDB().checkData(courseID, tableName);
 
         try {
             if (courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || teacherID.isEmpty() || creditValue.isEmpty() ||facultyID.isEmpty()) {
@@ -224,7 +224,7 @@ public class CoursesController implements Initializable {
         String teacherID = course_teacherID.getText();
         String coursePosition = course_firstSecond.getValue();
         boolean operation = false;
-        boolean doesExists = Model.getInstance().getConnectDB().checkData(tableName, idColumn,courseID);
+        boolean doesExists = Model.getInstance().getConnectDB().checkData(courseID, tableName);
 
         try {
             if (courseID.isEmpty() || teacherID.isEmpty() || coursePosition.isEmpty()) {

@@ -17,7 +17,6 @@ import java.util.ResourceBundle;
 
 public class StudentsController implements Initializable {
     private final String tableName = "students";
-    private final String idColumn = "studentID";
 
     String studentID;
     String firstName;
@@ -120,7 +119,7 @@ public class StudentsController implements Initializable {
                     return true;
                 } else if(predicateStudent.firstNameProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if(predicateStudent.lastNameProperty().toString().toLowerCase().toLowerCase().contains(searchKey)) {
+                } else if(predicateStudent.lastNameProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
                 } else if(predicateStudent.genderProperty().toString().contains(searchKey)) {
                     return true;
@@ -194,14 +193,17 @@ public class StudentsController implements Initializable {
         minorID = stud_minor.getValue();
         level = stud_level.getValue();
         registrationDate = String.valueOf(LocalDate.now());
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, studentID);
+
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(studentID, tableName);
+
 
         if((studentID == null || studentID.isEmpty()) ||
                 (firstName == null || firstName.isEmpty()) ||
                 (lastName == null || lastName.isEmpty()) ||
                 (gender == null || gender.isEmpty()) ||
-                (dob.isEmpty()) ||
+                ( dob == null || dob.isEmpty()) ||
                 (email == null || email.isEmpty()) ||
                 (password == null || password.isEmpty()) ||
                 (facultyID == null || facultyID.isEmpty()) ||
@@ -220,9 +222,16 @@ public class StudentsController implements Initializable {
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em; -fx-font-weight: bold");
                 operationStatus.setText("Student already exists.");
 
+
+
             } else {
                 Model.getInstance().getConnectDB().createStudent(studentID, firstName, lastName, gender, dob, phoneNumber, email, hashedPassword, facultyID, departmentID, degreeID, minorID, level, registrationDate);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em; -fx-font-weight: bold");
+
+                System.out.println(studentID);
+
+
+                Model.getInstance().getConnectRecord().insertStudentOnRegister("BCHS2024", studentID, firstName);
                 operationStatus.setText("Student created successfully.");
                 stud_tableView.setItems(Model.getInstance().setAllStudents());
                 clearFields();
@@ -230,6 +239,7 @@ public class StudentsController implements Initializable {
         }
     }
     private void updateStudent() {
+
         studentID = stud_studentID.getText();
         firstName = stud_fName.getText();
         lastName = stud_lName.getText();
@@ -242,7 +252,8 @@ public class StudentsController implements Initializable {
         degreeID = stud_degree.getValue();
         minorID = stud_minor.getValue();
         level = stud_level.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, studentID);
+
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(studentID, tableName);
 
         if((studentID == null || studentID.isEmpty()) ||
                 (firstName == null || firstName.isEmpty()) ||
@@ -261,6 +272,7 @@ public class StudentsController implements Initializable {
             operationStatus.setText("Please fill required fields.");
 
         } else {
+
             if (doesExist) {
                 Model.getInstance().getConnectDB().updateStudent(studentID, firstName, lastName, gender, dob, phoneNumber, email, facultyID, departmentID, degreeID, minorID, level);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em; -fx-font-weight: bold");
@@ -269,7 +281,7 @@ public class StudentsController implements Initializable {
                 clearFields();
 
             } else {
-                stud_studentID.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em; -fx-font-weight: bold");
+                stud_studentID.setStyle("-fx-border-color: #EC6666; -fx-font-size: 1.0em;");
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 operationStatus.setText("Student not found.");
 
@@ -278,7 +290,7 @@ public class StudentsController implements Initializable {
     }
     private void deleteStudent() {
         studentID = stud_studentID.getText();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, studentID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(studentID, tableName);
 
         if(studentID == null || studentID.isEmpty()) {
             stud_studentID.setStyle("-fx-border-color: #EC6666;");
@@ -321,7 +333,7 @@ public class StudentsController implements Initializable {
         stud_degree.setValue(null);
         stud_minor.setValue(null);
     }
-    public void initialiseStudentTable() {
+    private void initialiseStudentTable() {
         if(Model.getInstance().getAllStudents().isEmpty()) {
             Model.getInstance().setAllStudents();
         }

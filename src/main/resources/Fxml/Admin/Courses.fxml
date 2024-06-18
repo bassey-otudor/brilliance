@@ -48,7 +48,6 @@
             <Button fx:id="course_addBtn" layoutX="756.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="146.0" styleClass="button-add" text="Add" />
          <Label fx:id="operationStatus" layoutX="361.0" layoutY="147.0" prefHeight="22.0" prefWidth="273.0" styleClass="error-label" />
          <TextField fx:id="course_teacherID" disable="true" layoutX="591.0" layoutY="13.0" prefHeight="29.0" prefWidth="114.0" promptText="Teacher ID" />
-         <ComboBox fx:id="course_firstSecond" disable="true" layoutX="540.0" layoutY="105.0" prefHeight="28.0" prefWidth="171.0" promptText="1st or 2nd Course" />
         </AnchorPane>
     </VBox>
 </AnchorPane>

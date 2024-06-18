@@ -25,13 +25,10 @@ public class TeachersController implements Initializable {
     String password;
     String facultyID;
     String departmentID;
-    String course1;
-    String course2;
-    String position;
+    String course;
     LocalDate dob;
     
     private final String tableName = "teachers";
-    private final String idColumn = "teacherID";
 
     public TextField teach_searchField;
     public ComboBox<String> teach_filterBy;
@@ -46,8 +43,7 @@ public class TeachersController implements Initializable {
     public TableColumn<Teacher, String> teach_tableView_col_gender;
     public TableColumn<Teacher, String> teach_tableView_col_facultyID;
     public TableColumn<Teacher, String> teach_tableView_col_department;
-    public TableColumn<Teacher, String> teach_tableView_col_course1;
-    public TableColumn<Teacher, String> teach_tableView_col_course2;
+    public TableColumn<Teacher, String> teach_tableView_col_course;
     public TableColumn<Teacher, String> teach_tableView_col_position;
     public TableColumn<Teacher, String> teach_tableView_col_dob;
     public TextField teach_fName;
@@ -60,9 +56,7 @@ public class TeachersController implements Initializable {
     public TextField teach_teacherID;
     public ComboBox<String> teach_deptID;
     public ComboBox<String> teach_facultyID;
-    public ComboBox<String> teach_course1;
-    public ComboBox<String> teach_course2;
-    public ComboBox<String> teach_position;
+    public ComboBox<String> teach_course;
     public Label operationStatus;
     public Button teach_genIDBtn;
     public Button teach_deleteBtn;
@@ -83,13 +77,9 @@ public class TeachersController implements Initializable {
                 -> teach_deptID.setItems(Model.getInstance().getConnectDB().getFacultyDepartments(newVal)));
 
         teach_deptID.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal)
-                -> teach_course1.setItems(Model.getInstance().getConnectDB().getDepartmentCourses(newVal)));
-
-        teach_deptID.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal)
-                -> teach_course2.setItems(Model.getInstance().getConnectDB().getDepartmentCourses(newVal)));
+                -> teach_course.setItems(Model.getInstance().getConnectDB().getDepartmentCourses(newVal)));
 
         teach_gender.setItems(Model.getInstance().getConnectDB().getGender());
-        teach_position.setItems(Model.getInstance().getConnectDB().getPosition());
         teach_resetFilterBtn.setOnAction(e -> resetFilters());
 
 
@@ -136,9 +126,7 @@ public class TeachersController implements Initializable {
                     return true;
                 } else if(predicateTeacher.departmentIDProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
-                } else if (predicateTeacher.firstCourseProperty().toString().toLowerCase().contains(searchKey)) {
-                    return true;
-                } else if (predicateTeacher.secondCourseProperty().toString().toLowerCase().contains(searchKey)) {
+                } else if (predicateTeacher.courseProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
                 } else if (predicateTeacher.positionProperty().toString().toLowerCase().contains(searchKey)) {
                     return true;
@@ -154,7 +142,6 @@ public class TeachersController implements Initializable {
         switch (val){
             case "Faculty" -> teach_filterOptions.setItems(Model.getInstance().getConnectDB().getFaculties());
             case "Department" -> teach_filterOptions.setItems(Model.getInstance().getConnectDB().getAllDepartments());
-            case "Position" -> teach_filterOptions.setItems(Model.getInstance().getConnectDB().getPosition());
             case "Gender" -> teach_filterOptions.setItems(Model.getInstance().getConnectDB().getGender());
         }
     }
@@ -193,15 +180,13 @@ public class TeachersController implements Initializable {
         departmentID = teach_deptID.getValue();
         dob = LocalDate.parse(teach_dob.getValue().toString());
         password = teach_pwd.getText();
-        course1 = teach_course1.getSelectionModel().getSelectedItem();
-        course2 = teach_course2.getSelectionModel().getSelectedItem();
-        position = teach_position.getValue();
+        course = teach_course.getSelectionModel().getSelectedItem();
         facultyID = teach_facultyID.getValue();
         boolean operation = true;
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, teacherID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(teacherID, tableName);
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        if (teacherID.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || gender.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() || password.isEmpty() || position.isEmpty() || facultyID.isEmpty()) {
+        if (teacherID.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || gender.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() || password.isEmpty() || facultyID.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
             operationStatus.setText("Please fill required fields.");
 
@@ -214,16 +199,16 @@ public class TeachersController implements Initializable {
             } else {
 
 
-                if (course1 == null || course2 == null) {
-                    Model.getInstance().getConnectDB().createTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob, hashedPassword, course1, course2, position, facultyID);
+                if (course == null) {
+                    Model.getInstance().getConnectDB().createTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob, hashedPassword, course, facultyID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Teacher created successfully.");
 
                 } else {
-                    Model.getInstance().getConnectDB().createTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob, hashedPassword, course1, course2, position, facultyID);
+                    Model.getInstance().getConnectDB().createTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob, hashedPassword, course, facultyID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Teacher created successfully.");
-                    alterTeacherInCourses(teacherID, course1, course2, teacherFullName, operation);
+                    alterTeacherInCourses(teacherID, course, teacherFullName, operation);
                     clearFields();
 
                 }
@@ -243,32 +228,30 @@ public class TeachersController implements Initializable {
         email = teach_email.getText();
         departmentID = teach_deptID.getValue();
         dob = LocalDate.parse(teach_dob.getValue().toString());
-        course1 = teach_course1.getValue();
-        course2 = teach_course2.getValue();
-        position = teach_position.getValue();
+        course = teach_course.getValue();
         facultyID = teach_facultyID.getValue();
         boolean operation = true;
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, teacherID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(teacherID, tableName);
 
         if (doesExist) {
-            if (teacherID.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || dob == null || phoneNumber.isEmpty() || email.isEmpty() || position.isEmpty() || facultyID.isEmpty()) {
+            if (teacherID.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || dob == null || phoneNumber.isEmpty() || email.isEmpty() || facultyID.isEmpty()) {
 
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 operationStatus.setText("Please fill required fields.");
 
             } else {
 
-                if (course1.isEmpty() && course2.isEmpty()) {
+                if (course.isEmpty()) {
                     operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
-                    operationStatus.setText("Choose at least one course.");
+                    operationStatus.setText("Please select a course.");
 
                 } else {
-                    Model.getInstance().getConnectDB().updateTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob, course1, course2, position, facultyID);
+                    Model.getInstance().getConnectDB().updateTeacher(teacherID, firstName, lastName, gender, phoneNumber, email, departmentID, dob, course, facultyID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Teacher updated successfully.");
 
                     teach_tableView.setItems(Model.getInstance().setAllTeachers());
-                    alterTeacherInCourses(teacherID, course1, teacherName, course2, operation);
+                    alterTeacherInCourses(teacherID, course, teacherName, operation);
 
                     clearFields();
                 }
@@ -280,30 +263,15 @@ public class TeachersController implements Initializable {
 
         }
     }
-    private void alterTeacherInCourses(String teacherID, String course1, String course2, String teacherName, boolean operation) {
-        if (!course1.isEmpty() && !course2.isEmpty()) {
+    private void alterTeacherInCourses(String teacherID, String course, String teacherName, boolean operation) {
+        Model.getInstance().getConnectDB().insertTeacherInCourse(teacherID, teacherName, course, operation);
 
-            if (course1.equals(course2)) {
-                teach_course1.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
-                teach_course2.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
-
-                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
-                operationStatus.setText("Cannot teach the same course twice.");
-
-            } else {
-                Model.getInstance().getConnectDB().insertTeacherInCourse(teacherID, teacherName, course1, operation);
-                Model.getInstance().getConnectDB().insertTeacherInCourse(teacherID, teacherName, course2, operation);
-            }
-
-        } else if (!course1.isEmpty()) {
-            Model.getInstance().getConnectDB().insertTeacherInCourse(teacherID, teacherName, course1, operation);
-        }
     }
     private void deleteTeacher() {
         String teacherID = teach_teacherID.getText();
-        String courseID = teach_course1.getValue();
+        String courseID = teach_course.getValue();
         boolean operation = false;
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, teacherID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(teacherID, tableName);
 
         if (doesExist) {
 
@@ -342,9 +310,7 @@ public class TeachersController implements Initializable {
         teach_deptID.setValue(null);
         teach_dob.setValue(null);
         teach_pwd.setText(null);
-        teach_course1.setValue(null);
-        teach_course2.setValue(null);
-        teach_position.setValue(null);
+        teach_course.setValue(null);
     }
     private void resetFilters() {
         teach_filterBy.setValue("");
@@ -364,8 +330,7 @@ public class TeachersController implements Initializable {
         teach_tableView_col_gender.setCellValueFactory(cellData -> cellData.getValue().genderProperty());
         teach_tableView_col_facultyID.setCellValueFactory(cellData -> cellData.getValue().facultyIDProperty());
         teach_tableView_col_department.setCellValueFactory(cellData -> cellData.getValue().departmentIDProperty());
-        teach_tableView_col_course1.setCellValueFactory(cellData -> cellData.getValue().firstCourseProperty());
-        teach_tableView_col_course2.setCellValueFactory(cellData -> cellData.getValue().secondCourseProperty());
+        teach_tableView_col_course.setCellValueFactory(cellData -> cellData.getValue().courseProperty());
         teach_tableView_col_position.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
         teach_tableView_col_dob.setCellValueFactory(cellData -> cellData.getValue().dobProperty());
 
@@ -399,8 +364,6 @@ public class TeachersController implements Initializable {
         teach_facultyID.setValue(String.valueOf(teacher.facultyIDProperty().get()));
         teach_deptID.setValue(String.valueOf(teacher.departmentIDProperty().get()));
         teach_dob.setValue(LocalDate.parse(teacher.dobProperty().get()));
-        teach_course1.setValue(String.valueOf(teacher.firstCourseProperty().get()));
-        teach_course2.setValue(String.valueOf(teacher.secondCourseProperty().get()));
-        teach_position.setValue(String.valueOf(teacher.positionProperty().get()));
+        teach_course.setValue(String.valueOf(teacher.courseProperty().get()));
     }
 }

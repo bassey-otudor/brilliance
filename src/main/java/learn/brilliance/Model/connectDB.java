@@ -405,7 +405,6 @@ public class connectDB {
     public ResultSet getTeacherData() {
         Statement stmt;
         ResultSet resultSet = null;
-
         try {
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery("SELECT * FROM teachers;");
@@ -417,33 +416,10 @@ public class connectDB {
 
         return resultSet;
     }
-    public ObservableList<String> getPosition() {
-        List<String> positionList = new ArrayList<>();
-
-        String selectPositions = "SELECT position FROM position ORDER BY position ASC;";
-        Statement stmt;
-        ResultSet resultSet;
-
-        try {
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(selectPositions);
-            while (resultSet.next()) {
-                positionList.add(resultSet.getString("position"));
-
-            }
-
-            positionList = FXCollections.observableArrayList(positionList);
-
-        } catch (SQLException ex) {
-            System.out.println("Unable to retrieve positions.");
-            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return FXCollections.observableArrayList(positionList);
-    }
-    public void createTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String password, String course1, String course2, String position, String facultyID) {
+    public void createTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String password, String course, String facultyID) {
         String createTeacher = "INSERT INTO teachers "
-                + "(teacherID, fName, lName, gender, phoneNum, email, deptID, dob, password, course1, course2, position, facultyID)"
-                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "(teacherID, fName, lName, gender, phoneNum, email, deptID, dob, password, course, facultyID)"
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             preparedStatement = conn.prepareStatement(createTeacher);
@@ -456,10 +432,8 @@ public class connectDB {
             preparedStatement.setString(7, departmentID);
             preparedStatement.setString(8, dob.toString());
             preparedStatement.setString(9, password);
-            preparedStatement.setString(10, course1);
-            preparedStatement.setString(11, course2);
-            preparedStatement.setString(12, position);
-            preparedStatement.setString(13, facultyID);
+            preparedStatement.setString(10, course);
+            preparedStatement.setString(11, facultyID);
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
@@ -467,8 +441,8 @@ public class connectDB {
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void updateTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String course1, String course2, String position, String facultyID) {
-        String updateTeacher= "UPDATE teachers SET fName =?, lName =?, gender =?, phoneNum =?, email =?, deptID =?, dob =?, course1=?, course2 =?, position =?, facultyID =? WHERE teacherID =?;";
+    public void updateTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String course, String facultyID) {
+        String updateTeacher= "UPDATE teachers SET fName =?, lName =?, gender =?, phoneNum =?, email =?, deptID =?, dob =?, course=?, position =?, facultyID =? WHERE teacherID =?;";
         try {
             preparedStatement = conn.prepareStatement(updateTeacher);
             preparedStatement.setString(1, firstName);
@@ -478,11 +452,9 @@ public class connectDB {
             preparedStatement.setString(5, email);
             preparedStatement.setString(6, departmentID);
             preparedStatement.setString(7, dob.toString());
-            preparedStatement.setString(8, course1);
-            preparedStatement.setString(9, course2);
-            preparedStatement.setString(10, position);
-            preparedStatement.setString(11, facultyID);
-            preparedStatement.setString(12, teacherID);
+            preparedStatement.setString(8, course);
+            preparedStatement.setString(9, facultyID);
+            preparedStatement.setString(10, teacherID);
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
@@ -791,29 +763,6 @@ public class connectDB {
             }
         }
     }
-
-    /**
-     * This method is used to check if a teacher has any courses assigned to them.
-     *
-     * @param teacherID The ID of the teacher to check.
-     * @return A ResultSet containing the teacher's information, including any courses they are assigned to.
-     */
-    public ResultSet checkTeacherCoursesColumns(String teacherID) {
-        String checkCourses = "SELECT teacherID, course1, course2 FROM teachers WHERE teacherID =?;";
-        ResultSet resultSet = null;
-        try{
-            preparedStatement = conn.prepareStatement(checkCourses);
-            preparedStatement.setString(1, teacherID);
-            resultSet = preparedStatement.executeQuery();
-
-        } catch (SQLException ex) {
-            System.out.println("Unable to get verify assigned courses.");
-            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return resultSet;
-    }
-
 
     // Degree methods
 
@@ -1176,7 +1125,8 @@ public class connectDB {
 
     }
 
-    // Student page
+    /**
+     * Student page */
 
     public ResultSet getStudentData() {
         Statement stmt;
@@ -1266,7 +1216,7 @@ public class connectDB {
         try {
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(studentCount);
-            while (resultSet.next()) {
+            if(resultSet.next()) {
              rowCount = resultSet.getInt("seq");
             }
 
@@ -1305,40 +1255,43 @@ public class connectDB {
      * This method is used to check if a specific data exists in a specific table.
      *
      * @param tableName The name of the table to search in.
-     * @param idColumn The name of the column that contains the unique ID of the entity.
      * @param entityID The unique ID of the entity to check.
      * @return A boolean value indicating whether the entity exists or not.
      */
-    public boolean checkData(String tableName, String idColumn, String entityID) {
 
-        boolean doesExists = false;
-        String odd = "SELECT * FROM '"+tableName+"' WHERE '"+idColumn+"' = '"+entityID+"'";
-        // String checkData = "SELECT * FROM ? WHERE ? = ?;";
-        Statement stmt;
-        ResultSet resultSet;
+    // Data check functions
+    public boolean checkData(String entityID, String tableName) {
+        String getEntity = null;
+        ResultSet resultSet = null;
+        boolean doesExist = false;
+
+        getEntity = switch (tableName) {
+            case "students" -> "SELECT * FROM students WHERE studentID =?;";
+            case "teachers" -> "SELECT * FROM teachers WHERE teacherID =?;";
+            case "faculties" -> "SELECT * FROM faculties WHERE facultyID =?;";
+            case "departments" -> "SELECT * FROM department_degrees WHERE deptID =?;";
+            case "degrees" -> "SELECT * FROM degrees WHERE degreeID =?;";
+            case "minors" -> "SELECT * FROM minors WHERE minorID =?;";
+            default -> "SELECT * FROM courses WHERE courseID =?;";
+        };
 
         try {
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(odd);
-            /*preparedStatement = conn.prepareStatement(checkData);
-            preparedStatement.setString(1, tableName);
-            preparedStatement.setString(2, idColumn);
-            preparedStatement.setString(3, entityID);
-*/
+            preparedStatement = conn.prepareStatement(getEntity);
+            preparedStatement.setString(1, entityID);
             resultSet = preparedStatement.executeQuery();
 
             if(resultSet.isBeforeFirst()) {
-                doesExists = true;
-
+                doesExist = true;
             }
 
         } catch (SQLException ex) {
-            System.out.println("Unable to verify if "+entityID+" exists.");
+            System.out.println("Unable to set tab type.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return doesExists;
+        System.out.println(doesExist);
+        return doesExist;
     }
+
 
     /**
      * This method is used to retrieve the list of available genders.
@@ -1572,6 +1525,44 @@ public class connectDB {
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, "Error in filterByStudents syntax.", ex);
         }
         return FXCollections.observableArrayList(filterByList);
+    }
+    public ObservableList<String> getGrades() {
+        List<String> gradeList = new ArrayList<>();
+        String getGrades = "SELECT grade FROM grades;";
+        Statement stmt;
+        ResultSet resultSet;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getGrades);
+            while (resultSet.next()) {
+                gradeList.add(resultSet.getString("grade"));
+            }
+            gradeList = FXCollections.observableArrayList(gradeList);
+
+        } catch (SQLException ex) {
+            System.out.println("Unable to get grades.");
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, "Error in getGrades syntax.", ex);
+        }
+        return FXCollections.observableArrayList(gradeList);
+    }
+    public ObservableList<String> getStatus() {
+        List<String> statusList = new ArrayList<>();
+        String getStatus = "SELECT status FROM status;";
+        Statement stmt;
+        ResultSet resultSet;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getStatus);
+            while (resultSet.next()) {
+                statusList.add(resultSet.getString("status"));
+            }
+            statusList = FXCollections.observableArrayList(statusList);
+
+        } catch (SQLException ex) {
+            System.out.println("Unable to get status.");
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, "Error in getStatus syntax.", ex);
+        }
+        return FXCollections.observableArrayList(statusList);
     }
 
     /**

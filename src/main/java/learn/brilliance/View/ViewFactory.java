@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import learn.brilliance.Controller.Admin.AdminController;
 import learn.brilliance.Controller.Student.StudentController;
 import learn.brilliance.Controller.Teacher.TeacherController;
-import learn.brilliance.Model.courseRecords;
+import learn.brilliance.Model.connectRecord;
 import learn.brilliance.View.Enums.AccountType;
 import learn.brilliance.View.Enums.AdminMenuOptions;
 import learn.brilliance.View.Enums.TeacherMenuOptions;
@@ -154,7 +154,7 @@ public class ViewFactory {
     public AnchorPane getTeachersOverviewView() {
         if (teachersOverviewView == null) {
             try {
-                teachersOverviewView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Overview.fxml")).load();
+                teachersOverviewView = new FXMLLoader(getClass().getResource("/Fxml/Teacher/Overview/Overview.fxml")).load();
 
             } catch (IOException ex) {
                 Logger.getLogger(ViewFactory.class.getName()).log(Level.SEVERE, "Unable to load teacher Overview page.", ex);
@@ -246,7 +246,7 @@ public class ViewFactory {
         try {
             scene = new Scene(loader.load());
         } catch (IOException ex) {
-            Logger.getLogger(courseRecords.class.getName()).log(Level.SEVERE, "Unable to load scene", ex);
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to load scene", ex);
         }
         Stage stage = new Stage();
         stage.setScene(scene);

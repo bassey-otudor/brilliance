@@ -99,7 +99,7 @@ public class FacultiesController implements Initializable {
         String department2ID = faculty_dept2ID.getText().toUpperCase();
         String department3ID = faculty_dept3ID.getText().toUpperCase();
 
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(facultyID, tableName);
 
         try {
 
@@ -153,7 +153,7 @@ public class FacultiesController implements Initializable {
         String department1 = faculty_dept1.getText().toUpperCase();
         String department2 = faculty_dept2.getText().toUpperCase();
         String department3 = faculty_dept3.getText().toUpperCase();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(facultyID, tableName);
 
         if (facultyID.isEmpty() || facultyName.isEmpty() || facultyDirector.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
@@ -178,7 +178,7 @@ public class FacultiesController implements Initializable {
     private void deleteFaculty() {
         String facultyID = faculty_facID.getText().toUpperCase();
         String facultyName = faculty_facName.getText();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, facultyID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(facultyID, tableName);
 
         if(facultyID.isEmpty()) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");

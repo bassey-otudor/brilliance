@@ -64,7 +64,7 @@ public class DegreesController implements Initializable {
         degree_filterBy.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> filterOptions(newVal));
 
         degree_facultyID.setItems(Model.getInstance().getConnectDB().getFaculties());
-        degree_facultyID.getSelectionModel().selectedItemProperty().addListener((observable,  oldVal, newVal)
+        degree_facultyID.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal)
                 -> degree_deptID.setItems(Model.getInstance().getConnectDB().getFacultyDepartments(newVal)));
         degree_deptID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
                 -> degree_minor.setItems(Model.getInstance().getConnectDB().getDepartmentMinors(newValue)));
@@ -102,7 +102,7 @@ public class DegreesController implements Initializable {
         facultyID = degree_facultyID.getValue();
         departmentID = degree_deptID.getValue();
         degreeMinor = degree_minor.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, degreeID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(degreeID, tableName);
 
         if(degreeID == null || degreeName == null || degreeMinor == null || duration == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1em");
@@ -135,7 +135,7 @@ public class DegreesController implements Initializable {
         facultyID = degree_facultyID.getValue();
         departmentID = degree_deptID.getValue();
         degreeMinor = degree_minor.getValue();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, degreeID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(degreeID, tableName);
 
         if(degreeID == null || degreeName == null || degreeMinor == null || duration == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1em");
@@ -156,7 +156,7 @@ public class DegreesController implements Initializable {
     }
     private void deleteDegree() {
         degreeID = degree_degreeID.getText();
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(tableName, idColumn, degreeID);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(degreeID, tableName);
 
         if(degreeID == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1em");

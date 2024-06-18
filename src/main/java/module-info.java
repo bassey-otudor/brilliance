@@ -18,4 +18,5 @@ module com.learn.briliance {
     exports learn.brilliance.Model;
     exports learn.brilliance.Controller.Admin.Dashboard;
     exports learn.brilliance.Model.Accounts;
+    exports learn.brilliance.Controller.Teacher.Overview;
 }
