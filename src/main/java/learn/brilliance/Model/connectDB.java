@@ -23,6 +23,7 @@ public class connectDB {
             this.conn = DriverManager.getConnection(connURL, username, password);
 
         } catch (SQLException ex) {
+            System.out.println("Unable to connect to the general database");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -614,30 +615,6 @@ public class connectDB {
         }
 
         return FXCollections.observableArrayList(creditValueList);
-    }
-    public ObservableList<String> getCoursePosition() {
-        List<String> coursePositionList = new ArrayList<>();
-
-        String selectCoursePosition = "SELECT * FROM course_position";
-
-        Statement stmt;
-        ResultSet resultSet;
-
-        try {
-            stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(selectCoursePosition);
-
-            while (resultSet.next()) {
-                coursePositionList.add(resultSet.getString("course_position"));
-            }
-            coursePositionList = FXCollections.observableArrayList(coursePositionList);
-
-        } catch (SQLException ex) {
-            System.out.println("Unable to retrieve list of course positions.");
-            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return FXCollections.observableArrayList(coursePositionList);
     }
 
     /**

@@ -99,6 +99,8 @@ public class FacultiesController implements Initializable {
         String department2ID = faculty_dept2ID.getText().toUpperCase();
         String department3ID = faculty_dept3ID.getText().toUpperCase();
 
+        String[] departments = {department1ID, department2ID, department3ID};
+
         boolean doesExist = Model.getInstance().getConnectDB().checkData(facultyID, tableName);
 
         try {

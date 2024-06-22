@@ -61,56 +61,30 @@
             </AnchorPane>
          </AnchorPane>
       </VBox>
-      <HBox prefHeight="600.0" prefWidth="524.0" stylesheets="@../../../Styles/AdminDashboard.css">
-         <AnchorPane prefHeight="601.0" prefWidth="251.0">
-            <AnchorPane prefHeight="596.0" prefWidth="240.0">
-               <AnchorPane layoutX="6.143999812500006" layoutY="2.3039999296875022" prefHeight="592.0" prefWidth="247.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="-13.0" AnchorPane.topAnchor="2.0">
-                  <styleClass>
-                     <String fx:value="card-fix" />
-                     <String fx:value="main-container" />
-                  </styleClass>
-                  <VBox prefHeight="582.0" prefWidth="253.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <AnchorPane prefHeight="46.0" prefWidth="227.0">
-                        <AnchorPane layoutX="2.7625900038737017" layoutY="2.7625900038737017" prefHeight="35.0" prefWidth="155.0" stylesheets="@../../../Styles/GlobalStyles.css" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="3.0">
-                           <Label layoutX="72.0" layoutY="2.0" styleClass="label-title" text="Top Students">
-                              <font>
-                                 <Font name="System Bold" size="14.0" />
-                              </font>
-                           </Label>
-                           <Label layoutX="99.0" layoutY="17.0" prefHeight="18.0" prefWidth="30.0" text="C.A." textAlignment="CENTER" />
-                        </AnchorPane>
-                     </AnchorPane>
-                     <AnchorPane prefHeight="549.0" prefWidth="247.0">
-                        <ListView fx:id="overview_topStudentsCA" layoutX="2.3039999296875022" layoutY="52.0" prefHeight="530.0" prefWidth="240.0" stylesheets="@../../../Styles/GlobalStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0" />
-                     </AnchorPane>
-                  </VBox>
-               </AnchorPane>
-            </AnchorPane>
-         </AnchorPane>
-         <AnchorPane prefHeight="601.0" prefWidth="263.0">
-            <AnchorPane layoutX="8.0" layoutY="2.0" prefHeight="591.0" prefWidth="254.0">
+      <AnchorPane fx:id="courseRecord_anchorPane" prefHeight="601.0" prefWidth="233.0" stylesheets="@../../../Styles/AdminDashboard.css">
+         <AnchorPane prefHeight="594.0" prefWidth="512.0">
+            <AnchorPane prefHeight="594.0" prefWidth="508.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
                <styleClass>
                   <String fx:value="card-fix" />
                   <String fx:value="main-container" />
                </styleClass>
-               <VBox prefHeight="579.0" prefWidth="252.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
-                  <AnchorPane prefHeight="42.0" prefWidth="148.0">
-                     <AnchorPane layoutX="2.7625900038737017" layoutY="2.7625900038737017" prefHeight="35.0" prefWidth="155.0" stylesheets="@../../../Styles/GlobalStyles.css" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="3.0">
-                        <Label layoutX="76.0" layoutY="1.0" styleClass="label-title" text="Top Students">
+               <VBox prefHeight="589.8239820000006" prefWidth="506.1119845546879" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane prefHeight="31.0" prefWidth="506.0">
+                     <AnchorPane layoutX="2.7625900038737017" layoutY="2.7625900038737017" prefHeight="33.0" prefWidth="494.0" stylesheets="@../../../Styles/GlobalStyles.css" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="3.0">
+                        <Label layoutX="203.0" layoutY="5.0" styleClass="label-title" text="Top Students">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="95.0" layoutY="16.0" text="OVERALL" />
                      </AnchorPane>
                   </AnchorPane>
-                  <AnchorPane prefHeight="567.0" prefWidth="252.0">
-                     <ListView fx:id="overview_topStudentsTotal" layoutX="4.143885005810552" layoutY="52.0" prefHeight="533.0" prefWidth="252.0" stylesheets="@../../../Styles/GlobalStyles.css" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <AnchorPane prefHeight="548.0" prefWidth="237.0">
+                     <ListView fx:id="overview_topStudents" layoutX="2.3039999296875022" layoutY="52.0" prefHeight="546.047983335938" prefWidth="506.111984554688" stylesheets="@../../../Styles/GlobalStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   </AnchorPane>
                </VBox>
             </AnchorPane>
          </AnchorPane>
-      </HBox>
+      </AnchorPane>
    </HBox>
    <stylesheets>
       <URL value="@../../../Styles/AdminDashboard.css" />

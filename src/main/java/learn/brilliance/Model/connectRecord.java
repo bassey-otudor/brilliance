@@ -2,12 +2,12 @@ package learn.brilliance.Model;
 
 
 import java.sql.*;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class connectRecord {
     private Connection conn;
+    Statement stmt;
     private PreparedStatement preparedStatement;
     private static final String connURL = "jdbc:sqlite:courseRecords.db";
     private static final String username = "root";
@@ -23,18 +23,12 @@ public class connectRecord {
         }
     }
 
-    public ResultSet getCATotalOverall(String tableName, String operation) {
-        Statement stmt;
+    public ResultSet getBestCourseRecord(String tableName) {
         ResultSet resultSet = null;
 
         try {
             stmt = this.conn.createStatement();
-            if(Objects.equals(operation, "CA")) {
-                resultSet = stmt.executeQuery("SELECT ID, studentID, studentName, firstCA, secondCA, exam, total, grade, status, (coalesce(firstCA, 0) + coalesce(secondCA, 0)) as Total FROM '"+tableName+"' ORDER BY Total DESC;");
-
-            } else {
-                resultSet = stmt.executeQuery("SELECT * FROM '"+tableName+"';");
-            }
+            resultSet = stmt.executeQuery("SELECT * FROM '"+tableName+"' ORDER BY total DESC;");
 
         } catch (SQLException ex) {
             System.out.println("Unable to get course records CA total or overall.");
@@ -45,7 +39,6 @@ public class connectRecord {
     }
 
     public ResultSet getCourseRecordData(String tableName) {
-        Statement stmt;
         ResultSet resultSet = null;
 
         try {
@@ -80,7 +73,6 @@ public class connectRecord {
     }
     public void createCourseRecordTable(String tableName) {
         String newCourseRecordTable = "CREATE TABLE IF NOT EXISTS '"+tableName+"' '(ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, studentID varchar(20) NOT NULL, studentName(50) NOT NULL, firstCA varchar(10), secondCA varchar(10), exam varchar(10), total varchar(10), grade varchar(10), status varchar(10);'";
-        Statement stmt;
 
         try {
             stmt = conn.createStatement();
@@ -115,4 +107,55 @@ public class connectRecord {
 
     }
 
+    // Get data for course performance
+    public ResultSet getFirstCA(String tableName) {
+        String getFirstCA = "SELECT firstCA, COUNT(firstCA) AS Occurences FROM '"+tableName+"' WHERE firstCA >= 0 GROUP BY firstCA;";
+        ResultSet resultSet = null;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getFirstCA);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to get firstCA occurrences.", ex);
+        }
+        return resultSet;
+    }
+    public ResultSet getSecondCA(String tableName) {
+        String getSecondCA = "SELECT secondCA, COUNT(secondCA) AS Occurences FROM '"+tableName+"' WHERE secondCA >= 0 GROUP BY secondCA;";
+        ResultSet resultSet = null;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getSecondCA);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to get secondCA occurrences.", ex);
+        }
+        return resultSet;
+    }
+    public ResultSet getExam(String tableName) {
+        String getExam = "SELECT exam, COUNT(exam) AS Occurences FROM '"+tableName+"' WHERE exam >= 0 GROUP BY exam;";
+        ResultSet resultSet = null;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getExam);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to get exam occurrences.", ex);
+        }
+        return resultSet;
+    }
+    public ResultSet getTotal(String tableName) {
+        String getTotal = "SELECT total, COUNT(total) AS Occurences FROM '"+tableName+"' WHERE total >= 0 GROUP BY total;";
+        ResultSet resultSet = null;
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getTotal);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to get total occurrences.", ex);
+        }
+        return resultSet;
+    }
 }
+
+

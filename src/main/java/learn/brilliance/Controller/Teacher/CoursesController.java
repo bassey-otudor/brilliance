@@ -99,7 +99,7 @@ public class CoursesController implements Initializable {
         String status;
 
         if(firstCA == null || firstCA.isEmpty()) {
-            Model.getInstance().getConnectRecord().updateCourseRecord(tableName, studentID, studentName, null, null, null, null, "ABSENT", "FAILED");
+            Model.getInstance().getConnectRecord().updateCourseRecord(tableName, studentID, studentName, null, null, null, null,"ABSENT", "FAILED");
 
         } else {
             status = determineStatus(total);

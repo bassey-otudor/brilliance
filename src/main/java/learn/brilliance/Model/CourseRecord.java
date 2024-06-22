@@ -28,6 +28,7 @@ public class CourseRecord {
     public StringProperty studentNameProperty() { return studentName; }
     public StringProperty firstCAProperty() { return firstCA; }
     public StringProperty secondCAProperty() { return secondCA; }
+
     public StringProperty examProperty() { return exam; }
     public StringProperty totalProperty() { return total; }
     public StringProperty gradeProperty() { return grade; }

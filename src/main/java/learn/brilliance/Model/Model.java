@@ -34,7 +34,7 @@ public class Model {
     private final Teacher teacher;
     private boolean teacherLoginStatus;
     private final ObservableList<CourseRecord> courseRecords;
-    private final ObservableList<CourseRecord> courseCATotals;
+    private final ObservableList<CourseRecord> overviewCourseRecords;
     private final ObservableList<CourseRecord> courseOverall;
 
     private Model() {
@@ -56,7 +56,7 @@ public class Model {
         this.teacherLoginStatus = false;
         this.teacher = new Teacher("", "", "", null, null, null, null, null , null, null, null, null);
         this.courseRecords = FXCollections.observableArrayList();
-        this.courseCATotals = FXCollections.observableArrayList();
+        this.overviewCourseRecords = FXCollections.observableArrayList();
         this.courseOverall = FXCollections.observableArrayList();
     }
 
@@ -161,9 +161,9 @@ public class Model {
         return courseRecordList;
     }
     // Overview page
-    public void prepareCATotals(ObservableList<CourseRecord> courseCATotal) {
+    public void prepareCourseRecord(ObservableList<CourseRecord> courseRecord) {
         String tableName = Model.getInstance().getTeacher().courseProperty().get() + "-" + LocalDate.now().getYear();
-        ResultSet resultSet = getConnectRecord().getCATotalOverall(tableName, "CA");
+        ResultSet resultSet = getConnectRecord().getBestCourseRecord(tableName);
 
         try {
             while (resultSet.next()) {
@@ -172,22 +172,22 @@ public class Model {
                 String firstCA = resultSet.getString("firstCA");
                 String secondCA = resultSet.getString("secondCA");
                 String exam = resultSet.getString("exam");
-                String Total = resultSet.getString("Total");
+                String total = resultSet.getString("total");
                 String grade = resultSet.getString("grade");
                 String status = resultSet.getString("status");
 
-                courseCATotal.add(new CourseRecord(studentID, studentName, firstCA, secondCA, exam, Total, grade, status));
+                courseRecord.add(new CourseRecord(studentID, studentName, firstCA, secondCA, exam, total, grade, status));
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(learn.brilliance.Model.connectRecord.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void setAllCourseCATotals() {
-        prepareCATotals(courseCATotals);
+    public void setOverviewCourseRecords() {
+        prepareCourseRecord(overviewCourseRecords);
     }
-    public ObservableList<CourseRecord> getAllCourseCATotals() {
-        return courseCATotals;
+    public ObservableList<CourseRecord> getOverviewCourseRecords() {
+        return overviewCourseRecords;
     }
 
     // Binding data section

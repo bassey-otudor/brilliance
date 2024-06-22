@@ -60,11 +60,6 @@ public class CoursesController implements Initializable {
         course_teacher.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldVal, newVal)
                 -> course_teacherID.setText(getTeacherID(newVal))));
 
-        course_firstSecond.setItems(Model.getInstance().getConnectDB().getCoursePosition());
-        course_teacher.valueProperty().addListener(((observableValue, oldVal, newVal)
-                -> course_firstSecond.setDisable(Boolean.parseBoolean(newVal))
-        ));
-
         course_level.setItems(Model.getInstance().getConnectDB().getLevel());
         course_creditValue.setItems(Model.getInstance().getConnectDB().getCreditValue());
         course_addBtn.setOnAction(e -> createCourse());
@@ -130,7 +125,6 @@ public class CoursesController implements Initializable {
         String creditValue = course_creditValue.getValue();
         boolean operation = true;
         boolean doesExists = Model.getInstance().getConnectDB().checkData(courseID, tableName);
-        String coursePosition = course_firstSecond.getValue();
 
         try {
             if(courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || creditValue.isEmpty() || facultyID.isEmpty()) {
@@ -146,10 +140,6 @@ public class CoursesController implements Initializable {
                     operationStatus.setText("Course already exist..");
 
                 } else {
-
-                    if (!coursePosition.isEmpty()){
-                        Model.getInstance().getConnectDB().insertCoursesInTeacher(coursePosition, teacherID, courseID, operation);
-                    }
 
                     Model.getInstance().getConnectDB().createCourse(courseID, courseName, courseLevel, departmentID, creditValue, teacherID, teacherName, facultyID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
