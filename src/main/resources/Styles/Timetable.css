@@ -1,0 +1,28 @@
+
+
+.card-grey {
+    -fx-background-color: #E7ECEC;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 6,0,1,1) ;
+}
+
+.label-course-id {
+    -fx-text-fill: #000;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+}
+
+.label-course-name {
+    -fx-text-fill: #40C5CF;
+    -fx-font-family: "Segoe UI";
+    -fx-font-style: italic;
+}
+
+.label-text {
+    -fx-text-fill: #707070;
+    -fx-font-family: "Segoe UI";
+}
+
+
+
+

@@ -1,0 +1,32 @@
+
+
+.label {
+    -fx-text-fill: #707070;
+    -fx-font-family: "Segoe UI";
+}
+
+.card {
+    -fx-background-color: #fff;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 6,0,1,1) ;
+}
+
+.card-grey {
+    -fx-background-color: #E7ECEC;
+}
+
+.student-info {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.course-record-data {
+    -fx-font-size: 12px;
+}
+
+.course-record-info {
+    -fx-font-size: 12px;
+    -fx-text-fill: #40C5CF;
+    -fx-font-weight: bold;
+}
+

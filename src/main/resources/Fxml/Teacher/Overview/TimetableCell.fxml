@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="64.0" prefWidth="269.0" styleClass="card-grey" stylesheets="@../../../Styles/Timetable.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="overview_timetableCourseID" layoutX="17.0" layoutY="3.0" styleClass="label-course-id" text="CS1101">
+      <font>
+         <Font name="System Bold" size="12.288000106811523" />
+      </font>
+   </Label>
+   <Label fx:id="overview_timetableCourseName" layoutX="66.0" layoutY="3.0" styleClass="label-course-name" text="Programming Fundaments">
+      <font>
+         <Font name="System Italic" size="12.288000106811523" />
+      </font>
+   </Label>
+   <Label fx:id="overview_timetableLocation" layoutX="17.0" layoutY="20.0" styleClass="label-text" text="BLOCK-E3" />
+   <Label fx:id="overview_timetableStartTime" layoutX="229.0" layoutY="20.0" styleClass="label-text" text="9:30" />
+   <Label layoutX="219.0" layoutY="20.0" text="●">
+      <font>
+         <Font size="10.0" />
+      </font>
+   </Label>
+   <ProgressBar fx:id="overview_timetableProgressBar" layoutX="16.0" layoutY="42.0" prefHeight="12.0" prefWidth="238.0" progress="0.0" />
+</AnchorPane>
