@@ -8,7 +8,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.Duration;
-import learn.brilliance.Model.Accounts.Teacher;
 import learn.brilliance.Model.Department;
 import learn.brilliance.Model.Model;
 
@@ -241,7 +240,7 @@ public class DepartmentsController implements Initializable {
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                 operationStatus.setText("Department successfully deleted.");
                 dept_tableView.setItems(Model.getInstance().setAllDepartments());
-                // faculty_tableView.setItems(Model.getInstance().setFaculties());
+                markDepartmentAsDeleted();
                 clearFields();
 
             } else {
@@ -262,6 +261,14 @@ public class DepartmentsController implements Initializable {
         for(String level : levelList) {
             String tableName = dept_deptID.getText().toUpperCase()+ "-" + level.toUpperCase();
             Model.getInstance().getConnectDepartmentDB().createLevelTable(tableName);
+        }
+    }
+    private void markDepartmentAsDeleted() {
+        ObservableList<String> levelList = Model.getInstance().getConnectDB().getLevel();
+        for(String level : levelList) {
+            String oldName = dept_deptID.getText().toUpperCase()+ "-" + level.toUpperCase();
+            String newName = oldName.toUpperCase() + "-" + "DELETED";
+            Model.getInstance().getConnectDepartmentDB().markTableAsDeleted(oldName, newName);
         }
     }
     private void clearFields() {

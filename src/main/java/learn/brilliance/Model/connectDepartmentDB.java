@@ -34,12 +34,12 @@ public class connectDepartmentDB {
             Logger.getLogger(connectDepartmentDB.class.getName()).log(Level.SEVERE, "Unable to create department course list", ex);
         }
     }
-    // Make the tables of deleted departments as dropped
-    public void markTableAsDropped(String oldName, String newName) {
-        String markTableAsDropped = "ALTER TABLE '"+oldName+"' RENAME to '"+newName+"'";
+    // Mark the tables of deleted departments as dropped
+    public void markTableAsDeleted(String oldName, String newName) {
+        String markTableAsDeleted = "ALTER TABLE '"+oldName+"' RENAME to '"+newName+"'";
         try {
             stmt = this.conn.createStatement();
-            stmt.executeQuery(markTableAsDropped);
+            stmt.executeUpdate(markTableAsDeleted);
 
         } catch (SQLException ex) {
             Logger.getLogger(connectDepartmentDB.class.getName()).log(Level.SEVERE, null, ex);
