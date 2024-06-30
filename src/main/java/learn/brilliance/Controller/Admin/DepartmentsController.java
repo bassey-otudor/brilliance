@@ -21,9 +21,6 @@ import java.util.logging.Logger;
 
 public class DepartmentsController implements Initializable {
     public final String tableName = "departments";
-    public final String idColumn = "deptID";
-    public final String columnName = "deptName";
-
     public TextField dept_searchField;
     public ComboBox<String> dept_filterBy;
     public TableView<Department> dept_tableView;

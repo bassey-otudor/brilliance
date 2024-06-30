@@ -220,7 +220,6 @@ public class Model {
             Logger.getLogger(learn.brilliance.Model.connectRecord.class.getName()).log(Level.SEVERE, "Unable to get today's timetable.", ex);
         }
     }
-
     public void prepareTomorrowTimetable(ObservableList<Timetable> timetable) {
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK) + 1;
@@ -242,10 +241,12 @@ public class Model {
             Logger.getLogger(learn.brilliance.Model.connectRecord.class.getName()).log(Level.SEVERE, "Unable to get tomorrow's timetable.", ex);
         }
     }
+
     public void setTodayTimetable() {
         prepareTodayTimetable(todayTimetables);
     }
     public void setTomorrowTimetable() { prepareTomorrowTimetable(tomorrowTimetables); }
+
     public ObservableList<Timetable> getAllTodayTimetables() {
         return todayTimetables;
     }
@@ -367,8 +368,8 @@ public class Model {
                       resultSet.getString("teacherID"),
                       resultSet.getString("teacherName"),
                       resultSet.getString("facultyID"),
-                      resultSet.getString("creditValue")
-
+                        resultSet.getString("creditValue"),
+                        resultSet.getString("degreeID")
                 );
                 courseList.add(courseData);
             }

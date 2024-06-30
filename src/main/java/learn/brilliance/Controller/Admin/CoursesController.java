@@ -44,6 +44,7 @@ public class CoursesController implements Initializable {
     public Label operationStatus;
     public TextField course_teacherID;
     public Button course_resetFilterBtn;
+    public ComboBox<String> course_degreeID;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,10 +55,13 @@ public class CoursesController implements Initializable {
         course_faculty.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal)
                 -> course_dept.setItems(Model.getInstance().getConnectDB().getFacultyDepartments(newVal)));
 
-        course_dept.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldVal, newVal)
-                -> course_teacher.setItems(Model.getInstance().getConnectDB().getCourseTeacher(newVal))));
+        course_dept.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            course_degreeID.setItems(Model.getInstance().getConnectDB().getDepartmentDegrees(newValue));
+            course_teacher.setItems(Model.getInstance().getConnectDB().getCourseTeacher(newValue));
+        }));
         course_teacher.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldVal, newVal)
                 -> course_teacherID.setText(getTeacherID(newVal))));
+
 
         course_level.setItems(Model.getInstance().getConnectDB().getLevel());
         course_creditValue.setItems(Model.getInstance().getConnectDB().getCreditValue());
@@ -122,6 +126,7 @@ public class CoursesController implements Initializable {
         String teacherID = getTeacherID(teacherName);
         String facultyID = course_faculty.getValue();
         String creditValue = course_creditValue.getValue();
+        String degreeID = course_degreeID.getValue();
         boolean doesExists = Model.getInstance().getConnectDB().checkData(courseID, tableName);
         String tableName = courseID + "-" + LocalDate.now().getYear();
 
@@ -140,7 +145,7 @@ public class CoursesController implements Initializable {
 
                 } else {
 
-                    Model.getInstance().getConnectDB().createCourse(courseID, courseName, courseLevel, departmentID, creditValue, teacherID, teacherName, facultyID);
+                    Model.getInstance().getConnectDB().createCourse(courseID, courseName, courseLevel, departmentID, creditValue, teacherID, teacherName, facultyID, degreeID);
                     Model.getInstance().getConnectRecord().createCourseRecordTable(tableName);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Course successfully added.");
@@ -170,6 +175,7 @@ public class CoursesController implements Initializable {
         String teacherID = getTeacherID(teacherName);
         String facultyID = course_faculty.getValue();
         String creditValue = course_creditValue.getValue();
+        String degreeID = course_degreeID.getValue();
         boolean doesExists = Model.getInstance().getConnectDB().checkData(courseID, tableName);
 
         try {
@@ -181,7 +187,7 @@ public class CoursesController implements Initializable {
 
                 if (doesExists) {
 
-                    Model.getInstance().getConnectDB().updateCourse(courseID, courseName, courseLevel, departmentID, creditValue,teacherID, teacherName, facultyID);
+                    Model.getInstance().getConnectDB().updateCourse(courseID, courseName, courseLevel, departmentID, creditValue,teacherID, teacherName, facultyID, degreeID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Course successfully updated.");
 

@@ -12,8 +12,9 @@ public class Course {
     public final StringProperty teacherName;
     public final StringProperty facultyID;
     public final StringProperty course_creditValue;
+    public final StringProperty degree;
 
-    public Course(String courseID, String courseName, String courseLevel, String departmentID, String teacherID, String teacherName, String facultyID, String creditValue) {
+    public Course(String courseID, String courseName, String courseLevel, String departmentID, String teacherID, String teacherName, String facultyID, String creditValue, String degree) {
         this.courseID = new SimpleStringProperty(this, "CourseID", courseID);
         this.courseName = new SimpleStringProperty(this, "CourseName", courseName);
         this.courseLevel = new SimpleStringProperty(this, "CourseLevel", courseLevel);
@@ -22,6 +23,7 @@ public class Course {
         this.teacherName = new SimpleStringProperty(this, "TeacherName", teacherName);
         this.facultyID = new SimpleStringProperty(this, "FacultyID", facultyID);
         this.course_creditValue = new SimpleStringProperty(this, "CreditValue", creditValue);
+        this.degree = new SimpleStringProperty(this, "Degree", degree);
     }
 
     public StringProperty courseIDProperty() { return courseID; }
@@ -32,4 +34,5 @@ public class Course {
     public StringProperty teacherNameProperty() { return teacherName; }
     public StringProperty facultyIDProperty() { return facultyID; }
     public StringProperty creditValueProperty() { return course_creditValue; }
+    public StringProperty degreeProperty() { return degree; }
 }

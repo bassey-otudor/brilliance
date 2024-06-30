@@ -626,12 +626,13 @@ public class connectDB {
      * @param departmentID The ID of the department that the course belongs to.
      * @param teacherID The ID of the teacher that is teaching the course.
      * @param facultyID The ID of the faculty that is associated with the course.
+     * @param degreeID The ID of degree that is associated with the course.
      */
-    public void createCourse(String courseID, String courseName, String courseLevel, String departmentID, String creditValue,String teacherID, String teacherName,String facultyID) {
+    public void createCourse(String courseID, String courseName, String courseLevel, String departmentID, String creditValue,String teacherID, String teacherName,String facultyID, String degreeID) {
 
         String createCourse = "INSERT INTO Courses " +
-                "(courseID, courseName, courseLevel, deptID, creditValue ,teacherID, teacherName, facultyID)" +
-                "VALUES (?,?,?,?,?,?,?,?);";
+                "(courseID, courseName, courseLevel, deptID, creditValue ,teacherID, teacherName, facultyID, degreeID)" +
+                "VALUES (?,?,?,?,?,?,?,?,?);";
         try {
 
             preparedStatement = conn.prepareStatement(createCourse);
@@ -643,6 +644,7 @@ public class connectDB {
             preparedStatement.setString(6, teacherID);
             preparedStatement.setString(7, teacherName);
             preparedStatement.setString(8, facultyID);
+            preparedStatement.setString(9, degreeID);
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
@@ -660,9 +662,10 @@ public class connectDB {
      * @param departmentID The ID of the department that the course belongs to.
      * @param teacherID The ID of the teacher that is teaching the course.
      * @param facultyID The ID of the faculty that is associated with the course.
+     * @param degreeID The ID of degree that is associated with the course.
      */
-    public void updateCourse(String courseID, String courseName, String courseLevel, String departmentID, String creditValue,String teacherID, String teacherName, String facultyID) {
-        String updateCourse = "UPDATE courses SET courseID =?, courseName =?, courseLevel =?, deptID =?, creditValue =?,teacherID =?, teacherName =?, facultyID =? WHERE courseID =?";
+    public void updateCourse(String courseID, String courseName, String courseLevel, String departmentID, String creditValue,String teacherID, String teacherName, String facultyID, String degreeID) {
+        String updateCourse = "UPDATE courses SET courseID =?, courseName =?, courseLevel =?, deptID =?, creditValue =?,teacherID =?, teacherName =?, facultyID =?, degreeID =? WHERE courseID =?";
         try {
             preparedStatement = conn.prepareStatement(updateCourse);
             preparedStatement.setString(1, courseID);
@@ -673,7 +676,8 @@ public class connectDB {
             preparedStatement.setString(6, teacherID);
             preparedStatement.setString(7, teacherName);
             preparedStatement.setString(8, facultyID);
-            preparedStatement.setString(9, courseID);
+            preparedStatement.setString(9, degreeID);
+            preparedStatement.setString(10, courseID);
             preparedStatement.executeUpdate();
 
 
