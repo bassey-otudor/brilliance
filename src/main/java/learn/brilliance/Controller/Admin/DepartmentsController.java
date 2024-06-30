@@ -2,6 +2,7 @@ package learn.brilliance.Controller.Admin;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
@@ -132,7 +133,7 @@ public class DepartmentsController implements Initializable {
 
         try {
 
-            if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty() || hod.isEmpty() || minor1.isEmpty() || minor2.isEmpty()) {
+            if(departmentID.isEmpty() || departmentName.isEmpty() || facultyID.isEmpty() || hod.isEmpty()) {
                 operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 operationStatus.setText("Please fill required fields.");
 
@@ -144,36 +145,50 @@ public class DepartmentsController implements Initializable {
 
                 } else {
 
-                    if(minor1.equals(minor2)) {
-                        operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
-                        operationStatus.setText("Minors cannot be the same.");
+                    if(minor1 == null || minor2 == null || minor1.isEmpty() || minor2.isEmpty()) {
+                        Model.getInstance().getConnectDB().createDepartment(departmentID, departmentName, facultyID, hod, null, null);
+                        operationStatus.setText("Department successfully created.");
+                        createDepartmentLevelTables();
+                        dept_tableView.setItems(Model.getInstance().setAllDepartments());
+                        operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em; -fx-font-weight: bold;");
 
                     } else {
-                        ResultSet resultSet = Model.getInstance().getConnectDB().checkEmptyDepartmentsColumns(facultyID);
-                        while (resultSet.next()) {
-                            if(resultSet.getString("Department1").isEmpty()) {
-                                String column = "Department1";
-                                Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
 
-                            } else if (resultSet.getString("Department2").isEmpty()){
-                                String column = "Department2";
-                                Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                        if(minor1.equals(minor2)) {
+                            operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                            operationStatus.setText("Minors cannot be the same.");
 
-                            } else if (resultSet.getString("Department3").isEmpty()) {
-                                String column = "Department3";
-                                Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                        } else {
+
+                            ResultSet resultSet = Model.getInstance().getConnectDB().checkEmptyDepartmentsColumns(facultyID);
+                            while (resultSet.next()) {
+                                if(resultSet.getString("Department1").isEmpty()) {
+                                    String column = "Department1";
+                                    Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+
+                                } else if (resultSet.getString("Department2").isEmpty()){
+                                    String column = "Department2";
+                                    Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+
+                                } else if (resultSet.getString("Department3").isEmpty()) {
+                                    String column = "Department3";
+                                    Model.getInstance().getConnectDB().insertDepartmentInFaculty(column, departmentName, facultyID);
+                                }
                             }
+
+                            Model.getInstance().getConnectDB().createDepartment(departmentID, departmentName, facultyID, hod, minor1, minor2);
+                            createDepartmentLevelTables();
+                            operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
+                            operationStatus.setText("Department successfully added.");
+
+                            // Update departments table
+                            dept_tableView.setItems(Model.getInstance().setAllDepartments());
+                            updateDepartmentsTable();
+                            clearFields();
                         }
 
-                        Model.getInstance().getConnectDB().createDepartment(departmentID, departmentName, facultyID, hod, minor1, minor2);
-                        operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
-                        operationStatus.setText("Department successfully added.");
-
-                        // Update departments table
-                        dept_tableView.setItems(Model.getInstance().setAllDepartments());
-                        updateDepartmentsTable();
-                        clearFields();
                     }
+
                 }
             }
 
@@ -244,6 +259,13 @@ public class DepartmentsController implements Initializable {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE); // repeats indefinitely
         timeline.playFromStart();
+    }
+    private void createDepartmentLevelTables() {
+        ObservableList<String> levelList = Model.getInstance().getConnectDB().getLevel();
+        for(String level : levelList) {
+            String tableName = dept_deptID.getText().toUpperCase()+ "-" + level.toUpperCase();
+            Model.getInstance().getConnectDepartmentDB().createLevelTable(tableName);
+        }
     }
     private void clearFields() {
         dept_deptID.setText(null);

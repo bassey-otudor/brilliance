@@ -2,7 +2,6 @@
 
 <?import java.lang.String?>
 <?import java.net.URL?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.ScatterChart?>
 <?import javafx.scene.control.Label?>
@@ -38,9 +37,33 @@
             <AnchorPane prefHeight="330.0" prefWidth="306.0">
                <AnchorPane layoutX="4.0" layoutY="3.0" prefHeight="326.0" prefWidth="301.0">
                   <styleClass>
-                     <String fx:value="card" />
-                     <String fx:value="main-container" />
+                     <String fx:value="card"/>
+                     <String fx:value="main-container"/>
                   </styleClass>
+                  <VBox layoutX="107.0" layoutY="73.0" prefHeight="326.3999900390628" prefWidth="301.0559908125003"
+                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                        AnchorPane.topAnchor="0.0">
+                     <AnchorPane prefHeight="28.0" prefWidth="301.0">
+                        <Label layoutX="9.0" layoutY="6.0" text="Today:"/>
+                        <Label fx:id="overview_timetableToday" layoutX="59.0" layoutY="5.0"
+                               text="Tuesday, June 25th">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0"/>
+                           </font>
+                        </Label>
+                     </AnchorPane>
+                     <ListView fx:id="overview_timetableTodayListView" prefHeight="207.0" prefWidth="301.0"/>
+                     <AnchorPane prefHeight="23.0" prefWidth="301.0">
+                        <Label layoutX="7.0" layoutY="2.0" text="Tomorrow:"/>
+                        <Label fx:id="overview_timetableTomorrow" layoutX="76.0" layoutY="1.0"
+                               text="Wednesday, June 26th">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0"/>
+                           </font>
+                        </Label>
+                     </AnchorPane>
+                     <ListView fx:id="overview_timetableTomorrowListView" prefHeight="200.0" prefWidth="200.0"/>
+                  </VBox>
                </AnchorPane>
             </AnchorPane>
          </HBox>
@@ -52,10 +75,10 @@
                </styleClass>
                <ScatterChart fx:id="overview_scatterChart" prefHeight="256.23022285928585" prefWidth="478.6187181711188" title="Course Results" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <xAxis>
-                     <CategoryAxis side="BOTTOM" />
+                     <NumberAxis side="BOTTOM" fx:id="xAxis" />
                   </xAxis>
                   <yAxis>
-                     <NumberAxis side="LEFT" />
+                     <NumberAxis fx:id="yAxis" side="LEFT" />
                   </yAxis>
                </ScatterChart>
             </AnchorPane>

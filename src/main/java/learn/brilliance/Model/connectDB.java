@@ -281,7 +281,7 @@ public class connectDB {
         return FXCollections.observableArrayList(faculityList);
     }
     public ObservableList<String> getMinor(String facultyID) {
-        String selectMinors = "SELECT * FROM minor WHERE facultyID = ? ORDER BY minorName ASC ";
+        String selectMinors = "SELECT * FROM minors WHERE facultyID = ? ORDER BY minorName ASC ";
         List<String> minorList = new ArrayList<>();
         ResultSet resultSet;
 
@@ -337,7 +337,7 @@ public class connectDB {
     }
     public void createDepartment(String departmentID, String departmentName, String facultyID, String hod, String minor1, String minor2) {
         String createDepartment = "INSERT INTO departments "
-                + "(departmentID, departmentName, facultyID, hod, minor1, minor2)"
+                + "(deptID, deptName, facultyID, hod, minor1, minor2)"
                 + "VALUES (?,?,?,?,?,?)";
 
         try{
@@ -703,18 +703,16 @@ public class connectDB {
 
     /**
  * This method is used to insert or delete a course from a teacher.
- *
- * @param columnName The column name of the courses table that will be updated.
  * @param teacherID The ID of the teacher that the course will be assigned or removed from.
  * @param courseID The ID of the course that will be assigned or removed.
  * @param operation A boolean value indicating whether to insert or delete the course.
  */
-    public void insertCoursesInTeacher(String columnName, String teacherID, String courseID, boolean operation) {
+    public void insertCoursesInTeacher(String teacherID, String courseID, boolean operation) {
 
         if (operation) {
             try {
 
-                String insertCourse = "UPDATE teachers SET '"+columnName+"'=? WHERE teacherID =?;";
+                String insertCourse = "UPDATE teachers SET course=? WHERE teacherID =?;";
                 preparedStatement = conn.prepareStatement(insertCourse);
                 preparedStatement.setString(1, courseID);
                 preparedStatement.setString(2, teacherID);
@@ -729,7 +727,7 @@ public class connectDB {
 
             try {
 
-                String deleteCourse = "UPDATE teachers SET  '"+columnName+"'= null WHERE teacherID =?;";
+                String deleteCourse = "UPDATE teachers SET course= null WHERE teacherID =?;";
                 preparedStatement = conn.prepareStatement(deleteCourse);
                 preparedStatement.setString(1, teacherID);
                 preparedStatement.executeUpdate();
@@ -739,6 +737,23 @@ public class connectDB {
                 Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    /** Get course name*/
+    public String getCourseName(String courseID) {
+        String courseName = null;
+        String selectCourse = "SELECT * FROM courses WHERE courseID =?";
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = conn.prepareStatement(selectCourse);
+            preparedStatement.setString(1, courseID);
+            resultSet = preparedStatement.executeQuery();
+            courseName = resultSet.getString("courseName");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return courseName;
     }
 
     // Degree methods
@@ -1246,8 +1261,8 @@ public class connectDB {
             case "students" -> "SELECT * FROM students WHERE studentID =?;";
             case "teachers" -> "SELECT * FROM teachers WHERE teacherID =?;";
             case "faculties" -> "SELECT * FROM faculties WHERE facultyID =?;";
-            case "departments" -> "SELECT * FROM department_degrees WHERE deptID =?;";
-            case "degrees" -> "SELECT * FROM degrees WHERE degreeID =?;";
+            case "departments" -> "SELECT * FROM departments WHERE deptID =?;";
+            case "degrees" -> "SELECT * FROM department_degrees WHERE degreeID =?;";
             case "minors" -> "SELECT * FROM minors WHERE minorID =?;";
             default -> "SELECT * FROM courses WHERE courseID =?;";
         };
@@ -1265,7 +1280,6 @@ public class connectDB {
             System.out.println("Unable to set tab type.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(doesExist);
         return doesExist;
     }
 

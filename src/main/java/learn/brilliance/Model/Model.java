@@ -10,6 +10,7 @@ import learn.brilliance.View.ViewFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +19,8 @@ public class Model {
     private final ViewFactory viewFactory;
     connectDB connectDB;
     connectRecord connectRecord;
+    connectTimetable connectTimetable;
+    connectDepartmentDB connectDepartmentDB;
 
     // Admin variables
     private boolean adminLoginStatus;
@@ -36,11 +39,15 @@ public class Model {
     private final ObservableList<CourseRecord> courseRecords;
     private final ObservableList<CourseRecord> overviewCourseRecords;
     private final ObservableList<CourseRecord> courseOverall;
+    private final ObservableList<Timetable> todayTimetables;
+    private final ObservableList<Timetable> tomorrowTimetables;
 
     private Model() {
         this.viewFactory = new ViewFactory();
         this.connectDB = new connectDB();
         this.connectRecord = new connectRecord();
+        this.connectTimetable = new connectTimetable();
+        this.connectDepartmentDB = new connectDepartmentDB();
 
         // Admin data
         this.adminLoginStatus = false;
@@ -58,6 +65,8 @@ public class Model {
         this.courseRecords = FXCollections.observableArrayList();
         this.overviewCourseRecords = FXCollections.observableArrayList();
         this.courseOverall = FXCollections.observableArrayList();
+        this.todayTimetables = FXCollections.observableArrayList();
+        this.tomorrowTimetables = FXCollections.observableArrayList();
     }
 
     public static synchronized Model getInstance() {
@@ -73,6 +82,8 @@ public class Model {
         return connectDB;
     }
     public connectRecord getConnectRecord() { return connectRecord; }
+    public connectTimetable getConnectTimetable() { return connectTimetable; }
+    public connectDepartmentDB getConnectDepartmentDB() { return connectDepartmentDB; }
 
 
     // Admin login  control
@@ -124,7 +135,7 @@ public class Model {
         }
     }
 
-    // Binding data section
+    // Course page
     public ObservableList<CourseRecord> getAllCourseRecords() { return courseRecords; }
     public ObservableList<CourseRecord> setAllCourseRecords(String year) {
         String tableName = Model.getInstance().getTeacher().courseProperty().get() + "-" + year;
@@ -149,21 +160,17 @@ public class Model {
                 courseRecordList.add(courseRecordData);
             }
 
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString("studentID"));
-            }
-
         } catch (SQLException ex) {
-            System.out.println("Unable to retrieve first courseRecords");
             Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return courseRecordList;
     }
+
     // Overview page
     public void prepareCourseRecord(ObservableList<CourseRecord> courseRecord) {
         String tableName = Model.getInstance().getTeacher().courseProperty().get() + "-" + LocalDate.now().getYear();
-        ResultSet resultSet = getConnectRecord().getBestCourseRecord(tableName);
+        ResultSet resultSet = getConnectRecord().getBestCourseRecordData(tableName);
 
         try {
             while (resultSet.next()) {
@@ -189,6 +196,63 @@ public class Model {
     public ObservableList<CourseRecord> getOverviewCourseRecords() {
         return overviewCourseRecords;
     }
+
+    // Timetable methods
+    public void prepareTodayTimetable(ObservableList<Timetable> timetable) {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        System.out.println(day);
+        String teacherID = Model.getInstance().getTeacher().teacherIDProperty().get();
+        ResultSet resultSet = connectTimetable.getTimetableData(day, teacherID);
+
+        try {
+            while(resultSet.next()) {
+                String startTime = resultSet.getString("start_time");
+                String endTime = resultSet.getString("end_time");
+                String courseID = resultSet.getString("courseID");
+                String level = resultSet.getString("level");
+                String location = resultSet.getString("location");
+
+                timetable.add(new Timetable(startTime, endTime, courseID, teacherID, level, location));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(learn.brilliance.Model.connectRecord.class.getName()).log(Level.SEVERE, "Unable to get today's timetable.", ex);
+        }
+    }
+
+    public void prepareTomorrowTimetable(ObservableList<Timetable> timetable) {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK) + 1;
+        String teacherID = Model.getInstance().getTeacher().teacherIDProperty().get();
+        ResultSet resultSet = connectTimetable.getTimetableData(day, teacherID);
+
+        try {
+            while(resultSet.next()) {
+                String startTime = resultSet.getString("start_time");
+                String endTime = resultSet.getString("end_time");
+                String courseID = resultSet.getString("courseID");
+                String level = resultSet.getString("level");
+                String location = resultSet.getString("location");
+
+                timetable.add(new Timetable(startTime, endTime, courseID, teacherID, level, location));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(learn.brilliance.Model.connectRecord.class.getName()).log(Level.SEVERE, "Unable to get tomorrow's timetable.", ex);
+        }
+    }
+    public void setTodayTimetable() {
+        prepareTodayTimetable(todayTimetables);
+    }
+    public void setTomorrowTimetable() { prepareTomorrowTimetable(tomorrowTimetables); }
+    public ObservableList<Timetable> getAllTodayTimetables() {
+        return todayTimetables;
+    }
+    public ObservableList<Timetable> getAllTomorrowTimetables() {
+        return tomorrowTimetables;
+    }
+
 
     // Binding data section
     // Faculties

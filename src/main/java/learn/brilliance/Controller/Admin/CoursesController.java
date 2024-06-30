@@ -11,13 +11,13 @@ import learn.brilliance.Model.Course;
 import learn.brilliance.Model.Model;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CoursesController implements Initializable {
     private final String tableName = "courses";
-    private final String idColumn = "courseID";
     public TextField course_searchField;
     public ComboBox<String> course_filterBy;
     public ComboBox<String> course_filterOptions;
@@ -43,7 +43,6 @@ public class CoursesController implements Initializable {
     public ComboBox<String> course_faculty;
     public Label operationStatus;
     public TextField course_teacherID;
-    public ComboBox<String> course_firstSecond;
     public Button course_resetFilterBtn;
 
     @Override
@@ -123,8 +122,8 @@ public class CoursesController implements Initializable {
         String teacherID = getTeacherID(teacherName);
         String facultyID = course_faculty.getValue();
         String creditValue = course_creditValue.getValue();
-        boolean operation = true;
         boolean doesExists = Model.getInstance().getConnectDB().checkData(courseID, tableName);
+        String tableName = courseID + "-" + LocalDate.now().getYear();
 
         try {
             if(courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || creditValue.isEmpty() || facultyID.isEmpty()) {
@@ -142,6 +141,7 @@ public class CoursesController implements Initializable {
                 } else {
 
                     Model.getInstance().getConnectDB().createCourse(courseID, courseName, courseLevel, departmentID, creditValue, teacherID, teacherName, facultyID);
+                    Model.getInstance().getConnectRecord().createCourseRecordTable(tableName);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Course successfully added.");
 
@@ -170,8 +170,6 @@ public class CoursesController implements Initializable {
         String teacherID = getTeacherID(teacherName);
         String facultyID = course_faculty.getValue();
         String creditValue = course_creditValue.getValue();
-        String coursePosition = course_firstSecond.getValue();
-        boolean operation = true;
         boolean doesExists = Model.getInstance().getConnectDB().checkData(courseID, tableName);
 
         try {
@@ -182,11 +180,6 @@ public class CoursesController implements Initializable {
             } else {
 
                 if (doesExists) {
-
-                    if (!coursePosition.isEmpty()) {
-                        Model.getInstance().getConnectDB().insertCoursesInTeacher(coursePosition, teacherID, courseID, operation);
-
-                    }
 
                     Model.getInstance().getConnectDB().updateCourse(courseID, courseName, courseLevel, departmentID, creditValue,teacherID, teacherName, facultyID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
@@ -212,21 +205,19 @@ public class CoursesController implements Initializable {
 
         String courseID = course_courseID.getText();
         String teacherID = course_teacherID.getText();
-        String coursePosition = course_firstSecond.getValue();
         boolean operation = false;
         boolean doesExists = Model.getInstance().getConnectDB().checkData(courseID, tableName);
 
         try {
-            if (courseID.isEmpty() || teacherID.isEmpty() || coursePosition.isEmpty()) {
+            if (courseID.isEmpty() || teacherID.isEmpty()) {
                 course_courseID.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 course_teacher.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
-                course_firstSecond.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
                 operationStatus.setText("Please fill required fields.");
 
             } else {
 
                 if (doesExists) {
-                    Model.getInstance().getConnectDB().insertCoursesInTeacher(coursePosition, teacherID, courseID, operation);
+                    Model.getInstance().getConnectDB().insertCoursesInTeacher(teacherID, courseID, operation);
                     Model.getInstance().getConnectDB().deleteCourse(courseID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Course successfully deleted.");
@@ -284,8 +275,6 @@ public class CoursesController implements Initializable {
         course_teacher.setValue(null);
         course_teacher.setValue(null);
         course_creditValue.setValue(null);
-        course_firstSecond.setValue(null);
-        course_firstSecond.setDisable(true);
     }
     public void initialiseCoursesTable() {
         if(Model.getInstance().getAllCourses().isEmpty()) {

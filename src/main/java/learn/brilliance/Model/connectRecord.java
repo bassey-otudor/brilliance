@@ -23,7 +23,7 @@ public class connectRecord {
         }
     }
 
-    public ResultSet getBestCourseRecord(String tableName) {
+    public ResultSet getBestCourseRecordData(String tableName) {
         ResultSet resultSet = null;
 
         try {
@@ -72,15 +72,15 @@ public class connectRecord {
         }
     }
     public void createCourseRecordTable(String tableName) {
-        String newCourseRecordTable = "CREATE TABLE IF NOT EXISTS '"+tableName+"' '(ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, studentID varchar(20) NOT NULL, studentName(50) NOT NULL, firstCA varchar(10), secondCA varchar(10), exam varchar(10), total varchar(10), grade varchar(10), status varchar(10);'";
-
+        
+        String newCourseRecordTable = "CREATE TABLE '"+tableName+"' (\"ID\"\tINTEGER NOT NULL, \"studentID\"\tvarchar(20) NOT NULL, \"studentName\"\tvarchar(50) NOT NULL, \"firstCA\"\tvarchar(10), \"secondCA\"\tvarchar(10), \"exam\"\tvarchar(10), \"total\" varchar(10), \"grade\"\tvarchar(10), \"status\"\tvarchar(10), PRIMARY KEY(\"ID\" AUTOINCREMENT))";
         try {
             stmt = conn.createStatement();
             stmt.executeQuery(newCourseRecordTable);
 
         } catch (SQLException ex) {
-            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Unable to create course record table.");
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
