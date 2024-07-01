@@ -129,6 +129,7 @@ public class CoursesController implements Initializable {
         String degreeID = course_degreeID.getValue();
         boolean doesExists = Model.getInstance().getConnectDB().checkData(courseID, tableName);
         String tableName = courseID + "-" + LocalDate.now().getYear();
+        String departmentTableName = departmentID + "-" + courseLevel;
 
         try {
             if(courseID.isEmpty() || courseName.isEmpty() || courseFaculty.isEmpty() || courseLevel.isEmpty() || departmentID.isEmpty() || creditValue.isEmpty() || facultyID.isEmpty()) {
@@ -147,6 +148,7 @@ public class CoursesController implements Initializable {
 
                     Model.getInstance().getConnectDB().createCourse(courseID, courseName, courseLevel, departmentID, creditValue, teacherID, teacherName, facultyID, degreeID);
                     Model.getInstance().getConnectRecord().createCourseRecordTable(tableName);
+                    Model.getInstance().getConnectDepartmentDB().addCourseToDepartmentLevelTable(departmentTableName, courseID, degreeID);
                     operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1em;");
                     operationStatus.setText("Course successfully added.");
 

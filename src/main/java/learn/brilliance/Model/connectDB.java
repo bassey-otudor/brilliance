@@ -623,7 +623,7 @@ public class connectDB {
      * @param courseID The unique ID of the course.
      * @param courseName The name of the course.
      * @param courseLevel The level of the course.
-     * @param departmentID The ID of the department that the course belongs to.
+     * @param departmentID The ID of the department associated with the course.
      * @param teacherID The ID of the teacher that is teaching the course.
      * @param facultyID The ID of the faculty that is associated with the course.
      * @param degreeID The ID of degree that is associated with the course.
@@ -1138,8 +1138,7 @@ public class connectDB {
 
     }
 
-    /**
-     * Student page */
+    /** Student page */
 
     public ResultSet getStudentData() {
         Statement stmt;

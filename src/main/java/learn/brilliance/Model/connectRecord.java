@@ -76,7 +76,7 @@ public class connectRecord {
         String newCourseRecordTable = "CREATE TABLE '"+tableName+"' (\"ID\"\tINTEGER NOT NULL, \"studentID\"\tvarchar(20) NOT NULL, \"studentName\"\tvarchar(50) NOT NULL, \"firstCA\"\tvarchar(10), \"secondCA\"\tvarchar(10), \"exam\"\tvarchar(10), \"total\" varchar(10), \"grade\"\tvarchar(10), \"status\"\tvarchar(10), PRIMARY KEY(\"ID\" AUTOINCREMENT))";
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(newCourseRecordTable);
+            stmt.executeUpdate(newCourseRecordTable);
 
         } catch (SQLException ex) {
             System.out.println("Unable to create course record table.");
