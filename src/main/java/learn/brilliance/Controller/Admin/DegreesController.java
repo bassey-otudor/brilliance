@@ -104,7 +104,7 @@ public class DegreesController implements Initializable {
         degreeMinor = degree_minor.getValue();
         boolean doesExist = Model.getInstance().getConnectDB().checkData(degreeID, tableName);
 
-        if(degreeID == null || degreeName == null || degreeMinor == null || duration == null) {
+        if(degreeID == null || degreeName == null || duration == null) {
             operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1em");
             operationStatus.setText("Please fill all required fields.");
 

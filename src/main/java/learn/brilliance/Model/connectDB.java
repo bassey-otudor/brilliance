@@ -746,7 +746,7 @@ public class connectDB {
     public String getCourseName(String courseID) {
         String courseName = null;
         String selectCourse = "SELECT * FROM courses WHERE courseID =?";
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try {
             preparedStatement = conn.prepareStatement(selectCourse);
             preparedStatement.setString(1, courseID);
@@ -1035,9 +1035,17 @@ public class connectDB {
      * @param courseID The first course that is required for the minor.
      */
     public void createMinor(String minorID, String minorName, String degreeID, String facultyID, String departmentID, String courseID, String courseNumber) {
-        String createMinor = "INSERT INTO minors" +
-                "(minorID, minorName, degreeID, facultyID, departmentID, '"+courseNumber+"')" +
-                "VALUES (?,?,?,?,?,?)";
+        String createMinor = null;
+
+        switch (courseNumber) {
+            case("course1") -> createMinor = "INSERT INTO minors (minorID, minorName, degreeID, facultyID, departmentID, course1) VALUES (?,?,?,?,?,?)";
+            case("course2") -> createMinor = "INSERT INTO minors (minorID, minorName, degreeID, facultyID, departmentID, course2) VALUES (?,?,?,?,?,?)";
+            case("course3") -> createMinor = "INSERT INTO minors (minorID, minorName, degreeID, facultyID, departmentID, course3) VALUES (?,?,?,?,?,?)";
+            case("course4") -> createMinor = "INSERT INTO minors (minorID, minorName, degreeID, facultyID, departmentID, course4) VALUES (?,?,?,?,?,?)";
+            case("course5") -> createMinor = "INSERT INTO minors (minorID, minorName, degreeID, facultyID, departmentID, course5) VALUES (?,?,?,?,?,?)";
+            case("course6") -> createMinor = "INSERT INTO minors (minorID, minorName, degreeID, facultyID, departmentID, course6) VALUES (?,?,?,?,?,?)";
+        }
+
         try {
             preparedStatement = conn.prepareStatement(createMinor);
             preparedStatement.setString(1, minorID);
@@ -1046,6 +1054,7 @@ public class connectDB {
             preparedStatement.setString(4, facultyID);
             preparedStatement.setString(5, departmentID);
             preparedStatement.setString(6, courseID);
+            preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
             System.out.println("Unable to create minor");
@@ -1053,7 +1062,15 @@ public class connectDB {
         }
     }
     public void updateMinor(String minorID, String minorName, String degreeID, String facultyID, String departmentID, String courseID, String courseNumber) {
-        String updateMinor = "UPDATE minors SET minorName =?, degreeID =?, facultyID =?, departmentID =?, ?=? WHERE minorID =?;";
+        String updateMinor = null;
+        switch (courseNumber) {
+            case("course1") -> updateMinor = "UPDATE minors SET minorName =?, degreeID =?, facultyID =?, departmentID =?, course1=? WHERE minorID =?;";
+            case("course2") -> updateMinor = "UPDATE minors SET minorName =?, degreeID =?, facultyID =?, departmentID =?, course2=? WHERE minorID =?;";
+            case("course3") -> updateMinor = "UPDATE minors SET minorName =?, degreeID =?, facultyID =?, departmentID =?, course3=? WHERE minorID =?;";
+            case("course4") -> updateMinor = "UPDATE minors SET minorName =?, degreeID =?, facultyID =?, departmentID =?, course4=? WHERE minorID =?;";
+            case("course5") -> updateMinor = "UPDATE minors SET minorName =?, degreeID =?, facultyID =?, departmentID =?, course5=? WHERE minorID =?;";
+            case("course6") -> updateMinor = "UPDATE minors SET minorName =?, degreeID =?, facultyID =?, departmentID =?, course6=? WHERE minorID =?;";
+        }
 
         try {
             preparedStatement = conn.prepareStatement(updateMinor);
@@ -1064,6 +1081,8 @@ public class connectDB {
             preparedStatement.setString(5, courseNumber);
             preparedStatement.setString(6, courseID);
             preparedStatement.setString(7, minorID);
+            preparedStatement.executeUpdate();
+
         } catch (SQLException ex) {
             System.out.println("Unable to update minor.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -1090,13 +1109,12 @@ public class connectDB {
 
     public void insertMinorIntoDepartment(String minorNumber, String minorName, String departmentID, boolean operation) {
 
-        String insertMinor = "UPDATE departments SET ?=? WHERE deptID =?";
+        String insertMinor = "UPDATE departments SET '"+minorNumber+"'=? WHERE deptID =?";
         if(operation) {
             try {
                 preparedStatement = conn.prepareStatement(insertMinor);
-                preparedStatement.setString(1, minorNumber);
-                preparedStatement.setString(2, minorName);
-                preparedStatement.setString(3, departmentID);
+                preparedStatement.setString(1, minorName);
+                preparedStatement.setString(2, departmentID);
                 preparedStatement.executeUpdate();
 
             } catch (SQLException ex) {
@@ -1108,9 +1126,8 @@ public class connectDB {
 
             try {
                preparedStatement = conn.prepareStatement(insertMinor);
-               preparedStatement.setString(1, minorNumber);
-               preparedStatement.setString(2, null);
-               preparedStatement.setString(3, departmentID);
+               preparedStatement.setString(1, null);
+                preparedStatement.setString(2, departmentID);
                preparedStatement.executeUpdate();
 
             } catch (SQLException ex) {
@@ -1257,8 +1274,8 @@ public class connectDB {
 
     // Data check functions
     public boolean checkData(String entityID, String tableName) {
-        String getEntity = null;
-        ResultSet resultSet = null;
+        String getEntity;
+        ResultSet resultSet;
         boolean doesExist = false;
 
         getEntity = switch (tableName) {

@@ -34,7 +34,7 @@ public class connectDepartmentDB {
             Logger.getLogger(connectDepartmentDB.class.getName()).log(Level.SEVERE, "Unable to create department course list", ex);
         }
     }
-    // Mark the tables of deleted departments as dropped
+    // Mark the tables of deleted departments as deleted
     public void markTableAsDeleted(String oldName, String newName) {
         String markTableAsDeleted = "ALTER TABLE '"+oldName+"' RENAME to '"+newName+"'";
         try {
