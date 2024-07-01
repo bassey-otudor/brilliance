@@ -1283,7 +1283,7 @@ public class connectDB {
             case "teachers" -> "SELECT * FROM teachers WHERE teacherID =?;";
             case "faculties" -> "SELECT * FROM faculties WHERE facultyID =?;";
             case "departments" -> "SELECT * FROM departments WHERE deptID =?;";
-            case "degrees" -> "SELECT * FROM department_degrees WHERE degreeID =?;";
+            case "department_degrees" -> "SELECT * FROM department_degrees WHERE degreeID =?;";
             case "minors" -> "SELECT * FROM minors WHERE minorID =?;";
             default -> "SELECT * FROM courses WHERE courseID =?;";
         };

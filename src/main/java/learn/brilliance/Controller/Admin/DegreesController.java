@@ -27,7 +27,6 @@ public class DegreesController implements Initializable {
     String degreeMinor;
 
     private final static String tableName = "department_degrees";
-    private final static String idColumn = "degreeID";
     public TextField degree_searchField;
     public ComboBox<String> degree_filterBy;
     public ComboBox<String> degree_filterOptions;
