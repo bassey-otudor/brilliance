@@ -23,6 +23,13 @@ public class connectRecord {
         }
     }
 
+    /**
+     * Retrieves the course record data from the specified table in descending order.
+     *
+     * @param tableName The name of the table to retrieve data from.
+     * @return A ResultSet containing the best course records data.
+     * @throws SQLException If an error occurs while executing the SQL statement.
+     */
     public ResultSet getBestCourseRecordData(String tableName) {
         ResultSet resultSet = null;
 
@@ -38,6 +45,13 @@ public class connectRecord {
         return resultSet;
     }
 
+    /**
+     * Retrieves all data from the specified course record table.
+     *
+     * @param tableName The name of the table to retrieve data from.
+     * @return A ResultSet containing all data from the specified table.
+     * @throws SQLException If an error occurs while executing the SQL statement.
+     */
     public ResultSet getCourseRecordData(String tableName) {
         ResultSet resultSet = null;
 
@@ -46,12 +60,44 @@ public class connectRecord {
             resultSet = stmt.executeQuery("SELECT * FROM '"+tableName+"';");
 
         } catch (SQLException ex) {
-            System.out.println("Unable to get all course record data");
             Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return resultSet;
     }
+
+    /**
+     * Creates a new course record table with the specified name.
+     *
+     * @param tableName The name of the table to create.
+     * @throws SQLException If an error occurs while executing the SQL statement.
+     */
+    public void createCourseRecordTable(String tableName) {
+
+        String newCourseRecordTable = "CREATE TABLE '"+tableName+"' (\"ID\"\tINTEGER NOT NULL, \"studentID\"\tvarchar(20) NOT NULL, \"studentName\"\tvarchar(50) NOT NULL, \"firstCA\"\tvarchar(10), \"secondCA\"\tvarchar(10), \"exam\"\tvarchar(10), \"total\" varchar(10), \"grade\"\tvarchar(10), \"status\"\tvarchar(10), PRIMARY KEY(\"ID\" AUTOINCREMENT))";
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(newCourseRecordTable);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Updates a course record in the specified table.
+     *
+     * @param tableName The name of the table to update the course record in.
+     * @param studentID The unique identifier for the student.
+     * @param studentName The name of the student.
+     * @param firstCA The first CA score of the student.
+     * @param secondCA The second CA score of the student.
+     * @param exam The exam score of the student.
+     * @param total The total score of the student.
+     * @param grade The grade of the student.
+     * @param status The status of the student.
+     * @throws SQLException If an error occurs while executing the SQL statement.
+     */
     public void updateCourseRecord(String tableName, String studentID, String studentName, String firstCA, String secondCA, String exam, String total, String grade, String status) {
         String newCourseRecord = "UPDATE '"+tableName+"' SET studentName=?, firstCA=?, secondCA=?, exam=?, total=?, grade=?, status=? WHERE studentID=?;";
         try {
@@ -67,23 +113,18 @@ public class connectRecord {
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("Unable to create new course record of student " + studentID);
             Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to create course record.", ex);
         }
     }
-    public void createCourseRecordTable(String tableName) {
-        
-        String newCourseRecordTable = "CREATE TABLE '"+tableName+"' (\"ID\"\tINTEGER NOT NULL, \"studentID\"\tvarchar(20) NOT NULL, \"studentName\"\tvarchar(50) NOT NULL, \"firstCA\"\tvarchar(10), \"secondCA\"\tvarchar(10), \"exam\"\tvarchar(10), \"total\" varchar(10), \"grade\"\tvarchar(10), \"status\"\tvarchar(10), PRIMARY KEY(\"ID\" AUTOINCREMENT))";
-        try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(newCourseRecordTable);
 
-        } catch (SQLException ex) {
-            System.out.println("Unable to create course record table.");
-            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+    /**
+     * Inserts a new student record into the specified table.
+     *
+     * @param tableName The name of the table to insert the new student record into.
+     * @param studentID The unique identifier for the student.
+     * @param studentName The name of the student.
+     * @throws SQLException If an error occurs while executing the SQL statement.
+     */
     public void insertStudentOnRegister(String tableName, String studentID, String studentName) {
         String newStudentRecord = "INSERT INTO '"+tableName+"' " +
             "(studentID, studentName, firstCA, secondCA, exam, total, grade, status)" +
@@ -107,7 +148,13 @@ public class connectRecord {
 
     }
 
-    // Get data for course performance
+    /**
+     * Retrieves the occurrences of each first CA score in the specified table.
+     *
+     * @param tableName The name of the table to retrieve data from.
+     * @return A ResultSet containing the occurrences of each first CA score in the specified table.
+     * @throws SQLException If an error occurs while executing the SQL statement.
+     */
     public ResultSet getFirstCA(String tableName) {
         String getFirstCA = "SELECT firstCA, COUNT(firstCA) AS Occurences FROM '"+tableName+"' WHERE firstCA >= 0 GROUP BY firstCA;";
         ResultSet resultSet = null;
@@ -120,6 +167,14 @@ public class connectRecord {
         }
         return resultSet;
     }
+
+    /**
+     * Retrieves the occurrences of each second CA score in the specified table.
+     *
+     * @param tableName The name of the table to retrieve data from.
+     * @return A ResultSet containing the occurrences of each second CA score in the specified table.
+     * @throws SQLException If an error occurs while executing the SQL statement.
+     */
     public ResultSet getSecondCA(String tableName) {
         String getSecondCA = "SELECT secondCA, COUNT(secondCA) AS Occurences FROM '"+tableName+"' WHERE secondCA >= 0 GROUP BY secondCA;";
         ResultSet resultSet = null;
@@ -132,6 +187,14 @@ public class connectRecord {
         }
         return resultSet;
     }
+
+    /**
+     * Retrieves the occurrences of each exam score in the specified table.
+     *
+     * @param tableName The name of the table to retrieve data from.
+     * @return A ResultSet containing the occurrences of each exam score in the specified table.
+     * @throws SQLException If an error occurs while executing the SQL statement.
+     */
     public ResultSet getExam(String tableName) {
         String getExam = "SELECT exam, COUNT(exam) AS Occurences FROM '"+tableName+"' WHERE exam >= 0 GROUP BY exam;";
         ResultSet resultSet = null;
@@ -144,6 +207,14 @@ public class connectRecord {
         }
         return resultSet;
     }
+
+    /**
+     * Retrieves the occurrences of each total score in the specified table.
+     *
+     * @param tableName The name of the table to retrieve data from.
+     * @return A ResultSet containing the occurrences of each total score in the specified table.
+     * @throws SQLException If an error occurs while executing the SQL statement.
+     */
     public ResultSet getTotal(String tableName) {
         String getTotal = "SELECT total, COUNT(total) AS Occurences FROM '"+tableName+"' WHERE total >= 0 GROUP BY total;";
         ResultSet resultSet = null;

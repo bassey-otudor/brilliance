@@ -137,6 +137,8 @@ public class Model {
 
     // Course page
     public ObservableList<CourseRecord> getAllCourseRecords() { return courseRecords; }
+
+
     public ObservableList<CourseRecord> setAllCourseRecords(String year) {
         String tableName = Model.getInstance().getTeacher().courseProperty().get() + "-" + year;
 
@@ -168,6 +170,15 @@ public class Model {
     }
 
     // Overview page
+
+    /**
+     * This method prepares the overview page's course record data.
+     * It retrieves the best course record data for the current year based on the teacher's course.
+     * The data is then added to the provided ObservableList of CourseRecord objects.
+     *
+     * @param courseRecord The ObservableList of CourseRecord objects where the course record data will be added.
+     * @throws SQLException if there is an error while executing the SQL query.
+     */
     public void prepareCourseRecord(ObservableList<CourseRecord> courseRecord) {
         String tableName = Model.getInstance().getTeacher().courseProperty().get() + "-" + LocalDate.now().getYear();
         ResultSet resultSet = getConnectRecord().getBestCourseRecordData(tableName);
@@ -198,6 +209,14 @@ public class Model {
     }
 
     // Timetable methods
+
+    /**
+     * This method prepares the today's timetable for the given teacher.
+     * It retrieves the timetable data for the current day based on the teacher's ID and adds it to the provided ObservableList of Timetable objects.
+     *
+     * @param timetable The ObservableList of Timetable objects where the today's timetable will be added.
+     * @throws SQLException if there is an error while executing the SQL query.
+     */
     public void prepareTodayTimetable(ObservableList<Timetable> timetable) {
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -220,6 +239,14 @@ public class Model {
             Logger.getLogger(learn.brilliance.Model.connectRecord.class.getName()).log(Level.SEVERE, "Unable to get today's timetable.", ex);
         }
     }
+
+    /**
+     * This method prepares the tomorrow's timetable for the given teacher.
+     * It retrieves the timetable data for the next day based on the teacher's ID and adds it to the provided ObservableList of Timetable objects.
+     *
+     * @param timetable The ObservableList of Timetable objects where the tomorrow's timetable will be added.
+     * @throws SQLException if there is an error while executing the SQL query.
+     */
     public void prepareTomorrowTimetable(ObservableList<Timetable> timetable) {
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK) + 1;
@@ -260,6 +287,16 @@ public class Model {
     public ObservableList<Faculty> getAllFaculties() {
         return faculties;
     }
+
+    /**
+     * This method sets all faculty data into an ObservableList of faculties.
+     * It uses the ResultSet returned by the getFacultyData() method.
+     * The attributes of every faculty are gotten and stored in an ObservableList of faculties.
+     * This method is called and the list used to initialise the facultyView table.
+     *
+     * @return ObservableList of faculties
+     * @throws SQLException if there is an error while executing the SQL query
+     */
     public ObservableList<Faculty> setAllFaculties() {
         ResultSet resultSet = connectDB.getFacultyData();
         ObservableList<Faculty> facultiesList = FXCollections.observableArrayList();
@@ -291,9 +328,13 @@ public class Model {
     public ObservableList<Department> getAllDepartments() { return departments; }
 
     /**
-     * This method uses the ResultSet returned by the getDepartmentData() method.
-     * The attributes of every department is gotten and stored in an ObservableList of departments.
+     * This method sets all department data into an ObservableList of departments.
+     * It uses the ResultSet returned by the getDepartmentData() method.
+     * The attributes of every department are gotten and stored in an ObservableList of departments.
      * This method is called and the list used to initialise the departmentView table.
+     *
+     * @return ObservableList of departments
+     * @throws SQLException if there is an error while executing the SQL query
      */
     public ObservableList<Department> setAllDepartments() {
         ResultSet resultSet = connectDB.getDepartmentData();
@@ -320,6 +361,15 @@ public class Model {
 
     // Teachers
     public ObservableList<Teacher> getAllTeachers() { return teachers; }
+    /**
+     * This method sets all teacher data into an ObservableList of teachers.
+     * It uses the ResultSet returned by the getTeacherData() method.
+     * The attributes of every teacher are gotten and stored in an ObservableList of teachers.
+     * This method is called and the list used to initialise the teacherView table.
+     *
+     * @return ObservableList of teachers
+     * @throws SQLException if there is an error while executing the SQL query
+     */
     public ObservableList<Teacher> setAllTeachers() {
         ResultSet resultSet = connectDB.getTeacherData();
         ObservableList<Teacher> teacherList = FXCollections.observableArrayList();
@@ -353,6 +403,16 @@ public class Model {
 
     // Courses
     public ObservableList<Course> getAllCourses() { return courses; }
+
+    /**
+     * This method sets all course data into an ObservableList of courses.
+     * It uses the ResultSet returned by the getCourseData() method.
+     * The attributes of every course are gotten and stored in an ObservableList of courses.
+     * This method is called and the list used to initialise the courseView table.
+     *
+     * @return ObservableList of courses
+     * @throws SQLException if there is an error while executing the SQL query
+     */
     public ObservableList<Course> setAllCourses() {
         ResultSet resultSet = connectDB.getCourseData();
         ObservableList<Course> courseList = FXCollections.observableArrayList();
@@ -384,6 +444,15 @@ public class Model {
     //  Degrees
     public ObservableList<Degree> getAllDegrees() { return degree; }
 
+    /**
+     * This method sets all degree data into an ObservableList of degrees.
+     * It uses the ResultSet returned by the getDegreeData() method.
+     * The attributes of every degree are gotten and stored in an ObservableList of degrees.
+     * This method is called and the list used to initialise the degreeView table.
+     *
+     * @return ObservableList of degrees
+     * @throws SQLException if there is an error while executing the SQL query
+     */
     public ObservableList<Degree> setAllDegrees() {
         ResultSet resultSet = Model.getInstance().connectDB.getDegreeData();
         ObservableList<Degree> degreeList = FXCollections.observableArrayList();
@@ -411,7 +480,18 @@ public class Model {
 
         return degreeList;
     }
+
     public ObservableList<Minor> getAllMinors() { return minor; }
+
+    /**
+     * This method sets all minor data into an ObservableList of minors.
+     * It uses the ResultSet returned by the getMinorData() method.
+     * The attributes of every minor are gotten and stored in an ObservableList of minors.
+     * This method is called and the list used to initialise the minorView table.
+     *
+     * @return ObservableList of minors
+     * @throws SQLException if there is an error while executing the SQL query
+     */
     public ObservableList<Minor> setAllMinors() {
         ResultSet resultSet = Model.getInstance().connectDB.getMinorData();
         ObservableList<Minor> minorList = FXCollections.observableArrayList();
@@ -443,7 +523,18 @@ public class Model {
     }
 
     // Students
+
+
     public ObservableList<Student> getAllStudents() { return students; }
+    /**
+     * This method sets all students data into an ObservableList of students.
+     * It uses the ResultSet returned by the getStudentData() method.
+     * The attributes of every student are gotten and stored in an ObservableList of students.
+     * This method is called and the list used to initialise the studentView table.
+     *
+     * @return ObservableList of students
+     * @throws SQLException if there is an error while executing the SQL query
+     */
     public ObservableList<Student> setAllStudents() {
         ResultSet resultSet = Model.getInstance().connectDB.getStudentData();
         ObservableList<Student> studentList = FXCollections.observableArrayList();

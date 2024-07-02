@@ -2,6 +2,7 @@ package learn.brilliance.Controller.Admin;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
@@ -198,7 +199,6 @@ public class StudentsController implements Initializable {
 
         boolean doesExist = Model.getInstance().getConnectDB().checkData(studentID, tableName);
 
-
         if((studentID == null || studentID.isEmpty()) ||
                 (firstName == null || firstName.isEmpty()) ||
                 (lastName == null || lastName.isEmpty()) ||
@@ -228,10 +228,7 @@ public class StudentsController implements Initializable {
                 Model.getInstance().getConnectDB().createStudent(studentID, firstName, lastName, gender, dob, phoneNumber, email, hashedPassword, facultyID, departmentID, degreeID, minorID, level, registrationDate);
                 operationStatus.setStyle("-fx-text-fill: green; -fx-font-size: 1.0em; -fx-font-weight: bold");
 
-                System.out.println(studentID);
-
-
-                Model.getInstance().getConnectRecord().insertStudentOnRegister("BCHS2024", studentID, firstName);
+                insertStudentInDegreeCourses();
                 operationStatus.setText("Student created successfully.");
                 stud_tableView.setItems(Model.getInstance().setAllStudents());
                 clearFields();
@@ -318,6 +315,18 @@ public class StudentsController implements Initializable {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE); // repeats indefinitely
         timeline.playFromStart();
+    }
+    private void insertStudentInDegreeCourses() { // Adds the student to the course records of courses belonging to the student's registered degree.
+        String studentID = stud_studentID.getText();
+        String studentFullName = stud_fName.getText() + " " + stud_lName.getText();
+        String degreeID = stud_degree.getValue().toUpperCase(); // get the degreeID from the text field
+        String departmentTableName = stud_department.getValue().toUpperCase() + "-" + stud_level.getValue().toUpperCase(); // department table name composes of the courseID and course level.
+        ObservableList<String> degreeCourseList = Model.getInstance().getConnectDepartmentDB().getAllDegreeCourses(departmentTableName, degreeID); // gets the list of courses associated with the selected degree
+
+        for(String degreeCourse : degreeCourseList) { // Looping through the array list of degree courses
+            String tableName = degreeCourse.toUpperCase() + "-" + LocalDate.now().getYear();
+            Model.getInstance().getConnectRecord().insertStudentOnRegister(tableName, studentID, studentFullName); // Insert a student into respective course table records
+        }
     }
     private void clearFields() {
         stud_studentID.setText(null);

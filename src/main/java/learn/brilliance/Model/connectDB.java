@@ -1078,9 +1078,8 @@ public class connectDB {
             preparedStatement.setString(2, degreeID);
             preparedStatement.setString(3, facultyID);
             preparedStatement.setString(4, departmentID);
-            preparedStatement.setString(5, courseNumber);
-            preparedStatement.setString(6, courseID);
-            preparedStatement.setString(7, minorID);
+            preparedStatement.setString(5, courseID);
+            preparedStatement.setString(6, minorID);
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
