@@ -9,7 +9,6 @@ import learn.brilliance.Model.Model;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CoursesController implements Initializable {

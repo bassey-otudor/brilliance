@@ -93,6 +93,14 @@ public class Model {
     public void setAdminLoginStatus(boolean adminLoginStatus) {
         this.adminLoginStatus = adminLoginStatus;
     }
+
+    /**
+     * Evaluates the admin login status by checking the provided username and password against the database.
+     *
+     * @param username The username of the admin to be evaluated.
+     * @param password The password of the admin to be evaluated.
+     * @throws SQLException if there is an error while executing the SQL query.
+     */
     public void evaluateAdminLogin(String username, String password) {
         ResultSet resultSet = connectDB.getAdmin(username, password);
         try {
@@ -110,6 +118,14 @@ public class Model {
     // Teacher login control
     public boolean getTeacherLoginStatus() { return this.teacherLoginStatus; }
     public void setTeacherLoginStatus(boolean teacherLoginStatus) { this.teacherLoginStatus = teacherLoginStatus; }
+
+    /**
+     * Evaluates the teacher login status by checking the provided username and password against the database.
+     *
+     * @param username The username of the teacher to be evaluated.
+     * @param password The password of the teacher to be evaluated.
+     * @throws SQLException if there is an error while executing the SQL query.
+     */
     public void evaluateTeacherLogin(String username, String password) {
         ResultSet resultSet = connectDB.getTeacher(username, password);
         try {
@@ -138,7 +154,13 @@ public class Model {
     // Course page
     public ObservableList<CourseRecord> getAllCourseRecords() { return courseRecords; }
 
-
+    /**
+     * This method retrieves all the course records for the current year based on the teacher's course.
+     * The data is then added to the provided ObservableList of CourseRecord objects.
+     *
+     * @param year The year of the ObservableList of CourseRecord objects to be added.
+     * @throws SQLException if there is an error while executing the SQL query.
+     */
     public ObservableList<CourseRecord> setAllCourseRecords(String year) {
         String tableName = Model.getInstance().getTeacher().courseProperty().get() + "-" + year;
 

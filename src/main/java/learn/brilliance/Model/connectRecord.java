@@ -28,7 +28,6 @@ public class connectRecord {
      *
      * @param tableName The name of the table to retrieve data from.
      * @return A ResultSet containing the best course records data.
-     * @throws SQLException If an error occurs while executing the SQL statement.
      */
     public ResultSet getBestCourseRecordData(String tableName) {
         ResultSet resultSet = null;
@@ -70,7 +69,6 @@ public class connectRecord {
      * Creates a new course record table with the specified name.
      *
      * @param tableName The name of the table to create.
-     * @throws SQLException If an error occurs while executing the SQL statement.
      */
     public void createCourseRecordTable(String tableName) {
 
@@ -96,7 +94,6 @@ public class connectRecord {
      * @param total The total score of the student.
      * @param grade The grade of the student.
      * @param status The status of the student.
-     * @throws SQLException If an error occurs while executing the SQL statement.
      */
     public void updateCourseRecord(String tableName, String studentID, String studentName, String firstCA, String secondCA, String exam, String total, String grade, String status) {
         String newCourseRecord = "UPDATE '"+tableName+"' SET studentName=?, firstCA=?, secondCA=?, exam=?, total=?, grade=?, status=? WHERE studentID=?;";
@@ -123,7 +120,6 @@ public class connectRecord {
      * @param tableName The name of the table to insert the new student record into.
      * @param studentID The unique identifier for the student.
      * @param studentName The name of the student.
-     * @throws SQLException If an error occurs while executing the SQL statement.
      */
     public void insertStudentOnRegister(String tableName, String studentID, String studentName) {
         String newStudentRecord = "INSERT INTO '"+tableName+"' " +
@@ -153,7 +149,6 @@ public class connectRecord {
      *
      * @param tableName The name of the table to retrieve data from.
      * @return A ResultSet containing the occurrences of each first CA score in the specified table.
-     * @throws SQLException If an error occurs while executing the SQL statement.
      */
     public ResultSet getFirstCA(String tableName) {
         String getFirstCA = "SELECT firstCA, COUNT(firstCA) AS Occurences FROM '"+tableName+"' WHERE firstCA >= 0 GROUP BY firstCA;";
@@ -173,7 +168,6 @@ public class connectRecord {
      *
      * @param tableName The name of the table to retrieve data from.
      * @return A ResultSet containing the occurrences of each second CA score in the specified table.
-     * @throws SQLException If an error occurs while executing the SQL statement.
      */
     public ResultSet getSecondCA(String tableName) {
         String getSecondCA = "SELECT secondCA, COUNT(secondCA) AS Occurences FROM '"+tableName+"' WHERE secondCA >= 0 GROUP BY secondCA;";
@@ -193,7 +187,6 @@ public class connectRecord {
      *
      * @param tableName The name of the table to retrieve data from.
      * @return A ResultSet containing the occurrences of each exam score in the specified table.
-     * @throws SQLException If an error occurs while executing the SQL statement.
      */
     public ResultSet getExam(String tableName) {
         String getExam = "SELECT exam, COUNT(exam) AS Occurences FROM '"+tableName+"' WHERE exam >= 0 GROUP BY exam;";
@@ -213,7 +206,6 @@ public class connectRecord {
      *
      * @param tableName The name of the table to retrieve data from.
      * @return A ResultSet containing the occurrences of each total score in the specified table.
-     * @throws SQLException If an error occurs while executing the SQL statement.
      */
     public ResultSet getTotal(String tableName) {
         String getTotal = "SELECT total, COUNT(total) AS Occurences FROM '"+tableName+"' WHERE total >= 0 GROUP BY total;";
@@ -226,6 +218,51 @@ public class connectRecord {
             Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to get total occurrences.", ex);
         }
         return resultSet;
+    }
+
+    /**
+     * Retrieves the total count of passed students in the specified table.
+     *
+     * @param tableName The name of the table to retrieve the total count from.
+     * @return The total count of records in the specified table.
+     */
+    public int getPassCount(String tableName) {
+        int passCount = 0;
+        ResultSet resultSet;
+        String getPassCount = "SELECT COUNT(*) FROM '"+tableName+"' WHERE status = 'PASSED';";
+        try {
+            stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(getPassCount);
+            while (resultSet.next()) {
+                passCount = resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to get pass count.", ex);
+        }
+
+        return passCount;
+    }
+
+    /**
+     * Retrieves the total count of records in the specified table.
+     *
+     * @param tableName The name of the table to retrieve the total count from.
+     * @return The total count of records in the specified table.
+     */
+    public int getTotalCount(String tableName) {
+        int totalCount = 0;
+        ResultSet resultSet;
+        String getTotalCount = "";
+        try {
+            stmt = this.conn.createStatement();
+            resultSet = stmt.executeQuery(getTotalCount);
+            while (resultSet.next()) {
+                totalCount = resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to get total count.", ex);
+        }
+        return totalCount;
     }
 }
 

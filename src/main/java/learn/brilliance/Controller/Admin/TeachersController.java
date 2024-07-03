@@ -101,6 +101,15 @@ public class TeachersController implements Initializable {
         filterTeacher();
     }
 
+    /**
+     * Initializes the search functionality for the teachers table.
+     * This method sets up a FilteredList to filter the teachers table based on the input from the search field.
+     * The searchFilter is updated whenever the search field's text property changes.
+     * The searchFilter is then used to populate the teachers table with filtered data.
+     *
+     * @see FilteredList
+     * @see SortedList
+     */
     private void searchTeacher() {
         FilteredList<Teacher> searchFilter = new FilteredList<>(Model.getInstance().setAllTeachers(), e -> true);
         teach_searchField.textProperty().addListener((observableValue, oldVal, newVal) -> {
@@ -193,7 +202,7 @@ public class TeachersController implements Initializable {
         } else {
 
             if (doesExist) {
-                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em; -fx-font-weight: bold");
                 operationStatus.setText("Teacher already exists.");
 
             } else {
@@ -231,12 +240,12 @@ public class TeachersController implements Initializable {
         course = teach_course.getValue();
         facultyID = teach_facultyID.getValue();
         boolean operation = true;
-        boolean doesExist = Model.getInstance().getConnectDB().checkData(teacherID, tableName);
+        boolean doesExist = Model.getInstance().getConnectDB().checkData(teacherID, tableName); // check if teacher already exists
 
         if (doesExist) {
             if (teacherID.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || dob == null || phoneNumber.isEmpty() || email.isEmpty() || facultyID.isEmpty()) {
 
-                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em;");
+                operationStatus.setStyle("-fx-text-fill: #EC6666; -fx-font-size: 1.0em; -fx-font-weight: bold;");
                 operationStatus.setText("Please fill required fields.");
 
             } else {
@@ -251,6 +260,8 @@ public class TeachersController implements Initializable {
                     operationStatus.setText("Teacher updated successfully.");
 
                     teach_tableView.setItems(Model.getInstance().setAllTeachers());
+
+                    // If @param operation is true, assign a teacher to a course and if @param operation is false, remove a teacher from assigned course
                     alterTeacherInCourses(teacherID, course, teacherName, operation);
 
                     clearFields();
@@ -351,6 +362,14 @@ public class TeachersController implements Initializable {
         }
 
     }
+
+    /**
+     * Selects the teacher from the table based on the selected row index.
+     * This method retrieves the selected teacher object from the table and populates the input fields with the selected teacher's data.
+     *
+     * @see javafx.scene.control.TableView
+     * @see javafx.scene.control.TableColumn
+     */
     private void selectTeacher() {
         Teacher teacher = teach_tableView.getSelectionModel().getSelectedItem();
         int num = teach_tableView.getSelectionModel().getSelectedIndex();

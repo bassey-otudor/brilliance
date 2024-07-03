@@ -123,7 +123,5 @@ public class connectDepartmentDB {
             Logger.getLogger(connectDepartmentDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    // Remove course from
-
 
 }

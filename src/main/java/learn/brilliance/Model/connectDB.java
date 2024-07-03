@@ -494,6 +494,13 @@ public class connectDB {
 
         return rowCount;
     }
+
+    /**
+     * This method is used to insert or delete a course from a teacher.
+     * @param teacherID The ID of the teacher that the course will be assigned or removed from.
+     * @param courseID The ID of the course that will be assigned or removed.
+     * @param operation A boolean value indicating whether to insert or delete the course.
+     */
     public void insertTeacherInCourse (String teacherID, String teacherName, String courseID, boolean operation) {
         if(operation) {
             try{
@@ -505,7 +512,6 @@ public class connectDB {
                 preparedStatement.executeUpdate();
 
             } catch (SQLException ex) {
-                System.out.println("Unable to assign course to teacher.");
                 Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -519,7 +525,6 @@ public class connectDB {
                 preparedStatement.executeUpdate();
 
             } catch (SQLException ex) {
-                System.out.println("Unable to delete course from teacher.");
                 Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -1575,11 +1580,16 @@ public class connectDB {
         return FXCollections.observableArrayList(statusList);
     }
 
-    /**
-     * Teacher section
-     */
+    // Teacher section
 
-    // Update teacher contact information
+    /**
+     * Updates the contact information of a specific teacher.
+     *
+     * @param teacherID The unique ID of the teacher to update the contact info for.
+     * @param phoneNumber The new phone number for the teacher.
+     * @param email The new email address for the teacher.
+     * @throws SQLException If there is an error updating the contact info in the database.
+     */
     public void updateContactInfo(String teacherID, String phoneNumber, String email) {
         String updateContactInfo = "UPDATE teachers SET phoneNum = ?, email = ? WHERE teacherID = ?";
 
