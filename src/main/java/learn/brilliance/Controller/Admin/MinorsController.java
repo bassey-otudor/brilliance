@@ -17,8 +17,6 @@ import java.util.ResourceBundle;
 public class MinorsController implements Initializable {
 
     public final String tableName = "minors";
-    public final String idColumn = "minorID";
-    public final String columnName = "minorName";
     public TextField minor_searchField;
     public TableView<Minor> minor_tableView;
     public TableColumn <Minor, String> minor_tableView_col_minorID;

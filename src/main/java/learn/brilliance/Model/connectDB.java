@@ -312,10 +312,9 @@ public class connectDB {
         ResultSet resultSet = null;
 
         try {
-            stmt = conn.createStatement();
+            stmt = this.conn.createStatement();
             resultSet = stmt.executeQuery("SELECT * FROM departments;");
         } catch (SQLException ex) {
-            System.out.println("Unable to retrieve faculty data.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultSet;
@@ -399,7 +398,6 @@ public class connectDB {
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     /**
      * Teacher Page
      */
@@ -417,6 +415,7 @@ public class connectDB {
 
         return resultSet;
     }
+
     public void createTeacher(String teacherID, String firstName, String lastName, String gender, String phoneNumber, String email, String departmentID, LocalDate dob, String password, String course, String facultyID) {
         String createTeacher = "INSERT INTO teachers "
                 + "(teacherID, fName, lName, gender, phoneNum, email, deptID, dob, password, course, facultyID)"
@@ -438,7 +437,6 @@ public class connectDB {
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("Unable to add teacher to the database.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -459,7 +457,6 @@ public class connectDB {
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("Unable to update teacher info.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, "Error in update syntax.", ex);
         }
     }
@@ -471,7 +468,6 @@ public class connectDB {
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("Unable to delete teacher.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, "Error in delete syntax.", ex);
         }
 
@@ -488,13 +484,11 @@ public class connectDB {
                 rowCount = resultSet.getInt("seq");
             }
         } catch (SQLException ex) {
-            System.out.println("Unable to get row count.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rowCount;
     }
-
     /**
      * This method is used to insert or delete a course from a teacher.
      * @param teacherID The ID of the teacher that the course will be assigned or removed from.
@@ -533,6 +527,7 @@ public class connectDB {
     }
 
     // Courses page
+
     public ResultSet getCourseData() {
         String getCourseData = "SELECT * FROM courses;";
 
@@ -544,7 +539,6 @@ public class connectDB {
             resultSet = stmt.executeQuery(getCourseData);
 
         } catch (SQLException ex) {
-            System.out.println("Unable to retrieve course data.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -566,13 +560,11 @@ public class connectDB {
             teacherList = FXCollections.observableArrayList(teacherList);
 
         } catch (SQLException ex) {
-            System.out.println("Unable to retrieve list of filtered list of teachers.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return FXCollections.observableArrayList(teacherList);
     }
-
     public ObservableList<String> getTeacherID(String firstName, String lastName) {
         List<String> teacherID = new ArrayList<>();
         String selectTeacherID = "SELECT teacherID FROM teachers WHERE fName =? AND lName =?";
@@ -708,6 +700,25 @@ public class connectDB {
             System.out.println("Unable to delete course.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public ObservableList<String> getCourseID() {
+        List<String> courseIDList = new ArrayList<>();
+        Statement stmt;
+        ResultSet resultSet;
+
+        try {
+            stmt = this.conn.createStatement();
+            resultSet = stmt.executeQuery("SELECT courseID FROM courses;");
+            while(resultSet.next()) {
+                courseIDList.add(resultSet.getString("courseID"));
+            }
+            courseIDList = FXCollections.observableArrayList(courseIDList);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return FXCollections.observableArrayList(courseIDList);
     }
 
     /**
@@ -943,7 +954,6 @@ public class connectDB {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Unable to get degree row count.");
             Logger.getLogger(connectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -1588,7 +1598,6 @@ public class connectDB {
      * @param teacherID The unique ID of the teacher to update the contact info for.
      * @param phoneNumber The new phone number for the teacher.
      * @param email The new email address for the teacher.
-     * @throws SQLException If there is an error updating the contact info in the database.
      */
     public void updateContactInfo(String teacherID, String phoneNumber, String email) {
         String updateContactInfo = "UPDATE teachers SET phoneNum = ?, email = ? WHERE teacherID = ?";

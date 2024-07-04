@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="30.0" prefWidth="165.0" styleClass="main-container" stylesheets="@../../../Styles/ResultView.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.Dashboard.ResultsViewCellController">
+<AnchorPane prefHeight="30.0" prefWidth="165.0" styleClass="main-container" stylesheets="@../../../Styles/ResultView.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="learn.brilliance.Controller.Admin.Dashboard.TeacherSuccessCellController">
     <VBox layoutX="57.0" layoutY="-100.0" prefHeight="100.28777528084336" prefWidth="165.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="200.0" prefWidth="165.0" styleClass="main-container">
-            <Label fx:id="resultView_department" layoutX="8.0" layoutY="3.0" styleClass="label-department" text="Department">
+            <Label fx:id="resultView_teacherName" layoutX="8.0" layoutY="3.0" styleClass="label-department" text="Department">
                 <font>
                     <Font size="8.0" />
                 </font>

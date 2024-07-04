@@ -229,12 +229,12 @@ public class connectRecord {
     public int getPassCount(String tableName) {
         int passCount = 0;
         ResultSet resultSet;
-        String getPassCount = "SELECT COUNT(*) FROM '"+tableName+"' WHERE status = 'PASSED';";
+        String getPassCount = "SELECT COUNT(*) AS passCount FROM '"+tableName+"' WHERE status = 'PASSED';";
         try {
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(getPassCount);
             while (resultSet.next()) {
-                passCount = resultSet.getInt(1);
+                passCount = resultSet.getInt("passCount");
             }
         } catch (SQLException ex) {
             Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to get pass count.", ex);
@@ -252,17 +252,31 @@ public class connectRecord {
     public int getTotalCount(String tableName) {
         int totalCount = 0;
         ResultSet resultSet;
-        String getTotalCount = "";
+        String getTotalCount = "SELECT COUNT(*) AS totalCount FROM '"+tableName+"';";
         try {
             stmt = this.conn.createStatement();
             resultSet = stmt.executeQuery(getTotalCount);
             while (resultSet.next()) {
-                totalCount = resultSet.getInt(1);
+                totalCount = resultSet.getInt("totalCount");
             }
         } catch (SQLException ex) {
             Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, "Unable to get total count.", ex);
         }
         return totalCount;
+    }
+
+    public ResultSet getTeacherSuccessData(String tableName) {
+        ResultSet resultSet = null;
+
+        try {
+            stmt = this.conn.createStatement();
+            resultSet = stmt.executeQuery("SELECT * FROM '"+tableName+"';");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(connectRecord.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return resultSet;
     }
 }
 

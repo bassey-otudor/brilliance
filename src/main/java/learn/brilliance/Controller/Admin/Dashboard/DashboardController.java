@@ -48,6 +48,7 @@ public class  DashboardController extends PieChart implements Initializable {
         dashboard_date.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("EEEE, MMMM d yyyy")));
         studentLineChart();
         departmentPieChart();
+        initializeTeacherSuccessList();
     }
 
     private void departmentPieChart() {
@@ -110,6 +111,12 @@ public class  DashboardController extends PieChart implements Initializable {
             System.out.println("Unable to display line graph. " + e.getMessage());
         }
 
+    }
+
+    private void initializeTeacherSuccessList() {
+        if(Model.getInstance().getAllResultViews().isEmpty()) {
+            Model.getInstance().setAllResultViews();
+        }
     }
 }
 

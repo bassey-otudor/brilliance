@@ -32,15 +32,16 @@ public class Model {
     private final ObservableList<Minor> minor;
     private final ObservableList<Student> students;
     public final TeachersController teachersController = new TeachersController();
+    public final ObservableList<TeacherSuccess> teacherSuccesses;
 
     // Teacher variables
     private final Teacher teacher;
     private boolean teacherLoginStatus;
     private final ObservableList<CourseRecord> courseRecords;
     private final ObservableList<CourseRecord> overviewCourseRecords;
-    private final ObservableList<CourseRecord> courseOverall;
     private final ObservableList<Timetable> todayTimetables;
     private final ObservableList<Timetable> tomorrowTimetables;
+
 
     private Model() {
         this.viewFactory = new ViewFactory();
@@ -58,13 +59,13 @@ public class Model {
         this.degree = FXCollections.observableArrayList();
         this.minor = FXCollections.observableArrayList();
         this.students = FXCollections.observableArrayList();
+        this.teacherSuccesses = FXCollections.observableArrayList();
 
         // Teacher data
         this.teacherLoginStatus = false;
         this.teacher = new Teacher("", "", "", null, null, null, null, null , null, null, null, null);
         this.courseRecords = FXCollections.observableArrayList();
         this.overviewCourseRecords = FXCollections.observableArrayList();
-        this.courseOverall = FXCollections.observableArrayList();
         this.todayTimetables = FXCollections.observableArrayList();
         this.tomorrowTimetables = FXCollections.observableArrayList();
     }
@@ -82,7 +83,6 @@ public class Model {
         return connectDB;
     }
     public connectRecord getConnectRecord() { return connectRecord; }
-    public connectTimetable getConnectTimetable() { return connectTimetable; }
     public connectDepartmentDB getConnectDepartmentDB() { return connectDepartmentDB; }
 
 
@@ -99,7 +99,6 @@ public class Model {
      *
      * @param username The username of the admin to be evaluated.
      * @param password The password of the admin to be evaluated.
-     * @throws SQLException if there is an error while executing the SQL query.
      */
     public void evaluateAdminLogin(String username, String password) {
         ResultSet resultSet = connectDB.getAdmin(username, password);
@@ -124,7 +123,6 @@ public class Model {
      *
      * @param username The username of the teacher to be evaluated.
      * @param password The password of the teacher to be evaluated.
-     * @throws SQLException if there is an error while executing the SQL query.
      */
     public void evaluateTeacherLogin(String username, String password) {
         ResultSet resultSet = connectDB.getTeacher(username, password);
@@ -159,7 +157,6 @@ public class Model {
      * The data is then added to the provided ObservableList of CourseRecord objects.
      *
      * @param year The year of the ObservableList of CourseRecord objects to be added.
-     * @throws SQLException if there is an error while executing the SQL query.
      */
     public ObservableList<CourseRecord> setAllCourseRecords(String year) {
         String tableName = Model.getInstance().getTeacher().courseProperty().get() + "-" + year;
@@ -199,7 +196,6 @@ public class Model {
      * The data is then added to the provided ObservableList of CourseRecord objects.
      *
      * @param courseRecord The ObservableList of CourseRecord objects where the course record data will be added.
-     * @throws SQLException if there is an error while executing the SQL query.
      */
     public void prepareCourseRecord(ObservableList<CourseRecord> courseRecord) {
         String tableName = Model.getInstance().getTeacher().courseProperty().get() + "-" + LocalDate.now().getYear();
@@ -237,7 +233,6 @@ public class Model {
      * It retrieves the timetable data for the current day based on the teacher's ID and adds it to the provided ObservableList of Timetable objects.
      *
      * @param timetable The ObservableList of Timetable objects where the today's timetable will be added.
-     * @throws SQLException if there is an error while executing the SQL query.
      */
     public void prepareTodayTimetable(ObservableList<Timetable> timetable) {
         Calendar calendar = Calendar.getInstance();
@@ -261,13 +256,18 @@ public class Model {
             Logger.getLogger(learn.brilliance.Model.connectRecord.class.getName()).log(Level.SEVERE, "Unable to get today's timetable.", ex);
         }
     }
+    public void setTodayTimetable() {
+        prepareTodayTimetable(todayTimetables);
+    }
+    public ObservableList<Timetable> getAllTodayTimetables() {
+        return todayTimetables;
+    }
 
     /**
      * This method prepares the tomorrow's timetable for the given teacher.
      * It retrieves the timetable data for the next day based on the teacher's ID and adds it to the provided ObservableList of Timetable objects.
      *
      * @param timetable The ObservableList of Timetable objects where the tomorrow's timetable will be added.
-     * @throws SQLException if there is an error while executing the SQL query.
      */
     public void prepareTomorrowTimetable(ObservableList<Timetable> timetable) {
         Calendar calendar = Calendar.getInstance();
@@ -290,19 +290,32 @@ public class Model {
             Logger.getLogger(learn.brilliance.Model.connectRecord.class.getName()).log(Level.SEVERE, "Unable to get tomorrow's timetable.", ex);
         }
     }
-
-    public void setTodayTimetable() {
-        prepareTodayTimetable(todayTimetables);
-    }
     public void setTomorrowTimetable() { prepareTomorrowTimetable(tomorrowTimetables); }
-
-    public ObservableList<Timetable> getAllTodayTimetables() {
-        return todayTimetables;
-    }
     public ObservableList<Timetable> getAllTomorrowTimetables() {
         return tomorrowTimetables;
     }
 
+    public void prepareResultView(ObservableList<TeacherSuccess> teacherSuccess) {
+       ResultSet courseData = Model.getInstance().connectDB.getCourseData(); // required course information will be selected from the resultSet
+
+       try {
+           while(courseData.next()) { // Loop through the result set
+               String tableName = courseData.getString("courseID") + "-" + LocalDate.now().getYear(); // generate the table name to extract the required data
+               ResultSet teacherSuccessData = Model.getInstance().getConnectRecord().getTeacherSuccessData(tableName);
+
+               while(teacherSuccessData.next()) {
+                   System.out.println(courseData.getString("teacherName") + " " + courseData.getString("courseID") + " "+ null);
+                   teacherSuccess.add(new TeacherSuccess(courseData.getString("teacherName"), courseData.getString("courseID"), null));
+               }
+           }
+
+       } catch (SQLException ex) {
+           Logger.getLogger(learn.brilliance.Model.connectRecord.class.getName()).log(Level.SEVERE, null, ex);
+       }
+
+    }
+    public void setAllResultViews() { prepareResultView(teacherSuccesses); }
+    public ObservableList<TeacherSuccess> getAllResultViews() { return teacherSuccesses; }
 
     // Binding data section
     // Faculties
@@ -317,7 +330,6 @@ public class Model {
      * This method is called and the list used to initialise the facultyView table.
      *
      * @return ObservableList of faculties
-     * @throws SQLException if there is an error while executing the SQL query
      */
     public ObservableList<Faculty> setAllFaculties() {
         ResultSet resultSet = connectDB.getFacultyData();
@@ -345,8 +357,8 @@ public class Model {
         }
         return facultiesList;
     }
-
     // Departments
+
     public ObservableList<Department> getAllDepartments() { return departments; }
 
     /**
@@ -356,7 +368,6 @@ public class Model {
      * This method is called and the list used to initialise the departmentView table.
      *
      * @return ObservableList of departments
-     * @throws SQLException if there is an error while executing the SQL query
      */
     public ObservableList<Department> setAllDepartments() {
         ResultSet resultSet = connectDB.getDepartmentData();
@@ -380,9 +391,9 @@ public class Model {
         }
         return departmentList;
     }
-
     // Teachers
     public ObservableList<Teacher> getAllTeachers() { return teachers; }
+
     /**
      * This method sets all teacher data into an ObservableList of teachers.
      * It uses the ResultSet returned by the getTeacherData() method.
@@ -390,7 +401,6 @@ public class Model {
      * This method is called and the list used to initialise the teacherView table.
      *
      * @return ObservableList of teachers
-     * @throws SQLException if there is an error while executing the SQL query
      */
     public ObservableList<Teacher> setAllTeachers() {
         ResultSet resultSet = connectDB.getTeacherData();
@@ -422,8 +432,8 @@ public class Model {
 
         return  teacherList;
     }
-
     // Courses
+
     public ObservableList<Course> getAllCourses() { return courses; }
 
     /**
@@ -433,7 +443,6 @@ public class Model {
      * This method is called and the list used to initialise the courseView table.
      *
      * @return ObservableList of courses
-     * @throws SQLException if there is an error while executing the SQL query
      */
     public ObservableList<Course> setAllCourses() {
         ResultSet resultSet = connectDB.getCourseData();
@@ -462,8 +471,8 @@ public class Model {
 
         return courseList;
     }
-
     //  Degrees
+
     public ObservableList<Degree> getAllDegrees() { return degree; }
 
     /**
@@ -473,7 +482,6 @@ public class Model {
      * This method is called and the list used to initialise the degreeView table.
      *
      * @return ObservableList of degrees
-     * @throws SQLException if there is an error while executing the SQL query
      */
     public ObservableList<Degree> setAllDegrees() {
         ResultSet resultSet = Model.getInstance().connectDB.getDegreeData();
@@ -512,7 +520,6 @@ public class Model {
      * This method is called and the list used to initialise the minorView table.
      *
      * @return ObservableList of minors
-     * @throws SQLException if there is an error while executing the SQL query
      */
     public ObservableList<Minor> setAllMinors() {
         ResultSet resultSet = Model.getInstance().connectDB.getMinorData();
@@ -545,9 +552,8 @@ public class Model {
     }
 
     // Students
-
-
     public ObservableList<Student> getAllStudents() { return students; }
+
     /**
      * This method sets all students data into an ObservableList of students.
      * It uses the ResultSet returned by the getStudentData() method.
@@ -555,7 +561,6 @@ public class Model {
      * This method is called and the list used to initialise the studentView table.
      *
      * @return ObservableList of students
-     * @throws SQLException if there is an error while executing the SQL query
      */
     public ObservableList<Student> setAllStudents() {
         ResultSet resultSet = Model.getInstance().connectDB.getStudentData();
@@ -590,6 +595,5 @@ public class Model {
         }
         return studentList;
     }
-
 
 }

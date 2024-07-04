@@ -6,6 +6,7 @@ module com.learn.briliance {
     requires javafx.controls;
     requires javafx.fxml;
     requires jbcrypt;
+    requires java.desktop;
 
 
     opens learn.brilliance to javafx.fxml;
