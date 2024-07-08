@@ -33,6 +33,7 @@ public class Model {
     private final ObservableList<Student> students;
     public final TeachersController teachersController = new TeachersController();
     public final ObservableList<TeacherSuccess> teacherSuccesses;
+    public final ObservableList<TeacherSuccess> oneSuccess;
 
     // Teacher variables
     private final Teacher teacher;
@@ -60,6 +61,7 @@ public class Model {
         this.minor = FXCollections.observableArrayList();
         this.students = FXCollections.observableArrayList();
         this.teacherSuccesses = FXCollections.observableArrayList();
+        this.oneSuccess = FXCollections.observableArrayList();
 
         // Teacher data
         this.teacherLoginStatus = false;

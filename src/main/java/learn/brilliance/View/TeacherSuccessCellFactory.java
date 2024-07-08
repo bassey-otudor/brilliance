@@ -18,7 +18,7 @@ public class TeacherSuccessCellFactory extends ListCell<TeacherSuccess> {
             setGraphic(null);
 
         } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Fxml/Admin/Dashboard/TeacherSuccessCell.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Dashboard/TeacherSuccessCell.fxml"));
             TeacherSuccessCellController controller = new TeacherSuccessCellController(teacherSuccess);
             loader.setController(controller);
             setText(null);

@@ -16,37 +16,41 @@
    <HBox layoutX="129.0" layoutY="210.0" prefHeight="558.0" prefWidth="915.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <VBox prefHeight="600.0" prefWidth="655.0">
          <HBox prefHeight="333.0" prefWidth="640.0">
-            <children>
-               <AnchorPane prefHeight="75.0" prefWidth="292.0" styleClass="main-container">
-                  <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="68.0" prefWidth="200.0" stylesheets="@../../../Styles/AdminDashboard.css">
-                     <styleClass>
-                        <String fx:value="main-container" />
-                        <String fx:value="card" />
-                     </styleClass>
-                     <Label fx:id="dashboard_date" layoutX="12.0" layoutY="39.0" styleClass="label-greeting" text="Thursday April 27, 2023" />
-                     <Label layoutX="12.0" layoutY="10.0" prefHeight="23.0" prefWidth="137.0" styleClass="label-dashboard" text="My Dashboard">
-                        <font>
-                           <Font name="Segoe UI Italic" size="12.0" />
-                        </font>
-                     </Label>
-                  </AnchorPane>
-                  <AnchorPane layoutX="6.0" layoutY="81.0" prefHeight="251.0" prefWidth="200.0" stylesheets="@../../../Styles/AdminDashboard.css">
-                     <styleClass>
-                        <String fx:value="main-container" />
-                        <String fx:value="card" />
-                     </styleClass>
-                  </AnchorPane>
+            <AnchorPane prefHeight="75.0" prefWidth="292.0" styleClass="main-container">
+               <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="68.0" prefWidth="200.0"
+                           stylesheets="@../../../Styles/AdminDashboard.css">
+                  <styleClass>
+                     <String fx:value="main-container"/>
+                     <String fx:value="card"/>
+                  </styleClass>
+                  <Label fx:id="dashboard_date" layoutX="12.0" layoutY="39.0" styleClass="label-greeting"
+                         text="Thursday April 27, 2023"/>
+                  <Label layoutX="12.0" layoutY="10.0" prefHeight="23.0" prefWidth="137.0" styleClass="label-dashboard"
+                         text="My Dashboard">
+                     <font>
+                        <Font name="Segoe UI Italic" size="12.0"/>
+                     </font>
+                  </Label>
                </AnchorPane>
-               <AnchorPane prefHeight="333.0" prefWidth="428.0" styleClass="main-container">
-                  <AnchorPane layoutX="3.0" layoutY="6.0" prefHeight="325.0" prefWidth="423.0">
-                     <styleClass>
-                        <String fx:value="main-container" />
-                        <String fx:value="card" />
-                     </styleClass>
-                     <PieChart fx:id="dashboard_pieChartDepartments" layoutY="-1.6906475009684254" prefHeight="325.2949729561284" prefWidth="423.36691809364476" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  </AnchorPane>
+               <AnchorPane layoutX="6.0" layoutY="81.0" prefHeight="251.0" prefWidth="200.0"
+                           stylesheets="@../../../Styles/AdminDashboard.css">
+                  <styleClass>
+                     <String fx:value="main-container"/>
+                     <String fx:value="card"/>
+                  </styleClass>
                </AnchorPane>
-            </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="333.0" prefWidth="428.0" styleClass="main-container">
+               <AnchorPane layoutX="3.0" layoutY="6.0" prefHeight="325.0" prefWidth="423.0">
+                  <styleClass>
+                     <String fx:value="main-container"/>
+                     <String fx:value="card"/>
+                  </styleClass>
+                  <PieChart fx:id="dashboard_pieChartDepartments" layoutY="-1.6906475009684254"
+                            prefHeight="325.2949729561284" prefWidth="423.36691809364476" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+               </AnchorPane>
+            </AnchorPane>
          </HBox>
          <AnchorPane prefHeight="225.0" prefWidth="640.0" styleClass="main-container">
             <LineChart fx:id="dashboard_lineGraphStudents" layoutX="14.0" layoutY="7.0" prefHeight="247.0" prefWidth="627.0" styleClass="chart-series-line" stylesheets="@../../../Styles/GlobalStyles.css" title="Admissions/yr">
@@ -60,49 +64,37 @@
          </AnchorPane>
       </VBox>
       <HBox prefHeight="600.0" prefWidth="375.0">
-         <children>
-            <AnchorPane prefHeight="600.0" prefWidth="169.0">
-               <children>
-                  <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="587.0" prefWidth="171.0">
-                     <children>
-                        <VBox layoutX="39.0" layoutY="0.6906475009684254" prefHeight="579.0" prefWidth="171.0" visible="false" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
-                           <children>
-                              <AnchorPane prefHeight="43.0" prefWidth="171.0" />
-                              <ListView fx:id="dashbaord_termListView" prefHeight="535.0" prefWidth="171.0" />
-                           </children>
-                        </VBox>
-                        <Label layoutX="25.0" layoutY="5.0" styleClass="label-greeting" text="Departmental Results" />
-                     </children>
-                     <styleClass>
-                        <String fx:value="main-container" />
-                        <String fx:value="card" />
-                     </styleClass>
-                  </AnchorPane>
-               </children>
+         <AnchorPane prefHeight="600.0" prefWidth="169.0">
+            <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="587.0" prefWidth="171.0">
+               <styleClass>
+                  <String fx:value="main-container"/>
+                  <String fx:value="card"/>
+               </styleClass>
+               <VBox layoutX="39.0" layoutY="0.6906475009684254" prefHeight="579.0" prefWidth="171.0"
+                     visible="false" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0"
+                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                  <AnchorPane prefHeight="43.0" prefWidth="171.0"/>
+                  <ListView fx:id="dashbaord_termListView" prefHeight="535.0" prefWidth="171.0"/>
+               </VBox>
+               <Label layoutX="25.0" layoutY="5.0" styleClass="label-greeting" text="Departmental Results"/>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <AnchorPane layoutX="11.0" layoutY="6.0" prefHeight="586.0" prefWidth="165.0">
-                     <children>
-                        <VBox layoutX="4.143885005810552" layoutY="6.0" prefHeight="586.3597283221932" prefWidth="165.06475273145367" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <AnchorPane prefHeight="36.0" prefWidth="165.0">
-                                 <children>
-                                    <Label layoutX="25.0" layoutY="4.0" styleClass="label-title" text="Teacher Success" />
-                                 </children>
-                              </AnchorPane>
-                              <ListView fx:id="dashboard_teacherSuccess" prefHeight="521.0" prefWidth="165.0" />
-                           </children>
-                        </VBox>
-                     </children>
-                     <styleClass>
-                        <String fx:value="main-container" />
-                        <String fx:value="card" />
-                     </styleClass>
+         </AnchorPane>
+         <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane layoutX="11.0" layoutY="6.0" prefHeight="586.0" prefWidth="165.0">
+               <styleClass>
+                  <String fx:value="main-container"/>
+                  <String fx:value="card"/>
+               </styleClass>
+               <VBox layoutX="4.143885005810552" layoutY="6.0" prefHeight="586.3597283221932"
+                     prefWidth="165.06475273145367" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane prefHeight="36.0" prefWidth="165.0">
+                     <Label layoutX="25.0" layoutY="4.0" styleClass="label-title" text="Teacher Success"/>
                   </AnchorPane>
-               </children>
+                  <ListView fx:id="dashboard_teacherSuccess" prefHeight="521.0" prefWidth="165.0"/>
+               </VBox>
             </AnchorPane>
-         </children>
+         </AnchorPane>
       </HBox>
    </HBox>
 </AnchorPane>

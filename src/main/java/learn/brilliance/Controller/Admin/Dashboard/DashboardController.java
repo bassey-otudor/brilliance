@@ -12,7 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import learn.brilliance.Model.Model;
+import learn.brilliance.Model.TeacherSuccess;
 import learn.brilliance.Model.connectDB;
+import learn.brilliance.View.TeacherSuccessCellFactory;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -42,6 +44,7 @@ public class  DashboardController extends PieChart implements Initializable {
     public Label resultView_department;
     public ProgressBar resultView_progressBar;
     public Label resultView_progressLabel;
+    public ListView<TeacherSuccess> dashboard_teacherSuccess;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,6 +52,9 @@ public class  DashboardController extends PieChart implements Initializable {
         studentLineChart();
         departmentPieChart();
         initializeTeacherSuccessList();
+
+        dashboard_teacherSuccess.setItems(Model.getInstance().getAllResultViews());
+        dashboard_teacherSuccess.setCellFactory(e -> new TeacherSuccessCellFactory());
     }
 
     private void departmentPieChart() {
