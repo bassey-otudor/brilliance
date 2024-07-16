@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@SuppressWarnings("ALL")
 public class OverviewController implements Initializable {
     public AnchorPane overview_date;
     public ListView overview_timetable;

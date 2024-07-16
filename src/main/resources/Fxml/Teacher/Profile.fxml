@@ -48,7 +48,7 @@
             <TextField fx:id="profile_teacherCourse" disable="true" layoutX="669.0" layoutY="228.0" promptText="1st. Course" />
             <Label layoutX="674.0" layoutY="48.0" styleClass="label-text-field" text="Faculty" />
             <Label layoutX="673.0" layoutY="120.0" prefHeight="17.0" prefWidth="102.0" styleClass="label-text-field" text="Department" />
-            <Label layoutX="674.0" layoutY="195.0" prefHeight="17.0" prefWidth="102.0" styleClass="label-text-field" text="First Course" />
+            <Label layoutX="674.0" layoutY="195.0" prefHeight="17.0" prefWidth="102.0" styleClass="label-text-field" text="Course" />
             <Label layoutX="38.0" layoutY="78.0" prefHeight="15.0" prefWidth="59.0" text="Teacher ID" />
             <Label layoutX="38.0" layoutY="136.0" prefHeight="15.0" prefWidth="73.0" text="First Name" />
             <Label layoutX="223.0" layoutY="136.0" prefHeight="15.0" prefWidth="73.0" text="Last Name" />

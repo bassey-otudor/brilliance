@@ -27,6 +27,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@SuppressWarnings("ALL")
+
 public class  DashboardController extends PieChart implements Initializable {
     private final Map<PieChart.Data, Text> labels = new HashMap<>();
     public Label dashboard_greeting;
